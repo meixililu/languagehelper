@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/app_background"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/app_background"
+        android:fillViewport="true"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="70dp"
+                android:src="@drawable/ic_launcher" />
+
+            <TextView
+                android:id="@+id/aboat_1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:gravity="center_horizontal"
+                android:text="中英互译"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/big" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:gravity="center_horizontal"
+                android:text="1.7"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/middle" />
+
+            <TextView
+                android:id="@+id/aboat_2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dip"
+                android:gravity="center_horizontal"
+                android:text="学英语，你值得拥有"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/title" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:gravity="center_horizontal"
+                android:text="作者：黎潞"
+                android:textColor="@color/content_txt_6"
+                android:textSize="@dimen/small" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dip"
+                android:gravity="center_horizontal"
+                android:text="设计：李茜霞,王烨"
+                android:textColor="@color/content_txt_6"
+                android:textSize="@dimen/small" />
+
+            <TextView
+                android:id="@+id/email_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:gravity="center_horizontal"
+                android:text="邮箱：meixililulu@163.com"
+                android:textColor="@color/content_txt_6"
+                android:textSize="@dimen/small" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

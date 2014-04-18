@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/contentbg"
+    >
+
+    <FrameLayout 
+        android:id="@+id/recommend_zyzs"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:foreground="@drawable/framelayout_selector"
+        >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_item_bg_white"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_margin="7dp">
+
+        <ImageView
+            android:id="@+id/item_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp" 
+            android:layout_marginRight="10dp" 
+            android:background="@drawable/language_helper"
+            />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/item_name"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:shadowColor="@color/text_black"
+                android:shadowDx="0.3"
+                android:shadowDy="0.3"
+                android:text="中英助手"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/bigger"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/item_msg"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@string/zyzs_prompt"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/middle" />
+
+            <RatingBar
+                android:id="@+id/ratingbar"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="3dp"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="4.5" />
+        </LinearLayout>
+    </LinearLayout>
+    </FrameLayout>
+    
+    <FrameLayout 
+        android:id="@+id/recommend_yyzs"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:foreground="@drawable/framelayout_selector"
+        >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_item_bg_white"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp" 
+            android:layout_marginRight="10dp" 
+            android:background="@drawable/yueyuzhushou"
+            />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/item_name"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:shadowColor="@color/text_black"
+                android:shadowDx="0.3"
+                android:shadowDy="0.3"
+                android:text="粤语助手"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/bigger"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/item_msg"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@string/yyzs_prompt"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/middle" />
+
+            <RatingBar
+                android:id="@+id/ratingbar"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="7dp"
+                android:layout_marginTop="3dp"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="4.5" />
+        </LinearLayout>
+    </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

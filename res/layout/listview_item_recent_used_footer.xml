@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/recent_used_item_bg"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:gravity="center"
+            android:text="@string/recent_use_footer_prompt"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/bigger" />
+
+        <TextView
+            android:id="@+id/record_chinese"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:text="@string/recent_use_footer_prompt_content"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/middle" />
+
+        <LinearLayout
+            android:id="@+id/baidu_translate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="7dp"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
+                android:padding="0dp"
+                android:text="结果由"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/small" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:src="@drawable/baidu" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
+                android:padding="0dp"
+                android:text="提供"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/small" />
+        </LinearLayout>
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="75dp"
+        android:background="@color/none"
+        android:orientation="vertical"
+        >
+        
+    </LinearLayout>
+
+</LinearLayout>

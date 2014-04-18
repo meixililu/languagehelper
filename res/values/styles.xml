@@ -1,0 +1,30 @@
+<resources>
+
+    <style name="Theme.NoTitle" parent="@android:style/Theme">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:windowNoTitle">true	</item>
+        <item name="android:windowBackground">@color/none</item><!--背景透明-->
+        <item name="android:windowEnterAnimation">@anim/zoomin</item>
+        <item name="android:windowExitAnimation">@anim/zoomout</item>
+    </style>
+    
+    <style name="DialogAnimation" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/zoomin</item>
+        <item name="android:windowExitAnimation">@anim/zoomout</item>
+    </style>
+    
+    <style name="mydialog" parent="@android:style/Theme.Dialog">  
+        <item name="android:windowFrame">@null</item>  
+        <item name="android:windowIsTranslucent">true</item> 
+        <item name="android:windowFullscreen">true</item> 
+        <item name="android:windowBackground">@color/none</item><!--背景透明-->
+        <item name="android:windowNoTitle">true</item>  
+        <item name="android:windowEnterAnimation">@anim/zoomin</item>
+        <item name="android:windowExitAnimation">@anim/zoomout</item>
+    </style>  
+    
+</resources>

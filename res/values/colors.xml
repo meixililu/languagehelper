@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+	<color name="none">#00000000</color>
+	<color name="none_thin">#aa000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="red">#FFDE0000</color>
+    <color name="dullred">#bc4c4c</color>
+    <color name="orange">#FFEF6800</color>
+    <color name="green">#228B22</color>
+	<color name="blue">#ff0000ff</color>
+	<color name="gray">#FF888888</color>
+	<color name="load_blue">#FF1875bd</color>
+	<color name="mic_blue">#dd1e7dc8</color>
+	<color name="bg_white">#f7fafe</color>
+    <color name="lightgrey">#FFEBE7DB</color>
+    <color name="text_tint">#eeeeee</color>
+    <color name="text_grey">#999999</color>
+	<color name="text_black">#666666</color>
+	<color name="text_dark">#333333</color>
+	<color name="text_blue">#6992cc</color>
+	<color name="text_red">#de0000</color>
+	<color name="text_dark_yellow">#904c0f</color>
+	<color name="text_dark_green">#246423</color>
+	<color name="text_dark_blue">#255581</color>
+	<color name="bg_black">#202020</color>
+	<color name="bottom_button_bg">#ececec</color>
+	<color name="text_view_border">#D6D6D6</color>
+	<color name="app_background">#fffafafa</color>
+	
+	<color name="round_progress_bar_bg_off">#FdFdFd</color>
+	<color name="bao">#87A900</color>
+	    
+	<color name="buy_lottery_content_title">#666666</color>
+	<color name="buy_lottery_count_down">#0756a0</color>
+	<color name="prompt_txt">#267524</color>
+	<color name="input_box_name">#9f9f9f</color>
+	<color name="content_txt_red_C">#cc0000</color>
+	<color name="content_txt_6">#666666</color>
+	<color name="content_txt_A">#AAAAAA</color>
+	<color name="content_txt_red">#bc4c4c</color>
+	
+	
+	<color name="progress_grey">#dfdfdf</color>
+	
+	<color name="progress_red_start">#f34a33</color>
+<!-- 	<color name="progress_red_end">#d10706</color> -->
+	
+	<color name="progress_green_start">#a5be3f</color>
+<!-- 	<color name="progress_green_end">#657f00</color> -->
+	
+	<color name="charts_yellow_bg_color">#FFF6E0</color>
+	<color name="top_bg">#3498db</color>
+	<color name="top_blue">#1d76bc</color>
+	<color name="top_blue_thin">#991d76bc</color>
+	<color name="bottom_bg">#2c3e50</color>
+	<color name="middle_btn_bg_d">#2980b9</color>
+	<color name="middle_btn_bg_s">#2c3e50</color>
+	<color name="contentbg">#e5e5e5</color>
+	
+	<color name="speak_btn_parentlayout_bg">#66000000</color>
+	<color name="speak_btn_bg">#f1f1f1</color>
+	
+	<color name="background_tab_pressed">#6633B5E5</color>
+	<color name="line_color_gray">#c5ced6</color>
+	<color name="line_color_blue">#a8cceb</color>
+	<color name="list_item_bg">#f7fafe</color>
+	<color name="list_menu_bg_lightgrey">#fafcfe</color>
+	
+	
+	<color name="app_lightblue">#4ea7e6</color>
+	<color name="list_menu_bg_color">#ebf7fc</color>
+	    
+</resources>

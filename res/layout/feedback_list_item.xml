@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <TextView 
+        android:id="@+id/dialog_a"
+        android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:textSize="@dimen/big"
+    	android:layout_marginTop="3dp"
+    	android:layout_marginLeft="5dp"
+    	android:layout_marginRight="10dp"
+    	android:gravity="left|center_vertical"
+    	android:layout_alignParentLeft="true"
+    	android:textColor="@color/black"
+    	android:background="@drawable/dialog_quest_bg_selector"
+        />
+    <TextView 
+        android:id="@+id/dialog_b"
+        android:layout_below="@id/dialog_a"
+        android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:textSize="@dimen/big"
+    	android:layout_marginTop="3dp"
+    	android:layout_marginLeft="10dp"
+    	android:layout_marginRight="5dp"
+    	android:gravity="left|center_vertical"
+    	android:textColor="@color/black"
+    	android:layout_alignParentRight="true"
+    	android:background="@drawable/dialog_answer_bg_selector"
+        />
+</RelativeLayout>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/app_background"
+    android:fillViewport="true"
+    android:scrollbars="none" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+        
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/bigger"
+            android:text="@string/about_play_title"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="7dp"
+            />
+        
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/big"
+            android:text="@string/about_play_content"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="5dp"
+            />
+        
+        <ImageView 
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@color/lightgrey"
+            android:layout_marginTop="10dp"
+            />
+        
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/bigger"
+            android:text="@string/about_speed_title"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="7dp"
+            />
+        
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/big"
+            android:text="@string/about_speed_content"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="5dp"
+            />
+        
+        <ImageView 
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@color/lightgrey"
+            android:layout_marginTop="10dp"
+            />
+        
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/bigger"
+            android:text="@string/about_volume_title"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="7dp"
+            />
+        
+        <TextView 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/big"
+            android:text="@string/about_volume_content"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="5dp"
+            />
+        
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/contentbg"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/list_item_bg_white"
+            android:orientation="vertical"
+            >
+
+            <RelativeLayout 
+                android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+                >
+	            <EditText
+	                android:id="@+id/input_et"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:background="@color/none"
+	                android:gravity="left"
+	                android:hint="@string/input_et_hint"
+	                android:imeOptions="actionDone"
+	                android:layout_margin="5dp"
+	                android:minLines="3"
+	                android:textColor="@color/text_black"
+	                android:textColorHint="@color/text_grey"
+	                android:textSize="@dimen/bigger" />
+	            <FrameLayout 
+	                android:id="@+id/clear_btn_layout"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_alignParentRight="true"
+	                android:layout_marginTop="1px"
+	                android:layout_marginRight="1px"
+	                android:paddingLeft="3dp"
+	                android:paddingBottom="3dp"
+	                android:clickable="true"
+	                android:layout_alignParentTop="true"
+            		android:foreground="@drawable/framelayout_selector"
+	                >
+		            <ImageView
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+	                	android:clickable="false"
+		                android:background="@drawable/clear_btn"
+		                />
+	            </FrameLayout>
+            </RelativeLayout>
+
+            <FrameLayout
+                android:id="@+id/submit_btn_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:gravity="center_vertical"
+		        android:layout_marginLeft="1px"
+		        android:layout_marginRight="1px"
+		        android:layout_marginBottom="1px"
+                android:foreground="@drawable/framelayout_selector"
+                >
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@color/app_lightblue"
+                    android:gravity="center"
+                    android:layout_marginLeft="1px"
+                    android:layout_marginRight="1px"
+                    android:layout_marginBottom="1px"
+                    android:text="@string/translate"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/big"
+                    />
+            </FrameLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <ListView
+                android:id="@+id/recent_used_lv"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/none"
+                android:cacheColorHint="@color/none"
+                android:divider="@color/none"
+                android:dividerHeight="3dp"
+                android:fadingEdge="none"
+                android:listSelector="@color/none"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:scrollbars="none" />
+            
+            <RelativeLayout
+                android:id="@+id/layout_bottom"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@color/none"
+                android:gravity="bottom"
+                android:orientation="horizontal"
+                >
+
+                <LinearLayout 
+                    android:layout_width="fill_parent"
+                	android:layout_height="wrap_content"
+                	android:layout_alignParentBottom="true"
+                	android:orientation="horizontal"
+                    >
+	                <RadioButton
+	                    android:id="@+id/cb_speak_language_ch"
+	                    android:layout_width="0dp"
+	                    android:layout_height="53dp"
+	                    android:layout_weight="1"
+	                    android:background="@drawable/checkbox_language_left_selector"
+	                    android:button="@null"
+	                    android:checked="true"
+	                    android:gravity="center"
+	                    android:text="普通话"
+	                    android:textColor="@drawable/tc_black_to_white_selector" />
+	
+	                <RadioButton
+	                    android:id="@+id/cb_speak_language_en"
+	                    android:layout_width="0dp"
+	                    android:layout_height="53dp"
+	                    android:layout_weight="1"
+	                    android:background="@drawable/checkbox_language_right_selector"
+	                    android:button="@null"
+	                    android:gravity="center"
+	                    android:text="英语"
+	                    android:textColor="@drawable/tc_black_to_white_selector" />
+                </LinearLayout>
+                
+                <LinearLayout 
+                    android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_centerHorizontal="true"
+	                android:layout_alignParentBottom="true"
+                    >
+                    
+	                <LinearLayout
+	                    android:id="@+id/speak_round_layout"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_marginBottom="-6dp"
+	                    android:background="@drawable/round_gray_bgl"
+	                    android:gravity="center"
+	                    android:orientation="horizontal" >
+	
+	                    <Button
+	                        android:id="@+id/voice_btn"
+	                        android:layout_width="75dp"
+	                        android:layout_height="75dp"
+	                        android:background="@drawable/ic_voice_padded_normal"
+	                        android:clickable="false"
+	                        android:gravity="center"
+	                        android:orientation="horizontal"
+	                        android:textColor="@color/white"
+	                        android:textSize="@dimen/big" />
+	                </LinearLayout>
+                </LinearLayout>
+                
+            </RelativeLayout>
+            
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/record_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/round_bg_record"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:visibility="gone" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/voice_pic" />
+
+        <ImageView
+            android:id="@+id/record_anim_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/speak_voice_1" />
+    </LinearLayout>
+
+</RelativeLayout>

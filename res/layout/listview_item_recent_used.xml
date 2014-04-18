@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_item_bg_white"
+    android:orientation="vertical" >
+
+    <FrameLayout 
+        android:id="@+id/record_answer_cover"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:foreground="@drawable/framelayout_selector"
+        >
+	    <TextView
+	        android:id="@+id/record_answer"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:paddingLeft="10dp"
+	        android:paddingTop="7dp"
+	        android:paddingBottom="2dp"
+	        android:paddingRight="3dp"
+	        android:text=""
+	        android:textColor="@color/text_black"
+	        android:textSize="@dimen/bigger" />
+    </FrameLayout>
+
+    <FrameLayout 
+        android:id="@+id/record_question_cover"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:foreground="@drawable/framelayout_selector"
+        >
+	    <TextView
+	        android:id="@+id/record_question"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:paddingLeft="10dp"
+	        android:paddingTop="5dp"
+	        android:paddingBottom="7dp"
+	        android:paddingRight="3dp"
+	        android:text=""
+	        android:textColor="@color/text_black"
+	        android:textSize="@dimen/big" />
+    </FrameLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="@color/line_color_gray" />
+
+    <LinearLayout
+        android:id="@+id/more_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="29dp"
+        android:layout_marginBottom="1px"
+        android:layout_marginLeft="1px"
+        android:layout_marginRight="1px"
+        android:background="@color/list_menu_bg_color"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+	    
+        <FrameLayout
+            android:id="@+id/delete_btn"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:foreground="@drawable/framelayout_selector"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp" >
+
+            <ImageButton
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_gravity="center"
+                android:background="@drawable/delete"
+                android:clickable="false" />
+        </FrameLayout>
+
+        <ImageView
+            android:layout_width="1px"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/line_color_blue" />
+
+        <FrameLayout
+            android:id="@+id/copy_btn"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:foreground="@drawable/framelayout_selector"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp" >
+
+            <ImageButton
+                android:layout_width="@dimen/list_item_icon"
+                android:layout_height="@dimen/list_item_icon"
+                android:layout_gravity="center"
+                android:background="@drawable/icon_copy_d"
+                android:clickable="false" />
+        </FrameLayout>
+
+        <ImageView
+            android:layout_width="1px"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/line_color_blue" />
+
+        <FrameLayout
+            android:id="@+id/collected_btn"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:foreground="@drawable/framelayout_selector"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp" >
+
+            <CheckBox
+                android:id="@+id/collected_cb"
+                android:layout_width="@dimen/list_item_icon"
+                android:layout_height="@dimen/list_item_icon"
+                android:layout_gravity="center"
+                android:enabled="false"
+                android:focusable="false"
+                android:button="@null"
+                android:background="@drawable/collected_uncollected_selector"
+                android:clickable="false" />
+        </FrameLayout>
+
+        <ImageView
+            android:layout_width="1px"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/line_color_blue" />
+        
+        <FrameLayout
+            android:id="@+id/weixi_btn"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:foreground="@drawable/framelayout_selector"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp" >
+
+            <ImageButton
+                android:layout_width="@dimen/list_item_icon"
+                android:layout_height="@dimen/list_item_icon"
+                android:layout_gravity="center"
+                android:background="@drawable/icon_weixin"
+                android:clickable="false" />
+        </FrameLayout>
+
+        <ImageView
+            android:layout_width="1px"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/line_color_blue" />
+        
+        <FrameLayout
+            android:id="@+id/voice_play_layout"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:foreground="@drawable/framelayout_selector"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp" >
+
+            <ImageButton
+                android:id="@+id/voice_play"
+                android:layout_width="@dimen/list_item_icon"
+                android:layout_height="@dimen/list_item_icon"
+                android:layout_gravity="center"
+                android:background="@drawable/voice_play"
+                android:clickable="false" />
+
+            <ProgressBar
+                android:id="@+id/play_content_btn_progressbar"
+                style="@style/Widget.Sherlock.Light.ProgressBar"
+                android:layout_width="@dimen/list_item_icon"
+                android:layout_height="@dimen/list_item_icon"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+        </FrameLayout>
+    </LinearLayout>
+
+</LinearLayout>

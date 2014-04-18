@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <stroke
+        android:width="1dip"
+        android:color="@color/middle_btn_bg_d" />
+    <!-- 描边 ：边框宽度与颜色 -->
+
+    <corners android:radius="6dip" />
+
+    <solid android:color="@color/middle_btn_bg_d" />
+ <!-- 没有描边的中间部分 -->
+
+</shape>
