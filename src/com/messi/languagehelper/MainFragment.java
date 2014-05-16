@@ -27,7 +27,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
 import com.iflytek.cloud.speech.RecognizerListener;
@@ -35,7 +34,6 @@ import com.iflytek.cloud.speech.RecognizerResult;
 import com.iflytek.cloud.speech.SpeechError;
 import com.iflytek.cloud.speech.SpeechRecognizer;
 import com.iflytek.cloud.speech.SpeechSynthesizer;
-import com.messi.languagehelper.CollectedFragment.WaitTask;
 import com.messi.languagehelper.adapter.CollectedListItemAdapter;
 import com.messi.languagehelper.bean.DialogBean;
 import com.messi.languagehelper.db.DataBaseUtil;
@@ -60,7 +58,7 @@ public class MainFragment extends Fragment implements OnClickListener, IWXAPIEve
 
 	private EditText input_et;
 	private FrameLayout submit_btn;
-	private LinearLayout baidu_translate;
+	private LinearLayout baidu_translate,baidu_tranlate_prompt;;
 	private FrameLayout clear_btn_layout;
 	private Button voice_btn;
 	private LinearLayout speak_round_layout;
@@ -139,13 +137,16 @@ public class MainFragment extends Fragment implements OnClickListener, IWXAPIEve
 		voice_btn = (Button) view.findViewById(R.id.voice_btn);
 		
 		boolean IsHasShowBaiduMessage = mSharedPreferences.getBoolean(SharedPreferencesUtil.IsHasShowBaiduMessage, false);
+		View listviewFooter = mInflater.inflate(R.layout.listview_item_recent_used_footer, null);
+		baidu_tranlate_prompt = (LinearLayout) listviewFooter.findViewById(R.id.baidu_tranlate_prompt);
 		if(!IsHasShowBaiduMessage){
-			View listviewFooter = mInflater.inflate(R.layout.listview_item_recent_used_footer, null);
 			baidu_translate = (LinearLayout) listviewFooter.findViewById(R.id.baidu_translate);
-			recent_used_lv.addFooterView(listviewFooter);
-			SharedPreferencesUtil.saveBoolean(mSharedPreferences, SharedPreferencesUtil.IsHasShowBaiduMessage, true);
 			baidu_translate.setOnClickListener(this);
+			SharedPreferencesUtil.saveBoolean(mSharedPreferences, SharedPreferencesUtil.IsHasShowBaiduMessage, true);
+		}else{
+			baidu_tranlate_prompt.setVisibility(View.GONE);
 		}
+		recent_used_lv.addFooterView(listviewFooter);
 		
 		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity());
 		recognizer = SpeechRecognizer.createRecognizer(getActivity());
