@@ -6,6 +6,8 @@
     <string name="title_help">使用帮助</string>
     <string name="title_more">更多</string>
     <string name="title_favorite">我的收藏</string>
+    <string name="title_settings">应用设置</string>
+    <string name="title_apps">干货分享</string>
     
     <string name="input_et_hint">请输入需要翻译的中文或英文</string>
     <string name="translate">翻 译</string>
@@ -35,7 +37,7 @@
     
     <string-array name="planets_array">
         <item>应用设置</item>
-        <item>推荐应用</item>
+        <item>干货分享</item>
         <item>吐槽评价</item>
         <item>使用帮助</item>
         <item>关于我们</item>
@@ -53,10 +55,11 @@
     <string name="preference_dialog_title_tts_music">选择背景音乐</string>
     <string name="tts_toast_format" formatted="false">当前合成进度为%d%%，播放进度为%d%%</string>
     <string name="click_and_speak">点击说话</string>
-    <string name="copy"> 复制 </string>
-    <string name="save"> 收藏 </string>
-    <string name="record"> 查询记录 </string>
-    <string name="dele">删除</string>
+    <string name="dele_success">删除成功</string>
+    <string name="copy_success">复制成功</string>
+    <string name="share">分享</string>
+    <string name="favorite_success">收藏成功</string>
+    <string name="favorite_cancle">取消收藏</string>
     
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>

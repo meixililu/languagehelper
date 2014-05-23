@@ -128,7 +128,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 				mDataBaseUtil.dele(mBean.getId());
 				beans.remove(mBean);
 				notifyDataSetChanged();
-				showToast("删除成功");
+				showToast(context.getResources().getString(R.string.dele_success));
 				MainFragment.isRefresh = true;
 				StatService.onEvent(context, "1.6_deletebtn", "删除按钮", 1);
 			}
@@ -189,7 +189,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		// 得到剪贴板管理器
 		ClipboardManager cmb = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
 		cmb.setText(dstString);
-		showToast("复制成功");
+		showToast(context.getResources().getString(R.string.copy_success));
 		StatService.onEvent(context, BaiduStatistics.CopyBtn, "复制按钮", 1);
 	}
 	
@@ -208,20 +208,20 @@ public class CollectedListItemAdapter extends BaseAdapter {
 //		}
 		Intent intent = new Intent(Intent.ACTION_SEND);    
 		intent.setType("text/plain"); // 纯文本     
-		intent.putExtra(Intent.EXTRA_SUBJECT, "分享");    
+		intent.putExtra(Intent.EXTRA_SUBJECT, context.getResources().getString(R.string.share));    
 		intent.putExtra(Intent.EXTRA_TEXT, dstString);    
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);    
-		context.startActivity(Intent.createChooser(intent, "分享"));    
+		context.startActivity(Intent.createChooser(intent, context.getResources().getString(R.string.share)));    
 
 	}
 	
 	private void updateCollectedStatus(DialogBean mBean){
 		if(mBean.getIscollected().equals("0")){
 			mBean.setIscollected("1");
-			showToast("已收藏");
+			showToast(context.getResources().getString(R.string.favorite_success));
 		}else{
 			mBean.setIscollected("0");
-			showToast("取消收藏");
+			showToast(context.getResources().getString(R.string.favorite_cancle));
 		}
 		if(from.equals("CollectedFragment")){
 			beans.remove(mBean);

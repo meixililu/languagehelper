@@ -39,7 +39,7 @@ public class SettingActivity extends SherlockFragmentActivity implements OnClick
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setDisplayShowHomeEnabled(true);
         mActionBar.setHomeButtonEnabled(true);
-        mActionBar.setTitle("应用设置");
+        mActionBar.setTitle(this.getResources().getString(R.string.title_settings));
         mSharedPreferences = getSharedPreferences(this.getPackageName(), Activity.MODE_PRIVATE);
         
         seekbar_text = (TextView) findViewById(R.id.seekbar_text);

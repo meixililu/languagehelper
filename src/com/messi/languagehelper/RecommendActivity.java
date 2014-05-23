@@ -32,7 +32,7 @@ public class RecommendActivity extends SherlockFragmentActivity implements OnCli
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setDisplayShowHomeEnabled(true);
         mActionBar.setHomeButtonEnabled(true);
-        mActionBar.setTitle("推荐应用");
+        mActionBar.setTitle(this.getResources().getString(R.string.title_apps));
         
         recommend_yyzs = (FrameLayout) findViewById(R.id.recommend_yyzs);
         recommend_zyzs = (FrameLayout) findViewById(R.id.recommend_zyzs);
