@@ -1,12 +1,20 @@
 <resources>
 
-    <string name="app_name">中英互译</string>
-    <string name="app_des">你值得拥有</string>
+    <string name="app_name">Translator</string>
+    <string name="app_des">You are worth it</string>
+    <string name="title_about">About</string>
+    <string name="title_help">Help</string>
+    <string name="title_more">More</string>
+    <string name="title_favorite">Favorite</string>
     
-    <string name="input_et_hint">请输入需要翻译的中文或英文...</string>
-    <string name="translate">翻 译</string>
-    <string name="notice">输入中文翻译成英文,输入英文翻译成中文。可手动输入或者点击话筒用普通话说出需要翻译的内容，赶紧试试吧。</string>
-    <string name="input_below">请在下面输入需要翻译的中文或英文</string>
+    <string name="input_et_hint">please input chinese or english</string>
+    <string name="translate">Translate</string>
+    <string name="finish">Finish</string>
+    <string name="exit_program">Press again to exit the program</string>
+    
+    <string name="speak_english">please tap mic to speak english</string>
+    <string name="speak_chinese">please tap mic to speak chinese</string>
+    
     <string name="app_id">50aa1213</string>
     <string name="preference_default_iat_engine_en">sms-en</string>
     <string name="preference_key_iat_rate">iat_rate</string>
@@ -25,58 +33,50 @@
     <string name="preference_key_tts_speed">tts_speed</string>
     
     <string-array name="planets_array">
-        <item>应用设置</item>
-        <item>推荐应用</item>
-        <item>吐槽评价</item>
-        <item>使用帮助</item>
-        <item>关于我们</item>
+        <item>Settings</item>
+        <item>Apps</item>
+        <item>Rate</item>
+        <item>Help</item>
+        <item>About</item>
+        <item>Feedback</item>
     </string-array>
 
-    <string name="statement">\t本软件采用百度翻译结合科大讯飞的语音功能，方便快捷，省去繁琐的输入过程，对学习英文非常有帮助。
-        	\n\t带真人发音，可当做英语学习机，教孩子学英语，单词学习，英文发音学习，跟外国人沟通，出国旅游应急翻译等等。
-        	\n\t因为采用的是即时机器翻译，非人工翻译，准确度不可能百分百，是一个辅助工具。
-        	\n\t欢迎使用，如有意见，可联系本人吐槽，对本软件进行不断优化。
-    </string>
-
+    <string name="feedback">Feedback</string>
     <string name="preference_key_tts_music">tts_music</string>
-    <string name="preference_title_tts_music">背景音乐</string>
+    <string name="preference_title_tts_music">background music</string>
     <string name="preference_default_tts_music">0</string>
-    <string name="preference_dialog_title_tts_music">选择背景音乐</string>
+    <string name="preference_dialog_title_tts_music">select background music</string>
     <string name="tts_toast_format" formatted="false">当前合成进度为%d%%，播放进度为%d%%</string>
-    <string name="click_and_speak">点击说话</string>
-    <string name="copy"> 复制 </string>
-    <string name="save"> 收藏 </string>
-    <string name="record"> 查询记录 </string>
-    <string name="dele">删除</string>
+    <string name="click_and_speak">Tap to speak</string>
+    <string name="copy">copy </string>
+    <string name="save">favorite</string>
+    <string name="record">record</string>
+    <string name="dele">delete</string>
     
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     
-    <string name="errcode_success">发送成功</string>
-	<string name="errcode_cancel">发送取消</string>
-	<string name="errcode_deny">发送被拒绝</string>
-	<string name="errcode_unknown">发送返回</string>
-	<string name="click_speak_chinese">中文</string>
-	<string name="click_speak_english">英文</string>
-	<string name="collect">收藏</string>
-	<string name="wechat">微信</string>
-	<string name="speak">说</string>
+    <string name="errcode_success">success</string>
+	<string name="errcode_cancel">cancel</string>
+	<string name="errcode_deny">deny</string>
+	<string name="errcode_unknown">unknown</string>
+	<string name="chinese">Chinese</string>
+	<string name="english">English</string>
+	<string name="collect">favorite</string>
+	<string name="wechat">wechat</string>
 	<string name="speak_prompt">请根据您说的语言点击中文或者英文！</string>
 	
 	<string name="zyzs_prompt">让学习英语口语变得省时给力，近乎完美的情景对话模拟时时给你惊喜，成为当之无愧的英语学习利器。中英助手，充分激发英语潜能的“荷尔蒙”！ 你，还在等什么？！</string>
 	<string name="yyzs_prompt">国语和粤语的完美转换，让说粤语随心所欲，无视粤语电影电视剧的中文字幕，粤语歌曲统统不在话下。粤语助手，等你来show！</string>
 	
-	<string name="menu_translate">中英互译</string>
-	<string name="menu_speak">口语练习</string>
-	<string name="menu_about">关于</string>
-	<string name="recent_use_footer_prompt">温馨提示</string>
+	<string name="recent_use_footer_prompt">prompt</string>
 	<string name="recent_use_footer_prompt_content">\t此处只保存100条最近翻译记录，常用的请收藏。目前的翻译结果都不可能百分百准确，
 	    谢谢您的理解，我们会不断改进软件，为您提供更多更好的服务。</string>
 	    
-	<string name="textclickguidedialog_title">我只show一次</string>
+	<string name="textclickguidedialog_title">I only show once</string>
 	<string name="textclickguidedialog_content">\t亲，点击翻译内容和结果即可播放语音。</string>
 	<string name="textclickguidedialog_content1">\t应用设置可以调节语音播放速度。</string>
-	<string name="textclickguidedialog_konw">我知道了</string>
+	<string name="textclickguidedialog_konw">I know</string>
 	
 	<string name="about_play_title">关于语音播报</string>
 	<string name="about_play_content">点击文字即可播放相应的内容，点击喇叭默认播放翻译的结果。</string>
@@ -87,15 +87,4 @@
 	<string name="about_volume_title">关于音量</string>
 	<string name="about_volume_content">直接通过手机音量键来调节大小。</string>
 	
-<!-- 	Morning,Tom.-Hi,Mary.-You seem to be in a hurry.-Yes.i've got a meeting in a minute.-Okay.I won't hold you up then.-Right.I'll see you later.-See you later. -->
-	<string name="dialog1">
-	    Morning,Tom.#
-	    Hi,Mary.#
-	    You seem to be in a hurry.#
-	    Yes.i\'ve got a meeting in a minute.#
-	    Okay.I won\'t hold you up then.#
-	    Right.I\'ll see you later.#
-	    See you later.</string>
-	<string name="pull_to_refresh_pull_label" translatable="false">向下拉动可以刷新</string>
-    
 </resources>

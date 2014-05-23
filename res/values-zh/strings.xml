@@ -1,0 +1,107 @@
+<resources>
+
+    <string name="app_name">中英互译</string>
+    <string name="app_des">你值得拥有</string>
+    <string name="title_about">关于我们</string>
+    <string name="title_help">使用帮助</string>
+    <string name="title_more">更多</string>
+    <string name="title_favorite">我的收藏</string>
+    
+    <string name="input_et_hint">请输入需要翻译的中文或英文</string>
+    <string name="translate">翻 译</string>
+    <string name="finish">完毕</string>
+    <string name="exit_program">Press again to exit the program</string>
+    
+    <string name="speak_english">请点击话筒说英文</string>
+    <string name="speak_chinese">请点击话筒说中文</string>
+    <string name="network_error">Network connection error,please try later.</string>
+    
+    <string name="app_id">50aa1213</string>
+    <string name="preference_default_iat_engine_en">sms-en</string>
+    <string name="preference_key_iat_rate">iat_rate</string>
+    <string name="preference_title_iat_rate">录音采样率</string>
+    <string name="preference_default_iat_rate">rate16k</string>
+    
+    <string name="preference_key_iat_engine">iat_engine</string>
+    <string name="preference_default_iat_engine">iat</string>
+    
+    <string name="preference_key_recognizer">recognizer</string>
+    <string name="preference_default_recognizer">zh_cn</string>
+    
+    <string name="preference_key_accent">accent</string>
+    <string name="preference_default_accent">mandarin</string>
+    
+    <string name="preference_key_tts_speed">tts_speed</string>
+    
+    <string-array name="planets_array">
+        <item>应用设置</item>
+        <item>推荐应用</item>
+        <item>吐槽评价</item>
+        <item>使用帮助</item>
+        <item>关于我们</item>
+    </string-array>
+
+    <string name="statement">\t本软件采用百度翻译结合科大讯飞的语音功能，方便快捷，省去繁琐的输入过程，对学习英文非常有帮助。
+        	\n\t带真人发音，可当做英语学习机，教孩子学英语，单词学习，英文发音学习，跟外国人沟通，出国旅游应急翻译等等。
+        	\n\t因为采用的是即时机器翻译，非人工翻译，准确度不可能百分百，是一个辅助工具。
+        	\n\t欢迎使用，如有意见，可联系本人吐槽，对本软件进行不断优化。
+    </string>
+
+    <string name="preference_key_tts_music">tts_music</string>
+    <string name="preference_title_tts_music">背景音乐</string>
+    <string name="preference_default_tts_music">0</string>
+    <string name="preference_dialog_title_tts_music">选择背景音乐</string>
+    <string name="tts_toast_format" formatted="false">当前合成进度为%d%%，播放进度为%d%%</string>
+    <string name="click_and_speak">点击说话</string>
+    <string name="copy"> 复制 </string>
+    <string name="save"> 收藏 </string>
+    <string name="record"> 查询记录 </string>
+    <string name="dele">删除</string>
+    
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    
+    <string name="errcode_success">发送成功</string>
+	<string name="errcode_cancel">发送取消</string>
+	<string name="errcode_deny">发送被拒绝</string>
+	<string name="errcode_unknown">发送返回</string>
+	<string name="chinese">中文</string>
+	<string name="english">英文</string>
+	<string name="collect">收藏</string>
+	<string name="wechat">微信</string>
+	<string name="speak">说</string>
+	<string name="speak_prompt">请根据您说的语言点击中文或者英文！</string>
+	
+	<string name="zyzs_prompt">让学习英语口语变得省时给力，近乎完美的情景对话模拟时时给你惊喜，成为当之无愧的英语学习利器。中英助手，充分激发英语潜能的“荷尔蒙”！ 你，还在等什么？！</string>
+	<string name="yyzs_prompt">国语和粤语的完美转换，让说粤语随心所欲，无视粤语电影电视剧的中文字幕，粤语歌曲统统不在话下。粤语助手，等你来show！</string>
+	
+	<string name="menu_translate">中英互译</string>
+	<string name="menu_speak">口语练习</string>
+	<string name="menu_about">关于</string>
+	<string name="recent_use_footer_prompt">温馨提示</string>
+	<string name="recent_use_footer_prompt_content">\t此处只保存100条最近翻译记录，常用的请收藏。目前的翻译结果都不可能百分百准确，
+	    谢谢您的理解，我们会不断改进软件，为您提供更多更好的服务。</string>
+	    
+	<string name="textclickguidedialog_title">我只show一次</string>
+	<string name="textclickguidedialog_content">\t亲，点击翻译内容和结果即可播放语音。</string>
+	<string name="textclickguidedialog_content1">\t应用设置可以调节语音播放速度。</string>
+	<string name="textclickguidedialog_konw">我知道了</string>
+	
+	<string name="about_play_title">关于语音播报</string>
+	<string name="about_play_content">点击文字即可播放相应的内容，点击喇叭默认播放翻译的结果。</string>
+	
+	<string name="about_speed_title">关于语音朗读速度</string>
+	<string name="about_speed_content">可以在应用设置里面调节语音播放的速度。</string>
+	
+	<string name="about_volume_title">关于音量</string>
+	<string name="about_volume_content">直接通过手机音量键来调节大小。</string>
+	
+    <string name="dialog1">
+	    Morning,Tom.#
+	    Hi,Mary.#
+	    You seem to be in a hurry.#
+	    Yes.i\'ve got a meeting in a minute.#
+	    Okay.I won\'t hold you up then.#
+	    Right.I\'ll see you later.#
+	    See you later.</string>
+</resources>

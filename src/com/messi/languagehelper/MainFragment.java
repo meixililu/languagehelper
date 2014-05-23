@@ -54,7 +54,7 @@ import com.tencent.mm.sdk.openapi.ConstantsAPI;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 
-public class MainFragment extends Fragment implements OnClickListener, IWXAPIEventHandler {
+public class MainFragment extends Fragment implements OnClickListener {
 
 	private EditText input_et;
 	private FrameLayout submit_btn;
@@ -170,7 +170,6 @@ public class MainFragment extends Fragment implements OnClickListener, IWXAPIEve
 		}else{
 			cb_speak_language_ch.setChecked(false);
 			cb_speak_language_en.setChecked(true);
-			ToastUtil.diaplayMesShort(getActivity(), "请说英文");
 		}
 		speed = mSharedPreferences.getInt(getString(R.string.preference_key_tts_speed), 50);
 	}
@@ -198,15 +197,15 @@ public class MainFragment extends Fragment implements OnClickListener, IWXAPIEve
 			cb_speak_language_en.setChecked(false);
 			setSpeakLanguage(XFUtil.VoiceEngineCH);
 			if(isSpeakYueyu){
-				ToastUtil.diaplayMesShort(getActivity(), "请说粤语");
+				ToastUtil.diaplayMesShort(getActivity(), getActivity().getResources().getString(R.string.speak_chinese));
 			}else{
-				ToastUtil.diaplayMesShort(getActivity(), "请说普通话");
+				ToastUtil.diaplayMesShort(getActivity(), getActivity().getResources().getString(R.string.speak_chinese));
 			}
 			StatService.onEvent(getActivity(), "1.6_putonghuabtn", "普通话按钮", 1);
 		}else if (v.getId() == R.id.cb_speak_language_en) {
 			cb_speak_language_ch.setChecked(false);
 			setSpeakLanguage(XFUtil.VoiceEngineEN);
-			ToastUtil.diaplayMesShort(getActivity(), "请说英语");
+			ToastUtil.diaplayMesShort(getActivity(), getActivity().getResources().getString(R.string.speak_english));
 			StatService.onEvent(getActivity(), "1.6_yingyubtn", "英语按钮", 1);
 		}
 	}
@@ -239,7 +238,7 @@ public class MainFragment extends Fragment implements OnClickListener, IWXAPIEve
     	if(isSpeakYueyu){
 			cb_speak_language_ch.setText("粤语");
 		}else{
-			cb_speak_language_ch.setText("普通话");
+			cb_speak_language_ch.setText(getActivity().getResources().getString(R.string.chinese));
 		}
 	}
 	
@@ -316,7 +315,7 @@ public class MainFragment extends Fragment implements OnClickListener, IWXAPIEve
 			}
 			@Override
 			public void onFailure(int statusCode, Header[] headers,String responseString, Throwable throwable) {
-				showToast("网络连接错误("+statusCode+")");
+				showToast("Error("+statusCode+")");
 			}
 			@Override
 			public void onSuccess(int statusCode, Header[] headers, String responseString) {
@@ -334,7 +333,7 @@ public class MainFragment extends Fragment implements OnClickListener, IWXAPIEve
 						LogUtil.DefalutLog("mDataBaseUtil:"+currentDialogBean.toString());
 					}
 				} else {
-					showToast("网络连接错误，请稍后再试！");
+					showToast(getActivity().getResources().getString(R.string.network_error));
 				}
 			}
 		});
@@ -356,7 +355,7 @@ public class MainFragment extends Fragment implements OnClickListener, IWXAPIEve
 			record_layout.setVisibility(View.VISIBLE);
 			input_et.setText("");
 			voice_btn.setBackgroundColor(getActivity().getResources().getColor(R.color.none));
-			voice_btn.setText("完毕");
+			voice_btn.setText(getActivity().getResources().getString(R.string.finish));
 			speak_round_layout.setBackgroundResource(R.drawable.round_light_blue_bgl);
 			XFUtil.showSpeechRecognizer(getActivity(),mSharedPreferences,recognizer,recognizerListener);
 		}else{
@@ -465,45 +464,10 @@ public class MainFragment extends Fragment implements OnClickListener, IWXAPIEve
 			RequestAsyncTask();
 			StatService.onEvent(getActivity(), BaiduStatistics.TranslateBtn, "翻译按钮", 1);
 		} else {
-			showToast("请输入需要翻译的内容！");
+			showToast(getActivity().getResources().getString(R.string.input_et_hint));
 			WXEntryActivity.mWXEntryActivity.setSupportProgressBarIndeterminateVisibility(false);
 			WXEntryActivity.mWXEntryActivity.setSupportProgressBarVisibility(false);
 		}
-	}
-	
-	@Override
-	public void onReq(BaseReq req) {
-		switch (req.getType()) {
-		case ConstantsAPI.COMMAND_GETMESSAGE_FROM_WX:
-			isRespondWX = true;	
-			LogUtil.DefalutLog("respond wx");
-			break;
-		case ConstantsAPI.COMMAND_SHOWMESSAGE_FROM_WX:
-			isRespondWX = false;	
-			LogUtil.DefalutLog("show message wx");
-			break;
-		}
-	}
-
-	@Override
-	public void onResp(BaseResp resp) {
-		int result = 0;
-		switch (resp.errCode) {
-		case BaseResp.ErrCode.ERR_OK:
-			result = R.string.errcode_success;
-			break;
-		case BaseResp.ErrCode.ERR_USER_CANCEL:
-			result = R.string.errcode_cancel;
-			break;
-		case BaseResp.ErrCode.ERR_AUTH_DENIED:
-			result = R.string.errcode_deny;
-			break;
-		default:
-			result = R.string.errcode_unknown;
-			break;
-		}
-		ToastUtil.diaplayMesShort(getActivity(), result);
-		LogUtil.DefalutLog("onResp");
 	}
 	
 }

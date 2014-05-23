@@ -1,5 +1,6 @@
 package com.messi.languagehelper.adapter;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -7,16 +8,18 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.messi.languagehelper.CollectedFragment;
 import com.messi.languagehelper.MainFragment;
-import com.messi.languagehelper.ReadAfterMeFragment;
+import com.messi.languagehelper.R;
 
 public class MainPageAdapter extends FragmentPagerAdapter {
 
-	public static final String[] CONTENT = new String[] { "中英互译", "我的收藏" };//, "情景对话", "我的收藏"
+	public static String[] CONTENT;
 	private Bundle bundle;
 	
-    public MainPageAdapter(FragmentManager fm,Bundle bundle) {
+    public MainPageAdapter(FragmentManager fm,Bundle bundle,Context mContext) {
         super(fm);
         this.bundle = bundle;
+        CONTENT = new String[] { mContext.getResources().getString(R.string.app_name),
+        		mContext.getResources().getString(R.string.title_favorite) };
     }
 
     @Override

@@ -26,7 +26,7 @@ public class HelpActivity extends SherlockFragmentActivity implements OnClickLis
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setDisplayShowHomeEnabled(true);
         mActionBar.setHomeButtonEnabled(true);
-        mActionBar.setTitle("使用帮助");
+        mActionBar.setTitle(getResources().getString(R.string.title_help));
         
 	}
 

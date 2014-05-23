@@ -128,7 +128,7 @@
 	                    android:button="@null"
 	                    android:checked="true"
 	                    android:gravity="center"
-	                    android:text="普通话"
+	                    android:text="@string/chinese"
 	                    android:textColor="@drawable/tc_black_to_white_selector" />
 	
 	                <RadioButton
@@ -139,7 +139,7 @@
 	                    android:background="@drawable/checkbox_language_right_selector"
 	                    android:button="@null"
 	                    android:gravity="center"
-	                    android:text="英语"
+	                    android:text="@string/english"
 	                    android:textColor="@drawable/tc_black_to_white_selector" />
                 </LinearLayout>
                 

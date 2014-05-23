@@ -33,7 +33,7 @@ public class AboutActivity extends SherlockFragmentActivity implements OnClickLi
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setDisplayShowHomeEnabled(true);
         mActionBar.setHomeButtonEnabled(true);
-        mActionBar.setTitle("关于我们");
+        mActionBar.setTitle(getResources().getString(R.string.title_about));
         email_layout = (TextView) findViewById(R.id.email_layout);
         email_layout.setOnClickListener(this);
 	}

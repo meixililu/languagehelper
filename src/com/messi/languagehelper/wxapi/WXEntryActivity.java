@@ -101,7 +101,7 @@ public class WXEntryActivity extends SherlockFragmentActivity implements IWXAPIE
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		indicator = (PagerSlidingTabStrip) findViewById(R.id.indicator);
-		mAdapter = new MainPageAdapter(this.getSupportFragmentManager(),bundle);
+		mAdapter = new MainPageAdapter(this.getSupportFragmentManager(),bundle,this);
 		viewPager.setAdapter(mAdapter);
 		viewPager.setOffscreenPageLimit(3);
 		indicator.setViewPager(viewPager);
@@ -118,12 +118,12 @@ public class WXEntryActivity extends SherlockFragmentActivity implements IWXAPIE
                 R.string.drawer_close  /* "close drawer" description for accessibility */
                 ) {
             public void onDrawerClosed(View view) {
-            	mActionBar.setTitle("中英互译");
+            	mActionBar.setTitle(WXEntryActivity.this.getResources().getString(R.string.app_name));
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             public void onDrawerOpened(View drawerView) {
-            	mActionBar.setTitle("更多");
+            	mActionBar.setTitle(WXEntryActivity.this.getResources().getString(R.string.title_more));
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
@@ -313,7 +313,7 @@ public class WXEntryActivity extends SherlockFragmentActivity implements IWXAPIE
 	@Override
 	public void onBackPressed() {
 		if ((System.currentTimeMillis() - exitTime) > 2000) {
-			Toast.makeText(getApplicationContext(), "再按一次退出程序", 0).show();
+			Toast.makeText(getApplicationContext(), this.getResources().getString(R.string.exit_program), 0).show();
 			exitTime = System.currentTimeMillis();
 		} else {
 			finish();
