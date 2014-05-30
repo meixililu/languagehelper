@@ -5,44 +5,85 @@
     android:background="@drawable/list_item_bg_white"
     android:orientation="vertical" >
 
-    <FrameLayout 
-        android:id="@+id/record_answer_cover"
+    <LinearLayout 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:foreground="@drawable/framelayout_selector"
+        android:orientation="horizontal"
         >
-	    <TextView
-	        android:id="@+id/record_answer"
-	        android:layout_width="fill_parent"
+        <LinearLayout 
+	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
-	        android:paddingLeft="10dp"
-	        android:paddingTop="7dp"
-	        android:paddingBottom="2dp"
-	        android:paddingRight="3dp"
-	        android:text=""
-	        android:textColor="@color/text_black"
-	        android:textSize="@dimen/bigger" />
-    </FrameLayout>
-
-    <FrameLayout 
-        android:id="@+id/record_question_cover"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:foreground="@drawable/framelayout_selector"
-        >
-	    <TextView
-	        android:id="@+id/record_question"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:paddingLeft="10dp"
-	        android:paddingTop="5dp"
-	        android:paddingBottom="7dp"
-	        android:paddingRight="3dp"
-	        android:text=""
-	        android:textColor="@color/text_black"
-	        android:textSize="@dimen/big" />
-    </FrameLayout>
-
+	        android:layout_weight="1"
+	        android:orientation="vertical"
+	        >
+		    <FrameLayout 
+		        android:id="@+id/record_answer_cover"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:foreground="@drawable/framelayout_selector"
+		        >
+			    <TextView
+			        android:id="@+id/record_answer"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:paddingLeft="10dp"
+			        android:paddingTop="7dp"
+			        android:paddingBottom="5dp"
+			        android:text=""
+			        android:textColor="@color/text_black"
+			        android:textSize="@dimen/bigger" />
+		    </FrameLayout>
+		
+		    <FrameLayout 
+		        android:id="@+id/record_question_cover"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:foreground="@drawable/framelayout_selector"
+		        >
+			    <TextView
+			        android:id="@+id/record_question"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:paddingLeft="10dp"
+			        android:paddingTop="5dp"
+			        android:paddingBottom="7dp"
+			        android:text=""
+			        android:textColor="@color/text_black"
+			        android:textSize="@dimen/big" />
+		    </FrameLayout>
+	        
+	    </LinearLayout>
+	    
+        <LinearLayout 
+            android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        android:orientation="horizontal"
+	        android:gravity="center"
+            >
+		    <ImageView
+		        android:layout_width="1px"
+		        android:layout_height="fill_parent"
+		        android:background="@color/line_color_gray" />
+            <FrameLayout 
+		        android:id="@+id/record_to_practice"
+		        android:layout_width="40dp"
+		        android:layout_height="fill_parent"
+		        android:foreground="@drawable/framelayout_selector"
+		        >
+			    <TextView
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:gravity="center"
+			        android:background="@drawable/expend_right"
+			        android:layout_gravity="center"
+			        android:textColor="@color/text_grey"
+			        android:textSize="@dimen/big" 
+			        />
+		    </FrameLayout>
+        </LinearLayout>
+        
+    </LinearLayout>
+    
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="1px"

@@ -7,6 +7,24 @@
 package com.actionbarsherlock;
 
 public final class R {
+	public static final class anim {
+		public static final int fade_in = 0x7f040000;
+		public static final int fade_out = 0x7f040001;
+		public static final int list_layout_controller = 0x7f040002;
+		public static final int push_up_in = 0x7f040003;
+		public static final int push_up_out = 0x7f040004;
+		public static final int rotate = 0x7f040005;
+		public static final int slide_in_from_bottom = 0x7f040006;
+		public static final int slide_in_from_top = 0x7f040007;
+		public static final int slide_left_in = 0x7f040008;
+		public static final int slide_left_out = 0x7f040009;
+		public static final int slide_out_to_bottom = 0x7f04000a;
+		public static final int slide_out_to_top = 0x7f04000b;
+		public static final int slide_right_in = 0x7f04000c;
+		public static final int slide_right_out = 0x7f04000d;
+		public static final int zoomin = 0x7f04000e;
+		public static final int zoomout = 0x7f04000f;
+	}
 	public static final class attr {
 		public static final int actionBarDivider = 0x7f010021;
 		public static final int actionBarItemBackground = 0x7f010022;
@@ -122,10 +140,10 @@ public final class R {
 		public static final int abs__bright_foreground_disabled_holo_light = 0x7f090005;
 		public static final int abs__bright_foreground_holo_dark = 0x7f090002;
 		public static final int abs__bright_foreground_holo_light = 0x7f090003;
-		public static final int abs__primary_text_disable_only_holo_dark = 0x7f09003f;
-		public static final int abs__primary_text_disable_only_holo_light = 0x7f090040;
-		public static final int abs__primary_text_holo_dark = 0x7f090041;
-		public static final int abs__primary_text_holo_light = 0x7f090042;
+		public static final int abs__primary_text_disable_only_holo_dark = 0x7f090040;
+		public static final int abs__primary_text_disable_only_holo_light = 0x7f090041;
+		public static final int abs__primary_text_holo_dark = 0x7f090042;
+		public static final int abs__primary_text_holo_light = 0x7f090043;
 	}
 	public static final class dimen {
 		public static final int abs__action_bar_default_height = 0x7f060006;
@@ -443,6 +461,7 @@ public final class R {
 		public static final int Widget_Sherlock_SearchAutoCompleteTextView = 0x7f0b0034;
 		public static final int Widget_Sherlock_Spinner_DropDown_ActionBar = 0x7f0b0024;
 		public static final int Widget_Sherlock_TextView_SpinnerItem = 0x7f0b0032;
+		public static final int ZoomAnimation = 0x7f0b0059;
 	}
 	public static final class styleable {
 		public static final int[] SherlockActionBar = { 0x7f010013, 0x7f010014, 0x7f010015, 0x7f010016, 0x7f010017, 0x7f010018, 0x7f01005c, 0x7f01005d, 0x7f01005e, 0x7f01005f, 0x7f010060, 0x7f010061, 0x7f010062, 0x7f010063, 0x7f010064, 0x7f010065, 0x7f010066, 0x7f010067, 0x7f010068 };

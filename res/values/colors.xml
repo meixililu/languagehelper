@@ -72,5 +72,6 @@
 	
 	<color name="app_lightblue">#4ea7e6</color>
 	<color name="list_menu_bg_color">#ebf7fc</color>
+	<color name="light_blue">#559ee7fc</color>
 	    
 </resources>

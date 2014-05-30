@@ -90,6 +90,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			holder.record_question_cover = (FrameLayout) convertView.findViewById(R.id.record_question_cover);
 			holder.record_answer_cover = (FrameLayout) convertView.findViewById(R.id.record_answer_cover);
+			holder.record_to_practice = (FrameLayout) convertView.findViewById(R.id.record_to_practice);
 			holder.record_question = (TextView) convertView.findViewById(R.id.record_question);
 			holder.record_answer = (TextView) convertView.findViewById(R.id.record_answer);
 			holder.voice_play = (ImageButton) convertView.findViewById(R.id.voice_play);
@@ -155,6 +156,13 @@ public class CollectedListItemAdapter extends BaseAdapter {
 				StatService.onEvent(context, "1.6_collectedbtn", "收藏按钮", 1);
 			}
 		});
+		holder.record_to_practice.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				
+				StatService.onEvent(context, "1.8_to_practice", "去口语练页面", 1);
+			}
+		});
 		return convertView;
 	}
 	
@@ -162,6 +170,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		TextView record_question;
 		TextView record_answer;
 		FrameLayout record_answer_cover;
+		FrameLayout record_to_practice;
 		FrameLayout record_question_cover;
 		FrameLayout delete_btn;
 		FrameLayout copy_btn;
