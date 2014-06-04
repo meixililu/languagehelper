@@ -29,6 +29,7 @@ import com.actionbarsherlock.view.Window;
 import com.baidu.mobstat.StatService;
 import com.iflytek.cloud.speech.SpeechUser;
 import com.messi.languagehelper.AboutActivity;
+import com.messi.languagehelper.BaseActivity;
 import com.messi.languagehelper.HelpActivity;
 import com.messi.languagehelper.R;
 import com.messi.languagehelper.RecommendActivity;
@@ -45,7 +46,7 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
-public class WXEntryActivity extends SherlockFragmentActivity implements IWXAPIEventHandler,OnClickListener {
+public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler,OnClickListener {
 	
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -60,26 +61,14 @@ public class WXEntryActivity extends SherlockFragmentActivity implements IWXAPIE
 	private Bundle bundle;
 	private boolean isRespondWX;
 	public static int currentIndex = 0;
-	public ActionBar mActionBar;
 	public static WXEntryActivity mWXEntryActivity;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		try {
-			requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-			requestWindowFeature(Window.FEATURE_PROGRESS);
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.content_frame);
 			mWXEntryActivity = this;
-	        
-			setSupportProgressBarIndeterminateVisibility(false);
-			setSupportProgressBarVisibility(false);
-	        mActionBar = getSupportActionBar();
-	        mActionBar.setBackgroundDrawable(getResources().getDrawable(R.color.load_blue));
-	        mActionBar.setDisplayHomeAsUpEnabled(true);
-	        mActionBar.setDisplayShowHomeEnabled(true);
-	        mActionBar.setHomeButtonEnabled(true);
-	        
 			initDatas();
 			initViews();
 		} catch (Exception e) {
@@ -191,7 +180,7 @@ public class WXEntryActivity extends SherlockFragmentActivity implements IWXAPIE
 			menu();
 			StatService.onEvent(this, "1.6_homemenu", "主页左上角菜单", 1);
 		}
-       return super.onOptionsItemSelected(item);
+       return true;
 	}
 	
 	private void menu(){
@@ -270,18 +259,6 @@ public class WXEntryActivity extends SherlockFragmentActivity implements IWXAPIE
 		}
 		ToastUtil.diaplayMesShort(this, result);
 		LogUtil.DefalutLog("onResp");
-	}
-	
-	@Override
-	protected void onResume() {
-		super.onResume();
-		StatService.onResume(this);
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		StatService.onPause(this);
 	}
 	
 	@Override

@@ -15,7 +15,7 @@ import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.WechatUtil;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 
-public class AboutActivity extends SherlockFragmentActivity implements OnClickListener {
+public class AboutActivity extends BaseActivity implements OnClickListener {
 
 	private TextView email_layout;
 	public ActionBar mActionBar;
@@ -38,18 +38,6 @@ public class AboutActivity extends SherlockFragmentActivity implements OnClickLi
         email_layout.setOnClickListener(this);
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		StatService.onResume(this);
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		StatService.onPause(this);
-	}
-	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {

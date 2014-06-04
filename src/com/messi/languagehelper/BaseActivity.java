@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.Window;
 import com.baidu.mobstat.StatService;
 
 public class BaseActivity extends SherlockFragmentActivity {
@@ -13,7 +14,11 @@ public class BaseActivity extends SherlockFragmentActivity {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+		requestWindowFeature(Window.FEATURE_PROGRESS);
 		super.onCreate(savedInstanceState);
+		setSupportProgressBarIndeterminateVisibility(false);
+		setSupportProgressBarVisibility(false);
 		mActionBar = getSupportActionBar();
         mActionBar.setBackgroundDrawable(getResources().getDrawable(R.color.load_blue));
         mActionBar.setDisplayHomeAsUpEnabled(true);
