@@ -160,6 +160,18 @@ public class DataBaseUtil {
 		SQLiteDatabase db = mDbHelper.getWritableDatabase();
 		db.execSQL("delete from record where recordid=?", new Object[] { id });
 	}
+	
+	public void clearExceptFavorite() {
+		SQLiteDatabase db = mDbHelper.getWritableDatabase();
+		db.execSQL("delete from record where iscollected = '0'");
+		close();
+	}
+	
+	public void clearAll() {
+		SQLiteDatabase db = mDbHelper.getWritableDatabase();
+		db.execSQL("delete from record");
+		close();
+	}
 
 	public long getCount() {
 		Cursor cursor = null;

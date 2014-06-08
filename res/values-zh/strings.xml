@@ -37,17 +37,18 @@
     
     <string-array name="planets_array">
         <item>应用设置</item>
-        <item>干货分享</item>
+        <item>其他语言</item>
         <item>吐槽评价</item>
         <item>使用帮助</item>
         <item>关于我们</item>
     </string-array>
 
-    <string name="statement">\t本软件采用百度翻译结合科大讯飞的语音功能，方便快捷，省去繁琐的输入过程，对学习英文非常有帮助。
-        	\n\t带真人发音，可当做英语学习机，教孩子学英语，单词学习，英文发音学习，跟外国人沟通，出国旅游应急翻译等等。
-        	\n\t因为采用的是即时机器翻译，非人工翻译，准确度不可能百分百，是一个辅助工具。
-        	\n\t欢迎使用，如有意见，可联系本人吐槽，对本软件进行不断优化。
-    </string>
+    <string name="play_speed_text">播放语速调节：</string>
+    <string name="fifth_normal">50为正常速度</string>
+    <string name="i_speak_cantonese">我说是粤语</string>
+    <string name="clear_all_except_favorite">保留收藏记录，清除其他所有</string>
+    <string name="clear_all_record">清除所有记录</string>
+    
 
     <string name="preference_key_tts_music">tts_music</string>
     <string name="preference_title_tts_music">背景音乐</string>

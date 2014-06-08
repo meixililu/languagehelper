@@ -10,18 +10,16 @@ import android.widget.FrameLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.MenuItem;
-import com.baidu.mobstat.StatService;
+import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.util.SharedPreferencesUtil;
+import com.messi.languagehelper.util.ToastUtil;
 
-public class SettingActivity extends SherlockFragmentActivity implements OnClickListener,SeekBar.OnSeekBarChangeListener {
+public class SettingActivity extends BaseActivity implements OnClickListener,SeekBar.OnSeekBarChangeListener {
 
-	public ActionBar mActionBar;
 	private TextView seekbar_text;
 	private SeekBar seekbar;
 	private FrameLayout speak_yueyu;
+	private FrameLayout clear_all_except_favorite,clear_all;
 	private CheckBox speak_yueyu_cb;
 	private SharedPreferences mSharedPreferences;
 	
@@ -34,50 +32,28 @@ public class SettingActivity extends SherlockFragmentActivity implements OnClick
 	}
 
 	private void init() {
-		mActionBar = getSupportActionBar();
-        mActionBar.setBackgroundDrawable(getResources().getDrawable(R.color.load_blue));
-        mActionBar.setDisplayHomeAsUpEnabled(true);
-        mActionBar.setDisplayShowHomeEnabled(true);
-        mActionBar.setHomeButtonEnabled(true);
+		mSharedPreferences = getSharedPreferences(this.getPackageName(), Activity.MODE_PRIVATE);
         mActionBar.setTitle(this.getResources().getString(R.string.title_settings));
-        mSharedPreferences = getSharedPreferences(this.getPackageName(), Activity.MODE_PRIVATE);
-        
         seekbar_text = (TextView) findViewById(R.id.seekbar_text);
         seekbar = (SeekBar) findViewById(R.id.seekbar);
         speak_yueyu = (FrameLayout) findViewById(R.id.speak_yueyu);
         speak_yueyu_cb = (CheckBox) findViewById(R.id.speak_yueyu_cb);
+        clear_all_except_favorite = (FrameLayout) findViewById(R.id.setting_clear_all_except_favorite);
+        clear_all = (FrameLayout) findViewById(R.id.setting_clear_all);
+        
         seekbar.setOnSeekBarChangeListener(this);
         speak_yueyu.setOnClickListener(this);
+        clear_all_except_favorite.setOnClickListener(this);
+        clear_all.setOnClickListener(this);
 	}
 	
 	private void initData(){
-		seekbar_text.setText("播放语速调节：" + MainFragment.speed);
+		seekbar_text.setText(this.getResources().getString(R.string.play_speed_text) + MainFragment.speed);
 		seekbar.setProgress(MainFragment.speed);
 		boolean checked = mSharedPreferences.getBoolean(SharedPreferencesUtil.SpeakPutonghuaORYueyu, false);
 		speak_yueyu_cb.setChecked(checked);
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		StatService.onResume(this);
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		StatService.onPause(this);
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:  
-			finish();
-		}
-       return super.onOptionsItemSelected(item);
-	}
-	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -91,6 +67,17 @@ public class SettingActivity extends SherlockFragmentActivity implements OnClick
 			SharedPreferencesUtil.saveBoolean(mSharedPreferences, SharedPreferencesUtil.SpeakPutonghuaORYueyu,
 					speak_yueyu_cb.isChecked());
 			break;
+		case R.id.setting_clear_all_except_favorite:
+			new DataBaseUtil(SettingActivity.this).clearExceptFavorite();
+			MainFragment.isRefresh = true;
+			ToastUtil.diaplayMesShort(SettingActivity.this, this.getResources().getString(R.string.clear_success));
+			break;
+		case R.id.setting_clear_all:
+			new DataBaseUtil(SettingActivity.this).clearAll();
+			MainFragment.isRefresh = true;
+			CollectedFragment.isRefresh = true;
+			ToastUtil.diaplayMesShort(SettingActivity.this, this.getResources().getString(R.string.clear_success));
+			break;
 		default:
 			break;
 		}
@@ -98,16 +85,16 @@ public class SettingActivity extends SherlockFragmentActivity implements OnClick
 	
 	@Override
 	protected void onDestroy() {
-		SharedPreferencesUtil.saveInt(mSharedPreferences, getString(R.string.preference_key_tts_speed),
-				MainFragment.speed);
-		
 		super.onDestroy();
+		SharedPreferencesUtil.saveInt(mSharedPreferences, 
+				getString(R.string.preference_key_tts_speed),
+				MainFragment.speed);
 	}
 
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 		MainFragment.speed = progress;
-		seekbar_text.setText("播放语速调节：" + MainFragment.speed);
+		seekbar_text.setText(this.getResources().getString(R.string.play_speed_text) + MainFragment.speed);
 	}
 
 	@Override

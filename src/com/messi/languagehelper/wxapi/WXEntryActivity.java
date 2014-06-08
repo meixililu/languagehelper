@@ -128,6 +128,9 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler,
 					intent.setData(Uri.parse("market://details?id=com.messi.languagehelper"));
 					startActivity(intent);
 					StatService.onEvent(WXEntryActivity.this, "1.6_commend", "吐槽评价按钮", 1);
+				}else if(position == 5){
+					
+					StatService.onEvent(WXEntryActivity.this, "1.8_contantus", "联系我们按钮", 1);
 				}else{
 					Intent intent = new Intent();
 					if(position == 0){

@@ -1,19 +1,14 @@
 package com.messi.languagehelper;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
-import com.baidu.mobstat.StatService;
-import com.messi.languagehelper.util.LogUtil;
-import com.messi.languagehelper.util.WechatUtil;
-import com.tencent.mm.sdk.openapi.IWXAPI;
 
 public class AboutActivity extends BaseActivity implements OnClickListener {
 
@@ -51,18 +46,21 @@ public class AboutActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.email_layout:
-			try {
-				Intent emailIntent = new Intent(Intent.ACTION_SEND);
-				emailIntent.setType("message/rfc822");
-				emailIntent.putExtra(Intent.EXTRA_EMAIL,
-						new String[] { "meixililulu@163.com" });
-				startActivity(emailIntent);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			contantUs(AboutActivity.this);
 			break;
 		default:
 			break;
+		}
+	}
+	
+	public static void contantUs(Context mContext){
+		try {
+			Intent emailIntent = new Intent(Intent.ACTION_SEND);
+			emailIntent.setType("message/rfc822");
+			emailIntent.putExtra(Intent.EXTRA_EMAIL,new String[] { "meixililulu@163.com" });
+			mContext.startActivity(emailIntent);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

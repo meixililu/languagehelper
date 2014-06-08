@@ -88,7 +88,6 @@ public class MainFragment extends Fragment implements OnClickListener {
 	public static boolean isSpeakYueyuNeedUpdate;
 	private DataBaseUtil mDataBaseUtil;
 	private Bundle bundle;
-	public static boolean isRespondWX;
 	public static boolean isRefresh;
 	private View view;
 	private static MainFragment mMainFragment;
@@ -116,7 +115,6 @@ public class MainFragment extends Fragment implements OnClickListener {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		isRespondWX = false;
 		LogUtil.DefalutLog("MainFragment-onDestroy");
 	}
 
@@ -231,6 +229,7 @@ public class MainFragment extends Fragment implements OnClickListener {
         	}
         	isSpeakYueyuNeedUpdate = false;
         }
+		setUserVisibleHint(true);
 	}
 	
 	private void getAccent(){

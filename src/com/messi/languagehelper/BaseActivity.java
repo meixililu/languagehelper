@@ -17,14 +17,13 @@ public class BaseActivity extends SherlockFragmentActivity {
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		requestWindowFeature(Window.FEATURE_PROGRESS);
 		super.onCreate(savedInstanceState);
-		setSupportProgressBarIndeterminateVisibility(false);
-		setSupportProgressBarVisibility(false);
 		mActionBar = getSupportActionBar();
         mActionBar.setBackgroundDrawable(getResources().getDrawable(R.color.load_blue));
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setDisplayShowHomeEnabled(true);
         mActionBar.setHomeButtonEnabled(true);
-        
+        setSupportProgressBarIndeterminateVisibility(false);
+		setSupportProgressBarVisibility(false);
 	}
 
 	@Override

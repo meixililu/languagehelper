@@ -14,30 +14,24 @@ import com.baidu.mobstat.StatService;
 import com.messi.languagehelper.util.ToastUtil;
 import com.messi.languagehelper.wxapi.WXEntryActivity;
 
-public class RecommendActivity extends SherlockFragmentActivity implements OnClickListener {
+public class RecommendActivity extends BaseActivity implements OnClickListener {
 
-	private FrameLayout recommend_yyzs,recommend_zyzs;
-	public ActionBar mActionBar;
+	private FrameLayout recommend_yyzs,recommend_zrzs;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.recommend_activity);
 		init();
 	}
 	
 	private void init() {
-		mActionBar = getSupportActionBar();
-        mActionBar.setBackgroundDrawable(getResources().getDrawable(R.color.load_blue));
-        mActionBar.setDisplayHomeAsUpEnabled(true);
-        mActionBar.setDisplayShowHomeEnabled(true);
-        mActionBar.setHomeButtonEnabled(true);
         mActionBar.setTitle(this.getResources().getString(R.string.title_apps));
         
         recommend_yyzs = (FrameLayout) findViewById(R.id.recommend_yyzs);
-        recommend_zyzs = (FrameLayout) findViewById(R.id.recommend_zyzs);
+        recommend_zrzs = (FrameLayout) findViewById(R.id.recommend_zrzs);
         recommend_yyzs.setOnClickListener(this);
-        recommend_zyzs.setOnClickListener(this);
+        recommend_zrzs.setOnClickListener(this);
 	}
 	
 	@Override
@@ -52,16 +46,15 @@ public class RecommendActivity extends SherlockFragmentActivity implements OnCli
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.recommend_zyzs:
+		case R.id.recommend_zrzs:
 			try {
-				ToastUtil.diaplayMesShort(RecommendActivity.this, "预计5月初发布");
 				Intent intent = new Intent(Intent.ACTION_VIEW);
-				intent.setData(Uri.parse("market://details?id=com.messi.chtoenhelper"));
+				intent.setData(Uri.parse("market://details?id=com.messi.languagehelper_ja"));
 				startActivity(intent);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			StatService.onEvent(RecommendActivity.this, "1.6_zyzsbtn", "点击中英助手按钮", 1);
+			StatService.onEvent(RecommendActivity.this, "1.8_zrzsbtn", "点击中日助手按钮", 1);
 			break;
 		case R.id.recommend_yyzs:
 			try {
