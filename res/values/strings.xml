@@ -2,6 +2,9 @@
 
     <string name="app_name">Translator</string>
     <string name="app_des">You are worth it</string>
+    <string name="app_ad">Learn Chinese,You are worth it.</string>
+    <string name="author">Author：Lilu</string>
+    <string name="designer">Designer：Liqianxia,Wangye</string>
     <string name="title_about">About</string>
     <string name="title_help">Help</string>
     <string name="title_more">More</string>

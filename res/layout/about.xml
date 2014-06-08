@@ -21,7 +21,7 @@
                 android:layout_width="90dp"
                 android:layout_height="90dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="60dp"
                 android:src="@drawable/ic_launcher" />
 
             <TextView
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
                 android:gravity="center_horizontal"
-                android:text="中英互译"
+                android:text="@string/app_name"
                 android:textColor="@color/text_grey"
                 android:textSize="@dimen/big" />
 
@@ -47,11 +47,11 @@
                 android:id="@+id/aboat_2"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dip"
+                android:layout_marginTop="80dip"
                 android:gravity="center_horizontal"
-                android:text="学英语，你值得拥有"
+                android:text="@string/app_ad"
                 android:textColor="@color/text_grey"
-                android:textSize="@dimen/title" />
+                android:textSize="@dimen/bigest" />
 
             <View
                 android:layout_width="fill_parent"
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dip"
                 android:gravity="center_horizontal"
-                android:text="作者：黎潞"
+                android:text="@string/author"
                 android:textColor="@color/content_txt_6"
                 android:textSize="@dimen/small" />
 
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dip"
                 android:gravity="center_horizontal"
-                android:text="设计：李茜霞,王烨"
+                android:text="@string/designer"
                 android:textColor="@color/content_txt_6"
                 android:textSize="@dimen/small" />
 
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:gravity="center_horizontal"
-                android:text="邮箱：meixililulu@163.com"
+                android:text="Email：meixililulu@163.com"
                 android:textColor="@color/content_txt_6"
                 android:textSize="@dimen/small" />
         </LinearLayout>
