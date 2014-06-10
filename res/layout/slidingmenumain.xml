@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.messi.languagehelper.slidingmenu.SlidingMenu 
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/slidingmenumain"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" />

@@ -29,6 +29,7 @@ import com.iflytek.cloud.speech.SpeechSynthesizer;
 import com.iflytek.cloud.speech.SynthesizerListener;
 import com.messi.languagehelper.CollectedFragment;
 import com.messi.languagehelper.MainFragment;
+import com.messi.languagehelper.PracticeActivity;
 import com.messi.languagehelper.R;
 import com.messi.languagehelper.bean.DialogBean;
 import com.messi.languagehelper.db.DataBaseUtil;
@@ -159,7 +160,8 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		holder.record_to_practice.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+				Intent intent = new Intent(context,PracticeActivity.class);
+				context.startActivity(intent);
 				StatService.onEvent(context, "1.8_to_practice", "去口语练页面", 1);
 			}
 		});

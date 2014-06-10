@@ -13,7 +13,6 @@ import com.actionbarsherlock.view.MenuItem;
 public class AboutActivity extends BaseActivity implements OnClickListener {
 
 	private TextView email_layout;
-	public ActionBar mActionBar;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -23,25 +22,11 @@ public class AboutActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void init() {
-		mActionBar = getSupportActionBar();
-        mActionBar.setBackgroundDrawable(getResources().getDrawable(R.color.load_blue));
-        mActionBar.setDisplayHomeAsUpEnabled(true);
-        mActionBar.setDisplayShowHomeEnabled(true);
-        mActionBar.setHomeButtonEnabled(true);
         mActionBar.setTitle(getResources().getString(R.string.title_about));
         email_layout = (TextView) findViewById(R.id.email_layout);
         email_layout.setOnClickListener(this);
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:  
-			finish();
-		}
-       return super.onOptionsItemSelected(item);
-	}
-	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
