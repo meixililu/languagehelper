@@ -5,6 +5,7 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.text.ClipboardManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.MeasureSpec;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -42,7 +44,6 @@ import com.messi.languagehelper.util.SDCardUtil;
 import com.messi.languagehelper.util.SharedPreferencesUtil;
 import com.messi.languagehelper.util.ShowView;
 import com.messi.languagehelper.util.ToastUtil;
-import com.messi.languagehelper.util.WechatUtil;
 import com.messi.languagehelper.util.XFUtil;
 
 public class CollectedListItemAdapter extends BaseAdapter {
@@ -208,22 +209,23 @@ public class CollectedListItemAdapter extends BaseAdapter {
 	 * 分享到微信联系人
 	 */
 	private void sendToWechat(String dstString){
-//		if(!TextUtils.isEmpty(dstString)){
-//			if(MainFragment.isRespondWX){
-//				WechatUtil.respMsgToWechat(context, bundle, dstString);
-//			}else{
-//				WechatUtil.sendMsgToWechat(context, dstString);
-//			}
-//		}else{
-//			showToast("微信分享失败，没有翻译结果！");
-//		}
 		Intent intent = new Intent(Intent.ACTION_SEND);    
 		intent.setType("text/plain"); // 纯文本     
 		intent.putExtra(Intent.EXTRA_SUBJECT, context.getResources().getString(R.string.share));    
 		intent.putExtra(Intent.EXTRA_TEXT, dstString);    
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);    
 		context.startActivity(Intent.createChooser(intent, context.getResources().getString(R.string.share)));    
-
+	}
+	
+	private void shareWithImg(String dstString){
+		View parentView = mInflater.inflate(R.layout.share_layout, null);
+		TextView contentTv = (TextView)parentView.findViewById(R.id.share_content);
+		contentTv.setText(dstString);
+		parentView.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
+                MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+		parentView.layout(0, 0, parentView.getMeasuredWidth(), parentView.getMeasuredHeight());
+		parentView.buildDrawingCache();
+		Bitmap bitmap = parentView.getDrawingCache();
 	}
 	
 	private void updateCollectedStatus(DialogBean mBean){
