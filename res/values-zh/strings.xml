@@ -13,6 +13,7 @@
     <string name="title_settings">应用设置</string>
     <string name="title_apps">干货分享</string>
     
+    <string name="app_name_share">App:中英互译</string>
     <string name="input_et_hint">请输入需要翻译的中文或英文</string>
     <string name="translate">翻 译</string>
     <string name="finish">完毕</string>

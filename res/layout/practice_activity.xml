@@ -127,7 +127,7 @@
 	                    android:layout_width="0dp"
 	                    android:layout_height="53dp"
 	                    android:layout_weight="1"
-	                    android:background="@drawable/checkbox_language_left_selector"
+	                    android:background="@drawable/checkbox_language_right_selector"
 	                    android:button="@null"
 	                    android:checked="true"
 	                    android:gravity="center"
