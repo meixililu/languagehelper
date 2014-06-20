@@ -148,7 +148,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		holder.weixi_btn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				sendToWechat(mBean.getAnswer());
+				sendToWechat(mBean);
 				StatService.onEvent(context, "1.6_sharebtn", "分享按钮", 1);
 			}
 		});
@@ -210,7 +210,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 	/**
 	 * 分享
 	 */
-	private void sendToWechat(final String dstString){
+	private void sendToWechat(final DialogBean mBean){
 		String[] tempText = new String[2];
 		tempText[0] = context.getResources().getString(R.string.share_dialog_text_1);
 		tempText[1] = context.getResources().getString(R.string.share_dialog_text_2);
@@ -219,11 +219,11 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		mPopDialog.setListener(new PopViewItemOnclickListener() {
 			@Override
 			public void onSecondClick(View v) {
-				toShareImageActivity(dstString);
+				toShareImageActivity(mBean);
 			}
 			@Override
 			public void onFirstClick(View v) {
-				toShareTextActivity(dstString);
+				toShareTextActivity(mBean.getAnswer());
 			}
 		});
 		mPopDialog.show();
@@ -238,9 +238,9 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		context.startActivity(Intent.createChooser(intent, context.getResources().getString(R.string.share)));    
 	}
 	
-	private void toShareImageActivity(String dstString){
+	private void toShareImageActivity(DialogBean mBean){
 		Intent intent = new Intent(context, ImgShareActivity.class); 
-		intent.putExtra(KeyUtil.ShareContentKey, dstString);
+		intent.putExtra(KeyUtil.ShareContentKey, mBean.getAnswer()+"\n"+mBean.getQuestion());
 		context.startActivity(intent); 
 	}
 	
