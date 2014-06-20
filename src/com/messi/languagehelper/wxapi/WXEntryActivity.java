@@ -31,10 +31,12 @@ import com.iflytek.cloud.speech.SpeechUser;
 import com.messi.languagehelper.AboutActivity;
 import com.messi.languagehelper.BaseActivity;
 import com.messi.languagehelper.HelpActivity;
+import com.messi.languagehelper.ImgShareActivity;
 import com.messi.languagehelper.R;
 import com.messi.languagehelper.RecommendActivity;
 import com.messi.languagehelper.SettingActivity;
 import com.messi.languagehelper.adapter.MainPageAdapter;
+import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.ToastUtil;
 import com.messi.languagehelper.util.WechatUtil;
@@ -171,8 +173,8 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler,
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-//		menu.add("MENU").setIcon(R.drawable.menu_d)
-//        .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+		menu.add(0,0,0,this.getResources().getString(R.string.menu_share)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+		menu.add(0,1,1,this.getResources().getString(R.string.menu_settings)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 		return true;
 	}
 	
@@ -182,6 +184,15 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler,
 		case android.R.id.home:  
 			menu();
 			StatService.onEvent(this, "1.6_homemenu", "主页左上角菜单", 1);
+			break;
+		case 0:  
+			toShareActivity();
+			StatService.onEvent(this, "1.8_menu_to_share_activity", "去自定义分享页面", 1);
+			break;
+		case 1:  
+			toSettingActivity();
+			StatService.onEvent(this, "1.8_menu_to_settings", "语速调节", 1);
+			break;
 		}
        return true;
 	}
@@ -197,7 +208,6 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler,
 	@Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content view
-		
 //        menu.findItem(R.drawable.menu_d).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
@@ -207,6 +217,16 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler,
 //		if (v.getId() == R.id.top_menu_btn) {
 //			
 //		}
+	}
+	
+	private void toShareActivity(){
+		Intent intent = new Intent(this, ImgShareActivity.class); 
+		startActivity(intent); 
+	}
+	
+	private void toSettingActivity(){
+		Intent intent = new Intent(this, SettingActivity.class); 
+		startActivity(intent); 
 	}
 	
 	/**

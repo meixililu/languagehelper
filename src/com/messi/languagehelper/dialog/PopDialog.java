@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.messi.languagehelper.R;
@@ -38,8 +39,8 @@ public class PopDialog extends Dialog {
 	 * @param theme
 	 * @param tempText
 	 */
-	public PopDialog(Context context,  int theme, String[] tempText) {
-		super(context, theme);
+	public PopDialog(Context context, String[] tempText) {
+		super(context, R.style.mydialog);
 		this.context = context;
 		this.tempText = tempText;
 	}
@@ -48,10 +49,12 @@ public class PopDialog extends Dialog {
 	protected void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.select_popwindow);
+	    FrameLayout text1Cover = (FrameLayout) findViewById(R.id.select_popwindow_text1_cover);
+	    FrameLayout text2Cover = (FrameLayout) findViewById(R.id.select_popwindow_text2_cover);
 	    TextView text1 = (TextView) findViewById(R.id.select_popwindow_text1);
 	    TextView text2 = (TextView) findViewById(R.id.select_popwindow_text2);
-		text1.setOnClickListener(onClickListener);
-		text2.setOnClickListener(onClickListener);
+	    text1Cover.setOnClickListener(onClickListener);
+	    text2Cover.setOnClickListener(onClickListener);
 		
 		if(tempText != null){
 			text1.setText(tempText[0]);
@@ -64,13 +67,13 @@ public class PopDialog extends Dialog {
 		@Override
 		public void onClick(View v) {
 			switch(v.getId()){
-			case R.id.select_popwindow_text1:
+			case R.id.select_popwindow_text1_cover:
 				 if(listener != null){
 					 listener.onFirstClick(v);
 				 }
 				 PopDialog.this.dismiss();
 				 break;
-			case R.id.select_popwindow_text2:
+			case R.id.select_popwindow_text2_cover:
 				 if(listener != null){
 					 listener.onSecondClick(v);
 				 }					

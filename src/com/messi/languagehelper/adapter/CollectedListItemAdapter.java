@@ -1,16 +1,10 @@
 package com.messi.languagehelper.adapter;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
-import android.graphics.Canvas;
-import android.graphics.Rect;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,7 +12,6 @@ import android.text.ClipboardManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.MeasureSpec;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -26,7 +19,6 @@ import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +34,8 @@ import com.messi.languagehelper.PracticeActivity;
 import com.messi.languagehelper.R;
 import com.messi.languagehelper.bean.DialogBean;
 import com.messi.languagehelper.db.DataBaseUtil;
+import com.messi.languagehelper.dialog.PopDialog;
+import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
 import com.messi.languagehelper.task.PublicTask;
 import com.messi.languagehelper.task.PublicTask.PublicTaskListener;
 import com.messi.languagehelper.util.AudioTrackUtil;
@@ -49,7 +43,6 @@ import com.messi.languagehelper.util.BaiduStatistics;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.SDCardUtil;
-import com.messi.languagehelper.util.ScreenUtil;
 import com.messi.languagehelper.util.SharedPreferencesUtil;
 import com.messi.languagehelper.util.ShowView;
 import com.messi.languagehelper.util.ToastUtil;
@@ -215,20 +208,40 @@ public class CollectedListItemAdapter extends BaseAdapter {
 	}
 	
 	/**
-	 * 分享到微信联系人
+	 * 分享
 	 */
-	private void sendToWechat(String dstString){
+	private void sendToWechat(final String dstString){
+		String[] tempText = new String[2];
+		tempText[0] = context.getResources().getString(R.string.share_dialog_text_1);
+		tempText[1] = context.getResources().getString(R.string.share_dialog_text_2);
+		PopDialog mPopDialog = new PopDialog(context,tempText);
+		mPopDialog.setCanceledOnTouchOutside(true);
+		mPopDialog.setListener(new PopViewItemOnclickListener() {
+			@Override
+			public void onSecondClick(View v) {
+				toShareImageActivity(dstString);
+			}
+			@Override
+			public void onFirstClick(View v) {
+				toShareTextActivity(dstString);
+			}
+		});
+		mPopDialog.show();
+	}
+	
+	private void toShareTextActivity(String dstString){
+		Intent intent = new Intent(Intent.ACTION_SEND);    
+		intent.setType("text/plain"); // 纯文本     
+		intent.putExtra(Intent.EXTRA_SUBJECT, context.getResources().getString(R.string.share));    
+		intent.putExtra(Intent.EXTRA_TEXT, dstString);    
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);    
+		context.startActivity(Intent.createChooser(intent, context.getResources().getString(R.string.share)));    
+	}
+	
+	private void toShareImageActivity(String dstString){
 		Intent intent = new Intent(context, ImgShareActivity.class); 
 		intent.putExtra(KeyUtil.ShareContentKey, dstString);
 		context.startActivity(intent); 
-		
-		
-//		Intent intent = new Intent(Intent.ACTION_SEND);    
-//		intent.setType("text/plain"); // 纯文本     
-//		intent.putExtra(Intent.EXTRA_SUBJECT, context.getResources().getString(R.string.share));    
-//		intent.putExtra(Intent.EXTRA_TEXT, dstString);    
-//		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);    
-//		context.startActivity(Intent.createChooser(intent, context.getResources().getString(R.string.share)));    
 	}
 	
 	private void updateCollectedStatus(DialogBean mBean){

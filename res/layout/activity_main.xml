@@ -63,7 +63,7 @@
             <FrameLayout
                 android:id="@+id/submit_btn_layout"
                 android:layout_width="fill_parent"
-                android:layout_height="43dp"
+                android:layout_height="40dp"
                 android:gravity="center_vertical"
 		        android:layout_marginLeft="1px"
 		        android:layout_marginRight="1px"

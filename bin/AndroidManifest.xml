@@ -75,6 +75,16 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Sherlock" >
         </activity>
+        <activity
+            android:name=".PracticeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Sherlock" >
+        </activity>
+        <activity
+            android:name=".ImgShareActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Sherlock" >
+        </activity>
         <activity 
             android:name=".wxapi.WXEntryActivity" 
             android:exported="true"

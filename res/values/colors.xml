@@ -13,11 +13,11 @@
 	<color name="blue">#ff0000ff</color>
 	<color name="gray">#FF888888</color>
 	<color name="load_blue">#FF1875bd</color>
-	<color name="mic_blue">#dd1e7dc8</color>
+	<color name="mic_blue">#991e7dc8</color>
 	<color name="bg_white">#f7fafe</color>
     <color name="lightgrey">#FFEBE7DB</color>
     <color name="text_tint">#eeeeee</color>
-    <color name="text_grey">#999999</color>
+    <color name="text_grey">#aaaaaa</color>
 	<color name="text_black">#666666</color>
 	<color name="text_dark">#333333</color>
 	<color name="text_blue">#6992cc</color>

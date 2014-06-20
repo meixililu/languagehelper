@@ -6,18 +6,25 @@
     <string name="author">作者：黎潞</string>
     <string name="designer">设计：李茜霞,王烨</string>
     <string name="title_about">关于我们</string>
+    <string name="title_share_preview">分享预览</string>
     <string name="title_Practice">口语修炼</string>
     <string name="title_help">使用帮助</string>
     <string name="title_more">更多</string>
     <string name="title_favorite">我的收藏</string>
     <string name="title_settings">应用设置</string>
-    <string name="title_apps">干货分享</string>
+    <string name="title_apps">其他语言</string>
     
+    <string name="menu_share">DIY分享</string>
+    <string name="menu_settings">语速调节</string>
     <string name="app_name_share">App:中英互译</string>
+    <string name="share_text_hint">请输入分享内容</string>
     <string name="input_et_hint">请输入需要翻译的中文或英文</string>
     <string name="translate">翻 译</string>
     <string name="finish">完毕</string>
     <string name="exit_program">再按一次退出应用</string>
+    
+    <string name="share_dialog_text_1">文字</string>
+    <string name="share_dialog_text_2">图片（推荐）</string>
     
     <string name="speak_english">请点击话筒说英文</string>
     <string name="speak_chinese">请点击话筒说中文</string>
@@ -51,10 +58,9 @@
     <string name="play_speed_text">播放语速调节：</string>
     <string name="fifth_normal">50为正常速度</string>
     <string name="i_speak_cantonese">我说是粤语</string>
-    <string name="clear_all_except_favorite">保留收藏记录，清除其他所有</string>
+    <string name="clear_all_except_favorite">保留收藏记录，清除其他所有记录</string>
     <string name="clear_all_record">清除所有记录</string>
     
-
     <string name="preference_key_tts_music">tts_music</string>
     <string name="preference_title_tts_music">背景音乐</string>
     <string name="preference_default_tts_music">0</string>

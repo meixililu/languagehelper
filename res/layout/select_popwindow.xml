@@ -1,32 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white" >
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="100dp"
-    android:layout_height="90dp"
-    android:background="#bb000000"
-    >
-    
-	<TextView
-		android:id="@+id/select_popwindow_text1"
-	    android:layout_width="fill_parent"
-	    android:layout_height="45dip"
-	    android:textColor="@color/white"
-	    android:text="收藏记录"
-	    android:textSize="@dimen/bigger"
-	    android:gravity="center"
-	    android:background="@drawable/text_selector"
-		/>
-		
-	<TextView
-		android:id="@+id/select_popwindow_text2"
-	    android:layout_width="fill_parent"
-	    android:layout_height="45dip"
-	    android:textColor="@color/white"
-	    android:text="关于"
-	    android:textSize="@dimen/bigger"
-	    android:gravity="center"
-	    android:background="@drawable/text_selector"
-		/>		       
-	
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:id="@+id/select_popwindow_text1_cover"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:foreground="@drawable/framelayout_selector" >
+
+            <TextView
+                android:id="@+id/select_popwindow_text1"
+                android:layout_width="fill_parent"
+                android:layout_height="60dip"
+                android:gravity="center"
+                android:text="文字"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/bigger" />
+        </FrameLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:src="@color/lightgrey" />
+
+        <FrameLayout
+            android:id="@+id/select_popwindow_text2_cover"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:foreground="@drawable/framelayout_selector" >
+
+            <TextView
+                android:id="@+id/select_popwindow_text2"
+                android:layout_width="fill_parent"
+                android:layout_height="60dip"
+                android:gravity="center"
+                android:text="图片（推荐）"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/bigger" />
+        </FrameLayout>
+    </LinearLayout>
+
+</RelativeLayout>

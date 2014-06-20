@@ -66,7 +66,7 @@
 		        android:background="@color/line_color_gray" />
             <FrameLayout 
 		        android:id="@+id/record_to_practice"
-		        android:layout_width="40dp"
+		        android:layout_width="35dp"
 		        android:layout_height="fill_parent"
 		        android:foreground="@drawable/framelayout_selector"
 		        >
@@ -92,7 +92,7 @@
     <LinearLayout
         android:id="@+id/more_layout"
         android:layout_width="fill_parent"
-        android:layout_height="33dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="1px"
         android:layout_marginLeft="1px"
         android:layout_marginRight="1px"
@@ -106,12 +106,11 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:foreground="@drawable/framelayout_selector"
-            android:paddingBottom="3dp"
-            android:paddingTop="3dp" >
+            >
 
             <ImageButton
-                android:layout_width="@dimen/list_icon_size"
-                android:layout_height="@dimen/list_icon_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@drawable/delete"
                 android:clickable="false" />
@@ -130,12 +129,11 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:foreground="@drawable/framelayout_selector"
-            android:paddingBottom="3dp"
-            android:paddingTop="3dp" >
+            >
 
             <ImageButton
-                android:layout_width="@dimen/list_item_icon"
-                android:layout_height="@dimen/list_item_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@drawable/icon_copy_d"
                 android:clickable="false" />
@@ -154,13 +152,12 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:foreground="@drawable/framelayout_selector"
-            android:paddingBottom="3dp"
-            android:paddingTop="3dp" >
+            >
 
             <CheckBox
                 android:id="@+id/collected_cb"
-                android:layout_width="@dimen/list_item_icon"
-                android:layout_height="@dimen/list_item_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:enabled="false"
                 android:focusable="false"
@@ -182,12 +179,11 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:foreground="@drawable/framelayout_selector"
-            android:paddingBottom="3dp"
-            android:paddingTop="3dp" >
+            >
 
             <ImageButton
-                android:layout_width="@dimen/list_item_icon"
-                android:layout_height="@dimen/list_item_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@drawable/icon_weixin"
                 android:clickable="false" />
@@ -206,13 +202,12 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:foreground="@drawable/framelayout_selector"
-            android:paddingBottom="3dp"
-            android:paddingTop="3dp" >
+            >
 
             <ImageButton
                 android:id="@+id/voice_play"
-                android:layout_width="@dimen/list_item_icon"
-                android:layout_height="@dimen/list_item_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@drawable/voice_play"
                 android:clickable="false" />
