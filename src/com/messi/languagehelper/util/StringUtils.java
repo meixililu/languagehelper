@@ -13,6 +13,18 @@ public class StringUtils {
 			}
 		}
 	}
+	public static boolean isEnglish(String content) {
+		boolean isEnglish = true;
+		char[] ch = content.toCharArray();
+		for (int i = 0; i < ch.length; i++) {
+			char c = ch[i];
+			if (isChinese(c)) {
+				isEnglish = false;
+				break;
+			}
+		}
+		return isEnglish;
+	}
 
 	// 根据Unicode编码完美的判断中文汉字和符号
 	private static boolean isChinese(char c) {

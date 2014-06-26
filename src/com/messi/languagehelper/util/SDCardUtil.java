@@ -19,15 +19,15 @@ public class SDCardUtil {
 	/**sdcard路径
 	 * @return
 	 */
-	public static String getDownloadPath() {
+	public static String getDownloadPath(String sdCardPath) {
 		File SDdir = null;
 		boolean sdCardExist = Environment.getExternalStorageState().equals( android.os.Environment.MEDIA_MOUNTED);
 		if (sdCardExist) {
 			SDdir = Environment.getExternalStorageDirectory();
 		}
 		if (SDdir != null) {
-			String path = SDdir.getPath();
-//			isFileExists(path);
+			String path = SDdir.getPath() + sdCardPath;
+			isFileExists(path);
 			return path;
 		} else {
 			return null;
@@ -42,7 +42,7 @@ public class SDCardUtil {
 	}
 	
 	public static String isDirExits(Context mContext,String path) throws IOException{
-		String sdcard = getDownloadPath();
+		String sdcard = getDownloadPath(path);
 		if(!TextUtils.isEmpty(path)){
 			File sdDir = new File(sdcard + path);
 			if(!sdDir.exists()){
@@ -78,4 +78,41 @@ public class SDCardUtil {
 		}
 		return filePath;
 	}
+	
+	/**删除内部存储中之前下载的文件
+	 * @param mContext
+	 */
+	public static void deleteOldFile(){
+		String path = getDownloadPath(SDCardUtil.sdPath);
+		File file = new File(path);
+		deleteFileInDir(file);
+	}
+	
+	/**删除文件夹里面的所有文件
+	 * @param cacheDir
+	 */
+	public static void deleteFileInDir(File cacheDir){
+		if(cacheDir.isDirectory()){
+			File[] files = cacheDir.listFiles();  
+			for (int i = 0; i < files.length; i++) {  
+				if (files[i].isFile()) {  
+					boolean flag = deleteFile(files[i].getAbsolutePath());  
+					if (!flag) break;  
+				} 
+			}
+		}
+	}
+	
+	/**删除文件夹里面的单个文件
+	 * @param sPath
+	 * @return
+	 */
+	public static boolean deleteFile(String sPath) {  
+		File file = new File(sPath);  
+	    /**路径为文件且不为空则进行删除**/  
+	    if (file.isFile() && file.exists()) {  
+	        return file.delete();  
+	    }  
+	    return false;  
+	}  
 }

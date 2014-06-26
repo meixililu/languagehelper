@@ -173,8 +173,8 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler,
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0,0,0,this.getResources().getString(R.string.menu_share)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-		menu.add(0,1,1,this.getResources().getString(R.string.menu_settings)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+		menu.add(0,0,0,this.getResources().getString(R.string.menu_share)).setIcon(R.drawable.icon_share).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+//		menu.add(0,1,1,this.getResources().getString(R.string.menu_settings)).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 		return true;
 	}
 	
@@ -189,10 +189,10 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler,
 			toShareActivity();
 			StatService.onEvent(this, "1.8_menu_to_share_activity", "去自定义分享页面", 1);
 			break;
-		case 1:  
-			toSettingActivity();
-			StatService.onEvent(this, "1.8_menu_to_settings", "语速调节", 1);
-			break;
+//		case 1:  
+//			toSettingActivity();
+//			StatService.onEvent(this, "1.8_menu_to_settings", "语速调节", 1);
+//			break;
 		}
        return true;
 	}
@@ -291,23 +291,8 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler,
 			 menu();
 			 StatService.onEvent(this, "1.6_xitongmenu", "系统菜单按钮", 1);
 			 return true;
-		case KeyEvent.KEYCODE_VOLUME_UP:
-			 adjustStreamVolume(keyCode);
-	         return true;
-	    case KeyEvent.KEYCODE_VOLUME_DOWN:
-	    	 adjustStreamVolume(keyCode);
-		     return true;
 		}
 		return super.onKeyDown(keyCode, event);
-	}
-	
-	private void adjustStreamVolume(int action){
-		AudioManager mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE); 
-		if(action == KeyEvent.KEYCODE_VOLUME_UP){
-			mAudioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, AudioManager.FLAG_SHOW_UI);
-		}else{
-			mAudioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_LOWER, AudioManager.FLAG_SHOW_UI);
-		}
 	}
 	
 	@Override

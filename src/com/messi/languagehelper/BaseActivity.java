@@ -1,12 +1,14 @@
 package com.messi.languagehelper;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 import com.baidu.mobstat.StatService;
+import com.messi.languagehelper.util.AudioTrackUtil;
 
 public class BaseActivity extends SherlockFragmentActivity {
 
@@ -45,5 +47,18 @@ public class BaseActivity extends SherlockFragmentActivity {
 			finish();
 		}
        return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		switch (keyCode) {
+		case KeyEvent.KEYCODE_VOLUME_UP:
+			 AudioTrackUtil.adjustStreamVolume(BaseActivity.this,keyCode);
+	         return true;
+	    case KeyEvent.KEYCODE_VOLUME_DOWN:
+	    	 AudioTrackUtil.adjustStreamVolume(BaseActivity.this,keyCode);
+		     return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 }

@@ -2,6 +2,7 @@ package com.messi.languagehelper.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.text.TextUtils;
 
 import com.iflytek.cloud.speech.RecognizerListener;
@@ -74,34 +75,21 @@ public class XFUtil {
 		mSpeechSynthesizer.startSpeaking(source, mSynthesizerListener);
 	}
 	
-	/**
-	 * 弹出合成Dialog，进行语音合成
-	 * @param
+	/**set speaker
+	 * @param language
 	 */
-	public static void showSynDialog(String source,SpeechRecognizer ttsDialog)
-	{
-		
+	public static void setSpeakLanguage(Context mContext,SharedPreferences mSharedPreferences,String language){
+		Editor mEditor = mSharedPreferences.edit();
+		if(language.equals(VoiceEngineCH)){
+			mEditor.putString(mContext.getString(R.string.preference_key_recognizer),XFUtil.VoiceEngineCH);
+			mEditor.putString(mContext.getString(R.string.preference_key_accent),"mandarin");
+		}else if(language.equals(VoiceEngineHK)){
+			mEditor.putString(mContext.getString(R.string.preference_key_recognizer), XFUtil.VoiceEngineCH);
+			mEditor.putString(mContext.getString(R.string.preference_key_accent), "cantonese");
+		}else if(language.equals(VoiceEngineEN)){
+			mEditor.putString(mContext.getString(R.string.preference_key_recognizer),XFUtil.VoiceEngineEN);
+			mEditor.putString(mContext.getString(R.string.preference_key_accent), "");
+		}
+		mEditor.commit();
 	}
-	
-	public static void showIatDialog(SpeechUser iatDialog,String engine) {
-//		// 设置转写Dialog的引擎和poi参数.
-//		iatDialog.setEngine(engine, "", null);
-////		iatDialog.setEngine("sms-en","", null);英文
-////		iatDialog.setEngine("sms","accent=cantonese", null);粤语
-////		iatDialog.setEngine("sms", "", null);中文
-//		iatDialog.showMoreButton(false);
-//		// 设置采样率参数，由于绝大部分手机只支持8K和16K，所以设置11K和22K采样率将无法启动录音.
-//		String rate = "rate16k";
-//		if (rate.equals("rate8k"))
-//			iatDialog.setSampleRate(RATE.rate8k);
-//		else if (rate.equals("rate11k"))
-//			iatDialog.setSampleRate(RATE.rate11k);
-//		else if (rate.equals("rate16k"))
-//			iatDialog.setSampleRate(RATE.rate16k);
-//		else if (rate.equals("rate22k"))
-//			iatDialog.setSampleRate(RATE.rate22k);
-//		// 弹出转写Dialog.
-//		iatDialog.show();
-	}
-
 }

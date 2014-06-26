@@ -103,10 +103,12 @@ public class MainFragment extends Fragment implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		LogUtil.DefalutLog("MainFragment-onCreate");
 	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		LogUtil.DefalutLog("MainFragment-onCreateView");
 		view = inflater.inflate(R.layout.activity_main, null);
 		init();
 		return view;
@@ -149,6 +151,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity());
 		recognizer = SpeechRecognizer.createRecognizer(getActivity());
 		
+		initLanguage();
 		submit_btn.setOnClickListener(this);
 		cb_speak_language_ch.setOnClickListener(this);
 		cb_speak_language_en.setOnClickListener(this);
@@ -161,15 +164,33 @@ public class MainFragment extends Fragment implements OnClickListener {
 		recent_used_lv.setAdapter(mAdapter);
 		
 		getAccent();
-		String selectedLanguage = getSpeakLanguage();
-		if(selectedLanguage.equals(XFUtil.VoiceEngineCH)){
-			cb_speak_language_ch.setChecked(true);
-			cb_speak_language_en.setChecked(false);
-		}else{
-			cb_speak_language_ch.setChecked(false);
-			cb_speak_language_en.setChecked(true);
-		}
+		
 		speed = mSharedPreferences.getInt(getString(R.string.preference_key_tts_speed), 50);
+	}
+	
+	private void initLanguage(){
+		if(mSharedPreferences != null){
+			String selectedLanguage = getSpeakLanguage();
+			if(selectedLanguage.equals(XFUtil.VoiceEngineCH)){
+				XFUtil.setSpeakLanguage(getActivity(),mSharedPreferences,XFUtil.VoiceEngineCH);
+				cb_speak_language_ch.setChecked(true);
+				cb_speak_language_en.setChecked(false);
+			}else{
+				XFUtil.setSpeakLanguage(getActivity(),mSharedPreferences,XFUtil.VoiceEngineEN);
+				cb_speak_language_ch.setChecked(false);
+				cb_speak_language_en.setChecked(true);
+			}
+		}
+	}
+	
+	private void resetLanguage(){
+		if(mSharedPreferences != null && cb_speak_language_ch != null){
+			if(cb_speak_language_ch.isChecked()){
+				XFUtil.setSpeakLanguage(getActivity(),mSharedPreferences,XFUtil.VoiceEngineCH);
+			}else{
+				XFUtil.setSpeakLanguage(getActivity(),mSharedPreferences,XFUtil.VoiceEngineEN);
+			}
+		}
 	}
 	
 	@Override
@@ -193,7 +214,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 			}	
 		}else if (v.getId() == R.id.cb_speak_language_ch) {
 			cb_speak_language_en.setChecked(false);
-			setSpeakLanguage(XFUtil.VoiceEngineCH);
+			XFUtil.setSpeakLanguage(getActivity(),mSharedPreferences,XFUtil.VoiceEngineCH);
 			if(isSpeakYueyu){
 				ToastUtil.diaplayMesShort(getActivity(), getActivity().getResources().getString(R.string.speak_chinese));
 			}else{
@@ -202,7 +223,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 			StatService.onEvent(getActivity(), "1.6_putonghuabtn", "普通话按钮", 1);
 		}else if (v.getId() == R.id.cb_speak_language_en) {
 			cb_speak_language_ch.setChecked(false);
-			setSpeakLanguage(XFUtil.VoiceEngineEN);
+			XFUtil.setSpeakLanguage(getActivity(),mSharedPreferences,XFUtil.VoiceEngineEN);
 			ToastUtil.diaplayMesShort(getActivity(), getActivity().getResources().getString(R.string.speak_english));
 			StatService.onEvent(getActivity(), "1.6_yingyubtn", "英语按钮", 1);
 		}
@@ -211,21 +232,24 @@ public class MainFragment extends Fragment implements OnClickListener {
 	@Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        LogUtil.DefalutLog("MainFragment-setUserVisibleHint");
         if (isVisibleToUser) {
         	if(isRefresh){
         		isRefresh = false;
         		new WaitTask().execute();
         	}
+        	resetLanguage();
         }
 	}
 	
 	@Override
 	public void onResume() {
 		super.onResume();
+		LogUtil.DefalutLog("MainFragment-onResume");
 		if(isSpeakYueyuNeedUpdate){
         	getAccent();
         	if(cb_speak_language_ch.isChecked()){
-        		setSpeakLanguage(XFUtil.VoiceEngineCH);
+        		XFUtil.setSpeakLanguage(getActivity(),mSharedPreferences,XFUtil.VoiceEngineCH);
         	}
         	isSpeakYueyuNeedUpdate = false;
         }
@@ -270,26 +294,6 @@ public class MainFragment extends Fragment implements OnClickListener {
 	 */
 	private String getSpeakLanguage(){
 		return mSharedPreferences.getString(this.getString(R.string.preference_key_recognizer), XFUtil.VoiceEngineCH);
-	}
-	
-	/**set speaker
-	 * @param language
-	 */
-	private void setSpeakLanguage(String language){
-		Editor mEditor = mSharedPreferences.edit();
-		if(language.equals(XFUtil.VoiceEngineCH)){
-			if(isSpeakYueyu){
-				mEditor.putString(this.getString(R.string.preference_key_recognizer), XFUtil.VoiceEngineCH);
-				mEditor.putString(this.getString(R.string.preference_key_accent), "cantonese");
-			}else{
-				mEditor.putString(this.getString(R.string.preference_key_recognizer),XFUtil.VoiceEngineCH);
-				mEditor.putString(this.getString(R.string.preference_key_accent),"mandarin");
-			}
-		}else if(language.equals(XFUtil.VoiceEngineEN)){
-			mEditor.putString(this.getString(R.string.preference_key_recognizer),XFUtil.VoiceEngineEN);
-			mEditor.putString(this.getString(R.string.preference_key_accent), "");
-		}
-		mEditor.commit();
 	}
 	
 	/**

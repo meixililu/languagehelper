@@ -94,20 +94,20 @@ public class ImgShareActivity extends BaseActivity implements OnClickListener {
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0,0,0,this.getResources().getString(R.string.menu_share))
-		.setIcon(R.drawable.icon_share)
-		.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+//		menu.add(0,0,0,this.getResources().getString(R.string.menu_share))
+//		.setIcon(R.drawable.icon_share)
+//		.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		return true;
 	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case 0:  
-			share();
-			StatService.onEvent(this, "1.8_menu_to_share_activity", "去自定义分享页面", 1);
-			break;
-		}
+//		switch (item.getItemId()) {
+//		case 0:  
+//			share();
+//			StatService.onEvent(this, "1.8_menu_to_share_activity", "去自定义分享页面", 1);
+//			break;
+//		}
 		return super.onOptionsItemSelected(item);
 	}
 

@@ -29,6 +29,7 @@ import com.iflytek.cloud.speech.SpeechSynthesizer;
 import com.iflytek.cloud.speech.SynthesizerListener;
 import com.messi.languagehelper.CollectedFragment;
 import com.messi.languagehelper.ImgShareActivity;
+import com.messi.languagehelper.LanguageApplication;
 import com.messi.languagehelper.MainFragment;
 import com.messi.languagehelper.PracticeActivity;
 import com.messi.languagehelper.R;
@@ -164,6 +165,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(context,PracticeActivity.class);
+				LanguageApplication.dataMap.put(KeyUtil.DialogBeanKey, mBean);
 				context.startActivity(intent);
 				StatService.onEvent(context, "1.8_to_practice", "去口语练页面", 1);
 			}
@@ -276,7 +278,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		}
 	}
 
-	private class MyOnClickListener implements OnClickListener {
+	public class MyOnClickListener implements OnClickListener {
 		
 		private DialogBean mBean;
 		private ImageButton voice_play;
@@ -295,7 +297,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		@Override
 		public void onClick(final View v) {
 			ShowView.showIndexPageGuide(context, SharedPreferencesUtil.IsHasShowClickText);
-			String path = SDCardUtil.getDownloadPath();
+			String path = SDCardUtil.getDownloadPath(SDCardUtil.sdPath);
 			if(TextUtils.isEmpty(mBean.getResultVoiceId()) || TextUtils.isEmpty(mBean.getQuestionVoiceId())){
 				mBean.setQuestionVoiceId(System.currentTimeMillis() + "");
 				mBean.setResultVoiceId(System.currentTimeMillis()-5 + "");

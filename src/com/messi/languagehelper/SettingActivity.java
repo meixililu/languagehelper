@@ -11,6 +11,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.messi.languagehelper.db.DataBaseUtil;
+import com.messi.languagehelper.util.SDCardUtil;
 import com.messi.languagehelper.util.SharedPreferencesUtil;
 import com.messi.languagehelper.util.ToastUtil;
 
@@ -76,6 +77,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 			new DataBaseUtil(SettingActivity.this).clearAll();
 			MainFragment.isRefresh = true;
 			CollectedFragment.isRefresh = true;
+			SDCardUtil.deleteOldFile();
 			ToastUtil.diaplayMesShort(SettingActivity.this, this.getResources().getString(R.string.clear_success));
 			break;
 		default:
