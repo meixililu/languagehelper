@@ -28,6 +28,7 @@
     
     <string name="speak_english">please tap mic to speak english</string>
     <string name="speak_chinese">please tap mic to speak chinese</string>
+    <string name="your_turn">Your Turn</string>
     
     <string name="app_id">50aa1213</string>
     <string name="preference_default_iat_engine_en">sms-en</string>
@@ -90,23 +91,23 @@
 	<string name="zyzs_prompt">让学习日语口语变得省时给力，近乎完美的情景对话模拟时时给你惊喜，成为当之无愧的日语学习利器。中日助手，充分激发日语潜能的“荷尔蒙”！ 你，还在等什么？！</string>
 	<string name="yyzs_prompt">国语和粤语的完美转换，让说粤语随心所欲，无视粤语电影电视剧的中文字幕，粤语歌曲统统不在话下。粤语助手，等你来show！</string>
 	
-	<string name="recent_use_footer_prompt">prompt</string>
-	<string name="recent_use_footer_prompt_content">\t此处只保存100条最近翻译记录，常用的请收藏。目前机器翻译都不可能百分百准确，
-	    谢谢您的理解，我们会不断改进软件，为您提供更多更好的服务。</string>
+	<string name="recent_use_footer_prompt">Prompt</string>
+	<string name="recent_use_footer_prompt_content">\tHere only save 100 record，you also can collect which you like.
+	    And we are trying to improve the translate result and the software,thank you.</string>
 	    
 	<string name="textclickguidedialog_title">I only show once</string>
-	<string name="textclickguidedialog_content">\tyou also can click the亲，点击翻译内容和结果即可播放语音。</string>
-	<string name="textclickguidedialog_content1">\t应用设置可以调节语音播放速度。</string>
+	<string name="textclickguidedialog_content">\t Click the content and result also will play the speech.</string>
+	<string name="textclickguidedialog_content1">\t You can change the speech speed in Settings.</string>
 	<string name="textclickguidedialog_konw">I know</string>
 	
-	<string name="about_play_title">关于语音播报</string>
-	<string name="about_play_content">点击文字即可播放相应的内容，点击喇叭默认播放翻译的结果。</string>
+	<string name="about_play_title">About Voice Broadcast</string>
+	<string name="about_play_content">Click the content and result will play the speech.</string>
 	
-	<string name="about_speed_title">关于语音朗读速度</string>
-	<string name="about_speed_content">可以在应用设置里面调节语音播放的速度。</string>
+	<string name="about_speed_title">About Speech Speed</string>
+	<string name="about_speed_content">You can change the speech speed in Settings.</string>
 	
-	<string name="about_volume_title">关于音量</string>
-	<string name="about_volume_content">直接通过手机音量键来调节大小。</string>
+	<string name="about_volume_title">About Volume</string>
+	<string name="about_volume_content">Click the volume keys to adjust.</string>
 	
 	<string name="practice_prompt_english">Click Start to speak english</string>
 	<string name="practice_prompt_chinese">Click Start to speak chinese</string>

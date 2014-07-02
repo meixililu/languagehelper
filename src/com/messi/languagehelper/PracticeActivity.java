@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.baidu.mobstat.StatService;
 import com.iflytek.cloud.speech.RecognizerListener;
 import com.iflytek.cloud.speech.RecognizerResult;
 import com.iflytek.cloud.speech.SpeechConstant;
@@ -138,9 +139,11 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 		switch (v.getId()) { 
 		case R.id.speak_round_layout:
 			showIatDialog();
+			StatService.onEvent(PracticeActivity.this, "1.8_practice_speak_btn", "口语练习-说话按钮", 1);
 			break;
 		case R.id.practice_page_exchange:
 			exchangeContentAndResult();
+			StatService.onEvent(PracticeActivity.this, "1.8_practice_exchange_btn", "口语练习-互换按钮", 1);
 			break;
 		default:
 			break;
@@ -208,7 +211,7 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 		if(isFollow){
 			isFollow = false;
 			record_animation_layout.setVisibility(View.VISIBLE);
-			record_animation_text.setText("Your Turn");
+			record_animation_text.setText(this.getResources().getString(R.string.your_turn));
 			animation();
 		}
 	}
@@ -229,7 +232,7 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 		ObjectAnimator mObjectAnimator = ObjectAnimator.ofFloat(record_animation_layout, "alpha", 1, 0f);
 		mObjectAnimator.addListener(mAnimatorListenerReward);
 		mObjectAnimator.setStartDelay(300);
-		mObjectAnimator.setDuration(2000).start();
+		mObjectAnimator.setDuration(1500).start();
 	}
 	
 	private AnimatorListener mAnimatorListenerReward = new AnimatorListener() {
@@ -424,13 +427,11 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 			}else{
 				playLocalPcm(filepath,animationDrawable);
 			}
-//			if(v.getId() == R.id.record_question_cover){
-//				StatService.onEvent(PracticeActivity.this, "1.7_play_content", "点击翻译内容", 1);
-//			}else if(v.getId() == R.id.record_answer_cover){
-//				StatService.onEvent(PracticeActivity.this, "1.7_play_result", "点击翻译结果", 1);
-//			}else if(v.getId() == R.id.voice_play_layout){
-//				StatService.onEvent(PracticeActivity.this, "1.6_playvoicebtn", "播放按钮", 1);
-//			}
+			if(v.getId() == R.id.record_question_cover){
+				StatService.onEvent(PracticeActivity.this, "1.8_practice_play_content", "口语练习-点击翻译内容", 1);
+			}else if(v.getId() == R.id.record_answer_cover){
+				StatService.onEvent(PracticeActivity.this, "1.8_practice_play_result", "口语练习-点击翻译结果", 1);
+			}
 		}
 	}
 	

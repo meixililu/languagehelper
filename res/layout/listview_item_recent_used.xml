@@ -79,6 +79,17 @@
 			        android:textColor="@color/text_grey"
 			        android:textSize="@dimen/big" 
 			        />
+			    <ImageView 
+			        android:id="@+id/unread_dot"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:src="@drawable/unread_dot"
+			        android:layout_gravity="top|right"
+			        android:layout_marginRight="3dp"
+			        android:layout_marginTop="3dp"
+			        android:visibility="gone"
+			        />
+			    
 		    </FrameLayout>
         </LinearLayout>
         

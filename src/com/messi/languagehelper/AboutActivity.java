@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
+import com.baidu.mobstat.StatService;
 
 public class AboutActivity extends BaseActivity implements OnClickListener {
 
@@ -32,6 +33,7 @@ public class AboutActivity extends BaseActivity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.email_layout:
 			contantUs(AboutActivity.this);
+			StatService.onEvent(this, "1.6_about_email", "发送email", 1);
 			break;
 		default:
 			break;

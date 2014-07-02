@@ -123,6 +123,14 @@ public class MainFragment extends Fragment implements OnClickListener {
 	private void init() {
 		mInflater = LayoutInflater.from(getActivity());
 		mSharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Activity.MODE_PRIVATE);
+		
+		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity());
+		recognizer = SpeechRecognizer.createRecognizer(getActivity());
+		mDataBaseUtil = new DataBaseUtil(getActivity());
+		beans = mDataBaseUtil.getDataList(0, Settings.offset);
+		mAdapter = new CollectedListItemAdapter(getActivity(), mInflater, beans, 
+				mSpeechSynthesizer, mSharedPreferences, mDataBaseUtil, bundle, "MainFragment");
+		
 		recent_used_lv = (ListView) view.findViewById(R.id.recent_used_lv);
 		input_et = (EditText) view.findViewById(R.id.input_et);
 		submit_btn = (FrameLayout) view.findViewById(R.id.submit_btn_layout);
@@ -143,13 +151,11 @@ public class MainFragment extends Fragment implements OnClickListener {
 			baidu_translate = (LinearLayout) listviewFooter.findViewById(R.id.baidu_translate);
 			baidu_translate.setOnClickListener(this);
 			SharedPreferencesUtil.saveBoolean(mSharedPreferences, SharedPreferencesUtil.IsHasShowBaiduMessage, true);
+			initSample();
 		}else{
 			baidu_tranlate_prompt.setVisibility(View.GONE);
 		}
 		recent_used_lv.addFooterView(listviewFooter);
-		
-		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity());
-		recognizer = SpeechRecognizer.createRecognizer(getActivity());
 		
 		initLanguage();
 		submit_btn.setOnClickListener(this);
@@ -157,15 +163,17 @@ public class MainFragment extends Fragment implements OnClickListener {
 		cb_speak_language_en.setOnClickListener(this);
 		speak_round_layout.setOnClickListener(this);
 		clear_btn_layout.setOnClickListener(this);
-		mDataBaseUtil = new DataBaseUtil(getActivity());
-		beans = mDataBaseUtil.getDataList(0, Settings.offset);
-		mAdapter = new CollectedListItemAdapter(getActivity(), mInflater, beans, 
-				mSpeechSynthesizer, mSharedPreferences, mDataBaseUtil, bundle, "MainFragment");
+		
 		recent_used_lv.setAdapter(mAdapter);
 		
 		getAccent();
-		
 		speed = mSharedPreferences.getInt(getString(R.string.preference_key_tts_speed), 50);
+	}
+	
+	private void initSample(){
+		DialogBean sampleBean = new DialogBean("Click the mic to speak", "点击话筒说话");
+		long newRowId = mDataBaseUtil.insert(sampleBean);
+		beans.add(0,sampleBean);
 	}
 	
 	private void initLanguage(){

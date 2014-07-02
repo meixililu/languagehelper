@@ -116,9 +116,11 @@ public class ImgShareActivity extends BaseActivity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.share_btn_cover:
 			share();
+			StatService.onEvent(ImgShareActivity.this, "1.8_img_share_btn", "点击图片分享页面分享按钮", 1);
 			break;
 		case R.id.share_foot:
 			share_foot.setVisibility(View.GONE);
+			StatService.onEvent(ImgShareActivity.this, "1.8_img_share_hide", "点击图片分享页面隐藏文字按钮", 1);
 			break;
 		default:
 			break;

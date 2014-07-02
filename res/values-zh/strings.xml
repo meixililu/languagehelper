@@ -60,6 +60,7 @@
     <string name="i_speak_cantonese">我说是粤语</string>
     <string name="clear_all_except_favorite">保留收藏记录，清除其他所有记录</string>
     <string name="clear_all_record">清除所有记录</string>
+    <string name="clear_success">清除成功</string>
     
     <string name="preference_key_tts_music">tts_music</string>
     <string name="preference_title_tts_music">背景音乐</string>
@@ -75,6 +76,7 @@
     
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="your_turn">到你啦</string>
     
     <string name="errcode_success">发送成功</string>
 	<string name="errcode_cancel">发送取消</string>

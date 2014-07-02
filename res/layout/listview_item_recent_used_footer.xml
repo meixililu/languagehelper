@@ -44,25 +44,10 @@
                 android:layout_gravity="bottom"
                 android:gravity="bottom"
                 android:padding="0dp"
-                android:text="结果由"
+                android:text="结果由百度翻译提供"
                 android:textColor="@color/gray"
                 android:textSize="@dimen/small" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="1dp"
-                android:src="@drawable/baidu" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:gravity="bottom"
-                android:padding="0dp"
-                android:text="提供"
-                android:textColor="@color/gray"
-                android:textSize="@dimen/small" />
         </LinearLayout>
     </LinearLayout>
     

@@ -243,9 +243,9 @@
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:shadowColor="@color/green"
-            android:shadowDx="0.8"
-            android:shadowDy="0.8"
-            android:shadowRadius="0.8"
+            android:shadowDx="0.5"
+            android:shadowDy="0.5"
+            android:shadowRadius="0.5"
             android:text="Listen"
             android:textColor="@color/green"
             android:textSize="@dimen/action_size" />

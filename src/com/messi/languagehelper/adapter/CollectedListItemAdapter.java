@@ -18,6 +18,7 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +45,7 @@ import com.messi.languagehelper.util.BaiduStatistics;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.SDCardUtil;
+import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.SharedPreferencesUtil;
 import com.messi.languagehelper.util.ShowView;
 import com.messi.languagehelper.util.ToastUtil;
@@ -89,7 +91,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		LogUtil.DefalutLog("CollectedListItemAdapter---getView");
-		ViewHolder holder;
+		final ViewHolder holder;
 		if (convertView == null) {
 			convertView = mInflater.inflate(R.layout.listview_item_recent_used, null);
 			holder = new ViewHolder();
@@ -98,6 +100,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 			holder.record_to_practice = (FrameLayout) convertView.findViewById(R.id.record_to_practice);
 			holder.record_question = (TextView) convertView.findViewById(R.id.record_question);
 			holder.record_answer = (TextView) convertView.findViewById(R.id.record_answer);
+			holder.unread_dot = (ImageView) convertView.findViewById(R.id.unread_dot);
 			holder.voice_play = (ImageButton) convertView.findViewById(R.id.voice_play);
 			holder.collected_cb = (CheckBox) convertView.findViewById(R.id.collected_cb);
 			holder.voice_play_layout = (FrameLayout) convertView.findViewById(R.id.voice_play_layout);
@@ -120,6 +123,13 @@ public class CollectedListItemAdapter extends BaseAdapter {
 			holder.collected_cb.setChecked(false);
 		}else{
 			holder.collected_cb.setChecked(true);
+		}
+		if(isFirstLoaded()){
+			if(position == 0){
+				holder.unread_dot.setVisibility(View.VISIBLE);
+			}else{
+				holder.unread_dot.setVisibility(View.GONE);
+			}
 		}
 		holder.record_question.setText(mBean.getQuestion());
 		holder.record_answer.setText(mBean.getAnswer());
@@ -150,7 +160,6 @@ public class CollectedListItemAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				sendToWechat(mBean);
-				StatService.onEvent(context, "1.6_sharebtn", "分享按钮", 1);
 			}
 		});
 		holder.collected_btn.setOnClickListener(new OnClickListener() {
@@ -164,6 +173,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		holder.record_to_practice.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				holder.unread_dot.setVisibility(View.GONE);
 				Intent intent = new Intent(context,PracticeActivity.class);
 				LanguageApplication.dataMap.put(KeyUtil.DialogBeanKey, mBean);
 				context.startActivity(intent);
@@ -171,6 +181,14 @@ public class CollectedListItemAdapter extends BaseAdapter {
 			}
 		});
 		return convertView;
+	}
+	
+	private boolean isFirstLoaded(){
+		boolean result = mSharedPreferences.getBoolean(KeyUtil.IsShowNewFunction, false);
+		if(!result){
+			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsShowNewFunction, true);
+		}
+		return !result;
 	}
 	
 	static class ViewHolder {
@@ -184,6 +202,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		FrameLayout collected_btn;
 		FrameLayout weixi_btn;
 		ImageButton voice_play;
+		ImageView unread_dot;
 		CheckBox collected_cb;
 		FrameLayout voice_play_layout;
 		ProgressBar play_content_btn_progressbar;
@@ -222,10 +241,12 @@ public class CollectedListItemAdapter extends BaseAdapter {
 			@Override
 			public void onSecondClick(View v) {
 				toShareImageActivity(mBean);
+				StatService.onEvent(context, "1.8_to_share_image_btn", "去图片分享页面按钮", 1);
 			}
 			@Override
 			public void onFirstClick(View v) {
 				toShareTextActivity(mBean.getAnswer());
+				StatService.onEvent(context, "1.8_to_share_text_btn", "去文字分享页面按钮", 1);
 			}
 		});
 		mPopDialog.show();

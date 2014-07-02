@@ -8,6 +8,7 @@ public class KeyUtil {
 	
 	public static final String IsFirstLoadPracticePage = "IsFirstLoadPracticePage";
 	
+	public static final String IsShowNewFunction = "IsShowNewFunction";
 	
 	
 	

@@ -8,7 +8,7 @@
 	<dimen name="middle">14sp</dimen>
 	<dimen name="small">12sp</dimen>
 	<dimen name="smaller">8sp</dimen>
-	<dimen name="action_size">48sp</dimen>
+	<dimen name="action_size">36sp</dimen>
 	
 	<dimen name="slidingmenu_offset">150dp</dimen>
 	<dimen name="shadow_width">3dp</dimen>
