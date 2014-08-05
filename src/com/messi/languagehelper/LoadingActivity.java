@@ -22,7 +22,7 @@ public class LoadingActivity extends Activity {
 	
 	// 缓存，保存当前的引擎参数到下一次启动应用程序使用.
 		private SharedPreferences mSharedPreferences;
-		private TextView app_name,subtitle;
+		private View app_logo,subtitle;
 		private TranslateAnimation mHideAnimation;
 
 		@Override
@@ -36,11 +36,11 @@ public class LoadingActivity extends Activity {
 		}
 		
 		private void initViews(){
-			app_name = (TextView)findViewById(R.id.app_name);
-			subtitle = (TextView)findViewById(R.id.subtitle);
+			app_logo = (View)findViewById(R.id.app_logo);
+			subtitle = (View)findViewById(R.id.subtitle);
 			mHideAnimation = new TranslateAnimation(
 					Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, 0.0f,  
-	                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, -0.7f);
+	                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, -0.3f);
 			mHideAnimation.setDuration(400);
 			mHideAnimation.setFillAfter(true);
 			mHideAnimation.setAnimationListener(new AnimationListener() {
@@ -118,7 +118,7 @@ public class LoadingActivity extends Activity {
 
 			@Override
 			protected void onPostExecute(Void result) {
-				app_name.startAnimation(mHideAnimation);
+				app_logo.startAnimation(mHideAnimation);
 			}
 		}
 }

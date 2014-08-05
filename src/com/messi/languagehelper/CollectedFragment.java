@@ -25,13 +25,7 @@ import com.messi.languagehelper.bean.DialogBean;
 import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
-import com.messi.languagehelper.util.ToastUtil;
 import com.messi.languagehelper.wxapi.WXEntryActivity;
-import com.tencent.mm.sdk.openapi.BaseReq;
-import com.tencent.mm.sdk.openapi.BaseResp;
-import com.tencent.mm.sdk.openapi.ConstantsAPI;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 
 public class CollectedFragment extends Fragment implements OnClickListener {
 
@@ -40,7 +34,6 @@ public class CollectedFragment extends Fragment implements OnClickListener {
 	private LayoutInflater mInflater;
 	private CollectedListItemAdapter mAdapter;
 	private List<DialogBean> beans;
-	private IWXAPI api;
 
 	// 识别对象
 	private SpeechRecognizer recognizer;

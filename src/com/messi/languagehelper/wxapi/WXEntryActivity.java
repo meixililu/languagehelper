@@ -16,16 +16,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.Window;
 import com.baidu.mobstat.StatService;
 import com.iflytek.cloud.speech.SpeechUser;
 import com.messi.languagehelper.AboutActivity;
@@ -36,19 +31,10 @@ import com.messi.languagehelper.R;
 import com.messi.languagehelper.RecommendActivity;
 import com.messi.languagehelper.SettingActivity;
 import com.messi.languagehelper.adapter.MainPageAdapter;
-import com.messi.languagehelper.util.KeyUtil;
-import com.messi.languagehelper.util.LogUtil;
-import com.messi.languagehelper.util.ToastUtil;
-import com.messi.languagehelper.util.WechatUtil;
+import com.messi.languagehelper.adapter.MenuListItemAdapter;
 import com.messi.languagehelper.views.PagerSlidingTabStrip;
-import com.tencent.mm.sdk.openapi.BaseReq;
-import com.tencent.mm.sdk.openapi.BaseResp;
-import com.tencent.mm.sdk.openapi.ConstantsAPI;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
-public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler,OnClickListener {
+public class WXEntryActivity extends BaseActivity implements OnClickListener {
 	
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -58,7 +44,6 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler,
 	private MainPageAdapter mAdapter;
 	
 	private String[] mPlanetTitles;
-	private IWXAPI api;
 	private long exitTime = 0;
 	private Bundle bundle;
 	private boolean isRespondWX;
@@ -80,9 +65,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler,
 	
 	private void initDatas(){
 		setMiddleVolume();
-		api = WXAPIFactory.createWXAPI(this, WechatUtil.APP_ID, true);
 		bundle = getIntent().getExtras();
-		api.handleIntent(getIntent(), this);
 		SpeechUser.getUser().login(this, null, null, "appid=" + getString(R.string.app_id), null);
 	}
 	
@@ -96,7 +79,8 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler,
 		viewPager.setAdapter(mAdapter);
 		viewPager.setOffscreenPageLimit(3);
 		indicator.setViewPager(viewPager);
-		mDrawerList.setAdapter(new ArrayAdapter<String>(this,R.layout.drawer_list_item, mPlanetTitles));
+		MenuListItemAdapter adapter = new MenuListItemAdapter(this,mPlanetTitles);
+		mDrawerList.setAdapter(adapter);
         // Set the list's click listener
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 		
@@ -240,49 +224,7 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler,
 			mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, middle, 0);  
 		}
 	}
-	
-	@Override
-	protected void onNewIntent(Intent intent) {
-		super.onNewIntent(intent);
-		setIntent(intent);
-        api.handleIntent(intent, this);
-	}
 
-	@Override
-	public void onReq(BaseReq req) {
-		switch (req.getType()) {
-		case ConstantsAPI.COMMAND_GETMESSAGE_FROM_WX:
-			isRespondWX = true;	
-			LogUtil.DefalutLog("respond wx");
-			break;
-		case ConstantsAPI.COMMAND_SHOWMESSAGE_FROM_WX:
-			isRespondWX = false;	
-			LogUtil.DefalutLog("show message wx");
-			break;
-		}
-	}
-
-	@Override
-	public void onResp(BaseResp resp) {
-		int result = 0;
-		switch (resp.errCode) {
-		case BaseResp.ErrCode.ERR_OK:
-			result = R.string.errcode_success;
-			break;
-		case BaseResp.ErrCode.ERR_USER_CANCEL:
-			result = R.string.errcode_cancel;
-			break;
-		case BaseResp.ErrCode.ERR_AUTH_DENIED:
-			result = R.string.errcode_deny;
-			break;
-		default:
-			result = R.string.errcode_unknown;
-			break;
-		}
-		ToastUtil.diaplayMesShort(this, result);
-		LogUtil.DefalutLog("onResp");
-	}
-	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		switch (keyCode) {

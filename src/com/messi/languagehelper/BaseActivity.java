@@ -22,7 +22,7 @@ public class BaseActivity extends SherlockFragmentActivity {
 		mActionBar = getSupportActionBar();
         mActionBar.setBackgroundDrawable(getResources().getDrawable(R.color.load_blue));
         mActionBar.setDisplayHomeAsUpEnabled(true);
-        mActionBar.setDisplayShowHomeEnabled(true);
+        mActionBar.setDisplayShowHomeEnabled(false);
         mActionBar.setHomeButtonEnabled(true);
         setSupportProgressBarIndeterminateVisibility(false);
 		setSupportProgressBarVisibility(false);

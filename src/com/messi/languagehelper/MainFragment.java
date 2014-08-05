@@ -7,7 +7,6 @@ import org.apache.http.Header;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -48,11 +47,6 @@ import com.messi.languagehelper.util.SharedPreferencesUtil;
 import com.messi.languagehelper.util.ToastUtil;
 import com.messi.languagehelper.util.XFUtil;
 import com.messi.languagehelper.wxapi.WXEntryActivity;
-import com.tencent.mm.sdk.openapi.BaseReq;
-import com.tencent.mm.sdk.openapi.BaseResp;
-import com.tencent.mm.sdk.openapi.ConstantsAPI;
-import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 
 public class MainFragment extends Fragment implements OnClickListener {
 
@@ -73,7 +67,6 @@ public class MainFragment extends Fragment implements OnClickListener {
 	private CollectedListItemAdapter mAdapter;
 	private List<DialogBean> beans;
 	private String dstString = "";
-	private IWXAPI api;
 	private Animation fade_in,fade_out;
 
 	// 识别对象
