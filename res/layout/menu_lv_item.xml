@@ -28,6 +28,7 @@
 	        android:layout_height="wrap_content"
 	        android:src="@drawable/unread_dot"
 	        android:layout_marginRight="10dp"
+	        android:visibility="gone"
 	        />
 	</LinearLayout>
 </FrameLayout>

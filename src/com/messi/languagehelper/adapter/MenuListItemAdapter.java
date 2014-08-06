@@ -19,7 +19,10 @@ import com.messi.languagehelper.HelpActivity;
 import com.messi.languagehelper.R;
 import com.messi.languagehelper.RecommendActivity;
 import com.messi.languagehelper.SettingActivity;
+import com.messi.languagehelper.WebViewActivity;
+import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
+import com.messi.languagehelper.util.Settings;
 
 public class MenuListItemAdapter extends BaseAdapter {
 
@@ -50,7 +53,7 @@ public class MenuListItemAdapter extends BaseAdapter {
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		LogUtil.DefalutLog("CollectedListItemAdapter---getView");
-		ViewHolder holder;
+		final ViewHolder holder;
 		if (convertView == null) {
 			convertView = mInflater.inflate(R.layout.menu_lv_item, null);
 			holder = new ViewHolder();
@@ -62,12 +65,16 @@ public class MenuListItemAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		holder.title.setText(mPlanetTitles[position]);
-		// holder.unread_dot;
+		if(position == 2){
+			if(!mSharedPreferences.getBoolean(KeyUtil.IsShowCailing, false)){
+				 holder.unread_dot.setVisibility(View.VISIBLE);
+			}
+		}
 		
 		holder.cover.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				onItemClick(position);
+				onItemClick(position,holder.unread_dot);
 			}
 		});
 		return convertView;
@@ -79,33 +86,34 @@ public class MenuListItemAdapter extends BaseAdapter {
 		ImageView unread_dot;
 	}
 
-	public void onItemClick(int position) {
+	public void onItemClick(int position,View unreadView) {
 		try {
-			if (position == 2) {
-				Intent intent = new Intent(Intent.ACTION_VIEW);
+			unreadView.setVisibility(View.GONE);
+			Intent intent = new Intent();
+			if (position == 0) {
+				intent.setClass(context, SettingActivity.class);
+				StatService.onEvent(context, "1.6_settingbtn","应用设置按钮", 1);
+			} else if (position == 1) {
+				intent.setClass(context,RecommendActivity.class);
+				StatService.onEvent(context,"1.6_recommendbtn", "推荐应用按钮", 1);
+			} else if (position == 2) {
+				intent.setClass(context,WebViewActivity.class);
+				intent.putExtra(KeyUtil.URL, Settings.CaiLingUrl);
+				intent.putExtra(KeyUtil.ActionbarTitle, "酷炫彩铃");
+				StatService.onEvent(context,"1.9_recommendbtn", "酷炫彩铃", 1);
+				Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsShowCailing, true);
+			} else if (position == 3) {
+				intent.setAction(Intent.ACTION_VIEW);
 				intent.setData(Uri.parse("market://details?id=com.messi.languagehelper"));
-				context.startActivity(intent);
 				StatService.onEvent(context, "1.6_commend","吐槽评价按钮", 1);
+			} else if (position == 4) {
+				intent.setClass(context, HelpActivity.class);
+				StatService.onEvent(context, "1.7_help","使用帮助按钮", 1);
 			} else if (position == 5) {
-				// StatService.onEvent(context, "1.8_contantus",
-				// "联系我们按钮", 1);
-			} else {
-				Intent intent = new Intent();
-				if (position == 0) {
-					intent.setClass(context, SettingActivity.class);
-					StatService.onEvent(context, "1.6_settingbtn","应用设置按钮", 1);
-				} else if (position == 1) {
-					intent.setClass(context,RecommendActivity.class);
-					StatService.onEvent(context,"1.6_recommendbtn", "推荐应用按钮", 1);
-				} else if (position == 3) {
-					intent.setClass(context, HelpActivity.class);
-					StatService.onEvent(context, "1.7_help","使用帮助按钮", 1);
-				} else if (position == 4) {
-					intent.setClass(context, AboutActivity.class);
-					StatService.onEvent(context, "1.6_aboutus","关于我们按钮", 1);
-				}
-				context.startActivity(intent);
+				intent.setClass(context, AboutActivity.class);
+				StatService.onEvent(context, "1.6_aboutus","关于我们按钮", 1);
 			}
+			context.startActivity(intent);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
