@@ -82,8 +82,6 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener {
 		MenuListItemAdapter adapter = new MenuListItemAdapter(this,mPlanetTitles);
 		mDrawerList.setAdapter(adapter);
         // Set the list's click listener
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-		
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 		mDrawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
@@ -103,43 +101,6 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener {
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-	}
-	
-	private class DrawerItemClickListener implements ListView.OnItemClickListener {
-	    @Override
-	    public void onItemClick(AdapterView parent, View view, int position, long id) {
-	    	try {
-				if(position == 2){
-					Intent intent = new Intent(Intent.ACTION_VIEW);
-					intent.setData(Uri.parse("market://details?id=com.messi.languagehelper"));
-					startActivity(intent);
-					StatService.onEvent(WXEntryActivity.this, "1.6_commend", "吐槽评价按钮", 1);
-				}else if(position == 5){
-//					StatService.onEvent(WXEntryActivity.this, "1.8_contantus", "联系我们按钮", 1);
-				}else{
-					Intent intent = new Intent();
-					if(position == 0){
-						intent.setClass(WXEntryActivity.this, SettingActivity.class);
-						StatService.onEvent(WXEntryActivity.this, "1.6_settingbtn", "应用设置按钮", 1);
-					}else if(position == 1){
-						intent.setClass(WXEntryActivity.this, RecommendActivity.class);
-						StatService.onEvent(WXEntryActivity.this, "1.6_recommendbtn", "推荐应用按钮", 1);
-					}else if(position == 3){
-						intent.setClass(WXEntryActivity.this, HelpActivity.class);
-						StatService.onEvent(WXEntryActivity.this, "1.7_help", "使用帮助按钮", 1);
-					}else if(position == 4){
-						intent.setClass(WXEntryActivity.this, AboutActivity.class);
-						StatService.onEvent(WXEntryActivity.this, "1.6_aboutus", "关于我们按钮", 1);
-					}
-					WXEntryActivity.this.startActivity(intent);
-					if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-						mDrawerLayout.closeDrawer(mDrawerList);
-					}
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-	    }
 	}
 	
 	@Override
