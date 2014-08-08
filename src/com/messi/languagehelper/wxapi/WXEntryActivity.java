@@ -36,8 +36,8 @@ import com.messi.languagehelper.views.PagerSlidingTabStrip;
 
 public class WXEntryActivity extends BaseActivity implements OnClickListener {
 	
-	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
+	private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
 	private ViewPager viewPager;
 	private PagerSlidingTabStrip indicator;
@@ -79,7 +79,7 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener {
 		viewPager.setAdapter(mAdapter);
 		viewPager.setOffscreenPageLimit(3);
 		indicator.setViewPager(viewPager);
-		MenuListItemAdapter adapter = new MenuListItemAdapter(this,mPlanetTitles);
+		MenuListItemAdapter adapter = new MenuListItemAdapter(this,mPlanetTitles,mDrawerLayout,mDrawerList);
 		mDrawerList.setAdapter(adapter);
         // Set the list's click listener
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);

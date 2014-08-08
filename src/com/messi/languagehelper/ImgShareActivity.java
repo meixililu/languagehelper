@@ -82,7 +82,7 @@ public class ImgShareActivity extends BaseActivity implements OnClickListener {
 				intent.setType("image/png");    
 				intent.putExtra(Intent.EXTRA_STREAM, uri); 
 				intent.putExtra(Intent.EXTRA_SUBJECT, this.getResources().getString(R.string.share));  
-				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);    
+				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				this.startActivity(Intent.createChooser(intent, this.getResources().getString(R.string.share))); 
 			}    
 		}else{

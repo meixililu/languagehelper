@@ -5,12 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.baidu.mobstat.StatService;
@@ -30,8 +32,11 @@ public class MenuListItemAdapter extends BaseAdapter {
 	private Context context;
 	private String[] mPlanetTitles;
 	private SharedPreferences mSharedPreferences;
+	private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
 
-	public MenuListItemAdapter(Context mContext, String[] mPlanetTitles) {
+	public MenuListItemAdapter(Context mContext, String[] mPlanetTitles,DrawerLayout mDrawerLayout,
+			ListView mDrawerList) {
 		context = mContext;
 		this.mInflater = LayoutInflater.from(mContext);
 		this.mPlanetTitles = mPlanetTitles;
@@ -100,8 +105,10 @@ public class MenuListItemAdapter extends BaseAdapter {
 				intent.setClass(context,WebViewActivity.class);
 				intent.putExtra(KeyUtil.URL, Settings.CaiLingUrl);
 				intent.putExtra(KeyUtil.ActionbarTitle, "酷炫彩铃");
+				if(!mSharedPreferences.getBoolean(KeyUtil.IsShowCailing, false)){
+					 Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsShowCailing, true);
+				}
 				StatService.onEvent(context,"1.9_recommendbtn", "酷炫彩铃", 1);
-				Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsShowCailing, true);
 			} else if (position == 3) {
 				intent.setAction(Intent.ACTION_VIEW);
 				intent.setData(Uri.parse("market://details?id=com.messi.languagehelper"));
@@ -116,6 +123,12 @@ public class MenuListItemAdapter extends BaseAdapter {
 			context.startActivity(intent);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	private void closeMenu(){
+		if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+			mDrawerLayout.closeDrawer(mDrawerList);
 		}
 	}
 

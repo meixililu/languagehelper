@@ -1,5 +1,6 @@
 package com.messi.languagehelper;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,6 +10,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.baidu.mobstat.StatService;
 import com.handmark.pulltorefresh.library.PullToRefreshWebView;
 import com.messi.languagehelper.util.KeyUtil;
 
@@ -68,12 +72,46 @@ public class WebViewActivity extends BaseActivity{
 	}
 	
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add(0,0,0,this.getResources().getString(R.string.menu_share)).setIcon(R.drawable.icon_share).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case 0:  
+			shareLink(Url);
+			StatService.onEvent(this, "1.9_menu_to_share_link", "分享彩铃链接", 1);
+			break;
+		}
+       return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if((keyCode == KeyEvent.KEYCODE_BACK ) && mWebView.getRefreshableView().canGoBack()){
 			mWebView.getRefreshableView().goBack();
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+	
+	private void shareLink(String dstString){
+		Intent intent = new Intent(Intent.ACTION_SEND);    
+		intent.setType("text/plain"); // 纯文本     
+		intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.share));    
+		intent.putExtra(Intent.EXTRA_TEXT, dstString);    
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);    
+		startActivity(Intent.createChooser(intent, getResources().getString(R.string.share)));    
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if(mWebView != null){
+			mWebView.getRefreshableView().destroy();
+		}
 	}
 	
 }
