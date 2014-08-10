@@ -17,7 +17,7 @@ public class Settings {
 	
 	public static final int offset = 100;
 	
-	public static final String CaiLingUrl = "http://api.openspeech.cn/kyls/NTBjMDdmMWQ=";
+	public static final String CaiLingUrl = "http://api.openspeech.cn/kyls/NTBhYTEyMTM=";
 	
 	
 	/**获取配置文件类

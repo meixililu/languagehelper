@@ -81,7 +81,7 @@ public class WebViewActivity extends BaseActivity{
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case 0:  
-			shareLink(Url);
+			shareLink(WebViewActivity.this.getResources().getString(R.string.cailing_ad_prompt));
 			StatService.onEvent(this, "1.9_menu_to_share_link", "分享彩铃链接", 1);
 			break;
 		}
