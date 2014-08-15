@@ -19,6 +19,17 @@ public class Settings {
 	
 	public static final String CaiLingUrl = "http://api.openspeech.cn/kyls/NTBhYTEyMTM=";
 	
+	public static boolean isTodayShow(SharedPreferences mSharedPreferences){
+		String today = TimeUtil.getDate(System.currentTimeMillis());
+		LogUtil.DefalutLog("---isTodayShow---today:"+today);
+		String lastTime = mSharedPreferences.getString(KeyUtil.IsLoadingShowToday, "");
+		if(today.equals(lastTime)){
+			return true;
+		}else{
+			saveSharedPreferences(mSharedPreferences,KeyUtil.IsLoadingShowToday,today);
+			return false;
+		}
+	}
 	
 	/**获取配置文件类
 	 * @param context

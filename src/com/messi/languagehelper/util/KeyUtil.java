@@ -16,6 +16,7 @@ public class KeyUtil {
 	
 	public static final String ActionbarTitle = "ActionbarTitle";
 	
+	public static final String IsLoadingShowToday = "IsLoadingShowToday";
 	
 	
 	

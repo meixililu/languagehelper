@@ -39,6 +39,8 @@ public class MenuListItemAdapter extends BaseAdapter {
 			ListView mDrawerList) {
 		context = mContext;
 		this.mInflater = LayoutInflater.from(mContext);
+		this.mDrawerLayout = mDrawerLayout;
+		this.mDrawerList = mDrawerList;
 		this.mPlanetTitles = mPlanetTitles;
 		mSharedPreferences = context.getSharedPreferences(context.getPackageName(), Activity.MODE_PRIVATE);
 	}
@@ -121,6 +123,7 @@ public class MenuListItemAdapter extends BaseAdapter {
 				StatService.onEvent(context, "1.6_aboutus","关于我们按钮", 1);
 			}
 			context.startActivity(intent);
+			closeMenu();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

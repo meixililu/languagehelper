@@ -12,6 +12,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 
 import com.baidu.mobstat.StatService;
+import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.ShortCut;
 import com.messi.languagehelper.wxapi.WXEntryActivity;
 import com.nineoldandroids.animation.Animator;
@@ -30,12 +31,17 @@ public class LoadingActivity extends Activity {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.loading_activity);
 			mSharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
-			ShortCut.addShortcut(this, mSharedPreferences);
-			initViews();
-			new WaitTask().execute();
+			boolean isShowLoading = Settings.isTodayShow(mSharedPreferences);
+			if(!isShowLoading){
+				init();
+				new WaitTask().execute();
+			}else{
+				toNextPage();
+			}
 		}
 		
-		private void initViews(){
+		private void init(){
+			ShortCut.addShortcut(this, mSharedPreferences);
 			app_logo = (View)findViewById(R.id.app_logo);
 			subtitle = (View)findViewById(R.id.subtitle);
 			mHideAnimation = new TranslateAnimation(
