@@ -3,4 +3,5 @@
     <issue id="NewApi" severity="ignore" />
     <issue id="Override" severity="ignore" />
     <issue id="ResourceAsColor" severity="ignore" />
+    <issue id="SimpleDateFormat" severity="ignore" />
 </lint>
