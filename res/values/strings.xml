@@ -10,6 +10,7 @@
     <string name="title_Practice">Practice</string>
     <string name="title_help">Help</string>
     <string name="title_more">More</string>
+    <string name="title_cailing">Ring</string>
     <string name="title_favorite">Favorite</string>
     <string name="title_settings">Settings</string>
     <string name="title_apps">Apps</string>
@@ -59,6 +60,7 @@
     <string name="play_speed_text">play speed：</string>
     <string name="fifth_normal">normal:50</string>
     <string name="i_speak_cantonese">Speak Cantonese</string>
+    <string name="auto_play_after_translate">Auto Play After Translate</string>
     <string name="clear_all_except_favorite">Clear Records Except Favorites</string>
     <string name="clear_all_record">Clear All Records</string>
     <string name="clear_success">Clear Success</string>

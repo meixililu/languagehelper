@@ -11,18 +11,20 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.baidu.mobstat.StatService;
+import com.messi.languagehelper.MainFragment.AutoPlayWaitTask;
 import com.messi.languagehelper.db.DataBaseUtil;
+import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.SDCardUtil;
-import com.messi.languagehelper.util.SharedPreferencesUtil;
+import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.ToastUtil;
 
 public class SettingActivity extends BaseActivity implements OnClickListener,SeekBar.OnSeekBarChangeListener {
 
 	private TextView seekbar_text;
 	private SeekBar seekbar;
-	private FrameLayout speak_yueyu;
+	private FrameLayout speak_yueyu,auto_play;
 	private FrameLayout clear_all_except_favorite,clear_all;
-	private CheckBox speak_yueyu_cb;
+	private CheckBox speak_yueyu_cb,auto_play_cb;
 	private SharedPreferences mSharedPreferences;
 	
 	@Override
@@ -39,7 +41,9 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
         seekbar_text = (TextView) findViewById(R.id.seekbar_text);
         seekbar = (SeekBar) findViewById(R.id.seekbar);
         speak_yueyu = (FrameLayout) findViewById(R.id.speak_yueyu);
+        auto_play = (FrameLayout) findViewById(R.id.setting_auto_play);
         speak_yueyu_cb = (CheckBox) findViewById(R.id.speak_yueyu_cb);
+        auto_play_cb = (CheckBox) findViewById(R.id.setting_auto_play_cb);
         clear_all_except_favorite = (FrameLayout) findViewById(R.id.setting_clear_all_except_favorite);
         clear_all = (FrameLayout) findViewById(R.id.setting_clear_all);
         
@@ -47,13 +51,16 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
         speak_yueyu.setOnClickListener(this);
         clear_all_except_favorite.setOnClickListener(this);
         clear_all.setOnClickListener(this);
+        auto_play.setOnClickListener(this);
 	}
 	
 	private void initData(){
 		seekbar_text.setText(this.getResources().getString(R.string.play_speed_text) + MainFragment.speed);
 		seekbar.setProgress(MainFragment.speed);
-		boolean checked = mSharedPreferences.getBoolean(SharedPreferencesUtil.SpeakPutonghuaORYueyu, false);
+		boolean checked = mSharedPreferences.getBoolean(KeyUtil.SpeakPutonghuaORYueyu, false);
+		boolean autoplay = mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, true);
 		speak_yueyu_cb.setChecked(checked);
+		auto_play_cb.setChecked(autoplay);
 	}
 
 	@Override
@@ -66,8 +73,17 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 				speak_yueyu_cb.setChecked(true);
 			}
 			MainFragment.isSpeakYueyuNeedUpdate = true;
-			SharedPreferencesUtil.saveBoolean(mSharedPreferences, SharedPreferencesUtil.SpeakPutonghuaORYueyu,
+			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.SpeakPutonghuaORYueyu,
 					speak_yueyu_cb.isChecked());
+			break;
+		case R.id.setting_auto_play:
+			if(auto_play_cb.isChecked()){
+				auto_play_cb.setChecked(false);
+			}else{
+				auto_play_cb.setChecked(true);
+			}
+			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoPlayResult,
+					auto_play_cb.isChecked());
 			break;
 		case R.id.setting_clear_all_except_favorite:
 			new DataBaseUtil(SettingActivity.this).clearExceptFavorite();
@@ -91,7 +107,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		SharedPreferencesUtil.saveInt(mSharedPreferences, 
+		Settings.saveSharedPreferences(mSharedPreferences, 
 				getString(R.string.preference_key_tts_speed),
 				MainFragment.speed);
 	}

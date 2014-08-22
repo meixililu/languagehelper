@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 
+import com.actionbarsherlock.app.SherlockFragment;
 import com.baidu.mobstat.StatService;
 import com.iflytek.cloud.speech.RecognizerListener;
 import com.iflytek.cloud.speech.RecognizerResult;
@@ -41,14 +42,14 @@ import com.messi.languagehelper.http.RequestParams;
 import com.messi.languagehelper.http.TextHttpResponseHandler;
 import com.messi.languagehelper.util.BaiduStatistics;
 import com.messi.languagehelper.util.JsonParser;
+import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
-import com.messi.languagehelper.util.SharedPreferencesUtil;
 import com.messi.languagehelper.util.ToastUtil;
 import com.messi.languagehelper.util.XFUtil;
 import com.messi.languagehelper.wxapi.WXEntryActivity;
 
-public class MainFragment extends Fragment implements OnClickListener {
+public class MainFragment extends SherlockFragment implements OnClickListener {
 
 	private EditText input_et;
 	private FrameLayout submit_btn;
@@ -83,7 +84,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 	private Bundle bundle;
 	public static boolean isRefresh;
 	private View view;
-	private static MainFragment mMainFragment;
+	public static MainFragment mMainFragment;
 	
 	public static MainFragment getInstance(Bundle bundle){
 		if(mMainFragment == null){
@@ -137,13 +138,13 @@ public class MainFragment extends Fragment implements OnClickListener {
 		fade_out = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
 		voice_btn = (Button) view.findViewById(R.id.voice_btn);
 		
-		boolean IsHasShowBaiduMessage = mSharedPreferences.getBoolean(SharedPreferencesUtil.IsHasShowBaiduMessage, false);
+		boolean IsHasShowBaiduMessage = mSharedPreferences.getBoolean(KeyUtil.IsHasShowBaiduMessage, false);
 		View listviewFooter = mInflater.inflate(R.layout.listview_item_recent_used_footer, null);
 		baidu_tranlate_prompt = (LinearLayout) listviewFooter.findViewById(R.id.baidu_tranlate_prompt);
 		if(!IsHasShowBaiduMessage){
 			baidu_translate = (LinearLayout) listviewFooter.findViewById(R.id.baidu_translate);
 			baidu_translate.setOnClickListener(this);
-			SharedPreferencesUtil.saveBoolean(mSharedPreferences, SharedPreferencesUtil.IsHasShowBaiduMessage, true);
+			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsHasShowBaiduMessage, true);
 			initSample();
 		}else{
 			baidu_tranlate_prompt.setVisibility(View.GONE);
@@ -258,7 +259,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 	}
 	
 	private void getAccent(){
-		isSpeakYueyu = mSharedPreferences.getBoolean(SharedPreferencesUtil.SpeakPutonghuaORYueyu, false);
+		isSpeakYueyu = mSharedPreferences.getBoolean(KeyUtil.SpeakPutonghuaORYueyu, false);
     	if(isSpeakYueyu){
 			cb_speak_language_ch.setText("粤语");
 		}else{
@@ -334,6 +335,9 @@ public class MainFragment extends Fragment implements OnClickListener {
 						beans.add(0,currentDialogBean);
 						mAdapter.notifyDataSetChanged();
 						recent_used_lv.setSelection(0);
+						if(mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, true)){
+							new AutoPlayWaitTask().execute();
+						}
 						LogUtil.DefalutLog("mDataBaseUtil:"+currentDialogBean.toString());
 					}
 				} else {
@@ -341,7 +345,29 @@ public class MainFragment extends Fragment implements OnClickListener {
 				}
 			}
 		});
-		
+	}
+	
+	class AutoPlayWaitTask extends AsyncTask<Void, Void, Void>{
+		@Override
+		protected Void doInBackground(Void... params) {
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+		@Override
+		protected void onPostExecute(Void result) {
+			autoPlay();
+		}
+	}
+	
+	
+	private void autoPlay(){
+		View mView = recent_used_lv.getChildAt(0);
+		FrameLayout record_answer_cover = (FrameLayout) mView.findViewById(R.id.record_answer_cover); 
+		record_answer_cover.callOnClick();
 	}
 
 	/**toast message

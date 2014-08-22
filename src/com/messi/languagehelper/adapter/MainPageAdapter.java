@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.messi.languagehelper.CollectedFragment;
 import com.messi.languagehelper.MainFragment;
 import com.messi.languagehelper.R;
+import com.messi.languagehelper.WebViewFragment;
 
 public class MainPageAdapter extends FragmentPagerAdapter {
 
@@ -19,7 +20,10 @@ public class MainPageAdapter extends FragmentPagerAdapter {
         super(fm);
         this.bundle = bundle;
         CONTENT = new String[] { mContext.getResources().getString(R.string.app_name),
-        		mContext.getResources().getString(R.string.title_favorite) };
+        		mContext.getResources().getString(R.string.title_favorite),
+        		mContext.getResources().getString(R.string.title_cailing),
+        		mContext.getResources().getString(R.string.title_cailing)
+        };
     }
 
     @Override
@@ -28,6 +32,8 @@ public class MainPageAdapter extends FragmentPagerAdapter {
         	return MainFragment.getInstance(bundle);
         }else if( position == 1 ){
         	return CollectedFragment.getInstance(bundle);
+        }else if( position == 2 ){
+        	return WebViewFragment.getInstance();
         }
         return null;
 //        else if( position == 2 ){

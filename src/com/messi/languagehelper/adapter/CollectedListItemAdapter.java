@@ -46,7 +46,6 @@ import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.SDCardUtil;
 import com.messi.languagehelper.util.Settings;
-import com.messi.languagehelper.util.SharedPreferencesUtil;
 import com.messi.languagehelper.util.ShowView;
 import com.messi.languagehelper.util.ToastUtil;
 import com.messi.languagehelper.util.XFUtil;
@@ -317,7 +316,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		}
 		@Override
 		public void onClick(final View v) {
-			ShowView.showIndexPageGuide(context, SharedPreferencesUtil.IsHasShowClickText);
+			ShowView.showIndexPageGuide(context, KeyUtil.IsHasShowClickText);
 			String path = SDCardUtil.getDownloadPath(SDCardUtil.sdPath);
 			if(TextUtils.isEmpty(mBean.getResultVoiceId()) || TextUtils.isEmpty(mBean.getQuestionVoiceId())){
 				mBean.setQuestionVoiceId(System.currentTimeMillis() + "");

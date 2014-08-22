@@ -72,8 +72,8 @@ public class MenuListItemAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		holder.title.setText(mPlanetTitles[position]);
-		if(position == 2){
-			if(!mSharedPreferences.getBoolean(KeyUtil.IsShowCailing, false)){
+		if(position == 0){
+			if(!mSharedPreferences.getBoolean(KeyUtil.IsShowSettingNewAdd, false)){
 				 holder.unread_dot.setVisibility(View.VISIBLE);
 			}
 		}
@@ -99,26 +99,21 @@ public class MenuListItemAdapter extends BaseAdapter {
 			Intent intent = new Intent();
 			if (position == 0) {
 				intent.setClass(context, SettingActivity.class);
+				if(!mSharedPreferences.getBoolean(KeyUtil.IsShowSettingNewAdd, false)){
+					 Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsShowSettingNewAdd, true);
+				}
 				StatService.onEvent(context, "1.6_settingbtn","应用设置按钮", 1);
 			} else if (position == 1) {
 				intent.setClass(context,RecommendActivity.class);
 				StatService.onEvent(context,"1.6_recommendbtn", "推荐应用按钮", 1);
 			} else if (position == 2) {
-				intent.setClass(context,WebViewActivity.class);
-				intent.putExtra(KeyUtil.URL, Settings.CaiLingUrl);
-				intent.putExtra(KeyUtil.ActionbarTitle, "酷炫彩铃");
-				if(!mSharedPreferences.getBoolean(KeyUtil.IsShowCailing, false)){
-					 Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsShowCailing, true);
-				}
-				StatService.onEvent(context,"1.9_recommendbtn", "酷炫彩铃", 1);
-			} else if (position == 3) {
 				intent.setAction(Intent.ACTION_VIEW);
 				intent.setData(Uri.parse("market://details?id=com.messi.languagehelper"));
 				StatService.onEvent(context, "1.6_commend","吐槽评价按钮", 1);
-			} else if (position == 4) {
+			} else if (position == 3) {
 				intent.setClass(context, HelpActivity.class);
 				StatService.onEvent(context, "1.7_help","使用帮助按钮", 1);
-			} else if (position == 5) {
+			} else if (position == 4) {
 				intent.setClass(context, AboutActivity.class);
 				StatService.onEvent(context, "1.6_aboutus","关于我们按钮", 1);
 			}

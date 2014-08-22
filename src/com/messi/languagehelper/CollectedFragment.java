@@ -13,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.actionbarsherlock.app.SherlockFragment;
 import com.baidu.mobstat.StatService;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
@@ -27,7 +28,7 @@ import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.wxapi.WXEntryActivity;
 
-public class CollectedFragment extends Fragment implements OnClickListener {
+public class CollectedFragment extends SherlockFragment implements OnClickListener {
 
 	private PullToRefreshListView recent_used_lv;
 	private View view;
@@ -48,7 +49,7 @@ public class CollectedFragment extends Fragment implements OnClickListener {
 	
 	public static boolean isRespondWX;
 	public static boolean isRefresh;
-	private static CollectedFragment mMainFragment;
+	public static CollectedFragment mMainFragment;
 	
 	public static CollectedFragment getInstance(Bundle bundle){
 		if(mMainFragment == null){

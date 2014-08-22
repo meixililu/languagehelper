@@ -90,7 +90,46 @@
             android:layout_width="fill_parent"
             android:layout_height="1px"
             android:background="@color/lightgrey"
-            android:visibility="gone" />
+            />
+        
+        <FrameLayout
+            android:id="@+id/setting_auto_play"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:foreground="@drawable/framelayout_selector"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="@string/auto_play_after_translate"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/big" />
+
+                <CheckBox
+                    android:id="@+id/setting_auto_play_cb"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="15dp"
+                    android:checked="true"
+                    android:clickable="false"
+                    android:focusable="false" />
+            </LinearLayout>
+        </FrameLayout>
+        
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="1px"
+            android:background="@color/lightgrey" />
 
         <FrameLayout
             android:id="@+id/setting_clear_all_except_favorite"

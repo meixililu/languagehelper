@@ -30,6 +30,7 @@ import com.messi.languagehelper.ImgShareActivity;
 import com.messi.languagehelper.R;
 import com.messi.languagehelper.RecommendActivity;
 import com.messi.languagehelper.SettingActivity;
+import com.messi.languagehelper.WebViewFragment;
 import com.messi.languagehelper.adapter.MainPageAdapter;
 import com.messi.languagehelper.adapter.MenuListItemAdapter;
 import com.messi.languagehelper.views.PagerSlidingTabStrip;
@@ -194,11 +195,22 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener {
 	
 	@Override
 	public void onBackPressed() {
-		if ((System.currentTimeMillis() - exitTime) > 2000) {
-			Toast.makeText(getApplicationContext(), this.getResources().getString(R.string.exit_program), 0).show();
-			exitTime = System.currentTimeMillis();
-		} else {
-			finish();
-		}
+		if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+        	mDrawerLayout.closeDrawer(mDrawerList);
+        } else{
+        	if ((System.currentTimeMillis() - exitTime) > 2000) {
+        		Toast.makeText(getApplicationContext(), this.getResources().getString(R.string.exit_program), 0).show();
+        		exitTime = System.currentTimeMillis();
+        	} else {
+        		finish();
+        	}
+        }
 	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		WebViewFragment.mMainFragment = null;
+	}
+	
 }
