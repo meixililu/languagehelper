@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="@dimen/padding_7"
+    >
+
+    <FrameLayout 
+        android:layout_width="fill_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="1" 
+	    android:orientation="vertical"
+        >
+        <TextView 
+            android:layout_width="fill_parent"
+	    	android:layout_height="fill_parent"
+	    	android:gravity="center"
+	    	android:text="@string/introduction"
+	    	android:textColor="@color/white"
+	    	android:shadowDx="0.3"
+	        android:shadowDy="0.3"
+	        android:shadowRadius="0.3"
+	        android:shadowColor="@color/white"
+	    	android:textSize="@dimen/bigger"
+	    	android:background="@color/app_lightblue"
+            />
+        
+    </FrameLayout>
+    <FrameLayout 
+        android:layout_width="fill_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="1" 
+	    android:orientation="vertical"
+	    android:layout_marginTop="@dimen/padding_7"
+        >
+        <TextView 
+            android:layout_width="fill_parent"
+	    	android:layout_height="fill_parent"
+	    	android:gravity="center"
+	    	android:text="@string/primary_lever"
+	    	android:textColor="@color/text_dark"
+	    	android:textSize="@dimen/bigger"
+	    	android:background="@color/contentbg"
+            />
+        
+    </FrameLayout>
+    <FrameLayout 
+        android:layout_width="fill_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="1" 
+	    android:orientation="vertical"
+	    android:layout_marginTop="@dimen/padding_7"
+        >
+        <TextView 
+            android:layout_width="fill_parent"
+	    	android:layout_height="fill_parent"
+	    	android:gravity="center"
+	    	android:text="@string/intermediate_lever"
+	    	android:textColor="@color/text_dark"
+	    	android:textSize="@dimen/bigger"
+	    	android:background="@color/contentbg"
+            />
+        
+    </FrameLayout>
+
+</LinearLayout>

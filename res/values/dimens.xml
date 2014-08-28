@@ -14,4 +14,9 @@
 	<dimen name="shadow_width">3dp</dimen>
 	<dimen name="list_item_icon">21dp</dimen>
 	<dimen name="list_icon_size">19dp</dimen>
+	
+	<dimen name="padding_7">7dp</dimen>
+	
+	
+	
 </resources>

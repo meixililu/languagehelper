@@ -10,6 +10,7 @@
     <string name="title_Practice">口语修炼</string>
     <string name="title_help">使用帮助</string>
     <string name="title_more">更多</string>
+    <string name="title_study">口语学习</string>
     <string name="title_cailing">酷炫彩铃</string>
     <string name="title_favorite">我的收藏</string>
     <string name="title_settings">应用设置</string>
@@ -118,12 +119,9 @@
 	<string name="practice_prompt_chinese">请点击Start跟读中文</string>
 	<string name="cailing_ad_prompt">三块钱你买不了吃亏，买不了上当，只需三块钱，就能让电话另一头的TA拥有一次美好而有爱的等待，而不是平凡并且枯燥的嘟。。。嘟。。。嘟。。。还等什么呢，赶紧操作起来，为TA设置一段好玩又有新意的铃声吧! http://api.openspeech.cn/kyls/NTBhYTEyMTM=</string>
 	
-    <string name="dialog1">
-	    Morning,Tom.#
-	    Hi,Mary.#
-	    You seem to be in a hurry.#
-	    Yes.i\'ve got a meeting in a minute.#
-	    Okay.I won\'t hold you up then.#
-	    Right.I\'ll see you later.#
-	    See you later.</string>
+	<string name="introduction">Part One</string>
+	<string name="primary_lever">Part Two</string>
+	<string name="intermediate_lever">Part Three</string>
+	
+	
 </resources>

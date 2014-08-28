@@ -5,7 +5,7 @@
     android:background="@color/contentbg"
     android:orientation="vertical" >
 
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
+    <ListView
         android:id="@+id/collected_listview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

@@ -7,9 +7,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.messi.languagehelper.CollectedFragment;
+import com.messi.languagehelper.LeisureFragment;
 import com.messi.languagehelper.MainFragment;
 import com.messi.languagehelper.R;
-import com.messi.languagehelper.WebViewFragment;
+import com.messi.languagehelper.StudyFragment;
 
 public class MainPageAdapter extends FragmentPagerAdapter {
 
@@ -21,7 +22,7 @@ public class MainPageAdapter extends FragmentPagerAdapter {
         this.bundle = bundle;
         CONTENT = new String[] { mContext.getResources().getString(R.string.app_name),
         		mContext.getResources().getString(R.string.title_favorite),
-        		mContext.getResources().getString(R.string.title_cailing),
+        		mContext.getResources().getString(R.string.title_study),
         		mContext.getResources().getString(R.string.title_cailing)
         };
     }
@@ -33,14 +34,11 @@ public class MainPageAdapter extends FragmentPagerAdapter {
         }else if( position == 1 ){
         	return CollectedFragment.getInstance(bundle);
         }else if( position == 2 ){
-        	return WebViewFragment.getInstance();
+        	return StudyFragment.getInstance();
+        }else if( position == 3 ){
+        	return LeisureFragment.getInstance();
         }
         return null;
-//        else if( position == 2 ){
-//        	return new ReadAfterMeFragment();
-//        }else {
-//        	return MainFragment.getInstance();
-//        }
     }
 
     @Override

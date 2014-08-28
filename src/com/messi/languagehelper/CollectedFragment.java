@@ -15,10 +15,6 @@ import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.baidu.mobstat.StatService;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.iflytek.cloud.speech.SpeechRecognizer;
 import com.iflytek.cloud.speech.SpeechSynthesizer;
 import com.messi.languagehelper.adapter.CollectedListItemAdapter;
@@ -30,7 +26,7 @@ import com.messi.languagehelper.wxapi.WXEntryActivity;
 
 public class CollectedFragment extends SherlockFragment implements OnClickListener {
 
-	private PullToRefreshListView recent_used_lv;
+	private ListView recent_used_lv;
 	private View view;
 	private LayoutInflater mInflater;
 	private CollectedListItemAdapter mAdapter;
@@ -81,7 +77,7 @@ public class CollectedFragment extends SherlockFragment implements OnClickListen
 	private void init() {
 		mInflater = LayoutInflater.from(getActivity());
 		mSharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Activity.MODE_PRIVATE);
-		recent_used_lv = (PullToRefreshListView) view.findViewById(R.id.collected_listview);
+		recent_used_lv = (ListView) view.findViewById(R.id.collected_listview);
 		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity());
 		recognizer = SpeechRecognizer.createRecognizer(getActivity());
 		mDataBaseUtil = new DataBaseUtil(getActivity());
@@ -90,21 +86,21 @@ public class CollectedFragment extends SherlockFragment implements OnClickListen
 				mSpeechSynthesizer, mSharedPreferences, mDataBaseUtil, bundle, "CollectedFragment");
 		recent_used_lv.setAdapter(mAdapter);
 		
-		recent_used_lv.setOnRefreshListener(new OnRefreshListener<ListView>() {
-			@Override
-			public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-				Mode mCurrentMode = refreshView.getCurrentMode();
-				switch (mCurrentMode) {
-				case PULL_FROM_START:
-					maxNumber = 0;
-					break;
-				case PULL_FROM_END:
-					maxNumber += Settings.offset;
-					break;
-				}
-				new WaitTask().execute();				
-			}
-		});
+//		recent_used_lv.setOnRefreshListener(new OnRefreshListener<ListView>() {
+//			@Override
+//			public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+//				Mode mCurrentMode = refreshView.getCurrentMode();
+//				switch (mCurrentMode) {
+//				case PULL_FROM_START:
+//					maxNumber = 0;
+//					break;
+//				case PULL_FROM_END:
+//					maxNumber += Settings.offset;
+//					break;
+//				}
+//				new WaitTask().execute();				
+//			}
+//		});
 	}
 	
 	@Override
@@ -137,15 +133,9 @@ public class CollectedFragment extends SherlockFragment implements OnClickListen
 		}
 		@Override
 		protected void onPostExecute(Void result) {
-			recent_used_lv.onRefreshComplete();
+//			recent_used_lv.onRefreshComplete();
 			WXEntryActivity.mWXEntryActivity.setSupportProgressBarIndeterminateVisibility(false);
 			WXEntryActivity.mWXEntryActivity.setSupportProgressBarVisibility(false);
-			int size = beans.size();
-			if(size < Settings.offset){
-				recent_used_lv.setMode(Mode.PULL_FROM_START);
-			}else{
-				recent_used_lv.setMode(Mode.BOTH);
-			}
 			mAdapter.notifyDataChange(beans,maxNumber);
 		}
 	}

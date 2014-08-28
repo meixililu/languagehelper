@@ -10,6 +10,7 @@
     <string name="title_Practice">Practice</string>
     <string name="title_help">Help</string>
     <string name="title_more">More</string>
+    <string name="title_study">Study</string>
     <string name="title_cailing">Ring</string>
     <string name="title_favorite">Favorite</string>
     <string name="title_settings">Settings</string>
@@ -115,4 +116,10 @@
 	<string name="practice_prompt_english">Click Start to speak english</string>
 	<string name="practice_prompt_chinese">Click Start to speak chinese</string>
 	
+	<string name="introduction">Part One</string>
+	<string name="primary_lever">Part Two</string>
+	<string name="intermediate_lever">Part Three</string>
+	
+	<string name="leisuer_one">酷炫彩铃</string>
+	<string name="leisuer_one_subtitle">听听音乐放松一下</string>
 </resources>
