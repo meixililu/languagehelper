@@ -23,7 +23,7 @@ public class MainPageAdapter extends FragmentPagerAdapter {
         CONTENT = new String[] { mContext.getResources().getString(R.string.app_name),
         		mContext.getResources().getString(R.string.title_favorite),
         		mContext.getResources().getString(R.string.title_study),
-        		mContext.getResources().getString(R.string.title_cailing)
+        		mContext.getResources().getString(R.string.title_leisure)
         };
     }
 
