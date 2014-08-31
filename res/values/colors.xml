@@ -83,4 +83,15 @@
     <color name="holo_red_light">#ffff4444</color>
     <color name="holo_orange_light">#ffffbb33</color>
 	    
+    <color name="style1_color1">#0292c7</color>
+    <color name="style1_color2">#9fe0f6</color>
+    <color name="style1_color3">#f3e59a</color>
+    <color name="style1_color4">#f3b59b</color>
+    <color name="style1_color5">#f29c9c</color>
+    
+    <color name="style2_color1">#3692c5</color>
+    <color name="style2_color2">#4387ac</color>
+    <color name="style2_color3">#3283b0</color>
+    <color name="style2_color4">#bdbfbe</color>
+    <color name="style2_color5">#dae4e5</color>
 </resources>

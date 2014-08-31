@@ -123,6 +123,10 @@
 	<string name="introduction">Part One</string>
 	<string name="primary_lever">Part Two</string>
 	<string name="intermediate_lever">Part Three</string>
+	<string name="fighting">你不是一个人在战斗！</string>
+	
+	<string name="leisuer_one">酷炫彩铃</string>
+	<string name="leisuer_one_subtitle">听听音乐放松一下</string>
 	
 	
 </resources>
