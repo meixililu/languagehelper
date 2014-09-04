@@ -10,6 +10,7 @@
     >
 
     <FrameLayout 
+        android:id="@+id/study_part1"
         android:layout_width="fill_parent"
 	    android:layout_height="0dp"
 	    android:layout_weight="4" 
@@ -32,6 +33,7 @@
         
     </FrameLayout>
     <FrameLayout 
+        android:id="@+id/study_part2"
         android:layout_width="fill_parent"
 	    android:layout_height="0dp"
 	    android:layout_weight="3" 
@@ -55,6 +57,7 @@
         
     </FrameLayout>
     <FrameLayout 
+        android:id="@+id/study_part3"
         android:layout_width="fill_parent"
 	    android:layout_height="0dp"
 	    android:layout_weight="2" 
@@ -79,6 +82,7 @@
     </FrameLayout>
     
     <FrameLayout 
+        android:id="@+id/study_part4"
         android:layout_width="fill_parent"
 	    android:layout_height="0dp"
 	    android:layout_weight="1" 

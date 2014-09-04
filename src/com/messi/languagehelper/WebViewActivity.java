@@ -124,9 +124,9 @@ public class WebViewActivity extends BaseActivity{
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		if(mWebView != null){
-			mWebView.destroy();
-		}
+//		if(mWebView != null){
+//			mWebView.destroy();
+//		}
 	}
 	
 }

@@ -53,7 +53,6 @@
     
     <string-array name="planets_array">
         <item>应用设置</item>
-        <item>其他语言</item>
         <item>吐槽评价</item>
         <item>使用帮助</item>
         <item>关于我们</item>
@@ -128,5 +127,11 @@
 	<string name="leisuer_one">酷炫彩铃</string>
 	<string name="leisuer_one_subtitle">听听音乐放松一下</string>
 	
+	<string name="leisuer_two">作者其他软件</string>
+	<string name="leisuer_two_subtitle">其他语言，其他类型</string>
+	
+	
+	<string name="getfans_1">软件已有二百多万的下载了，每天有十万左右的用户使用，四分之一的国外用户，将来大家可以在这里交朋友相互学习。</string>
+	<string name="getfans_2">其他语言，其他类型</string>
 	
 </resources>

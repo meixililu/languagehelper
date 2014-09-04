@@ -104,16 +104,13 @@ public class MenuListItemAdapter extends BaseAdapter {
 				}
 				StatService.onEvent(context, "1.6_settingbtn","应用设置按钮", 1);
 			} else if (position == 1) {
-				intent.setClass(context,RecommendActivity.class);
-				StatService.onEvent(context,"1.6_recommendbtn", "推荐应用按钮", 1);
-			} else if (position == 2) {
 				intent.setAction(Intent.ACTION_VIEW);
 				intent.setData(Uri.parse("market://details?id=com.messi.languagehelper"));
 				StatService.onEvent(context, "1.6_commend","吐槽评价按钮", 1);
-			} else if (position == 3) {
+			} else if (position == 2) {
 				intent.setClass(context, HelpActivity.class);
 				StatService.onEvent(context, "1.7_help","使用帮助按钮", 1);
-			} else if (position == 4) {
+			} else if (position == 3) {
 				intent.setClass(context, AboutActivity.class);
 				StatService.onEvent(context, "1.6_aboutus","关于我们按钮", 1);
 			}

@@ -9,13 +9,14 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.baidu.mobstat.StatService;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.Settings;
 
 public class LeisureFragment extends SherlockFragment implements OnClickListener {
 
 	private View view;
-	private FrameLayout cailing_layout;
+	private FrameLayout cailing_layout,app_layout;
 	public static LeisureFragment mMainFragment;
 	
 	public static LeisureFragment getInstance(){
@@ -34,13 +35,17 @@ public class LeisureFragment extends SherlockFragment implements OnClickListener
 	
 	private void initViews(){
 		cailing_layout = (FrameLayout)view.findViewById(R.id.cailing_layout);
+		app_layout = (FrameLayout)view.findViewById(R.id.app_layout);
 		cailing_layout.setOnClickListener(this);
+		app_layout.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		if(v.getId() == R.id.cailing_layout){
 			toCailingActivity();
+		}else if(v.getId() == R.id.app_layout){
+			toAppActivity();
 		}
 	}
 	
@@ -49,6 +54,12 @@ public class LeisureFragment extends SherlockFragment implements OnClickListener
 		intent.putExtra(KeyUtil.URL, Settings.CaiLingUrl);
 		intent.putExtra(KeyUtil.ActionbarTitle, getActivity().getResources().getString(R.string.title_cailing));
 		getActivity().startActivity(intent);
+	}
+	
+	private void toAppActivity(){
+		Intent intent = new Intent(getActivity(),RecommendActivity.class);
+		getActivity().startActivity(intent);
+		StatService.onEvent(getActivity(),"1.9_authors_software", "作者其他应用", 1);
 	}
 	
 }

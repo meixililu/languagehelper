@@ -52,8 +52,6 @@
     
     <string-array name="planets_array">
         <item>Settings</item>
-        <item>Apps</item>
-        <item>酷炫彩铃</item>
         <item>Rate</item>
         <item>Help</item>
         <item>About</item>
@@ -124,4 +122,10 @@
 	
 	<string name="leisuer_one">Ringback Music</string>
 	<string name="leisuer_one_subtitle">Listen to the music</string>
+	
+	<string name="leisuer_two">The Author\'s Software</string>
+	<string name="leisuer_two_subtitle">Other languages</string>
+	
+	<string name="getfans_1">200多万下载量，每天有10万左右的用户使用，四分之一是国外的用户，将来大家可以在这里交朋友相互学习。</string>
+	<string name="getfans_2">这个软件是谁的？答案是：大家的。软件开发者只是帮助大家实现各种想法，让这个软件能够真正的帮助各位提高英语水平。</string>
 </resources>
