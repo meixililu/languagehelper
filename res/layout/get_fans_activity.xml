@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/padding_7" >
+
+    <FrameLayout
+        android:id="@+id/layout_1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/style3_color1"
+        android:foreground="@drawable/framelayout_selector"
+        android:orientation="vertical" >
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+		        android:layout_gravity="center"
+                android:shadowColor="@color/white"
+                android:shadowDx="0.3"
+                android:shadowDy="0.3"
+                android:shadowRadius="0.3"
+                android:text="@string/getfans_1"
+                android:textColor="@color/white"
+                android:padding="@dimen/padding_10"
+                android:textSize="@dimen/big" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/layout_2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_7"
+        android:background="@color/style3_color2"
+        android:foreground="@drawable/framelayout_selector"
+        android:orientation="vertical" >
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+		        android:layout_gravity="center"
+                android:shadowColor="@color/white"
+                android:shadowDx="0.3"
+                android:shadowDy="0.3"
+                android:shadowRadius="0.3"
+                android:text="@string/getfans_2"
+                android:textColor="@color/white"
+                android:padding="@dimen/padding_10"
+                android:textSize="@dimen/big" />
+    </FrameLayout>
+    
+    <FrameLayout
+        android:id="@+id/layout_3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_7"
+        android:background="@color/style3_color3"
+        android:foreground="@drawable/framelayout_selector"
+        android:orientation="vertical" >
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+		        android:layout_gravity="center"
+                android:shadowColor="@color/white"
+                android:shadowDx="0.3"
+                android:shadowDy="0.3"
+                android:shadowRadius="0.3"
+                android:text="@string/getfans_3"
+                android:textColor="@color/white"
+                android:padding="@dimen/padding_10"
+                android:textSize="@dimen/big" />
+    </FrameLayout>
+
+</LinearLayout>

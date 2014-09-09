@@ -51,12 +51,27 @@
 		<meta-data android:name="BaiduMobAd_ONLY_WIFI" android:value="false" />
         
         <activity
-            android:name=".WebViewActivity"
+            android:name=".GetContentActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Sherlock" >
         </activity>
         <activity
             android:name=".RecommendActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Sherlock" >
+        </activity>
+        <activity
+            android:name=".StudyListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Sherlock" >
+        </activity>
+        <activity
+            android:name=".WebViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Sherlock" >
+        </activity>
+        <activity
+            android:name=".GetFansActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Sherlock" >
         </activity>

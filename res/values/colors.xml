@@ -94,4 +94,16 @@
     <color name="style2_color3">#3283b0</color>
     <color name="style2_color4">#bdbfbe</color>
     <color name="style2_color5">#dae4e5</color>
+    
+    <color name="style3_color1">#86c397</color>
+    <color name="style3_color2">#ead59e</color>
+    <color name="style3_color3">#f1cb8a</color>
+    <color name="style3_color4">#cb8552</color>
+    <color name="style3_color5">#b83d4f</color>
+    
+    <color name="style4_color1">#b5ef9b</color>
+    <color name="style4_color2">#fdf5a1</color>
+    <color name="style4_color3">#b2dcf5</color>
+    <color name="style4_color4">#ffb9ad</color>
+    <color name="style4_color5">#fffdfd</color>
 </resources>

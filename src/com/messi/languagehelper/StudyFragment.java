@@ -1,5 +1,6 @@
 package com.messi.languagehelper;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,20 +45,33 @@ public class StudyFragment extends SherlockFragment implements OnClickListener{
 	public void onClick(View v) {
 		switch(v.getId()){
 		case R.id.study_part1:
+			toStudyListActivity();
 			break;
 		case R.id.study_part2:
+			toGetContentActivity();
 			break;
 		case R.id.study_part3:
+			toGetContentActivity();
 			break;
 		case R.id.study_part4:
+			toGetfansActivity();
 			break;
 		default:
 			break;
 		}
 	}
 	
-	private void toStudyListPage(){
-		
+	private void toGetfansActivity(){
+		Intent intent = new Intent(getActivity(),GetFansActivity.class);
+		startActivity(intent);
+	}
+	private void toStudyListActivity(){
+		Intent intent = new Intent(getActivity(),StudyListActivity.class);
+		startActivity(intent);
+	}
+	private void toGetContentActivity(){
+		Intent intent = new Intent(getActivity(),GetContentActivity.class);
+		startActivity(intent);
 	}
 	
 }

@@ -126,6 +126,8 @@
 	<string name="leisuer_two">The Author\'s Software</string>
 	<string name="leisuer_two_subtitle">Other languages</string>
 	
-	<string name="getfans_1">200多万下载量，每天有10万左右的用户使用，四分之一是国外的用户，将来大家可以在这里交朋友相互学习。</string>
-	<string name="getfans_2">这个软件是谁的？答案是：大家的。软件开发者只是帮助大家实现各种想法，让这个软件能够真正的帮助各位提高英语水平。</string>
+	<string name="getfans_1">软件已有200多万下载量，每天有10多万的用户在使用，四分之一是国外用户，将来大家可以在这里交朋友相互学习。</string>
+	<string name="getfans_2">这个软件是谁的？大家的。软件作者只是帮助大家实现各种想法，帮助大家提高英语水平，所以有话就要说，不管好坏，告诉作者，憋着对身体不好。</string>
+	<string name="getfans_3">作者真诚邀请大家来做软件的投资人，别害怕，不是金钱，是你的想法，你希望软件能帮你做什么，甚至是其他类型的软件，你可以做我们的产品经理，投资人，跟我们一起成长，
+	    你可以自豪的说这个软件是你参与设计的，你是投资人之一！</string>
 </resources>

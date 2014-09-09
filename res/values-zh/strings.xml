@@ -119,9 +119,9 @@
 	<string name="practice_prompt_chinese">请点击Start跟读中文</string>
 	<string name="cailing_ad_prompt">三块钱你买不了吃亏，买不了上当，只需三块钱，就能让电话另一头的TA拥有一次美好而有爱的等待，而不是平凡并且枯燥的嘟。。。嘟。。。嘟。。。还等什么呢，赶紧操作起来，为TA设置一段好玩又有新意的铃声吧! http://api.openspeech.cn/kyls/NTBhYTEyMTM=</string>
 	
-	<string name="introduction">Part One</string>
-	<string name="primary_lever">Part Two</string>
-	<string name="intermediate_lever">Part Three</string>
+	<string name="introduction">第一部分</string>
+	<string name="primary_lever">第二部分</string>
+	<string name="intermediate_lever">第三部分</string>
 	<string name="fighting">你不是一个人在战斗！</string>
 	
 	<string name="leisuer_one">酷炫彩铃</string>
@@ -131,7 +131,9 @@
 	<string name="leisuer_two_subtitle">其他语言，其他类型</string>
 	
 	
-	<string name="getfans_1">软件已有二百多万的下载了，每天有十万左右的用户使用，四分之一的国外用户，将来大家可以在这里交朋友相互学习。</string>
-	<string name="getfans_2">其他语言，其他类型</string>
+	<string name="getfans_1">软件已有200多万下载量，每天有10多万的用户在使用，四分之一是国外用户，将来大家可以在这里交朋友相互学习。</string>
+	<string name="getfans_2">这个软件是谁的？大家的。软件作者只是帮助大家实现各种想法，帮助大家提高英语水平，所以有话就要说，不管好坏，告诉作者，憋着对身体不好。</string>
+	<string name="getfans_3">作者真诚邀请大家来做软件的投资人，别害怕，不是金钱，是你的想法，你希望软件能帮你做什么，甚至是其他类型的软件，你可以做我们的产品经理，投资人，跟我们一起成长，
+	    你可以自豪的说这个软件是你参与设计的，你是投资人之一！</string>
 	
 </resources>
