@@ -7,7 +7,7 @@ import android.widget.ListView;
 
 import com.messi.languagehelper.adapter.StudyListItemAdapter;
 
-public class StudyListActivity extends BaseActivity {
+public class StudyActivity extends BaseActivity {
 
 	private ListView studylist_lv;
 	private String[] studylist_part1;
@@ -16,7 +16,7 @@ public class StudyListActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.study_list_fragment);
+		setContentView(R.layout.study_activity);
 		initViews();
 	}
 

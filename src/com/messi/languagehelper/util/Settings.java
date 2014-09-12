@@ -1,9 +1,14 @@
 package com.messi.languagehelper.util;
 
+import com.baidu.mobstat.StatService;
+import com.messi.languagehelper.R;
+
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.text.ClipboardManager;
 
 public class Settings {
 
@@ -18,6 +23,8 @@ public class Settings {
 	public static final int offset = 100;
 	
 	public static final String CaiLingUrl = "http://api.openspeech.cn/kyls/NTBhYTEyMTM=";
+	
+	public static final String Email = "meixililulu@163.com";
 	
 	public static boolean isTodayShow(SharedPreferences mSharedPreferences){
 		String today = TimeUtil.getDate(System.currentTimeMillis());
@@ -93,6 +100,28 @@ public class Settings {
 		Editor editor = sharedPrefs.edit();
 		editor.putInt(key, value);
 		editor.commit();
+	}
+
+	public static void contantUs(Context mContext){
+		try {
+			Intent emailIntent = new Intent(Intent.ACTION_SEND);
+			emailIntent.setType("message/rfc822");
+			emailIntent.putExtra(Intent.EXTRA_EMAIL,new String[] { Email });
+			mContext.startActivity(emailIntent);
+		} catch (Exception e) {
+			copy(mContext,Email);
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 复制按钮
+	 */
+	public static void copy(Context mContext,String dstString){
+		// 得到剪贴板管理器
+		ClipboardManager cmb = (ClipboardManager)mContext.getSystemService(Context.CLIPBOARD_SERVICE);
+		cmb.setText(dstString);
+		ToastUtil.diaplayMesShort(mContext, mContext.getResources().getString(R.string.copy_success));
 	}
 	
 	

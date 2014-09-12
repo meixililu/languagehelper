@@ -7,11 +7,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.baidu.mobstat.StatService;
-import com.messi.languagehelper.MainFragment.AutoPlayWaitTask;
 import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.SDCardUtil;
@@ -22,6 +22,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 
 	private TextView seekbar_text;
 	private SeekBar seekbar;
+	private ImageView autoread_unread_dot;
 	private FrameLayout speak_yueyu,auto_play;
 	private FrameLayout clear_all_except_favorite,clear_all;
 	private CheckBox speak_yueyu_cb,auto_play_cb;
@@ -40,6 +41,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
         mActionBar.setTitle(this.getResources().getString(R.string.title_settings));
         seekbar_text = (TextView) findViewById(R.id.seekbar_text);
         seekbar = (SeekBar) findViewById(R.id.seekbar);
+        autoread_unread_dot = (ImageView) findViewById(R.id.unread_dot);
         speak_yueyu = (FrameLayout) findViewById(R.id.speak_yueyu);
         auto_play = (FrameLayout) findViewById(R.id.setting_auto_play);
         speak_yueyu_cb = (CheckBox) findViewById(R.id.speak_yueyu_cb);
@@ -58,9 +60,13 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 		seekbar_text.setText(this.getResources().getString(R.string.play_speed_text) + MainFragment.speed);
 		seekbar.setProgress(MainFragment.speed);
 		boolean checked = mSharedPreferences.getBoolean(KeyUtil.SpeakPutonghuaORYueyu, false);
-		boolean autoplay = mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, true);
+		boolean autoplay = mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false);
+		boolean autoplayUnreadDot = mSharedPreferences.getBoolean(KeyUtil.AutoPlayUnreadDot, false);
 		speak_yueyu_cb.setChecked(checked);
 		auto_play_cb.setChecked(autoplay);
+		if(autoplayUnreadDot){
+			autoread_unread_dot.setVisibility(View.GONE);
+		}
 	}
 
 	@Override
@@ -82,8 +88,9 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 			}else{
 				auto_play_cb.setChecked(true);
 			}
-			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoPlayResult,
-					auto_play_cb.isChecked());
+			autoread_unread_dot.setVisibility(View.GONE);
+			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoPlayResult,auto_play_cb.isChecked());
+			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoPlayUnreadDot,true);
 			break;
 		case R.id.setting_clear_all_except_favorite:
 			new DataBaseUtil(SettingActivity.this).clearExceptFavorite();

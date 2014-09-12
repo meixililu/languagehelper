@@ -1,11 +1,14 @@
 package com.messi.languagehelper.wxapi;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
@@ -33,6 +36,8 @@ import com.messi.languagehelper.SettingActivity;
 import com.messi.languagehelper.WebViewFragment;
 import com.messi.languagehelper.adapter.MainPageAdapter;
 import com.messi.languagehelper.adapter.MenuListItemAdapter;
+import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.views.PagerSlidingTabStrip;
 
 public class WXEntryActivity extends BaseActivity implements OnClickListener {
@@ -50,6 +55,7 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener {
 	private boolean isRespondWX;
 	public static int currentIndex = 0;
 	public static WXEntryActivity mWXEntryActivity;
+	private SharedPreferences mSharedPreferences;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -71,6 +77,7 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener {
 	}
 	
 	private void initViews(){
+		mSharedPreferences = getSharedPreferences(this.getPackageName(), Activity.MODE_PRIVATE);
 		mPlanetTitles = getResources().getStringArray(R.array.planets_array);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
@@ -102,6 +109,21 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener {
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+        
+        new WaitTask().execute();
+	}
+	
+	private void showNewFunction(){
+		boolean autoplayUnreadDot = mSharedPreferences.getBoolean(KeyUtil.ShowNewFunction, true);
+        if(autoplayUnreadDot){
+        	toNewFunctionActivity();
+        	Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.ShowNewFunction,false);
+        }
+	}
+	
+	private void toNewFunctionActivity(){
+		Intent intent = new Intent(WXEntryActivity.this,SettingActivity.class);
+		startActivity(intent);
 	}
 	
 	@Override
@@ -147,7 +169,7 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener {
 
 	@Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        // If the nav drawer is open, hide action items related to the content view
+//        If the nav drawer is open, hide action items related to the content view
 //        menu.findItem(R.drawable.menu_d).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
@@ -155,7 +177,6 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 //		if (v.getId() == R.id.top_menu_btn) {
-//			
 //		}
 	}
 	
@@ -211,6 +232,22 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener {
 	protected void onDestroy() {
 		super.onDestroy();
 		WebViewFragment.mMainFragment = null;
+	}
+	
+	class WaitTask extends AsyncTask<Void, Void, Void>{
+		@Override
+		protected Void doInBackground(Void... params) {
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+		@Override
+		protected void onPostExecute(Void result) {
+			showNewFunction();
+		}
 	}
 	
 }

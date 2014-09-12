@@ -1,5 +1,7 @@
 package com.messi.languagehelper;
 
+import com.messi.languagehelper.util.Settings;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -7,7 +9,7 @@ import android.widget.FrameLayout;
 
 public class GetFansActivity extends BaseActivity implements OnClickListener {
 
-	private FrameLayout layout_1,layout_2,layout_3;
+	private FrameLayout layout_1,layout_2,layout_3,layout_4;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -21,9 +23,11 @@ public class GetFansActivity extends BaseActivity implements OnClickListener {
 		layout_1 = (FrameLayout)findViewById(R.id.layout_1);
 		layout_2 = (FrameLayout)findViewById(R.id.layout_2);
 		layout_3 = (FrameLayout)findViewById(R.id.layout_3);
+		layout_4 = (FrameLayout)findViewById(R.id.layout_4);
 		layout_1.setOnClickListener(this);
 		layout_2.setOnClickListener(this);
 		layout_3.setOnClickListener(this);
+		layout_4.setOnClickListener(this);
 	}
 
 	@Override
@@ -34,6 +38,9 @@ public class GetFansActivity extends BaseActivity implements OnClickListener {
 		case R.id.layout_2:
 			break;
 		case R.id.layout_3:
+			break;
+		case R.id.layout_4:
+			Settings.contantUs(GetFansActivity.this);
 			break;
 		default:
 			break;

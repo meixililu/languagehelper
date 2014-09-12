@@ -20,6 +20,10 @@ public class KeyUtil {
 	
 	public static String AutoPlayResult = "AutoPlayResult";
 
+	public static String AutoPlayUnreadDot = "AutoPlayUnreadDot";
+	
+	public static String ShowNewFunction = "ShowNewFunction";
+	
 	public static String IsHasShowBaiduMessage = "IsHasShowBaiduMessage";
 
 	public static String IsHasShowClickText = "IsHasShowClickText";

@@ -335,7 +335,7 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 						beans.add(0,currentDialogBean);
 						mAdapter.notifyDataSetChanged();
 						recent_used_lv.setSelection(0);
-						if(mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, true)){
+						if(mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false)){
 							new AutoPlayWaitTask().execute();
 						}
 						LogUtil.DefalutLog("mDataBaseUtil:"+currentDialogBean.toString());
