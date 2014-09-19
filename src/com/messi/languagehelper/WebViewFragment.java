@@ -83,7 +83,7 @@ public class WebViewFragment extends SherlockFragment{
 				return true;
 			}
 		});
-		mSwipeRefreshLayout.setColorScheme(R.color.holo_blue_bright, 
+		mSwipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright, 
 	            R.color.holo_green_light, 
 	            R.color.holo_orange_light, 
 	            R.color.holo_red_light);

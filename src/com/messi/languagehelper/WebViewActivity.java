@@ -73,7 +73,7 @@ public class WebViewActivity extends BaseActivity{
 			}
 
 		});
-		mSwipeRefreshLayout.setColorScheme(R.color.holo_blue_bright, 
+		mSwipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright, 
 	            R.color.holo_green_light, 
 	            R.color.holo_orange_light, 
 	            R.color.holo_red_light);
