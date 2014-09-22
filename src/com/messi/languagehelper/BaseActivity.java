@@ -43,7 +43,7 @@ public class BaseActivity extends SherlockFragmentActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case android.R.id.home:  
+		case android.R.id.home:
 			finish();
 		}
        return super.onOptionsItemSelected(item);

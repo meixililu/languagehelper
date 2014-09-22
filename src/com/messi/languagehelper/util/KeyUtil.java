@@ -30,6 +30,7 @@ public class KeyUtil {
 
 	public static String SpeakPutonghuaORYueyu = "SpeakPutonghuaORYueyu";
 	
+	public static String PracticeContentKey = "PracticeContentKey";
 	
 	
 	

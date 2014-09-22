@@ -9,7 +9,9 @@
     <color name="red">#FFDE0000</color>
     <color name="dullred">#bc4c4c</color>
     <color name="orange">#FFEF6800</color>
-    <color name="green">#6db455</color>
+    <color name="green">#77c924</color>
+    <color name="green_light">#d3e8be</color>
+    <color name="green_dark">#6cb51f</color>
 	<color name="blue">#ff0000ff</color>
 	<color name="gray">#FF888888</color>
 	<color name="load_blue">#FF1875bd</color>
@@ -17,8 +19,11 @@
 	<color name="bg_white">#f7fafe</color>
     <color name="lightgrey">#FFEBE7DB</color>
     <color name="text_tint">#eeeeee</color>
-    <color name="text_grey1">#bbbbbb</color>
+    <color name="text_tint1">#f2f2f2</color>
+    <color name="text_tint2">#e2e2e2</color>
     <color name="text_grey">#aaaaaa</color>
+    <color name="text_grey1">#bbbbbb</color>
+    <color name="text_grey2">#a9a9a9</color>
 	<color name="text_black1">#888888</color>
 	<color name="text_black">#666666</color>
 	<color name="text_dark">#333333</color>

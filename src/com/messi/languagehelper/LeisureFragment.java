@@ -13,7 +13,7 @@ import com.baidu.mobstat.StatService;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.Settings;
 
-public class LeisureFragment extends SherlockFragment implements OnClickListener {
+public class LeisureFragment extends BaseFragment implements OnClickListener {
 
 	private View view;
 	private FrameLayout cailing_layout,app_layout;

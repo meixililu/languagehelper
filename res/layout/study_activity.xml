@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/white"
+    android:background="@color/text_tint1"
     android:orientation="vertical"
     android:padding="@dimen/padding_5"
     >
@@ -11,6 +11,10 @@
         android:id="@+id/page_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/padding_10"
+        android:layout_marginRight="@dimen/padding_10"
+        android:layout_marginTop="@dimen/padding_5"
+        android:layout_marginBottom="@dimen/padding_5"
         android:orientation="horizontal"
         >
         

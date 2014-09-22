@@ -1,6 +1,7 @@
 package com.messi.languagehelper.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,7 +10,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.messi.languagehelper.R;
+import com.messi.languagehelper.StudyActivity;
 import com.messi.languagehelper.util.ColorUtil;
+import com.messi.languagehelper.util.KeyUtil;
 
 public class StudyListItemAdapter extends BaseAdapter {
 
@@ -60,7 +63,7 @@ public class StudyListItemAdapter extends BaseAdapter {
 		holder.cover.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				
+				onItemClick(position);
 			}
 		});
 		return convertView;
@@ -71,9 +74,11 @@ public class StudyListItemAdapter extends BaseAdapter {
 		TextView name;
 	}
 
-	public void onItemClick(int position,View unreadView) {
+	public void onItemClick(int position) {
 		try {
-			
+			Intent intent = new Intent(context,StudyActivity.class);
+			intent.putExtra(KeyUtil.PracticeContentKey, position);
+			context.startActivity(intent);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
