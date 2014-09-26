@@ -34,6 +34,7 @@ public class KeyUtil {
 	
 	public static String LevelKey = "LevelKey";
 	
+	public static String UserSelectLanguage = "UserSelectLanguage";
 	
 	
 	

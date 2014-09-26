@@ -25,13 +25,11 @@
      
     <string-array name="studylist_part1_content1">
         <item>男孩,女孩,男人,女人#boy,girl,man,woman</item>
-        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
-        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
-        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
-        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
-        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
-        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
-        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
+        <item>男孩,女孩,男人,女人#boy,girl,man,woman</item>
+        <item>男孩,女孩,男人,女人#boy,girl,man,woman</item>
+        <item>男孩,女孩,男人,女人#boy,girl,man,woman</item>
+        <item>男孩,女孩,男人,女人#boy,girl,man,woman</item>
+        <item>男孩,女孩,男人,女人#boy,girl,man,woman</item>
     </string-array>
     
     <string-array name="studylist_part1_content2">

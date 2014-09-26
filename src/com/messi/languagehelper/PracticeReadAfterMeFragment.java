@@ -33,7 +33,7 @@ import com.messi.languagehelper.adapter.PracticePageListItemAdapter;
 import com.messi.languagehelper.bean.DialogBean;
 import com.messi.languagehelper.bean.UserSpeakBean;
 import com.messi.languagehelper.db.DataBaseUtil;
-import com.messi.languagehelper.impl.PracticeProgress;
+import com.messi.languagehelper.impl.PracticeProgressListener;
 import com.messi.languagehelper.task.PublicTask;
 import com.messi.languagehelper.task.PublicTask.PublicTaskListener;
 import com.messi.languagehelper.util.AudioTrackUtil;
@@ -53,36 +53,44 @@ import com.nineoldandroids.animation.ObjectAnimator;
 
 public class PracticeReadAfterMeFragment extends BaseFragment implements OnClickListener {
 
-	private DialogBean mBean;
 	private FrameLayout record_question_cover,record_answer_cover;
-	private ImageButton voice_play_answer,voice_play_question;
+	private ImageButton voice_play_answer;
 	private TextView record_question,record_answer,practice_prompt,record_animation_text;
 	private ListView recent_used_lv;
 	private ImageView record_anim_img;
 	private Button voice_btn;
 	private LinearLayout record_layout,record_animation_layout;
 	
-	private MyOnClickListener mAnswerOnClickListener,mQuestionOnClickListener;
+	private MyOnClickListener mAnswerOnClickListener;
 	private DataBaseUtil mDataBaseUtil;
 	private SpeechSynthesizer mSpeechSynthesizer;
 	private SpeechRecognizer recognizer;
 	private SharedPreferences mSharedPreferences;
 	private ArrayList<UserSpeakBean> mUserSpeakBeanList;
 	private PracticePageListItemAdapter adapter;
-	private boolean isEnglish;
-	private boolean isExchange;
 	private boolean isNewIn = true;
 	private boolean isFollow;
 	
-	public PracticeReadAfterMeFragment(String content, PracticeProgress mPracticeProgress, String videoPath, 
+	private String[] cn,en;
+	private String content;
+	private String videoPath;
+	private int resultPosition;
+	private PracticeProgressListener mPracticeProgress;
+	
+	public PracticeReadAfterMeFragment(String content, PracticeProgressListener mPracticeProgress, String videoPath, 
 			SharedPreferences mSharedPreferences){
-//		this.content = content;
-//		this.mPracticeProgress = mPracticeProgress;
-//		resultPosition = NumberUtil.getRandomNumber(4);
-//		getContent();
-//		this.videoPath = SDCardUtil.getDownloadPath(videoPath);
-//		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity());
-//		this.mSharedPreferences = mSharedPreferences;
+		this.content = content;
+		this.mPracticeProgress = mPracticeProgress;
+		resultPosition = NumberUtil.getRandomNumber(4);
+		getContent();
+		this.videoPath = SDCardUtil.getDownloadPath(videoPath);
+		this.mSharedPreferences = mSharedPreferences;
+	}
+	
+	private void getContent(){
+		String temp[] = content.split("#");
+		cn = temp[0].split(",");
+		en = temp[1].split(",");
 	}
 	
 	@Override
@@ -98,8 +106,6 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 	}
 	
 	private void initData(){
-		mBean = (DialogBean)LanguageApplication.dataMap.get(KeyUtil.DialogBeanKey);
-		isEnglish = StringUtils.isEnglish(mBean.getAnswer());
 		mUserSpeakBeanList = new ArrayList<UserSpeakBean>();
 		adapter = new PracticePageListItemAdapter(getActivity(), mUserSpeakBeanList);
 	}
@@ -116,7 +122,6 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 		record_answer = (TextView) getView().findViewById(R.id.record_answer);
 		record_question = (TextView) getView().findViewById(R.id.record_question);
 		voice_play_answer = (ImageButton) getView().findViewById(R.id.voice_play_answer);
-		voice_play_question = (ImageButton) getView().findViewById(R.id.voice_play_question);
 		voice_btn = (Button) getView().findViewById(R.id.check_btn);
 		record_anim_img = (ImageView) getView().findViewById(R.id.record_anim_img);
 		record_layout = (LinearLayout) getView().findViewById(R.id.record_layout);
@@ -125,60 +130,31 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 		recent_used_lv = (ListView) getView().findViewById(R.id.recent_used_lv);
 		recent_used_lv.setAdapter(adapter);
 		
-		record_question.setText(mBean.getQuestion());
-		record_answer.setText(mBean.getAnswer());
+		record_answer.setText(en[resultPosition]);
+		record_question.setText(cn[resultPosition]);
 		
 		initSpeakLanguage();
-		mAnswerOnClickListener = new MyOnClickListener(mBean,voice_play_answer,true);
-		mQuestionOnClickListener = new MyOnClickListener(mBean,voice_play_question,false);
-		
-		record_question_cover.setOnClickListener(mQuestionOnClickListener);
+		mAnswerOnClickListener = new MyOnClickListener(en[resultPosition],voice_play_answer,true);
 		record_answer_cover.setOnClickListener(mAnswerOnClickListener);
+		voice_btn.setOnClickListener(this);
 		
 	}
 	
 	private void initSpeakLanguage(){
-		if(isEnglish){
-			XFUtil.setSpeakLanguage(getActivity(),mSharedPreferences,XFUtil.VoiceEngineEN);
-			practice_prompt.setText(getActivity().getResources().getString(R.string.practice_prompt_english));
-		}else{
-			XFUtil.setSpeakLanguage(getActivity(),mSharedPreferences,XFUtil.VoiceEngineCH);
-			practice_prompt.setText(getActivity().getResources().getString(R.string.practice_prompt_chinese));
-		}
+		XFUtil.setSpeakLanguage(getActivity(),mSharedPreferences,XFUtil.VoiceEngineEN);
+		practice_prompt.setText(getActivity().getResources().getString(R.string.practice_prompt_english));
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) { 
-		case R.id.speak_round_layout:
+		case R.id.check_btn:
 			showIatDialog();
 			StatService.onEvent(getActivity(), "1.8_practice_speak_btn", "口语练习-说话按钮", 1);
-			break;
-		case R.id.practice_page_exchange:
-			exchangeContentAndResult();
-			StatService.onEvent(getActivity(), "1.8_practice_exchange_btn", "口语练习-互换按钮", 1);
 			break;
 		default:
 			break;
 		}
-	}
-	
-	private void exchangeContentAndResult(){
-		if(!isExchange){
-			isExchange = true;
-			mAnswerOnClickListener.setPlayResult(false);
-			mQuestionOnClickListener.setPlayResult(true);
-		}else{
-			isExchange = false;
-			mAnswerOnClickListener.setPlayResult(true);
-			mQuestionOnClickListener.setPlayResult(false);
-		}
-		String tempAnswer = record_answer.getText().toString();
-		String tempQuestion = record_question.getText().toString();
-		record_answer.setText(tempQuestion);
-		record_question.setText(tempAnswer);
-		isEnglish = StringUtils.isEnglish(tempQuestion);
-		initSpeakLanguage();
 	}
 	
 	/**
@@ -195,10 +171,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 				record_animation_text.setText("Listen");
 			}else{
 				record_layout.setVisibility(View.VISIBLE);
-				voice_btn.setBackgroundColor(getActivity().getResources().getColor(R.color.none));
-				voice_btn.setTextColor( getActivity().getResources().getColor(R.color.white) );
 				voice_btn.setText(getActivity().getResources().getString(R.string.finish));
-//				speak_round_layout.setBackgroundResource(R.drawable.round_light_blue_bgl);
 				XFUtil.showSpeechRecognizer(getActivity(),mSharedPreferences,recognizer,recognizerListener);
 			}
 		}else{
@@ -215,9 +188,6 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 		record_layout.setVisibility(View.GONE);
 		record_anim_img.setBackgroundResource(R.drawable.speak_voice_1);
 		voice_btn.setText("Start");
-		voice_btn.setTextColor( getActivity().getResources().getColor(R.color.text_grey) );
-		voice_btn.setBackgroundColor(getActivity().getResources().getColor(R.color.none));
-//		speak_round_layout.setBackgroundResource(R.drawable.round_gray_bgl);
 	}
 	
 	private void onfinishPlay(){
@@ -355,7 +325,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 	
 	public class MyOnClickListener implements OnClickListener {
 		
-		private DialogBean mBean;
+		private String content;
 		private ImageButton voice_play;
 		private AnimationDrawable animationDrawable;
 		private boolean isPlayResult;
@@ -364,8 +334,8 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 			this.isPlayResult = isPlayResult;
 		}
 
-		private MyOnClickListener(DialogBean bean,ImageButton voice_play,boolean isPlayResult){
-			this.mBean = bean;
+		private MyOnClickListener(String content,ImageButton voice_play,boolean isPlayResult){
+			this.content = content;
 			this.voice_play = voice_play;
 			this.animationDrawable = (AnimationDrawable) voice_play.getBackground();
 			this.isPlayResult = isPlayResult;
@@ -374,33 +344,11 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 		@Override
 		public void onClick(final View v) {
 			resetVoicePlayButton();
-			String path = SDCardUtil.getDownloadPath(SDCardUtil.sdPath);
-			if(TextUtils.isEmpty(mBean.getResultVoiceId()) || TextUtils.isEmpty(mBean.getQuestionVoiceId())){
-				mBean.setQuestionVoiceId(System.currentTimeMillis() + "");
-				mBean.setResultVoiceId(System.currentTimeMillis()-5 + "");
-			}
-			String filepath = "";
-			String speakContent = "";
-			if(isPlayResult){
-				filepath = path + mBean.getResultVoiceId() + ".pcm";
-				mBean.setResultAudioPath(filepath);
-				speakContent = mBean.getAnswer();
-			}else{
-				filepath = path + mBean.getQuestionVoiceId() + ".pcm";
-				mBean.setQuestionAudioPath(filepath);
-				speakContent = mBean.getQuestion();
-			}
-			if(mBean.getSpeak_speed() != MainFragment.speed){
-				String filep1 = path + mBean.getResultVoiceId() + ".pcm";
-				String filep2 = path + mBean.getQuestionVoiceId() + ".pcm";
-				AudioTrackUtil.deleteFile(filep1);
-				AudioTrackUtil.deleteFile(filep2);
-				mBean.setSpeak_speed(MainFragment.speed);
-			}
-			mSpeechSynthesizer.setParameter(SpeechConstant.TTS_AUDIO_PATH, filepath);
+			String filepath = videoPath + resultPosition + ".pcm";
 			if(!AudioTrackUtil.isFileExists(filepath)){
 				showProgressbar();
-				XFUtil.showSpeechSynthesizer(getActivity(),mSharedPreferences,mSpeechSynthesizer,speakContent,
+				mSpeechSynthesizer.setParameter(SpeechConstant.TTS_AUDIO_PATH, filepath);
+				XFUtil.showSpeechSynthesizer(getActivity(),mSharedPreferences,mSpeechSynthesizer,content,
 						new SynthesizerListener() {
 					@Override
 					public void onSpeakResumed() {
@@ -426,7 +374,6 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 						if(arg0 != null){
 							ToastUtil.diaplayMesShort(getActivity(), arg0.getErrorDescription());
 						}
-						mDataBaseUtil.update(mBean);
 						animationDrawable.setOneShot(true);
 						animationDrawable.stop(); 
 						animationDrawable.selectDrawable(0);
@@ -474,19 +421,8 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 		mPublicTask.execute();
 	}
 	
-	private void showProgressbar(){
-//		setSupportProgressBarIndeterminateVisibility(true);
-//		setSupportProgressBarVisibility(true);
-	}
-	
-	private void hideProgressbar(){
-//		setSupportProgressBarIndeterminateVisibility(false);
-//		setSupportProgressBarVisibility(false);
-	}
-	
 	private void resetVoicePlayButton(){
 		resetVoiceAnimation(voice_play_answer);
-		resetVoiceAnimation(voice_play_question);
 	}
 	
 	private void resetVoiceAnimation(View voice_play){
@@ -494,6 +430,18 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 		animationDrawable.setOneShot(true);
 		animationDrawable.stop(); 
 		animationDrawable.selectDrawable(0);
+	}
+	
+	private void showProgressbar(){
+		if(mPracticeProgress != null){
+			mPracticeProgress.onLoading();
+		}
+	}
+	
+	private void hideProgressbar(){
+		if(mPracticeProgress != null){
+			mPracticeProgress.onCompleteLoading();
+		}
 	}
 	
 }

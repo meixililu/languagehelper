@@ -258,6 +258,19 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		setUserVisibleHint(true);
 	}
 	
+	@Override
+	public void onPause() {
+		super.onPause();
+		LogUtil.DefalutLog("MainFragment-onPause");
+		if(mSharedPreferences != null && cb_speak_language_ch != null){
+			if(cb_speak_language_ch.isChecked()){
+				Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.UserSelectLanguage, XFUtil.VoiceEngineCH);
+			}else{
+				Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.UserSelectLanguage, XFUtil.VoiceEngineEN);
+			}
+		}
+	}
+	
 	private void getAccent(){
 		isSpeakYueyu = mSharedPreferences.getBoolean(KeyUtil.SpeakPutonghuaORYueyu, false);
     	if(isSpeakYueyu){
@@ -295,7 +308,7 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	 * @return
 	 */
 	private String getSpeakLanguage(){
-		return mSharedPreferences.getString(this.getString(R.string.preference_key_recognizer), XFUtil.VoiceEngineCH);
+		return mSharedPreferences.getString(KeyUtil.UserSelectLanguage, XFUtil.VoiceEngineCH);
 	}
 	
 	/**

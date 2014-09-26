@@ -12,7 +12,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.iflytek.cloud.speech.SpeechSynthesizer;
-import com.messi.languagehelper.impl.PracticeProgress;
+import com.messi.languagehelper.impl.PracticeProgressListener;
 import com.messi.languagehelper.util.AudioTrackUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
@@ -27,7 +27,7 @@ public class PracticeFourChooseOneFragment extends BaseFragment implements OnCli
 	private String content;
 	private TextView questionTv;
 	private Button check_btn;
-	private PracticeProgress mPracticeProgress;
+	private PracticeProgressListener mPracticeProgress;
 	private CheckBox select_answer1,select_answer2,select_answer3,select_answer4;
 	private int resultPosition;
 	private int userSelect;
@@ -37,7 +37,7 @@ public class PracticeFourChooseOneFragment extends BaseFragment implements OnCli
 	private SpeechSynthesizer mSpeechSynthesizer;
 	private SharedPreferences mSharedPreferences;
 	
-	public PracticeFourChooseOneFragment(String content, PracticeProgress mPracticeProgress, String videoPath, 
+	public PracticeFourChooseOneFragment(String content, PracticeProgressListener mPracticeProgress, String videoPath, 
 			SharedPreferences mSharedPreferences){
 		this.content = content;
 		this.mPracticeProgress = mPracticeProgress;
