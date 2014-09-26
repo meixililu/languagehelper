@@ -15,6 +15,8 @@ public class SDCardUtil {
 	/**sd卡保存文件夹名称**/
 	public static final String sdPath = "/zyhy/audio/";
 	public static final String ImgPath = "/DCIM/zyhy/";
+	public static final String PracticePath = "/zyhy/audio/practice/en/";
+	public static final String Delimiter = "/";
 	
 	/**sdcard路径
 	 * @return
@@ -37,7 +39,8 @@ public class SDCardUtil {
 	public static void isFileExists(String path){
 		File sdDir = new File(path);
 		if(!sdDir.exists()){
-			sdDir.mkdirs();
+			boolean isCreate = sdDir.mkdirs();
+			LogUtil.DefalutLog("isFileExists-isCreate:"+isCreate);
 		}
 	}
 	

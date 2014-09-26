@@ -238,7 +238,7 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener {
 		@Override
 		protected Void doInBackground(Void... params) {
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(1500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

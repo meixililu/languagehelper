@@ -130,8 +130,14 @@
 	<string name="leisuer_two">作者其他软件</string>
 	<string name="leisuer_two_subtitle">其他语言，其他类型</string>
 	
+	<string name="invest_activity_title">投资人</string>
+	
 	<string name="practice_check">检查</string>
-	<string name="practice_spoken_englist">实战</string>
+	<string name="practice_start">开始</string>
+	<string name="practice_spoken_englist_style1">四选一</string>
+	<string name="practice_spoken_englist_style2">跟我读</string>
+	<string name="practice_spoken_englist_style3">跟我说</string>
+	<string name="practice_spoken_englist_style4">书写考验</string>
 	
 	<string name="getfans_1">软件已有200多万下载量，每天有10多万的用户在使用，四分之一是国外用户，将来大家可以在这里交朋友相互学习。</string>
 	<string name="getfans_2">这个软件是谁的？大家的。软件作者只是帮助大家实现各种想法，帮助大家提高英语水平，所以有话就要说，不管好坏，告诉作者，憋着对身体不好。</string>

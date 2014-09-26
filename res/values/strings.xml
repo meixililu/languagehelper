@@ -126,8 +126,14 @@
 	<string name="leisuer_two">The Author\'s Software</string>
 	<string name="leisuer_two_subtitle">Other languages</string>
 	
+	<string name="invest_activity_title">Investors</string>
+	
 	<string name="practice_check">Check</string>
-	<string name="practice_spoken_englist">Practice</string>
+	<string name="practice_start">Start</string>
+	<string name="practice_spoken_englist_style1">Choose one</string>
+	<string name="practice_spoken_englist_style2">Read After Me</string>
+	<string name="practice_spoken_englist_style3">Speak After Me</string>
+	<string name="practice_spoken_englist_style4">Write</string>
 	
 	
 	<string name="getfans_1">软件已有200多万下载量，每天有10多万的用户在使用，四分之一是国外用户，将来大家可以在这里交朋友相互学习。</string>
@@ -136,4 +142,5 @@
 	    你可以自豪的说这个软件是你参与设计的，你是投资人之一！</string>
 	<string name="getfans_4">有想法：meixililulu@163.com</string>
 	<string name="getfans_5">带你融资带你飞，带你路演到天黑！</string>
+	<string name="getfans_6">投資人列表（提了就有你）</string>
 </resources>

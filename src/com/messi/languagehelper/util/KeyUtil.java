@@ -32,6 +32,15 @@ public class KeyUtil {
 	
 	public static String PracticeContentKey = "PracticeContentKey";
 	
+	public static String LevelKey = "LevelKey";
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

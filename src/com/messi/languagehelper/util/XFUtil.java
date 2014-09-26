@@ -4,15 +4,20 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.iflytek.cloud.speech.RecognizerListener;
 import com.iflytek.cloud.speech.SpeechConstant;
+import com.iflytek.cloud.speech.SpeechError;
 import com.iflytek.cloud.speech.SpeechRecognizer;
 import com.iflytek.cloud.speech.SpeechSynthesizer;
 import com.iflytek.cloud.speech.SpeechUser;
 import com.iflytek.cloud.speech.SynthesizerListener;
 import com.messi.languagehelper.MainFragment;
+import com.messi.languagehelper.PracticeActivity;
 import com.messi.languagehelper.R;
+import com.messi.languagehelper.task.PublicTask;
+import com.messi.languagehelper.task.PublicTask.PublicTaskListener;
 
 public class XFUtil {
 	
@@ -92,4 +97,54 @@ public class XFUtil {
 		}
 		mEditor.commit();
 	}
+	
+	public static void playVideoInBackground(Context mContext, SpeechSynthesizer mSpeechSynthesizer,SharedPreferences mSharedPreferences,
+			String filepath,String speakContent){
+		LogUtil.DefalutLog("filepath:"+filepath);
+		if(!AudioTrackUtil.isFileExists(filepath)){
+			mSpeechSynthesizer.setParameter(SpeechConstant.TTS_AUDIO_PATH, filepath);
+			XFUtil.showSpeechSynthesizer(mContext,mSharedPreferences,mSpeechSynthesizer,speakContent,
+					new SynthesizerListener() {
+				@Override
+				public void onSpeakResumed() {
+				}
+				@Override
+				public void onSpeakProgress(int arg0, int arg1, int arg2) {
+				}
+				@Override
+				public void onSpeakPaused() {
+				}
+				@Override
+				public void onSpeakBegin() {
+				}
+				@Override
+				public void onCompleted(SpeechError arg0) {
+				}
+				@Override
+				public void onBufferProgress(int arg0, int arg1, int arg2, String arg3) {
+				}
+			});
+		}else{
+			playPcm(mContext, filepath);
+		}
+	}
+	
+	public static void playPcm(Context mContext, final String filepath){
+		PublicTask mPublicTask = new PublicTask(mContext);
+		mPublicTask.setmPublicTaskListener(new PublicTaskListener() {
+			@Override
+			public void onPreExecute() {
+			}
+			@Override
+			public Object doInBackground() {
+				AudioTrackUtil.createAudioTrack(filepath);
+				return null;
+			}
+			@Override
+			public void onFinish(Object resutl) {
+			}
+		});
+		mPublicTask.execute();
+	}
+	
 }

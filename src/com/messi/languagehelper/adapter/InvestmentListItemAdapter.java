@@ -14,7 +14,7 @@ import com.messi.languagehelper.StudyActivity;
 import com.messi.languagehelper.util.ColorUtil;
 import com.messi.languagehelper.util.KeyUtil;
 
-public class StudyListItemAdapter extends BaseAdapter {
+public class InvestmentListItemAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	private Context context;
@@ -22,7 +22,7 @@ public class StudyListItemAdapter extends BaseAdapter {
 	private int[] colors;
 	private String level;
 
-	public StudyListItemAdapter(Context mContext, String[] mPlanetTitles, String level) {
+	public InvestmentListItemAdapter(Context mContext, String[] mPlanetTitles, String level) {
 		context = mContext;
 		this.level = level;
 		this.mInflater = LayoutInflater.from(mContext);
@@ -62,12 +62,6 @@ public class StudyListItemAdapter extends BaseAdapter {
 			e.printStackTrace();
 		}
 		holder.name.setText(studylist_part[position]);
-		holder.cover.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				onItemClick(position);
-			}
-		});
 		return convertView;
 	}
 

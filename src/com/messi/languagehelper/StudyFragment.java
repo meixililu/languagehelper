@@ -9,12 +9,17 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.messi.languagehelper.util.KeyUtil;
 
 public class StudyFragment extends SherlockFragment implements OnClickListener{
 
 	private View view;
 	private FrameLayout study_part1,study_part2,study_part3,study_part4;
 	public static StudyFragment mMainFragment;
+	
+	public static final String PartOne = "part_one";
+	public static final String PartTwo = "part_two";
+	public static final String PartThree = "part_three";
 	
 	public static StudyFragment getInstance(){
 		if(mMainFragment == null){
@@ -45,7 +50,7 @@ public class StudyFragment extends SherlockFragment implements OnClickListener{
 	public void onClick(View v) {
 		switch(v.getId()){
 		case R.id.study_part1:
-			toStudyListActivity();
+			toStudyListActivity(PartOne);
 			break;
 		case R.id.study_part2:
 			toGetContentActivity();
@@ -65,8 +70,9 @@ public class StudyFragment extends SherlockFragment implements OnClickListener{
 		Intent intent = new Intent(getActivity(),GetFansActivity.class);
 		startActivity(intent);
 	}
-	private void toStudyListActivity(){
+	private void toStudyListActivity(String level){
 		Intent intent = new Intent(getActivity(),StudyListActivity.class);
+		intent.putExtra(KeyUtil.LevelKey, level);
 		startActivity(intent);
 	}
 	private void toGetContentActivity(){

@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
+    <string-array name="investors">
+        <item>魏京彦（头号投资人）\n陪孩子练英语，查询商务相关单词</item>
+        <item>张晓红\n做家私生意跟海外客户沟通用</item>
+        <item>Michael\n欧美用户，跟中国朋友沟通用</item>
+        <item>陈美佳\n初中生，英语翻译，查询单词</item>
+        <item>凌晨（作者同学）\nIT技术男，装逼查单词用</item>
+        <item>王文琪（作者同学）\n分享装逼用</item>
+        <item>高立伟\n给过一些很不错的建议</item>
+        <item>李燕\n生活翻译查询单词用</item>
+    </string-array>
+    
     <string-array name="studylist_part1">
         <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
         <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
@@ -13,7 +24,18 @@
     </string-array>
      
     <string-array name="studylist_part1_content1">
-        <item>男孩,boy#boy,girl,man,woman</item>
+        <item>男孩,女孩,男人,女人#boy,girl,man,woman</item>
+        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
+        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
+        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
+        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
+        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
+        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
+        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
+    </string-array>
+    
+    <string-array name="studylist_part1_content2">
+        <item>男孩,女孩,男人,女人#boy,girl,man,woman</item>
         <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
         <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
         <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>

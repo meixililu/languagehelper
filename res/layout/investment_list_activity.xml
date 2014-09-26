@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/padding_7"
+    android:paddingTop="@dimen/padding_7" >
+
+    <ListView
+        android:id="@+id/studylist_lv"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/none"
+        android:cacheColorHint="@color/none"
+        android:divider="@color/none"
+        android:dividerHeight="@dimen/padding_7"
+        android:fadingEdge="none"
+        android:listSelector="@color/none"
+        android:paddingLeft="@dimen/padding_7"
+        android:paddingRight="@dimen/padding_7"
+        android:scrollbars="none" />
+
+</LinearLayout>
