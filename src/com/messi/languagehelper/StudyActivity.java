@@ -14,8 +14,7 @@ import com.messi.languagehelper.util.SDCardUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.ViewUtil;
 
-public class StudyActivity extends BaseActivity implements
-		PracticeProgressListener {
+public class StudyActivity extends BaseActivity implements PracticeProgressListener {
 
 	public static String vedioPath = "";
 
@@ -43,8 +42,7 @@ public class StudyActivity extends BaseActivity implements
 		studylist_position = getIntent().getIntExtra(
 				KeyUtil.PracticeContentKey, 0);
 		level = getIntent().getStringExtra(KeyUtil.LevelKey);
-		vedioPath = SDCardUtil.PracticePath + level + SDCardUtil.Delimiter
-				+ studylist_position + SDCardUtil.Delimiter;
+		vedioPath = SDCardUtil.PracticePath + level + SDCardUtil.Delimiter + studylist_position + SDCardUtil.Delimiter;
 		getStudyContent();
 
 		page_navigation = (LinearLayout) findViewById(R.id.page_navigation);
@@ -55,11 +53,9 @@ public class StudyActivity extends BaseActivity implements
 
 	private void getStudyContent() {
 		if (studylist_position == 0) {
-			studylist_part1_content = getResources().getStringArray(
-					R.array.studylist_part1_content1);
+			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content1);
 		} else if (studylist_position == 1) {
-			studylist_part1_content = getResources().getStringArray(
-					R.array.studylist_part1_content2);
+			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content2);
 		}
 	}
 
@@ -68,7 +64,8 @@ public class StudyActivity extends BaseActivity implements
 	}
 
 	private void addFragment() {
-		PracticeFourChooseOneFragment fragment = new PracticeFourChooseOneFragment(studylist_part1_content[pageIndex], this, vedioPath,mSharedPreferences);
+		PracticeFourChooseOneFragment fragment = new PracticeFourChooseOneFragment(studylist_part1_content[pageIndex], this,
+				vedioPath + pageIndex + SDCardUtil.Delimiter,mSharedPreferences);
 		fragmentManager.beginTransaction()
 				.add(R.id.page_content, fragment)
 				.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -92,18 +89,24 @@ public class StudyActivity extends BaseActivity implements
 		ViewUtil.setPracticeIndicator(this, page_navigation, pageIndex);
 		pageIndex++;
 		if (pageIndex == 1) {
-			mActionBar.setTitle(getResources().getString(
-					R.string.practice_spoken_englist_style2));
+			mActionBar.setTitle(getResources().getString(R.string.practice_spoken_englist_style2));
 			PracticeReadAfterMeFragment mpramf = new PracticeReadAfterMeFragment(
-					studylist_part1_content[pageIndex], this, vedioPath,
-					mSharedPreferences);
+					studylist_part1_content[pageIndex], this, vedioPath + pageIndex + SDCardUtil.Delimiter,mSharedPreferences);
 			setFragment(mpramf);
 		} else if (pageIndex == 2) {
-			mActionBar.setTitle(getResources().getString(
-					R.string.practice_spoken_englist_style3));
+			mActionBar.setTitle(getResources().getString(R.string.practice_spoken_englist_style4));
+			PracticeWriteFragment mpramf = new PracticeWriteFragment(
+					studylist_part1_content[pageIndex], this, vedioPath + pageIndex + SDCardUtil.Delimiter,mSharedPreferences);
+			setFragment(mpramf);
 		} else if (pageIndex == 3) {
-			mActionBar.setTitle(getResources().getString(
-					R.string.practice_spoken_englist_style4));
+			mActionBar.setTitle(getResources().getString(R.string.practice_spoken_englist_style3));
+			PracticeReadAfterMeFragment mpramf = new PracticeReadAfterMeFragment(
+					studylist_part1_content[pageIndex], this, vedioPath + pageIndex + SDCardUtil.Delimiter,mSharedPreferences);
+			setFragment(mpramf);
+		}else {
+			mActionBar.setTitle(getResources().getString(R.string.practice_spoken_englist_style3));
+			FinishFragment mpramf = new FinishFragment(this);
+			setFragment(mpramf);
 		}
 	}
 
@@ -132,6 +135,11 @@ public class StudyActivity extends BaseActivity implements
 	private void hideProgressbar() {
 		setSupportProgressBarIndeterminateVisibility(false);
 		setSupportProgressBarVisibility(false);
+	}
+
+	@Override
+	public void finishActivity() {
+		this.finish();
 	}
 
 }

@@ -134,7 +134,7 @@ public class PracticeFourChooseOneFragment extends BaseFragment implements OnCli
 	private void checkResult(){
 		if(resultPosition == userSelect){
 			isGoNext = true;
-			check_btn.setText("正确，下一个");
+			check_btn.setText("正确，下一关");
 		}else{
 			tryAgain();
 			if(userSelect == 0){
@@ -173,13 +173,6 @@ public class PracticeFourChooseOneFragment extends BaseFragment implements OnCli
 	private void playVideo(int position){
 		String filepath = videoPath + position + ".pcm";
 		XFUtil.playVideoInBackground(getActivity(), mSpeechSynthesizer, mSharedPreferences, filepath, en[position]);
-	}
-	
-	private void toCailingActivity(){
-		Intent intent = new Intent(getActivity(),WebViewActivity.class);
-		intent.putExtra(KeyUtil.URL, Settings.CaiLingUrl);
-		intent.putExtra(KeyUtil.ActionbarTitle, getActivity().getResources().getString(R.string.title_cailing));
-		getActivity().startActivity(intent);
 	}
 	
 	@Override

@@ -4,6 +4,7 @@ import com.messi.languagehelper.R;
 import com.messi.languagehelper.bean.UserSpeakBean;
 
 import android.content.Context;
+import android.content.res.Resources.NotFoundException;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -72,10 +73,14 @@ public class ScoreUtil {
 	
 	public static SpannableString setColor(Context mContext, String content, int color){
 		SpannableString spa = new SpannableString(content);
-		spa.setSpan(new ForegroundColorSpan(
-						mContext.getResources().getColor(color)), 
-						0, content.length(),
-						Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		try {
+			spa.setSpan(new ForegroundColorSpan(
+							mContext.getResources().getColor(color)), 
+							0, content.length(),
+							Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return spa;
 	}
 	

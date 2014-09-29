@@ -53,9 +53,10 @@ import com.nineoldandroids.animation.ObjectAnimator;
 
 public class PracticeReadAfterMeFragment extends BaseFragment implements OnClickListener {
 
-	private FrameLayout record_question_cover,record_answer_cover;
+	private FrameLayout record_answer_cover,repeat_time_minus_cover,repeat_time_plus_cover;
 	private ImageButton voice_play_answer;
 	private TextView record_question,record_answer,practice_prompt,record_animation_text;
+	private TextView repeat_time,repeat_time_minus,repeat_time_plus;
 	private ListView recent_used_lv;
 	private ImageView record_anim_img;
 	private Button voice_btn;
@@ -75,6 +76,8 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 	private String content;
 	private String videoPath;
 	private int resultPosition;
+	private int repeatTimes;
+	private int times;
 	private PracticeProgressListener mPracticeProgress;
 	
 	public PracticeReadAfterMeFragment(String content, PracticeProgressListener mPracticeProgress, String videoPath, 
@@ -115,9 +118,15 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
         mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity());
         recognizer = SpeechRecognizer.createRecognizer(getActivity());
         mDataBaseUtil = new DataBaseUtil(getActivity());
+        repeatTimes = mSharedPreferences.getInt(KeyUtil.ReadRepeatTime, 2);
         
 		record_answer_cover = (FrameLayout) getView().findViewById(R.id.record_answer_cover);
-		record_question_cover = (FrameLayout) getView().findViewById(R.id.record_question_cover);
+		repeat_time_minus_cover = (FrameLayout) getView().findViewById(R.id.repeat_time_minus_cover);
+		repeat_time_plus_cover = (FrameLayout) getView().findViewById(R.id.repeat_time_plus_cover);
+		repeat_time = (TextView) getView().findViewById(R.id.repeat_time);
+		repeat_time_minus = (TextView) getView().findViewById(R.id.repeat_time_minus);
+		repeat_time_plus = (TextView) getView().findViewById(R.id.repeat_time_plus);
+		
 		practice_prompt = (TextView) getView().findViewById(R.id.practice_prompt);
 		record_answer = (TextView) getView().findViewById(R.id.record_answer);
 		record_question = (TextView) getView().findViewById(R.id.record_question);
@@ -132,11 +141,14 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 		
 		record_answer.setText(en[resultPosition]);
 		record_question.setText(cn[resultPosition]);
+		repeat_time.setText("跟读 " + repeatTimes + " 次");
 		
 		initSpeakLanguage();
 		mAnswerOnClickListener = new MyOnClickListener(en[resultPosition],voice_play_answer,true);
 		record_answer_cover.setOnClickListener(mAnswerOnClickListener);
 		voice_btn.setOnClickListener(this);
+		repeat_time_minus_cover.setOnClickListener(this);
+		repeat_time_plus_cover.setOnClickListener(this);
 		
 	}
 	
@@ -152,6 +164,18 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 			showIatDialog();
 			StatService.onEvent(getActivity(), "1.8_practice_speak_btn", "口语练习-说话按钮", 1);
 			break;
+		case R.id.repeat_time_minus_cover:
+			if(repeatTimes > 1){
+				repeatTimes--;
+				repeat_time.setText("跟读 " + repeatTimes + " 次");
+			}
+			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.ReadRepeatTime, repeatTimes);
+			break;
+		case R.id.repeat_time_plus_cover:
+			repeatTimes++;
+			repeat_time.setText("跟读 " + repeatTimes + " 次");
+			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.ReadRepeatTime, repeatTimes);
+			break;
 		default:
 			break;
 		}
@@ -162,17 +186,23 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 	 */
 	public void showIatDialog() {
 		if(!recognizer.isListening()){
-			if(isNewIn){
-				isNewIn = false;
-				isFollow = true;
-				practice_prompt.setVisibility(View.GONE);
-				mAnswerOnClickListener.onClick(voice_play_answer);
-				record_animation_layout.setVisibility(View.VISIBLE);
-				record_animation_text.setText("Listen");
+			if(times >= repeatTimes){
+				if(mPracticeProgress != null){
+					mPracticeProgress.toNextPage();
+				}
 			}else{
-				record_layout.setVisibility(View.VISIBLE);
-				voice_btn.setText(getActivity().getResources().getString(R.string.finish));
-				XFUtil.showSpeechRecognizer(getActivity(),mSharedPreferences,recognizer,recognizerListener);
+				if(isNewIn){
+					isNewIn = false;
+					isFollow = true;
+					practice_prompt.setVisibility(View.GONE);
+					mAnswerOnClickListener.onClick(voice_play_answer);
+					record_animation_layout.setVisibility(View.VISIBLE);
+					record_animation_text.setText("Listen");
+				}else{
+					record_layout.setVisibility(View.VISIBLE);
+					voice_btn.setText(getActivity().getResources().getString(R.string.finish));
+					XFUtil.showSpeechRecognizer(getActivity(),mSharedPreferences,recognizer,recognizerListener);
+				}
 			}
 		}else{
 			showProgressbar();
@@ -187,7 +217,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 		recognizer.stopListening();
 		record_layout.setVisibility(View.GONE);
 		record_anim_img.setBackgroundResource(R.drawable.speak_voice_1);
-		voice_btn.setText("Start");
+		voice_btn.setText("开始");
 	}
 	
 	private void onfinishPlay(){
@@ -261,11 +291,18 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 		}
 	};
 	
+	private void isEnough(){
+		if(times >= repeatTimes){
+			voice_btn.setText("继续，下一关");
+		}
+	}
+	
 	RecognizerListener recognizerListener = new RecognizerListener() {
 
 		@Override
 		public void onBeginOfSpeech() {
 			LogUtil.DefalutLog("onBeginOfSpeech");
+			times++;
 		}
 
 		@Override
@@ -273,6 +310,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 			LogUtil.DefalutLog("onError:"+err.getErrorDescription());
 			finishRecord();
 			hideProgressbar();
+			isEnough();
 			ToastUtil.diaplayMesShort(getActivity(), err.getErrorDescription());
 		}
 
@@ -281,6 +319,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 			LogUtil.DefalutLog("onEndOfSpeech");
 			finishRecord();
 			showProgressbar();
+			isEnough();
 		}
 
 		@Override
@@ -291,7 +330,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 		@Override
 		public void onResult(RecognizerResult results, boolean isLast) {
 			LogUtil.DefalutLog("onResult");
-			String text = JsonParser.parseIatResult(results.getResultString());
+			String text = JsonParser.parseIatResult(results.getResultString()).toLowerCase();
 			if(isLast) {
 				hideProgressbar();
 				finishRecord();
@@ -299,6 +338,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 				mUserSpeakBeanList.add(0,bean);
 				adapter.notifyDataSetChanged();
 				animationReward(bean.getScoreInt());
+				isEnough();
 			}
 		}
 
@@ -387,11 +427,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 			}else{
 				playLocalPcm(filepath,animationDrawable);
 			}
-			if(v.getId() == R.id.record_question_cover){
-				StatService.onEvent(getActivity(), "1.8_practice_play_content", "口语练习-点击翻译内容", 1);
-			}else if(v.getId() == R.id.record_answer_cover){
-				StatService.onEvent(getActivity(), "1.8_practice_play_result", "口语练习-点击翻译结果", 1);
-			}
+			StatService.onEvent(getActivity(), "1.8_practice_play_result", "口语练习-点击翻译结果", 1);
 		}
 	}
 	

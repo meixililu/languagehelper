@@ -22,6 +22,7 @@
     <string name="app_name_share">App:Translator</string>
     <string name="share_text_hint">please input something</string>
     <string name="input_et_hint">please input chinese or english</string>
+    <string name="input_translate_hint">please translate</string>
     <string name="translate">Translate</string>
     <string name="finish">Finish</string>
     <string name="exit_program">Press again to exit the program</string>
@@ -129,12 +130,14 @@
 	<string name="invest_activity_title">Investors</string>
 	
 	<string name="practice_check">Check</string>
+	<string name="practice_finish">Finish</string>
 	<string name="practice_start">Start</string>
 	<string name="practice_spoken_englist_style1">Choose one</string>
 	<string name="practice_spoken_englist_style2">Read After Me</string>
 	<string name="practice_spoken_englist_style3">Speak After Me</string>
 	<string name="practice_spoken_englist_style4">Write</string>
-	
+	<string name="translate_content">Translate This Sentence</string>
+	<string name="practice_congratulation">太棒了，闯关完成!\n妈妈再也不用担心我的学习了！</string>
 	
 	<string name="getfans_1">软件已有200多万下载量，每天有10多万的用户在使用，四分之一是国外用户，将来大家可以在这里交朋友相互学习。</string>
 	<string name="getfans_2">这个软件是谁的？大家的。软件作者只是帮助大家实现各种想法，帮助大家提高英语水平，所以有话就要说，不管好坏，告诉作者，憋着对身体不好。</string>
