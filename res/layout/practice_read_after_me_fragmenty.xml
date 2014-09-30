@@ -88,8 +88,7 @@
             	android:textColor="@color/text_grey"
            		android:layout_weight="1"
                 android:textSize="@dimen/middle"
-                android:layout_marginLeft="10dp"
-                android:padding="@dimen/padding_5"
+                android:padding="@dimen/padding_10"
                 android:text="跟读  2  次数"
                 />
             <FrameLayout

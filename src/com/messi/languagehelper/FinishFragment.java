@@ -71,8 +71,7 @@ public class FinishFragment extends BaseFragment implements OnClickListener {
 	private void shareWithImg() throws IOException{
 		share_content.setFocusable(false);
 		parent_layout.setDrawingCacheEnabled(true);
-		parent_layout.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
-                MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+		parent_layout.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
 		parent_layout.layout(0, 0, parent_layout.getMeasuredWidth(), parent_layout.getMeasuredHeight());
 		parent_layout.buildDrawingCache();
 		Bitmap bitmap = parent_layout.getDrawingCache();
@@ -100,11 +99,11 @@ public class FinishFragment extends BaseFragment implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.share_btn_cover:
 			share();
-			StatService.onEvent(getActivity(), "1.8_img_share_btn", "点击图片分享页面分享按钮", 1);
+			StatService.onEvent(getActivity(), "19_practice_finish_share", "口语练习完成分享按钮", 1);
 			break;
 		case R.id.share_foot:
 			share_foot.setVisibility(View.GONE);
-			StatService.onEvent(getActivity(), "1.8_img_share_hide", "点击图片分享页面隐藏文字按钮", 1);
+			StatService.onEvent(getActivity(), "19_practice_finish_close", "口语练习完成完成按钮", 1);
 			break;
 		case R.id.check_btn:
 			toNextPage();

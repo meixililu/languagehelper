@@ -38,13 +38,13 @@ public class PracticeFourChooseOneFragment extends BaseFragment implements OnCli
 	private SharedPreferences mSharedPreferences;
 	
 	public PracticeFourChooseOneFragment(String content, PracticeProgressListener mPracticeProgress, String videoPath, 
-			SharedPreferences mSharedPreferences){
+			SharedPreferences mSharedPreferences,SpeechSynthesizer mSpeechSynthesizer){
 		this.content = content;
 		this.mPracticeProgress = mPracticeProgress;
 		resultPosition = NumberUtil.getRandomNumber(4);
 		getContent();
 		this.videoPath = SDCardUtil.getDownloadPath(videoPath);
-		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity());
+		this.mSpeechSynthesizer = mSpeechSynthesizer;
 		this.mSharedPreferences = mSharedPreferences;
 	}
 	
@@ -178,7 +178,8 @@ public class PracticeFourChooseOneFragment extends BaseFragment implements OnCli
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		mSpeechSynthesizer = null;
-		LogUtil.DefalutLog("PracticeOneFragment---onDestroy");
+		if(mSpeechSynthesizer != null){
+			mSpeechSynthesizer.cancel();
+		}
 	}
 }

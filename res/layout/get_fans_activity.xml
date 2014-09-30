@@ -24,7 +24,7 @@
                 android:shadowRadius="0.3"
                 android:text="@string/getfans_1"
                 android:textColor="@color/white"
-                android:padding="@dimen/padding_10"
+                android:padding="@dimen/padding_15"
                 android:textSize="@dimen/big" />
     </FrameLayout>
 
@@ -47,7 +47,7 @@
                 android:shadowRadius="0.3"
                 android:text="@string/getfans_2"
                 android:textColor="@color/white"
-                android:padding="@dimen/padding_10"
+                android:padding="@dimen/padding_15"
                 android:textSize="@dimen/big" />
     </FrameLayout>
     
@@ -70,30 +70,7 @@
                 android:shadowRadius="0.3"
                 android:text="@string/getfans_3"
                 android:textColor="@color/white"
-                android:padding="@dimen/padding_10"
-                android:textSize="@dimen/big" />
-    </FrameLayout>
-    
-    <FrameLayout
-        android:id="@+id/layout_6"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_7"
-        android:background="@color/style3_color3"
-        android:foreground="@drawable/framelayout_selector"
-        android:orientation="vertical" >
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-		        android:layout_gravity="center"
-                android:shadowColor="@color/white"
-                android:shadowDx="0.3"
-                android:shadowDy="0.3"
-                android:shadowRadius="0.3"
-                android:text="@string/getfans_6"
-                android:textColor="@color/white"
-                android:padding="@dimen/padding_10"
+                android:padding="@dimen/padding_15"
                 android:textSize="@dimen/big" />
     </FrameLayout>
     
@@ -108,7 +85,7 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left"
+                android:gravity="center"
 		        android:layout_gravity="center"
                 android:shadowColor="@color/white"
                 android:shadowDx="0.3"
@@ -116,8 +93,37 @@
                 android:shadowRadius="0.3"
                 android:text="@string/getfans_4"
                 android:textColor="@color/white"
-                android:padding="@dimen/padding_10"
-                android:textSize="@dimen/big" />
+                android:paddingLeft="@dimen/padding_10"
+                android:paddingRight="@dimen/padding_10"
+                android:paddingTop="@dimen/padding_15"
+                android:paddingBottom="@dimen/padding_15"
+                android:textSize="@dimen/bigger" />
+    </FrameLayout>
+    
+    <FrameLayout
+        android:id="@+id/layout_6"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_7"
+        android:background="@color/style3_color3"
+        android:foreground="@drawable/framelayout_selector"
+        android:orientation="vertical" >
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+		        android:layout_gravity="center"
+                android:shadowColor="@color/white"
+                android:shadowDx="0.3"
+                android:shadowDy="0.3"
+                android:shadowRadius="0.3"
+                android:text="@string/getfans_6"
+                android:textColor="@color/white"
+                android:paddingLeft="@dimen/padding_10"
+                android:paddingRight="@dimen/padding_10"
+                android:paddingTop="@dimen/padding_15"
+                android:paddingBottom="@dimen/padding_15"
+                android:textSize="@dimen/bigger" />
     </FrameLayout>
     
     <FrameLayout
@@ -131,7 +137,7 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left"
+                android:gravity="center"
 		        android:layout_gravity="center"
                 android:shadowColor="@color/white"
                 android:shadowDx="0.3"
@@ -139,8 +145,11 @@
                 android:shadowRadius="0.3"
                 android:text="@string/getfans_5"
                 android:textColor="@color/white"
-                android:padding="@dimen/padding_10"
-                android:textSize="@dimen/big" />
+                android:paddingLeft="@dimen/padding_10"
+                android:paddingRight="@dimen/padding_10"
+                android:paddingTop="@dimen/padding_15"
+                android:paddingBottom="@dimen/padding_15"
+                android:textSize="@dimen/bigger" />
     </FrameLayout>
 
 </LinearLayout>

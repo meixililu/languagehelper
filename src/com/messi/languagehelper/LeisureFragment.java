@@ -54,12 +54,13 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		intent.putExtra(KeyUtil.URL, Settings.CaiLingUrl);
 		intent.putExtra(KeyUtil.ActionbarTitle, getActivity().getResources().getString(R.string.title_cailing));
 		getActivity().startActivity(intent);
+		StatService.onEvent(getActivity(), "19_to_cailing_page", "去彩铃页面", 1);
 	}
 	
 	private void toAppActivity(){
 		Intent intent = new Intent(getActivity(),RecommendActivity.class);
 		getActivity().startActivity(intent);
-		StatService.onEvent(getActivity(),"1.9_authors_software", "作者其他应用", 1);
+		StatService.onEvent(getActivity(),"19_authors_software", "作者其他应用", 1);
 	}
 	
 }

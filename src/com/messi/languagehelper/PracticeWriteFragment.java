@@ -39,13 +39,13 @@ public class PracticeWriteFragment extends BaseFragment implements OnClickListen
 	private SharedPreferences mSharedPreferences;
 	
 	public PracticeWriteFragment(String content, PracticeProgressListener mPracticeProgress, String videoPath, 
-			SharedPreferences mSharedPreferences){
+			SharedPreferences mSharedPreferences,SpeechSynthesizer mSpeechSynthesizer){
 		this.content = content;
 		this.mPracticeProgress = mPracticeProgress;
 		resultPosition = NumberUtil.getRandomNumber(4);
 		getContent();
 		this.videoPath = SDCardUtil.getDownloadPath(videoPath);
-		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity());
+		this.mSpeechSynthesizer = mSpeechSynthesizer;
 		this.mSharedPreferences = mSharedPreferences;
 	}
 	
@@ -113,8 +113,8 @@ public class PracticeWriteFragment extends BaseFragment implements OnClickListen
 	
 	private void checkResult(){
 		hideIME();
-		String userInput = translate_input.getText().toString();
-		UserSpeakBean bean = ScoreUtil.score(getActivity(), userInput, en[resultPosition]);
+		String userInput = translate_input.getText().toString().toLowerCase();
+		UserSpeakBean bean = ScoreUtil.score(getActivity(), userInput, en[resultPosition].toLowerCase());
 		translate_input.setText(bean.getContent());
 		translate_input.setSelection(bean.getContent().length()-1);
 		setScore(bean);
@@ -156,7 +156,7 @@ public class PracticeWriteFragment extends BaseFragment implements OnClickListen
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		mSpeechSynthesizer = null;
 		LogUtil.DefalutLog("PracticeOneFragment---onDestroy");
 	}
+	
 }

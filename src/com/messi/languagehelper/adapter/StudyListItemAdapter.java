@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.baidu.mobstat.StatService;
 import com.messi.languagehelper.R;
 import com.messi.languagehelper.StudyActivity;
 import com.messi.languagehelper.util.ColorUtil;
@@ -82,6 +83,7 @@ public class StudyListItemAdapter extends BaseAdapter {
 			intent.putExtra(KeyUtil.PracticeContentKey, position);
 			intent.putExtra(KeyUtil.LevelKey, level);
 			context.startActivity(intent);
+			StatService.onEvent(context, "19_to_practice_page", "进入口语学习页面", 1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

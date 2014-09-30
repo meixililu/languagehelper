@@ -91,6 +91,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 			autoread_unread_dot.setVisibility(View.GONE);
 			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoPlayResult,auto_play_cb.isChecked());
 			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoPlayUnreadDot,true);
+			StatService.onEvent(this, "19_auto_play", "翻译完成之后自动播放", 1);
 			break;
 		case R.id.setting_clear_all_except_favorite:
 			new DataBaseUtil(SettingActivity.this).clearExceptFavorite();

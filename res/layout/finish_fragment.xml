@@ -19,7 +19,7 @@
             android:id="@+id/parent_layout"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@color/load_blue"
+            android:background="@color/green_dark"
             android:padding="7dp"
             android:gravity="center"
             android:orientation="vertical" >
@@ -40,7 +40,7 @@
                 android:shadowRadius="0.1"
                 android:textColor="@color/white"
                 android:text="@string/practice_congratulation"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView

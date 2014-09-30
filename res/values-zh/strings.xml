@@ -124,6 +124,7 @@
 	<string name="primary_lever">第二部分</string>
 	<string name="intermediate_lever">第三部分</string>
 	<string name="fighting">你不是一个人在战斗！</string>
+	<string name="sorry">很抱歉，我们的速度不够快</string>
 	
 	<string name="leisuer_one">酷炫彩铃</string>
 	<string name="leisuer_one_subtitle">听听音乐放松一下</string>
@@ -136,16 +137,21 @@
 	<string name="practice_finish">完成</string>
 	<string name="practice_check">检查</string>
 	<string name="practice_start">开始</string>
-	<string name="practice_spoken_englist_style1">四选一</string>
-	<string name="practice_spoken_englist_style2">跟我读</string>
-	<string name="practice_spoken_englist_style3">跟我说</string>
-	<string name="practice_spoken_englist_style4">书写考验</string>
+	<string name="practice_spoken_englist_style_fourinone">四选一</string>
+	<string name="practice_spoken_englist_style_readafterme">跟我读</string>
+	<string name="practice_spoken_englist_style_write">书写考验</string>
+	<string name="practice_spoken_englist_style_speakafterme">跟我说</string>
+	<string name="practice_spoken_englist_finish">闯关成功</string>
 	<string name="translate_content">翻译此句子</string>
-	<string name="practice_congratulation">太棒了，闯关完成!\n妈妈再也不用担心我的学习了！</string>
+	<string name="practice_congratulation">太棒了，闯关完成!\n\n妈妈再也不用担心我的学习了！</string>
 	
 	<string name="getfans_1">软件已有200多万下载量，每天有10多万的用户在使用，四分之一是国外用户，将来大家可以在这里交朋友相互学习。</string>
 	<string name="getfans_2">这个软件是谁的？大家的。软件作者只是帮助大家实现各种想法，帮助大家提高英语水平，所以有话就要说，不管好坏，告诉作者，憋着对身体不好。</string>
 	<string name="getfans_3">作者真诚邀请大家来做软件的投资人，别害怕，不是金钱，是你的想法，你希望软件能帮你做什么，甚至是其他类型的软件，你可以做我们的产品经理，投资人，跟我们一起成长，
 	    你可以自豪的说这个软件是你参与设计的，你是投资人之一！</string>
+	    
+	<string name="getcontent_1">由于人员有限，我们正在不断的增加学习内容，如果您需要加快更新某方面的内容，
+	    可以发邮件告诉我们，和我们一起开发软件，不断丰富软件内容，提高软件水平，说的就是你，赶紧发邮件给我们提出您伟大的要求！</string>
+	<string name="getcontent_2">邮箱联系：meixililulu@163.com</string>
 	
 </resources>

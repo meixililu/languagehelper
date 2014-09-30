@@ -2,6 +2,17 @@ package com.messi.languagehelper.util;
 
 public class KeyUtil {
 
+	public static final String Practice_FourInOne = "Practice_FourInOne";
+	
+	public static final String Practice_ReadAfterMe = "Practice_ReadAfterMe";
+	
+	public static final String Practice_Translate = "Practice_Translate";
+	
+	public static final String Practice_SpeakAfterMe = "Practice_SpeakAfterMe";
+	
+	public static final String Practice_Finish = "Practice_Finish";
+	
+	
 	public static final String ShareContentKey = "ShareContentKey";
 	
 	public static final String DialogBeanKey = "DialogBeanKey";

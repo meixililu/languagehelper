@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 
+import com.baidu.mobstat.StatService;
 import com.messi.languagehelper.util.Settings;
 
 public class GetFansActivity extends BaseActivity implements OnClickListener {
@@ -44,9 +45,11 @@ public class GetFansActivity extends BaseActivity implements OnClickListener {
 			break;
 		case R.id.layout_4:
 			Settings.contantUs(GetFansActivity.this);
+			StatService.onEvent(this, "19_getfans_email", "邀请用户发邮件提出想法", 1);
 			break;
 		case R.id.layout_6:
 			toInvestorListActivity();
+			StatService.onEvent(this, "19_to_investor_list_activity", "去投资人列表页面", 1);
 			break;
 		default:
 			break;

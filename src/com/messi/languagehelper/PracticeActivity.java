@@ -510,4 +510,17 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsFirstLoadPracticePage, false);
 		}
 	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		if(mSpeechSynthesizer != null){
+			mSpeechSynthesizer.destroy();
+			mSpeechSynthesizer = null;
+		}
+		if(recognizer != null){
+			recognizer.destroy();
+			recognizer = null;
+		}
+	}
 }

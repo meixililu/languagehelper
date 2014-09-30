@@ -10,38 +10,39 @@
         <item>王文琪（作者同学）\n分享装逼用</item>
         <item>高立伟\n给过一些很不错的建议</item>
         <item>李燕\n生活翻译查询单词用</item>
+        <item>持续更新中</item>
     </string-array>
     
     <string-array name="studylist_part1">
-        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
-        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
-        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
-        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
-        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
-        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
-        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
-        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
+        <item>a,boy,girl,man,woman\n一个,男孩,女孩,男人,女人</item>
+        <item>white,black,red,green\n白色,黑色,红色,绿色</item>
+        <item>Good morning,afternoon,evening,night\n早上好,下午好,晚上好,晚安</item>
+        <item>young,old,beautiful,handsome\n年轻的,老的,美丽的,英俊的</item>
     </string-array>
      
     <string-array name="studylist_part1_content1">
-        <item>男孩,女孩,男人,女人#boy,girl,man,woman</item>
-        <item>一个男孩,一个女孩,一个男人,一个女人#a boy,a girl,a man,a woman</item>
-        <item>他是一个男孩,她是一个女孩,他是一个男人,她是一个女人#he is a boy,she is a girl,he is a man,she is a woman</item>
-        <item>男孩,女孩,男人,女人#boy,girl,man,woman</item>
-        <item>男孩,女孩,男人,女人#boy,girl,man,woman</item>
-        <item>男孩,女孩,男人,女人#boy,girl,man,woman</item>
+        <item>男孩,女孩,男人,女人#boy,girl,man,woman#Practice_FourInOne</item>
+        <item>一个男孩,一个女孩,一个男人,一个女人#a boy,a girl,a man,a woman#Practice_ReadAfterMe</item>
+        <item>他是一个男孩,她是一个女孩,他是一个男人,她是一个女人#he is a boy,she is a girl,he is a man,she is a woman#Practice_Translate</item>
+        <item>他是一个男孩,她是一个女孩,他是一个男人,她是一个女人#he is a boy,she is a girl,he is a man,she is a woman#Practice_SpeakAfterMe</item>
+    </string-array>
+    <string-array name="studylist_part1_content2">
+        <item>白色,黑色,红色,绿色#white,black,red,green#Practice_FourInOne</item>
+        <item>白色,黑色,红色,绿色#white,black,red,green#Practice_ReadAfterMe</item>
+        <item>白色,黑色,红色,绿色#white,black,red,green#Practice_Translate</item>
+    </string-array>
+    <string-array name="studylist_part1_content3">
+        <item>早上好,下午好,晚上好,晚安#Good morning,Good afternoon,Good evening,Good night#Practice_FourInOne</item>
+        <item>早上好,下午好,晚上好,晚安#Good morning,Good afternoon,Good evening,Good night#Practice_ReadAfterMe</item>
+        <item>早上好,下午好,晚上好,晚安#Good morning,Good afternoon,Good evening,Good night#Practice_Translate</item>
+    </string-array>
+    <string-array name="studylist_part1_content4">
+        <item>年轻的,老的,美丽的,英俊的#young,old,beautiful,handsome#Practice_FourInOne</item>
+        <item>年轻的,老的,美丽的,英俊的#young,old,beautiful,handsome#Practice_ReadAfterMe</item>
+        <item>年轻的,老的,美丽的,英俊的#young,old,beautiful,handsome#Practice_Translate</item>
     </string-array>
     
-    <string-array name="studylist_part1_content2">
-        <item>男孩,女孩,男人,女人#boy,girl,man,woman</item>
-        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
-        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
-        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
-        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
-        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
-        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
-        <item>I,am,a,boy,girl,man,woman\n我，是，一个，男孩，女孩，男人，女人</item>
-    </string-array>
+    
     
      
 </resources>

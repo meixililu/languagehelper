@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.baidu.mobstat.StatService;
 import com.messi.languagehelper.util.KeyUtil;
 
 public class StudyFragment extends SherlockFragment implements OnClickListener{
@@ -51,15 +52,19 @@ public class StudyFragment extends SherlockFragment implements OnClickListener{
 		switch(v.getId()){
 		case R.id.study_part1:
 			toStudyListActivity(PartOne);
+			StatService.onEvent(getActivity(), "19_studylist_part1", "口语练习第1部分", 1);
 			break;
 		case R.id.study_part2:
 			toGetContentActivity();
+			StatService.onEvent(getActivity(), "19_studylist_part2", "口语练习第2部分", 1);
 			break;
 		case R.id.study_part3:
 			toGetContentActivity();
+			StatService.onEvent(getActivity(), "19_studylist_part3", "口语练习第3部分", 1);
 			break;
 		case R.id.study_part4:
 			toGetfansActivity();
+			StatService.onEvent(getActivity(), "19_studylist_part4", "你不是一个人在战斗", 1);
 			break;
 		default:
 			break;

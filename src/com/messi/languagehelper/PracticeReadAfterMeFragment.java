@@ -81,13 +81,14 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 	private PracticeProgressListener mPracticeProgress;
 	
 	public PracticeReadAfterMeFragment(String content, PracticeProgressListener mPracticeProgress, String videoPath, 
-			SharedPreferences mSharedPreferences){
+			SharedPreferences mSharedPreferences,SpeechSynthesizer mSpeechSynthesizer){
 		this.content = content;
 		this.mPracticeProgress = mPracticeProgress;
 		resultPosition = NumberUtil.getRandomNumber(4);
 		getContent();
 		this.videoPath = SDCardUtil.getDownloadPath(videoPath);
 		this.mSharedPreferences = mSharedPreferences;
+		this.mSpeechSynthesizer = mSpeechSynthesizer;
 	}
 	
 	private void getContent(){
@@ -115,7 +116,6 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 
 	private void initView() {
         mSharedPreferences = Settings.getSharedPreferences(getActivity());
-        mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity());
         recognizer = SpeechRecognizer.createRecognizer(getActivity());
         mDataBaseUtil = new DataBaseUtil(getActivity());
         repeatTimes = mSharedPreferences.getInt(KeyUtil.ReadRepeatTime, 2);
@@ -477,6 +477,17 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 	private void hideProgressbar(){
 		if(mPracticeProgress != null){
 			mPracticeProgress.onCompleteLoading();
+		}
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		if(mSpeechSynthesizer != null){
+			mSpeechSynthesizer.cancel();
+		}
+		if(recognizer != null){
+			recognizer.cancel();
 		}
 	}
 	
