@@ -29,11 +29,11 @@ import android.widget.RadioButton;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.baidu.mobstat.StatService;
-import com.iflytek.cloud.speech.RecognizerListener;
-import com.iflytek.cloud.speech.RecognizerResult;
-import com.iflytek.cloud.speech.SpeechError;
-import com.iflytek.cloud.speech.SpeechRecognizer;
-import com.iflytek.cloud.speech.SpeechSynthesizer;
+import com.iflytek.cloud.RecognizerListener;
+import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechRecognizer;
+import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.adapter.CollectedListItemAdapter;
 import com.messi.languagehelper.bean.DialogBean;
 import com.messi.languagehelper.db.DataBaseUtil;
@@ -126,8 +126,8 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		mInflater = LayoutInflater.from(getActivity());
 		mSharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Activity.MODE_PRIVATE);
 		
-		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity());
-		recognizer = SpeechRecognizer.createRecognizer(getActivity());
+		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity(), null);
+		recognizer = SpeechRecognizer.createRecognizer(getActivity(), null);
 		mDataBaseUtil = new DataBaseUtil(getActivity());
 		beans = mDataBaseUtil.getDataList(0, Settings.offset);
 		mAdapter = new CollectedListItemAdapter(getActivity(), mInflater, beans, 
@@ -453,11 +453,6 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		}
 
 		@Override
-		public void onEvent(int eventType, int arg1, int arg2, String msg) {
-			LogUtil.DefalutLog("onEvent");
-		}
-
-		@Override
 		public void onResult(RecognizerResult results, boolean isLast) {
 			LogUtil.DefalutLog("onResult");
 			String text = JsonParser.parseIatResult(results.getResultString());
@@ -486,6 +481,10 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 			}else if(volume < 31){
 				record_anim_img.setBackgroundResource(R.drawable.speak_voice_7);
 			}
+		}
+
+		@Override
+		public void onEvent(int arg0, int arg1, int arg2, Bundle arg3) {
 		}
 
 	};

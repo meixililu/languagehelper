@@ -20,13 +20,13 @@ import android.widget.TextView;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.baidu.mobstat.StatService;
-import com.iflytek.cloud.speech.RecognizerListener;
-import com.iflytek.cloud.speech.RecognizerResult;
-import com.iflytek.cloud.speech.SpeechConstant;
-import com.iflytek.cloud.speech.SpeechError;
-import com.iflytek.cloud.speech.SpeechRecognizer;
-import com.iflytek.cloud.speech.SpeechSynthesizer;
-import com.iflytek.cloud.speech.SynthesizerListener;
+import com.iflytek.cloud.RecognizerListener;
+import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechRecognizer;
+import com.iflytek.cloud.SpeechSynthesizer;
+import com.iflytek.cloud.SynthesizerListener;
 import com.messi.languagehelper.adapter.PracticePageListItemAdapter;
 import com.messi.languagehelper.bean.DialogBean;
 import com.messi.languagehelper.bean.UserSpeakBean;
@@ -89,8 +89,8 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 	private void initView() {
         mActionBar.setTitle(getResources().getString(R.string.title_Practice));
         mSharedPreferences = Settings.getSharedPreferences(this);
-        mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this);
-        recognizer = SpeechRecognizer.createRecognizer(this);
+        mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this,null);
+        recognizer = SpeechRecognizer.createRecognizer(this,null);
         mDataBaseUtil = new DataBaseUtil(this);
         
 		record_answer_cover = (FrameLayout) findViewById(R.id.record_answer_cover);
@@ -301,11 +301,6 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 		}
 
 		@Override
-		public void onEvent(int eventType, int arg1, int arg2, String msg) {
-			LogUtil.DefalutLog("onEvent");
-		}
-
-		@Override
 		public void onResult(RecognizerResult results, boolean isLast) {
 			LogUtil.DefalutLog("onResult");
 			String text = JsonParser.parseIatResult(results.getResultString());
@@ -338,6 +333,9 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 			}
 		}
 
+		@Override
+		public void onEvent(int arg0, int arg1, int arg2, Bundle arg3) {
+		}
 	};
 	
 	public class MyOnClickListener implements OnClickListener {
@@ -422,6 +420,10 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 					}
 					@Override
 					public void onBufferProgress(int arg0, int arg1, int arg2, String arg3) {
+					}
+					@Override
+					public void onEvent(int arg0, int arg1, int arg2,Bundle arg3) {
+						
 					}
 				});
 			}else{

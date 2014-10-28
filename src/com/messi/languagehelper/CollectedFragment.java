@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,8 +14,8 @@ import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.baidu.mobstat.StatService;
-import com.iflytek.cloud.speech.SpeechRecognizer;
-import com.iflytek.cloud.speech.SpeechSynthesizer;
+import com.iflytek.cloud.SpeechRecognizer;
+import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.adapter.CollectedListItemAdapter;
 import com.messi.languagehelper.bean.DialogBean;
 import com.messi.languagehelper.db.DataBaseUtil;
@@ -78,8 +77,8 @@ public class CollectedFragment extends SherlockFragment implements OnClickListen
 		mInflater = LayoutInflater.from(getActivity());
 		mSharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Activity.MODE_PRIVATE);
 		recent_used_lv = (ListView) view.findViewById(R.id.collected_listview);
-		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity());
-		recognizer = SpeechRecognizer.createRecognizer(getActivity());
+		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity(), null);
+		recognizer = SpeechRecognizer.createRecognizer(getActivity(), null);
 		mDataBaseUtil = new DataBaseUtil(getActivity());
 		beans = mDataBaseUtil.getDataListCollected(0, Settings.offset);
 		mAdapter = new CollectedListItemAdapter(getActivity(), mInflater, beans, 

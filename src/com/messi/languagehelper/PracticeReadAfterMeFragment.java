@@ -22,13 +22,13 @@ import android.widget.TextView;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.baidu.mobstat.StatService;
-import com.iflytek.cloud.speech.RecognizerListener;
-import com.iflytek.cloud.speech.RecognizerResult;
-import com.iflytek.cloud.speech.SpeechConstant;
-import com.iflytek.cloud.speech.SpeechError;
-import com.iflytek.cloud.speech.SpeechRecognizer;
-import com.iflytek.cloud.speech.SpeechSynthesizer;
-import com.iflytek.cloud.speech.SynthesizerListener;
+import com.iflytek.cloud.RecognizerListener;
+import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechRecognizer;
+import com.iflytek.cloud.SpeechSynthesizer;
+import com.iflytek.cloud.SynthesizerListener;
 import com.messi.languagehelper.adapter.PracticePageListItemAdapter;
 import com.messi.languagehelper.bean.DialogBean;
 import com.messi.languagehelper.bean.UserSpeakBean;
@@ -116,7 +116,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 
 	private void initView() {
         mSharedPreferences = Settings.getSharedPreferences(getActivity());
-        recognizer = SpeechRecognizer.createRecognizer(getActivity());
+        recognizer = SpeechRecognizer.createRecognizer(getActivity(), null);
         mDataBaseUtil = new DataBaseUtil(getActivity());
         repeatTimes = mSharedPreferences.getInt(KeyUtil.ReadRepeatTime, 2);
         
@@ -322,10 +322,6 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 			isEnough();
 		}
 
-		@Override
-		public void onEvent(int eventType, int arg1, int arg2, String msg) {
-			LogUtil.DefalutLog("onEvent");
-		}
 
 		@Override
 		public void onResult(RecognizerResult results, boolean isLast) {
@@ -359,6 +355,12 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 			}else if(volume < 31){
 				record_anim_img.setBackgroundResource(R.drawable.speak_voice_7);
 			}
+		}
+
+		@Override
+		public void onEvent(int arg0, int arg1, int arg2, Bundle arg3) {
+			// TODO Auto-generated method stub
+			
 		}
 
 	};
@@ -423,6 +425,11 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 					@Override
 					public void onBufferProgress(int arg0, int arg1, int arg2, String arg3) {
 					}
+					@Override
+					public void onEvent(int arg0, int arg1, int arg2,Bundle arg3) {
+						// TODO Auto-generated method stub
+						
+					}
 				});
 			}else{
 				playLocalPcm(filepath,animationDrawable);
@@ -484,7 +491,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 	public void onDestroy() {
 		super.onDestroy();
 		if(mSpeechSynthesizer != null){
-			mSpeechSynthesizer.cancel();
+			mSpeechSynthesizer.destroy();
 		}
 		if(recognizer != null){
 			recognizer.cancel();

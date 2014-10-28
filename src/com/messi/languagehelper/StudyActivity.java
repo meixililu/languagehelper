@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.LinearLayout;
 
 import com.baidu.mobstat.StatService;
-import com.iflytek.cloud.speech.SpeechSynthesizer;
+import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.impl.PracticeProgressListener;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
@@ -38,7 +38,7 @@ public class StudyActivity extends BaseActivity implements PracticeProgressListe
 	}
 
 	private void initViews() {
-		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this);
+		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this,null);
 		mSharedPreferences = Settings.getSharedPreferences(this);
 		fragmentManager = getSupportFragmentManager();
 		studylist_position = getIntent().getIntExtra(KeyUtil.PracticeContentKey, 0);
@@ -158,7 +158,7 @@ public class StudyActivity extends BaseActivity implements PracticeProgressListe
 		pageIndex = 0;
 		vedioPath = "";
 		if(mSpeechSynthesizer != null){
-			mSpeechSynthesizer.cancel();
+			mSpeechSynthesizer.destroy();
 			mSpeechSynthesizer = null;
 		}
 	}

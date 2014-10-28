@@ -16,7 +16,7 @@ import com.messi.languagehelper.util.Settings;
 public class LeisureFragment extends BaseFragment implements OnClickListener {
 
 	private View view;
-	private FrameLayout cailing_layout,app_layout;
+	private FrameLayout cailing_layout,app_layout,yuedu_layout;
 	public static LeisureFragment mMainFragment;
 	
 	public static LeisureFragment getInstance(){
@@ -35,8 +35,10 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 	
 	private void initViews(){
 		cailing_layout = (FrameLayout)view.findViewById(R.id.cailing_layout);
+		yuedu_layout = (FrameLayout)view.findViewById(R.id.yuedu_layout);
 		app_layout = (FrameLayout)view.findViewById(R.id.app_layout);
 		cailing_layout.setOnClickListener(this);
+		yuedu_layout.setOnClickListener(this);
 		app_layout.setOnClickListener(this);
 	}
 
@@ -44,6 +46,8 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 	public void onClick(View v) {
 		if(v.getId() == R.id.cailing_layout){
 			toCailingActivity();
+		}else if(v.getId() == R.id.yuedu_layout){
+			toYueduActivity();
 		}else if(v.getId() == R.id.app_layout){
 			toAppActivity();
 		}
@@ -55,6 +59,14 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		intent.putExtra(KeyUtil.ActionbarTitle, getActivity().getResources().getString(R.string.title_cailing));
 		getActivity().startActivity(intent);
 		StatService.onEvent(getActivity(), "19_to_cailing_page", "去彩铃页面", 1);
+	}
+	
+	private void toYueduActivity(){
+		Intent intent = new Intent(getActivity(),WebViewActivity.class);
+		intent.putExtra(KeyUtil.URL, Settings.YueduUrl);
+		intent.putExtra(KeyUtil.ActionbarTitle, getActivity().getResources().getString(R.string.title_reading));
+		getActivity().startActivity(intent);
+		StatService.onEvent(getActivity(), "20_to_yuedu_page", "去阅读页面", 1);
 	}
 	
 	private void toAppActivity(){

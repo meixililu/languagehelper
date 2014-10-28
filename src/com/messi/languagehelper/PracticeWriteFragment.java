@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.iflytek.cloud.speech.SpeechSynthesizer;
+import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.bean.UserSpeakBean;
 import com.messi.languagehelper.impl.PracticeProgressListener;
 import com.messi.languagehelper.util.LogUtil;

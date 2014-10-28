@@ -24,10 +24,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
-import com.iflytek.cloud.speech.SpeechConstant;
-import com.iflytek.cloud.speech.SpeechError;
-import com.iflytek.cloud.speech.SpeechSynthesizer;
-import com.iflytek.cloud.speech.SynthesizerListener;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechSynthesizer;
+import com.iflytek.cloud.SynthesizerListener;
 import com.messi.languagehelper.CollectedFragment;
 import com.messi.languagehelper.ImgShareActivity;
 import com.messi.languagehelper.LanguageApplication;
@@ -377,6 +377,9 @@ public class CollectedListItemAdapter extends BaseAdapter {
 					}
 					@Override
 					public void onBufferProgress(int arg0, int arg1, int arg2, String arg3) {
+					}
+					@Override
+					public void onEvent(int arg0, int arg1, int arg2,Bundle arg3) {
 					}
 				});
 			}else{

@@ -1,84 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" 
-    android:orientation="vertical"
+    android:layout_height="fill_parent"
     android:background="@color/white"
-    android:padding="@dimen/padding_7"
-    >
+    android:orientation="vertical"
+    android:padding="@dimen/padding_7" >
 
-    <FrameLayout 
+    <FrameLayout
         android:id="@+id/cailing_layout"
         android:layout_width="fill_parent"
-	    android:layout_height="100dp"
-	    android:orientation="vertical"
-	   	android:background="@color/style2_color1"
-	   	android:foreground="@drawable/framelayout_selector"
-        >
-        <LinearLayout 
+        android:layout_height="100dp"
+        android:background="@color/style2_color1"
+        android:foreground="@drawable/framelayout_selector"
+        android:orientation="vertical" >
+
+        <LinearLayout
             android:layout_width="fill_parent"
-	    	android:layout_height="fill_parent"
-	    	android:gravity="center"
-	    	android:orientation="vertical"
-            >
-	        <TextView 
-	            android:layout_width="fill_parent"
-		    	android:layout_height="wrap_content"
-		    	android:gravity="center"
-		    	android:text="@string/leisuer_one"
-		    	android:textColor="@color/white"
-		    	android:shadowDx="0.3"
-		        android:shadowDy="0.3"
-		        android:shadowRadius="0.3"
-		        android:shadowColor="@color/white"
-		    	android:textSize="@dimen/bigger"
-	            />
-	        <TextView 
-	            android:layout_width="fill_parent"
-		    	android:layout_height="wrap_content"
-		    	android:gravity="center"
-		    	android:text="@string/leisuer_one_subtitle"
-		    	android:textColor="@color/white"
-		    	android:textSize="@dimen/small"
-	            />
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:shadowColor="@color/white"
+                android:shadowDx="0.3"
+                android:shadowDy="0.3"
+                android:shadowRadius="0.3"
+                android:text="@string/leisuer_one"
+                android:textColor="@color/white"
+                android:textSize="@dimen/bigger" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/leisuer_one_subtitle"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small" />
         </LinearLayout>
     </FrameLayout>
-<FrameLayout 
+    
+    <FrameLayout
+        android:id="@+id/yuedu_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="@dimen/padding_7"
+        android:background="@color/style2_color2"
+        android:foreground="@drawable/framelayout_selector"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:shadowColor="@color/white"
+                android:shadowDx="0.3"
+                android:shadowDy="0.3"
+                android:shadowRadius="0.3"
+                android:text="@string/leisuer_reading"
+                android:textColor="@color/white"
+                android:textSize="@dimen/bigger" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/leisuer_reading_subtitle"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
         android:id="@+id/app_layout"
         android:layout_width="fill_parent"
-	    android:layout_height="100dp"
-	    android:orientation="vertical"
-	    android:layout_marginTop="@dimen/padding_7"
-	   	android:background="@color/style2_color2"
-	   	android:foreground="@drawable/framelayout_selector"
-        >
-        <LinearLayout 
+        android:layout_height="100dp"
+        android:layout_marginTop="@dimen/padding_7"
+        android:background="@color/style2_color3"
+        android:foreground="@drawable/framelayout_selector"
+        android:orientation="vertical" >
+
+        <LinearLayout
             android:layout_width="fill_parent"
-	    	android:layout_height="fill_parent"
-	    	android:gravity="center"
-	    	android:orientation="vertical"
-            >
-	        <TextView 
-	            android:layout_width="fill_parent"
-		    	android:layout_height="wrap_content"
-		    	android:gravity="center"
-		    	android:text="@string/leisuer_two"
-		    	android:textColor="@color/white"
-		    	android:shadowDx="0.3"
-		        android:shadowDy="0.3"
-		        android:shadowRadius="0.3"
-		        android:shadowColor="@color/white"
-		    	android:textSize="@dimen/bigger"
-	            />
-	        <TextView 
-	            android:layout_width="fill_parent"
-		    	android:layout_height="wrap_content"
-		    	android:gravity="center"
-		    	android:text="@string/leisuer_two_subtitle"
-		    	android:textColor="@color/white"
-		    	android:textSize="@dimen/small"
-	            />
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:shadowColor="@color/white"
+                android:shadowDx="0.3"
+                android:shadowDy="0.3"
+                android:shadowRadius="0.3"
+                android:text="@string/leisuer_two"
+                android:textColor="@color/white"
+                android:textSize="@dimen/bigger" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/leisuer_two_subtitle"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small" />
         </LinearLayout>
     </FrameLayout>
 

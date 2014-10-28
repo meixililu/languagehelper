@@ -16,6 +16,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.baidu.mobstat.StatService;
 import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.Settings;
 
 
 public class WebViewActivity extends BaseActivity{
@@ -49,6 +50,9 @@ public class WebViewActivity extends BaseActivity{
 		mWebView = (WebView) findViewById(R.id.refreshable_webview);
 		mWebView.requestFocus();//如果不设置，则在点击网页文本输入框时，不能弹出软键盘及不响应其他的一些事件。
 		mWebView.getSettings().setJavaScriptEnabled(true);//如果访问的页面中有Javascript，则webview必须设置支持Javascript。
+		
+		mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+		mWebView.requestFocus();
 		
 		//当前页面加载
 		mWebView.setWebViewClient(new WebViewClient() {
@@ -96,8 +100,13 @@ public class WebViewActivity extends BaseActivity{
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case 0:  
-			shareLink(WebViewActivity.this.getResources().getString(R.string.cailing_ad_prompt));
-			StatService.onEvent(this, "1.9_menu_to_share_link", "分享彩铃链接", 1);
+			if(Url.equals(Settings.CaiLingUrl)){
+				shareLink(WebViewActivity.this.getResources().getString(R.string.cailing_ad_prompt));
+				StatService.onEvent(this, "1.9_menu_to_share_link", "分享彩铃链接", 1);
+			}else if(Url.equals(Settings.YueduUrl)){
+				shareLink(WebViewActivity.this.getResources().getString(R.string.yuedu_ad_prompt));
+				StatService.onEvent(this, "20_menu_to_share_yuedu_link", "分享阅读链接", 1);
+			}
 			break;
 		}
        return super.onOptionsItemSelected(item);

@@ -1,14 +1,13 @@
 package com.messi.languagehelper.util;
 
-import com.baidu.mobstat.StatService;
-import com.messi.languagehelper.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.text.ClipboardManager;
+
+import com.messi.languagehelper.R;
 
 public class Settings {
 
@@ -23,6 +22,8 @@ public class Settings {
 	public static final int offset = 100;
 	
 	public static final String CaiLingUrl = "http://api.openspeech.cn/kyls/NTBhYTEyMTM=";
+	
+	public static final String YueduUrl = "http://api.openspeech.cn/cmread/NTBhYTEyMTM=";
 	
 	public static final String Email = "meixililulu@163.com";
 	

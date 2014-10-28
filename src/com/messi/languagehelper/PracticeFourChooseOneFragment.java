@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.iflytek.cloud.speech.SpeechSynthesizer;
+import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.impl.PracticeProgressListener;
 import com.messi.languagehelper.util.AudioTrackUtil;
 import com.messi.languagehelper.util.KeyUtil;
@@ -179,7 +179,7 @@ public class PracticeFourChooseOneFragment extends BaseFragment implements OnCli
 	public void onDestroy() {
 		super.onDestroy();
 		if(mSpeechSynthesizer != null){
-			mSpeechSynthesizer.cancel();
+			mSpeechSynthesizer.destroy();
 		}
 	}
 }

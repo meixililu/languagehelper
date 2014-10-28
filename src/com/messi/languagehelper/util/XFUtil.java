@@ -3,16 +3,16 @@ package com.messi.languagehelper.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.iflytek.cloud.speech.RecognizerListener;
-import com.iflytek.cloud.speech.SpeechConstant;
-import com.iflytek.cloud.speech.SpeechError;
-import com.iflytek.cloud.speech.SpeechRecognizer;
-import com.iflytek.cloud.speech.SpeechSynthesizer;
-import com.iflytek.cloud.speech.SpeechUser;
-import com.iflytek.cloud.speech.SynthesizerListener;
+import com.iflytek.cloud.RecognizerListener;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechRecognizer;
+import com.iflytek.cloud.SpeechSynthesizer;
+import com.iflytek.cloud.SynthesizerListener;
 import com.messi.languagehelper.MainFragment;
 import com.messi.languagehelper.PracticeActivity;
 import com.messi.languagehelper.R;
@@ -37,7 +37,7 @@ public class XFUtil {
 	public static void showSpeechRecognizer(Context mContext,SharedPreferences mSharedPreferences,
 			SpeechRecognizer iatRecognizer,RecognizerListener recognizerListener) {
 		if (null == iatRecognizer) {
-			iatRecognizer = SpeechRecognizer.createRecognizer(mContext);
+			iatRecognizer = SpeechRecognizer.createRecognizer(mContext,null);
 		}
 		//获取引擎参数
 		String domain = mSharedPreferences.getString(
@@ -71,7 +71,7 @@ public class XFUtil {
 	public static void showSpeechSynthesizer(Context mContext,SharedPreferences mSharedPreferences,
 			SpeechSynthesizer mSpeechSynthesizer, String source, SynthesizerListener mSynthesizerListener) {
 		if (null == mSpeechSynthesizer) {
-			mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(mContext);
+			mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(mContext,null);
 		}
 		StringUtils.isChOrEn(source);
 		mSpeechSynthesizer.setParameter(SpeechConstant.VOICE_NAME, Settings.role);
@@ -118,10 +118,13 @@ public class XFUtil {
 				public void onSpeakBegin() {
 				}
 				@Override
+				public void onBufferProgress(int arg0, int arg1, int arg2, String arg3) {
+				}
+				@Override
 				public void onCompleted(SpeechError arg0) {
 				}
 				@Override
-				public void onBufferProgress(int arg0, int arg1, int arg2, String arg3) {
+				public void onEvent(int arg0, int arg1, int arg2, Bundle arg3) {
 				}
 			});
 		}else{

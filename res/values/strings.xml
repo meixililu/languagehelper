@@ -13,6 +13,7 @@
     <string name="title_study">Study</string>
     <string name="title_leisure">Recreation</string>
     <string name="title_cailing">Ring</string>
+    <string name="title_reading">Reading</string>
     <string name="title_favorite">Favorite</string>
     <string name="title_settings">Settings</string>
     <string name="title_apps">Apps</string>
@@ -115,6 +116,8 @@
 	
 	<string name="practice_prompt_english">Click Start to speak english</string>
 	<string name="practice_prompt_chinese">Click Start to speak chinese</string>
+	<string name="cailing_ad_prompt">三块钱你买不了吃亏，买不了上当，只需三块钱，就能让电话另一头的TA拥有一次美好而有爱的等待，而不是平凡并且枯燥的嘟。。。嘟。。。嘟。。。还等什么呢，赶紧操作起来，为TA设置一段好玩又有新意的铃声吧! http://api.openspeech.cn/kyls/NTBhYTEyMTM=</string>
+	<string name="yuedu_ad_prompt">专注随身阅读30年! http://api.openspeech.cn/cmread/NTBhYTEyMTM=</string>
 	
 	<string name="introduction">Part One</string>
 	<string name="primary_lever">Part Two</string>
@@ -124,6 +127,8 @@
 	
 	<string name="leisuer_one">Ringback Music</string>
 	<string name="leisuer_one_subtitle">Listen to the music</string>
+	<string name="leisuer_reading">Reading Books</string>
+	<string name="leisuer_reading_subtitle">Do some Reading</string>
 	
 	<string name="leisuer_two">The Author\'s Software</string>
 	<string name="leisuer_two_subtitle">Other languages</string>

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.media.AudioManager;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -17,21 +16,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.baidu.mobstat.StatService;
-import com.iflytek.cloud.speech.SpeechUser;
-import com.messi.languagehelper.AboutActivity;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 import com.messi.languagehelper.BaseActivity;
-import com.messi.languagehelper.HelpActivity;
 import com.messi.languagehelper.ImgShareActivity;
 import com.messi.languagehelper.R;
-import com.messi.languagehelper.RecommendActivity;
 import com.messi.languagehelper.SettingActivity;
 import com.messi.languagehelper.WebViewFragment;
 import com.messi.languagehelper.adapter.MainPageAdapter;
@@ -73,7 +68,7 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener {
 	private void initDatas(){
 		setMiddleVolume();
 		bundle = getIntent().getExtras();
-		SpeechUser.getUser().login(this, null, null, "appid=" + getString(R.string.app_id), null);
+		SpeechUtility.createUtility(this, SpeechConstant.APPID + "=" +getString(R.string.app_id));
 	}
 	
 	private void initViews(){
