@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.baidu.mobstat.StatService;
+import com.iflytek.adserving.IFLYBannerAdView;
+import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.Settings;
 
@@ -17,6 +19,8 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 
 	private View view;
 	private FrameLayout cailing_layout,app_layout,yuedu_layout;
+	private LinearLayout ad_layout;
+	private IFLYBannerAdView bannerAd;
 	public static LeisureFragment mMainFragment;
 	
 	public static LeisureFragment getInstance(){
@@ -37,9 +41,11 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		cailing_layout = (FrameLayout)view.findViewById(R.id.cailing_layout);
 		yuedu_layout = (FrameLayout)view.findViewById(R.id.yuedu_layout);
 		app_layout = (FrameLayout)view.findViewById(R.id.app_layout);
+		ad_layout = (LinearLayout)view.findViewById(R.id.ad_layout);
 		cailing_layout.setOnClickListener(this);
 		yuedu_layout.setOnClickListener(this);
 		app_layout.setOnClickListener(this);
+		ADUtil.initChaPingAD(getActivity(), ad_layout);
 	}
 
 	@Override
@@ -65,6 +71,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		Intent intent = new Intent(getActivity(),WebViewActivity.class);
 		intent.putExtra(KeyUtil.URL, Settings.YueduUrl);
 		intent.putExtra(KeyUtil.ActionbarTitle, getActivity().getResources().getString(R.string.title_reading));
+		intent.putExtra(KeyUtil.IsReedPullDownRefresh, false);
 		getActivity().startActivity(intent);
 		StatService.onEvent(getActivity(), "20_to_yuedu_page", "去阅读页面", 1);
 	}

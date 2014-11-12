@@ -49,6 +49,7 @@ public class KeyUtil {
 	
 	public static String UserSelectLanguage = "UserSelectLanguage";
 	
+	public static String IsReedPullDownRefresh = "IsReedPullDownRefresh";
 	
 	
 	

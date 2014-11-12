@@ -77,6 +77,7 @@ public class XFUtil {
 		mSpeechSynthesizer.setParameter(SpeechConstant.VOICE_NAME, Settings.role);
 		mSpeechSynthesizer.setParameter(SpeechConstant.SPEED, String.valueOf(MainFragment.speed));
 		mSpeechSynthesizer.setParameter(SpeechConstant.VOLUME, "100");
+		mSpeechSynthesizer.setParameter(SpeechConstant.ENGINE_TYPE, "cloud");//离线 local
 		mSpeechSynthesizer.startSpeaking(source, mSynthesizerListener);
 	}
 	

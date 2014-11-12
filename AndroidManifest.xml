@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.messi.languagehelper"
-    android:versionCode="10"
-    android:versionName="1.9" >
+    android:versionCode="11"
+    android:versionName="2.0" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -10,8 +10,10 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 	<uses-permission android:name="android.permission.WRITE_SETTINGS"/>
 
     <uses-sdk android:minSdkVersion="7"/>
@@ -49,6 +51,14 @@
 		<!-- <meta-data android:name="BaiduMobAd_TIME_INTERVAL" android:value="2" /> -->
 		<!-- 日志仅在wifi网络下发送，默认为false -->
 		<meta-data android:name="BaiduMobAd_ONLY_WIFI" android:value="false" />
+		
+		<meta-data android:name="IFLYTEK_APPKEY" android:value="'5450bd92'"/> 
+		
+		<meta-data android:name="IFLYTEK_CHANNEL" android:value="messi"/>
+		
+		<activity 
+		    android:name="com.iflytek.adserving.request.IFLYBrowser" 
+		    android:configChanges="orientation|keyboardHidden|keyboard|screenSize"/>
         
         <activity
             android:name=".InvestmentActivity"

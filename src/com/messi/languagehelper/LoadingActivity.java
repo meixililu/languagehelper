@@ -6,25 +6,20 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.TranslateAnimation;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
 import com.baidu.mobstat.StatService;
+import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.ShortCut;
 import com.messi.languagehelper.wxapi.WXEntryActivity;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.Animator.AnimatorListener;
-import com.nineoldandroids.animation.ObjectAnimator;
 
 public class LoadingActivity extends Activity {
 	
-	// 缓存，保存当前的引擎参数到下一次启动应用程序使用.
+		// 缓存，保存当前的引擎参数到下一次启动应用程序使用.
 		private SharedPreferences mSharedPreferences;
 		private View app_logo,subtitle;
-		private TranslateAnimation mHideAnimation;
+		private LinearLayout middle_ad;
 
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
@@ -32,42 +27,20 @@ public class LoadingActivity extends Activity {
 			setContentView(R.layout.loading_activity);
 			mSharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
 			boolean isShowLoading = Settings.isTodayShow(mSharedPreferences);
-			if(!isShowLoading){
+//			if(!isShowLoading){
 				init();
 				new WaitTask().execute();
-			}else{
-				toNextPage();
-			}
+//			}else{
+//				toNextPage();
+//			}
 		}
 		
 		private void init(){
 			ShortCut.addShortcut(this, mSharedPreferences);
 			app_logo = (View)findViewById(R.id.app_logo);
 			subtitle = (View)findViewById(R.id.subtitle);
-			mHideAnimation = new TranslateAnimation(
-					Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, 0.0f,  
-	                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF, -0.3f);
-			mHideAnimation.setDuration(400);
-			mHideAnimation.setFillAfter(true);
-			mHideAnimation.setAnimationListener(new AnimationListener() {
-				@Override
-				public void onAnimationStart(Animation arg0) {
-				}
-				@Override
-				public void onAnimationRepeat(Animation arg0) {
-				}
-				@Override
-				public void onAnimationEnd(Animation arg0) {
-					fadeAnimation();
-				}
-			});
-		}
-		
-		private void fadeAnimation(){
-			subtitle.setVisibility(View.VISIBLE);
-			ObjectAnimator mObjectAnimator = ObjectAnimator.ofFloat(subtitle, "alpha", 0, 1);
-			mObjectAnimator.addListener(mAnimatorListener);
-			mObjectAnimator.setDuration(400).start();
+			middle_ad = (LinearLayout)findViewById(R.id.middle_ad);
+			ADUtil.initQuanPingAD(this, middle_ad);
 		}
 		
 		private void toNextPage(){
@@ -76,22 +49,23 @@ public class LoadingActivity extends Activity {
 			finish();
 		}
 
-		private AnimatorListener mAnimatorListener = new AnimatorListener() {
+		class WaitTask extends AsyncTask<Void, Void, Void>{
+
 			@Override
-			public void onAnimationStart(Animator animation) {
+			protected Void doInBackground(Void... params) {
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				return null;
 			}
+
 			@Override
-			public void onAnimationRepeat(Animator animation) {
-			}
-			@Override
-			public void onAnimationEnd(Animator animation) {
+			protected void onPostExecute(Void result) {
 				toNextPage();
 			}
-			@Override
-			public void onAnimationCancel(Animator animation) {
-			}
-		};
-		
+		}
 		
 		@Override
 		protected void onResume() {
@@ -108,23 +82,5 @@ public class LoadingActivity extends Activity {
 		@Override
 		protected void onDestroy() {
 			super.onDestroy();
-		}
-		
-		class WaitTask extends AsyncTask<Void, Void, Void>{
-
-			@Override
-			protected Void doInBackground(Void... params) {
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				return null;
-			}
-
-			@Override
-			protected void onPostExecute(Void result) {
-				app_logo.startAnimation(mHideAnimation);
-			}
 		}
 }

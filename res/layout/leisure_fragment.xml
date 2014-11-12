@@ -115,5 +115,16 @@
                 android:textSize="@dimen/small" />
         </LinearLayout>
     </FrameLayout>
+    
+    <LinearLayout
+        android:id="@+id/ad_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/padding_7"
+        android:orientation="vertical" >
+
+
+    </LinearLayout>
 
 </LinearLayout>

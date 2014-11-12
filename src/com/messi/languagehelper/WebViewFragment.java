@@ -19,7 +19,6 @@ import com.messi.languagehelper.util.Settings;
 public class WebViewFragment extends SherlockFragment{
 	
 	private SwipeRefreshLayout mSwipeRefreshLayout;
-	private ProgressBar mProgressBar;
 	private WebView mWebView;
 	private View view;
 	private boolean isHasLoadPage;
@@ -59,7 +58,6 @@ public class WebViewFragment extends SherlockFragment{
 	
 	private void initViews(){
 		mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
-		mProgressBar = (ProgressBar) view.findViewById(R.id.progressbar_m);
 		mWebView = (WebView) view.findViewById(R.id.refreshable_webview);
 		mWebView.requestFocus();//如果不设置，则在点击网页文本输入框时，不能弹出软键盘及不响应其他的一些事件。
 		mWebView.getSettings().setJavaScriptEnabled(true);//如果访问的页面中有Javascript，则webview必须设置支持Javascript。
@@ -68,13 +66,11 @@ public class WebViewFragment extends SherlockFragment{
 		mWebView.setWebViewClient(new WebViewClient() {
 			@Override
 			public void onPageStarted(WebView view, String url, Bitmap favicon) {
-				mProgressBar.setVisibility(View.VISIBLE);
 				mSwipeRefreshLayout.setRefreshing(true);
 				super.onPageStarted(view, url, favicon);
 			}
 			@Override
 			public void onPageFinished(WebView view, String url) {
-				mProgressBar.setVisibility(View.GONE);
 				mSwipeRefreshLayout.setRefreshing(false);
 				super.onPageFinished(view, url);
 			}

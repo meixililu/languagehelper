@@ -22,10 +22,10 @@ import com.messi.languagehelper.util.Settings;
 public class WebViewActivity extends BaseActivity{
 	
 	private SwipeRefreshLayout mSwipeRefreshLayout;
-	private ProgressBar mProgressBar;
 	private WebView mWebView;
     private String Url;
     private String title;
+    private boolean isReedPullDownRefresh;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,7 @@ public class WebViewActivity extends BaseActivity{
 	private void initData(){
 		Url = getIntent().getStringExtra(KeyUtil.URL);
 		title = getIntent().getStringExtra(KeyUtil.ActionbarTitle);
+		isReedPullDownRefresh = getIntent().getBooleanExtra(KeyUtil.IsReedPullDownRefresh, true);
 		if(TextUtils.isEmpty(title)){
 			title = getResources().getString(R.string.app_name);
 		}
@@ -46,7 +47,6 @@ public class WebViewActivity extends BaseActivity{
 	
 	private void initViews(){
 		mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
-		mProgressBar = (ProgressBar) findViewById(R.id.progressbar_m);
 		mWebView = (WebView) findViewById(R.id.refreshable_webview);
 		mWebView.requestFocus();//如果不设置，则在点击网页文本输入框时，不能弹出软键盘及不响应其他的一些事件。
 		mWebView.getSettings().setJavaScriptEnabled(true);//如果访问的页面中有Javascript，则webview必须设置支持Javascript。
@@ -59,14 +59,12 @@ public class WebViewActivity extends BaseActivity{
 
 			@Override
 			public void onPageStarted(WebView view, String url, Bitmap favicon) {
-				mProgressBar.setVisibility(View.VISIBLE);
 				mSwipeRefreshLayout.setRefreshing(true);
 				super.onPageStarted(view, url, favicon);
 			}
 
 			@Override
 			public void onPageFinished(WebView view, String url) {
-				mProgressBar.setVisibility(View.GONE);
 				mSwipeRefreshLayout.setRefreshing(false);
 				super.onPageFinished(view, url);
 			}
@@ -81,12 +79,16 @@ public class WebViewActivity extends BaseActivity{
 	            R.color.holo_green_light, 
 	            R.color.holo_orange_light, 
 	            R.color.holo_red_light);
+		
 		mSwipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
 			@Override
 			public void onRefresh() {
 				mWebView.reload();
 			}
 		});
+		if(!isReedPullDownRefresh){
+			mSwipeRefreshLayout.setEnabled(false);
+		}
 		mWebView.loadUrl(Url);
 	}
 	
