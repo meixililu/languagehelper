@@ -13,7 +13,7 @@
         android:id="@+id/study_part1"
         android:layout_width="fill_parent"
 	    android:layout_height="0dp"
-	    android:layout_weight="4" 
+	    android:layout_weight="3" 
 	    android:orientation="vertical"
 	   	android:foreground="@drawable/framelayout_selector"
         >
@@ -28,7 +28,7 @@
 	        android:shadowRadius="0.4"
 	        android:shadowColor="@color/white"
 	    	android:textSize="@dimen/bigger"
-	    	android:background="@color/style1_color1"
+	    	android:background="@color/style5_color1"
             />
         
     </FrameLayout>
@@ -36,7 +36,7 @@
         android:id="@+id/study_part2"
         android:layout_width="fill_parent"
 	    android:layout_height="0dp"
-	    android:layout_weight="3" 
+	    android:layout_weight="2.5" 
 	    android:orientation="vertical"
 	    android:layout_marginTop="@dimen/padding_7"
 	   	android:foreground="@drawable/framelayout_selector"
@@ -52,7 +52,7 @@
 	        android:shadowRadius="0.4"
 	        android:shadowColor="@color/white"
 	    	android:textSize="@dimen/bigger"
-	    	android:background="@color/style1_color2"
+	    	android:background="@color/style5_color2"
             />
         
     </FrameLayout>
@@ -60,7 +60,7 @@
         android:id="@+id/study_part3"
         android:layout_width="fill_parent"
 	    android:layout_height="0dp"
-	    android:layout_weight="2" 
+	    android:layout_weight="2.5" 
 	    android:orientation="vertical"
 	    android:layout_marginTop="@dimen/padding_7"
 	   	android:foreground="@drawable/framelayout_selector"
@@ -76,7 +76,7 @@
 	        android:shadowRadius="0.4"
 	        android:shadowColor="@color/white"
 	    	android:textSize="@dimen/bigger"
-	    	android:background="@color/style1_color3"
+	    	android:background="@color/style5_color3"
             />
         
     </FrameLayout>
@@ -85,7 +85,7 @@
         android:id="@+id/study_part4"
         android:layout_width="fill_parent"
 	    android:layout_height="0dp"
-	    android:layout_weight="1" 
+	    android:layout_weight="2" 
 	    android:orientation="vertical"
 	    android:layout_marginTop="@dimen/padding_7"
 	   	android:foreground="@drawable/framelayout_selector"
@@ -101,7 +101,7 @@
 	        android:shadowRadius="0.4"
 	        android:shadowColor="@color/white"
 	    	android:textSize="@dimen/middle"
-	    	android:background="@color/style1_color4"
+	    	android:background="@color/style5_color4"
             />
         
     </FrameLayout>

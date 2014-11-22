@@ -29,6 +29,8 @@ public class KeyUtil {
 	
 	public static final String IsLoadingShowToday = "IsLoadingShowToday";
 
+	public static final String IsEnoughIntervalTime = "IsEnoughIntervalTime";
+	
 	public static final String ReadRepeatTime = "ReadRepeatTime";
 	
 	public static String AutoPlayResult = "AutoPlayResult";

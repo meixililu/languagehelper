@@ -37,6 +37,9 @@
 	<color name="text_view_border">#D6D6D6</color>
 	<color name="app_background">#fffafafa</color>
 	
+	<color name="white_thin">#bbFFFFFF</color>
+	<color name="orange_thin">#bbff3226</color>
+	
 	<color name="round_progress_bar_bg_off">#FdFdFd</color>
 	<color name="bao">#87A900</color>
 	    
@@ -111,4 +114,9 @@
     <color name="style4_color3">#b2dcf5</color>
     <color name="style4_color4">#ffb9ad</color>
     <color name="style4_color5">#fffdfd</color>
+    
+    <color name="style5_color1">#97dcf3</color>
+    <color name="style5_color2">#a8e2c6</color>
+    <color name="style5_color3">#ecdca7</color>
+    <color name="style5_color4">#f69d8c</color>
 </resources>

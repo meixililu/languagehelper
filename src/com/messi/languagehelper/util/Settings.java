@@ -27,6 +27,10 @@ public class Settings {
 	
 	public static final String Email = "meixililulu@163.com";
 	
+	/**is today already do something
+	 * @param mSharedPreferences
+	 * @return
+	 */
 	public static boolean isTodayShow(SharedPreferences mSharedPreferences){
 		String today = TimeUtil.getDate(System.currentTimeMillis());
 		LogUtil.DefalutLog("---isTodayShow---today:"+today);
@@ -35,6 +39,22 @@ public class Settings {
 			return true;
 		}else{
 			saveSharedPreferences(mSharedPreferences,KeyUtil.IsLoadingShowToday,today);
+			return false;
+		}
+	}
+	
+	/**time interval
+	 * @param mSharedPreferences
+	 * @param interval
+	 * @return
+	 */
+	public static boolean isEnoughTime(SharedPreferences mSharedPreferences, long interval){
+		long now = System.currentTimeMillis();
+		long lastTime = mSharedPreferences.getLong(KeyUtil.IsEnoughIntervalTime, 0);
+		if(now - lastTime > interval){
+			return true;
+		}else{
+			saveSharedPreferences(mSharedPreferences,KeyUtil.IsEnoughIntervalTime,now);
 			return false;
 		}
 	}

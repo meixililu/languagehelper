@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.baidu.mobstat.StatService;
+import com.iflytek.adserving.IFLYFullScreenAdView;
+import com.iflytek.adserving.request.IFLYAdListener;
 import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.ShortCut;
@@ -16,9 +18,10 @@ import com.messi.languagehelper.wxapi.WXEntryActivity;
 
 public class LoadingActivity extends Activity {
 	
+//		public static final long IntervalTime = 1000 * 60 * 60 * 3;
+		public static final long IntervalTime = 1000 * 60 * 1;
 		// 缓存，保存当前的引擎参数到下一次启动应用程序使用.
 		private SharedPreferences mSharedPreferences;
-		private View app_logo,subtitle;
 		private LinearLayout middle_ad;
 
 		@Override
@@ -26,21 +29,31 @@ public class LoadingActivity extends Activity {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.loading_activity);
 			mSharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
-			boolean isShowLoading = Settings.isTodayShow(mSharedPreferences);
-//			if(!isShowLoading){
+			boolean isShowLoading = Settings.isEnoughTime(mSharedPreferences,IntervalTime);
+			if(isShowLoading){
 				init();
 				new WaitTask().execute();
-//			}else{
-//				toNextPage();
-//			}
+			}else{
+				toNextPage();
+			}
 		}
 		
 		private void init(){
 			ShortCut.addShortcut(this, mSharedPreferences);
-			app_logo = (View)findViewById(R.id.app_logo);
-			subtitle = (View)findViewById(R.id.subtitle);
 			middle_ad = (LinearLayout)findViewById(R.id.middle_ad);
-			ADUtil.initQuanPingAD(this, middle_ad);
+			final IFLYFullScreenAdView fullScreenAd = ADUtil.initQuanPingAD(this, middle_ad);
+			fullScreenAd.setAdListener(new IFLYAdListener() {
+				@Override
+				public void onReceiveAd() {
+					fullScreenAd.showAd();
+				}
+				@Override
+				public void onPresentScreen() {
+				}
+				@Override
+				public void onFailedToReceiveAd(String arg0) {
+				}
+			});
 		}
 		
 		private void toNextPage(){
@@ -54,7 +67,7 @@ public class LoadingActivity extends Activity {
 			@Override
 			protected Void doInBackground(Void... params) {
 				try {
-					Thread.sleep(3000);
+					Thread.sleep(2500);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

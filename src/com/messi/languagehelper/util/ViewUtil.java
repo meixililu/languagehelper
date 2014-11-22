@@ -1,9 +1,7 @@
 package com.messi.languagehelper.util;
 
 import android.content.Context;
-import android.content.res.Resources.NotFoundException;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -44,4 +42,31 @@ public class ViewUtil {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void addDot(Context mContext,int size,LinearLayout viewpager_dot_layout){
+		viewpager_dot_layout.removeAllViews();
+		for (int i = 0; i < size; i++) {
+			viewpager_dot_layout.addView(ViewUtil.getDot(mContext, i));
+		}
+	}
+	
+	/**自己画选中的圆点
+	 * @param mContext
+	 * @return
+	 */
+	public static ImageView getDot(Context mContext,int index){
+		ImageView img = new ImageView(mContext);
+		LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(ScreenUtil.dip2px(mContext, 7),ScreenUtil.dip2px(mContext, 7));
+		mParams.leftMargin = ScreenUtil.dip2px(mContext, 3);
+		mParams.rightMargin = ScreenUtil.dip2px(mContext, 3);
+		img.setLayoutParams(mParams);
+		img.setBackgroundResource(R.drawable.dot_selector);
+		if(index == 0){
+			img.setEnabled(true);
+		}else{
+			img.setEnabled(false);
+		}
+		return img;
+	}
+	
 }

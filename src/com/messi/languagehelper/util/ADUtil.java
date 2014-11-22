@@ -138,7 +138,7 @@ public class ADUtil {
 	 * @param mActivity
 	 * @param view
 	 */
-	public static void initQuanPingAD(Activity mActivity,LinearLayout view){
+	public static IFLYFullScreenAdView initQuanPingAD(Activity mActivity, LinearLayout view){
 		//创建IFLYBannerAdView对象 
 		final IFLYFullScreenAdView fullScreenAd = new IFLYFullScreenAdView (mActivity);
 		//设置广告ID 
@@ -156,18 +156,7 @@ public class ADUtil {
 		//打印log 
 		fullScreenAd.setDebugMode(true); 
 		//添加监听器 
-		fullScreenAd.setAdListener(new IFLYAdListener() {
-			@Override
-			public void onReceiveAd() {
-				fullScreenAd.showAd();
-			}
-			@Override
-			public void onPresentScreen() {
-			}
-			@Override
-			public void onFailedToReceiveAd(String arg0) {
-			}
-		});
+		return fullScreenAd;
 	}
 
 }
