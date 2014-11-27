@@ -65,6 +65,7 @@ public class MenuListItemAdapter extends BaseAdapter {
 			convertView = mInflater.inflate(R.layout.menu_lv_item, null);
 			holder = new ViewHolder();
 			holder.cover = (View) convertView.findViewById(R.id.cover);
+			holder.icon = (ImageView) convertView.findViewById(R.id.icon);
 			holder.title = (TextView) convertView.findViewById(R.id.title);
 			holder.unread_dot = (ImageView) convertView.findViewById(R.id.unread_dot);
 			convertView.setTag(holder);
@@ -72,10 +73,18 @@ public class MenuListItemAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		holder.title.setText(mPlanetTitles[position]);
+		
 		if(position == 0){
 			if(!mSharedPreferences.getBoolean(KeyUtil.IsShowSettingNewAdd, false)){
-				 holder.unread_dot.setVisibility(View.VISIBLE);
+				holder.unread_dot.setVisibility(View.VISIBLE);
 			}
+			holder.icon.setImageResource(R.drawable.ic_settings_grey600_24dp);
+		}else if(position == 1){
+			holder.icon.setImageResource(R.drawable.ic_thumb_up_grey600_24dp);
+		}else if(position == 2){
+			holder.icon.setImageResource(R.drawable.ic_help_grey600_24dp);
+		}else if(position == 3){
+			holder.icon.setImageResource(R.drawable.ic_perm_contact_cal_grey600_24dp);
 		}
 		
 		holder.cover.setOnClickListener(new OnClickListener() {
@@ -89,6 +98,7 @@ public class MenuListItemAdapter extends BaseAdapter {
 
 	static class ViewHolder {
 		View cover;
+		ImageView icon;
 		TextView title;
 		ImageView unread_dot;
 	}

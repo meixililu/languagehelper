@@ -1,8 +1,7 @@
 package com.messi.languagehelper;
 
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
+import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
 
 import com.messi.languagehelper.adapter.StudyListItemAdapter;
@@ -23,7 +22,12 @@ public class StudyListActivity extends BaseActivity {
 	}
 
 	private void initViews(){
-		mActionBar.setTitle(getResources().getString(R.string.introduction));
+		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+		if (toolbar != null) {
+			setSupportActionBar(toolbar);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			getSupportActionBar().setTitle(getResources().getString(R.string.introduction));
+		}
 		level = getIntent().getStringExtra(KeyUtil.LevelKey);
 		studylist_part1 = getResources().getStringArray(R.array.studylist_part1);
 		studylist_lv = (ListView) findViewById(R.id.studylist_lv);

@@ -4,6 +4,14 @@
     android:layout_height="fill_parent"
     android:background="@color/contentbg"
     android:orientation="vertical" >
+    
+    <android.support.v7.widget.Toolbar
+	    xmlns:app="http://schemas.android.com/apk/res-auto"
+	    android:id="@+id/my_awesome_toolbar"
+	    android:layout_height="wrap_content"
+	    android:layout_width="match_parent"
+	    android:minHeight="?attr/actionBarSize"
+	    android:background="?attr/colorPrimary" />
 
     <FrameLayout
         android:id="@+id/recommend_zrzs"
@@ -97,7 +105,7 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/item_name"
+                    android:id="@+id/item_name1"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="left"
@@ -110,7 +118,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/item_msg"
+                    android:id="@+id/item_msg1"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="left"
@@ -119,7 +127,7 @@
                     android:textSize="@dimen/middle" />
 
                 <RatingBar
-                    android:id="@+id/ratingbar"
+                    android:id="@+id/ratingbar1"
                     style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

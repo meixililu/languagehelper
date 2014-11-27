@@ -7,21 +7,24 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.media.AudioManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.baidu.mobstat.StatService;
+import com.gc.materialdesign.views.ProgressBarCircularIndetermininate;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.messi.languagehelper.BaseActivity;
@@ -31,33 +34,35 @@ import com.messi.languagehelper.SettingActivity;
 import com.messi.languagehelper.WebViewFragment;
 import com.messi.languagehelper.adapter.MainPageAdapter;
 import com.messi.languagehelper.adapter.MenuListItemAdapter;
+import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.views.PagerSlidingTabStrip;
 
-public class WXEntryActivity extends BaseActivity implements OnClickListener {
+public class WXEntryActivity extends BaseActivity implements OnClickListener,FragmentProgressbarListener {
 	
 	private ActionBarDrawerToggle mDrawerToggle;
 	private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
 	private ViewPager viewPager;
+	private ProgressBarCircularIndetermininate mProgressbar;
 	private PagerSlidingTabStrip indicator;
 	private MainPageAdapter mAdapter;
+	private View leftMenuHeader;
 	
 	private String[] mPlanetTitles;
 	private long exitTime = 0;
 	private Bundle bundle;
 	private boolean isRespondWX;
 	public static int currentIndex = 0;
-	public static WXEntryActivity mWXEntryActivity;
 	private SharedPreferences mSharedPreferences;
+	private LayoutInflater mInflater;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		try {
-			super.onCreate(savedInstanceState);
 			setContentView(R.layout.content_frame);
-			mWXEntryActivity = this;
 			initDatas();
 			initViews();
 		} catch (Exception e) {
@@ -74,6 +79,16 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener {
 	private void initViews(){
 		mSharedPreferences = getSharedPreferences(this.getPackageName(), Activity.MODE_PRIVATE);
 		mPlanetTitles = getResources().getStringArray(R.array.planets_array);
+		mInflater = getLayoutInflater(); 
+		
+		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+		if (toolbar != null) {
+			setSupportActionBar(toolbar);
+			toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
+		}
+	    // Inflate a menu to be displayed in the toolbar
+		// toolbar.inflateMenu(R.menu.your_toolbar_menu);
+		mProgressbar = (ProgressBarCircularIndetermininate) findViewById(R.id.progressBarCircularIndetermininate);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 		viewPager = (ViewPager) findViewById(R.id.pager);
@@ -84,28 +99,34 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener {
 		indicator.setViewPager(viewPager);
 		MenuListItemAdapter adapter = new MenuListItemAdapter(this,mPlanetTitles,mDrawerLayout,mDrawerList);
 		mDrawerList.setAdapter(adapter);
+		
+		initLeftMenuHeader();
+		
         // Set the list's click listener
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+		mDrawerLayout.setScrimColor(getResources().getColor(android.R.color.transparent));
 		mDrawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
                 mDrawerLayout,         /* DrawerLayout object */
-                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
+                toolbar,  /* nav drawer image to replace 'Up' caret */
                 R.string.drawer_open,  /* "open drawer" description for accessibility */
                 R.string.drawer_close  /* "close drawer" description for accessibility */
                 ) {
             public void onDrawerClosed(View view) {
-            	mActionBar.setTitle(WXEntryActivity.this.getResources().getString(R.string.app_name));
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             public void onDrawerOpened(View drawerView) {
-            	mActionBar.setTitle(WXEntryActivity.this.getResources().getString(R.string.title_more));
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         
-        new WaitTask().execute();
+	}
+	
+	private void initLeftMenuHeader(){
+		leftMenuHeader = mInflater.inflate(R.layout.left_menu_header, null);
+		mDrawerList.addHeaderView(leftMenuHeader);
 	}
 	
 	private void showNewFunction(){
@@ -117,15 +138,16 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener {
 	}
 	
 	private void toNewFunctionActivity(){
-		Intent intent = new Intent(WXEntryActivity.this,SettingActivity.class);
-		startActivity(intent);
+		
 	}
 	
-	@Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
-    }
+	public void showProgressbar(){
+		mProgressbar.setVisibility(View.VISIBLE);
+	}
+	
+	public void hideProgressbar(){
+		mProgressbar.setVisibility(View.GONE);
+	}
 	
 	@Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -134,21 +156,19 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener {
     }
 	
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0,0,0,this.getResources().getString(R.string.menu_share)).setIcon(R.drawable.icon_share).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		return true;
-	}
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:  
 			menu();
-			StatService.onEvent(this, "1.6_homemenu", "主页左上角菜单", 1);
 			break;
-		case 0:  
+		case R.id.action_share:
 			toShareActivity();
-			StatService.onEvent(this, "1.8_menu_to_share_activity", "去自定义分享页面", 1);
 			break;
 		}
        return true;
@@ -160,6 +180,7 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener {
         } else {
         	mDrawerLayout.openDrawer(mDrawerList);
         }
+		StatService.onEvent(this, "1.6_homemenu", "主页左上角菜单", 1);
 	}
 
 	@Override
@@ -171,18 +192,15 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener {
 	
 	@Override
 	public void onClick(View v) {
-//		if (v.getId() == R.id.top_menu_btn) {
+//		if (v.getId() == R.id.icon_share) {
+//			toShareActivity();
 //		}
 	}
 	
 	private void toShareActivity(){
 		Intent intent = new Intent(this, ImgShareActivity.class); 
 		startActivity(intent); 
-	}
-	
-	private void toSettingActivity(){
-		Intent intent = new Intent(this, SettingActivity.class); 
-		startActivity(intent); 
+		StatService.onEvent(this, "1.8_menu_to_share_activity", "去自定义分享页面", 1);
 	}
 	
 	/**
@@ -228,21 +246,4 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener {
 		super.onDestroy();
 		WebViewFragment.mMainFragment = null;
 	}
-	
-	class WaitTask extends AsyncTask<Void, Void, Void>{
-		@Override
-		protected Void doInBackground(Void... params) {
-			try {
-				Thread.sleep(1500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			return null;
-		}
-		@Override
-		protected void onPostExecute(Void result) {
-			showNewFunction();
-		}
-	}
-	
 }

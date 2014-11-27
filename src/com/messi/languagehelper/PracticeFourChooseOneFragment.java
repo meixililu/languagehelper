@@ -1,6 +1,5 @@
 package com.messi.languagehelper;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,12 +12,8 @@ import android.widget.TextView;
 
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.impl.PracticeProgressListener;
-import com.messi.languagehelper.util.AudioTrackUtil;
-import com.messi.languagehelper.util.KeyUtil;
-import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.NumberUtil;
 import com.messi.languagehelper.util.SDCardUtil;
-import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.XFUtil;
 
 public class PracticeFourChooseOneFragment extends BaseFragment implements OnClickListener{

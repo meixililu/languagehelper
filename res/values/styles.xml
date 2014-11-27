@@ -1,7 +1,12 @@
 <resources>
 
-    <style name="Theme.NoTitle" parent="@android:style/Theme">
+    <style name="AppTheme" parent="AppTheme.Base"/>
+ 
+    <style name="AppTheme.Base" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/load_blue</item>
+        <item name="colorPrimaryDark">@color/load_blue</item>
         <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
     </style>
 
     <style name="dialog" parent="@android:style/Theme.Dialog">
@@ -26,11 +31,5 @@
         <item name="android:windowEnterAnimation">@anim/zoomin</item>
         <item name="android:windowExitAnimation">@anim/zoomout</item>
     </style>  
-    
-    <style name="Widget.Sherlock.ProgressBar" parent="android:Widget.ProgressBar.Large">
-        <item name="android:indeterminateDrawable">@drawable/abs__progress_medium_holo</item>
-    </style>
-
-    <style name="Widget.Sherlock.Light.ProgressBar" parent="Widget.Sherlock.ProgressBar"></style>
     
 </resources>

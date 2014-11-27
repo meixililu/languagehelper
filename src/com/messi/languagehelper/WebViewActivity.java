@@ -1,21 +1,24 @@
 package com.messi.languagehelper;
 
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.ViewTreeObserver.OnScrollChangedListener;
+import android.view.Window;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.baidu.mobstat.StatService;
 import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
 
 
@@ -26,6 +29,7 @@ public class WebViewActivity extends BaseActivity{
     private String Url;
     private String title;
     private boolean isReedPullDownRefresh;
+    private float mActionBarHeight;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,13 +40,25 @@ public class WebViewActivity extends BaseActivity{
 	}
 	
 	private void initData(){
+		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+		if (toolbar != null) {
+			setSupportActionBar(toolbar);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		}
 		Url = getIntent().getStringExtra(KeyUtil.URL);
 		title = getIntent().getStringExtra(KeyUtil.ActionbarTitle);
 		isReedPullDownRefresh = getIntent().getBooleanExtra(KeyUtil.IsReedPullDownRefresh, true);
 		if(TextUtils.isEmpty(title)){
 			title = getResources().getString(R.string.app_name);
 		}
-		mActionBar.setTitle(title);
+		getSupportActionBar().setTitle(title);
+		
+		final TypedArray styledAttributes = getTheme().obtainStyledAttributes(
+                new int[] { android.R.attr.actionBarSize });
+		mActionBarHeight = styledAttributes.getDimension(0, 0);
+    	styledAttributes.recycle(); 
+    	
+    	LogUtil.DefalutLog("mActionBarHeight:"+mActionBarHeight);
 	}
 	
 	private void initViews(){
@@ -90,6 +106,18 @@ public class WebViewActivity extends BaseActivity{
 			mSwipeRefreshLayout.setEnabled(false);
 		}
 		mWebView.loadUrl(Url);
+		
+//		mWebView.getViewTreeObserver().addOnScrollChangedListener(new OnScrollChangedListener() {
+//			@Override
+//			public void onScrollChanged() {
+//				float y = mWebView.getScrollY();
+//				if (y >= mActionBarHeight && getSupportActionBar().isShowing()) {
+//					getSupportActionBar().hide();
+//				} else if ( y==0 && !getSupportActionBar().isShowing()) {
+//					getSupportActionBar().show();
+//				}
+//			}
+//		});
 	}
 	
 	@Override

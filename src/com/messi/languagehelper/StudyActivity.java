@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.widget.LinearLayout;
 
 import com.baidu.mobstat.StatService;
@@ -38,6 +39,11 @@ public class StudyActivity extends BaseActivity implements PracticeProgressListe
 	}
 
 	private void initViews() {
+		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+		if (toolbar != null) {
+			setSupportActionBar(toolbar);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		}
 		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this,null);
 		mSharedPreferences = Settings.getSharedPreferences(this);
 		fragmentManager = getSupportFragmentManager();
@@ -70,9 +76,9 @@ public class StudyActivity extends BaseActivity implements PracticeProgressListe
 
 	private void addFragment() {
 		String type = studylist_part1_content[pageIndex].split("#")[2];
-		mActionBar.setTitle( getActionbarTitle(type) );
+		getSupportActionBar().setTitle( getActionbarTitle(type) );
 		Fragment mpramf = getStudyType(type);
-		mActionBar.setTitle(getResources().getString(R.string.practice_spoken_englist_style_fourinone));
+		getSupportActionBar().setTitle(getResources().getString(R.string.practice_spoken_englist_style_fourinone));
 		fragmentManager.beginTransaction()
 				.add(R.id.page_content, mpramf)
 				.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -97,11 +103,11 @@ public class StudyActivity extends BaseActivity implements PracticeProgressListe
 		pageIndex++;
 		if (pageIndex < studylist_part1_content.length) {
 			String type = studylist_part1_content[pageIndex].split("#")[2];
-			mActionBar.setTitle( getActionbarTitle(type) );
+			getSupportActionBar().setTitle( getActionbarTitle(type) );
 			Fragment mpramf = getStudyType(type);
 			setFragment(mpramf);
 		}else {
-			mActionBar.setTitle(getResources().getString(R.string.practice_spoken_englist_finish));
+			getSupportActionBar().setTitle(getResources().getString(R.string.practice_spoken_englist_finish));
 			FinishFragment mpramf = new FinishFragment(this);
 			setFragment(mpramf);
 			StatService.onEvent(this, "19_practice_page_finish", "口语练习完成", 1);

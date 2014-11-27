@@ -15,6 +15,7 @@
 	<dimen name="list_item_icon">21dp</dimen>
 	<dimen name="list_icon_size">19dp</dimen>
 	
+	<dimen name="padding_20">20dp</dimen>
 	<dimen name="padding_15">15dp</dimen>
 	<dimen name="padding_10">10dp</dimen>
 	<dimen name="padding_7">7dp</dimen>

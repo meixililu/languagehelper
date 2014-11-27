@@ -225,7 +225,6 @@
 
             <ProgressBar
                 android:id="@+id/play_content_btn_progressbar"
-                style="@style/Widget.Sherlock.Light.ProgressBar"
                 android:layout_width="@dimen/list_item_icon"
                 android:layout_height="@dimen/list_item_icon"
                 android:layout_gravity="center"

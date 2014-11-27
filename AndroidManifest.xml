@@ -28,10 +28,9 @@
     <application
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.NoTitle" >
+        android:theme="@style/AppTheme" >
         <activity
-            android:name=".LoadingActivity"
-            android:theme="@style/Theme.NoTitle" >
+            android:name=".LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -63,70 +62,59 @@
         <activity
             android:name=".InvestmentActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Sherlock" >
+            >
         </activity>
         <activity
             android:name=".StudyActivity"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Sherlock" >
+            >
         </activity>
         <activity
             android:name=".GetContentActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Sherlock" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".RecommendActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Sherlock" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".StudyListActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Sherlock" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".WebViewActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Sherlock" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".GetFansActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Sherlock" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".AboutActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Sherlock" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".SettingActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Sherlock" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".HelpActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Sherlock" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".PracticeActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Sherlock" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ImgShareActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Sherlock" >
+            android:screenOrientation="portrait">
         </activity>
         <activity 
             android:name=".wxapi.WXEntryActivity" 
             android:exported="true"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask"
-            android:theme="@style/Theme.Sherlock"/>
+            android:launchMode="singleTask"/>
     </application>
 
 </manifest>

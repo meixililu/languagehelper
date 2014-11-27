@@ -1,6 +1,7 @@
 package com.messi.languagehelper;
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
 
 import com.messi.languagehelper.adapter.InvestmentListItemAdapter;
@@ -21,7 +22,12 @@ public class InvestmentActivity extends BaseActivity {
 	}
 
 	private void initViews(){
-		mActionBar.setTitle(getResources().getString(R.string.invest_activity_title));
+		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+		if (toolbar != null) {
+			setSupportActionBar(toolbar);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			getSupportActionBar().setTitle(getResources().getString(R.string.invest_activity_title));
+		}
 		level = getIntent().getStringExtra(KeyUtil.LevelKey);
 		studylist_part1 = getResources().getStringArray(R.array.investors);
 		studylist_lv = (ListView) findViewById(R.id.studylist_lv);

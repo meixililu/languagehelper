@@ -3,6 +3,7 @@ package com.messi.languagehelper;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
@@ -38,7 +39,12 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 
 	private void init() {
 		mSharedPreferences = getSharedPreferences(this.getPackageName(), Activity.MODE_PRIVATE);
-        mActionBar.setTitle(this.getResources().getString(R.string.title_settings));
+		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+		if (toolbar != null) {
+			setSupportActionBar(toolbar);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			getSupportActionBar().setTitle(this.getResources().getString(R.string.title_settings));
+		}
         seekbar_text = (TextView) findViewById(R.id.seekbar_text);
         seekbar = (SeekBar) findViewById(R.id.seekbar);
         autoread_unread_dot = (ImageView) findViewById(R.id.unread_dot);

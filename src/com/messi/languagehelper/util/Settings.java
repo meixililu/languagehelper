@@ -51,10 +51,10 @@ public class Settings {
 	public static boolean isEnoughTime(SharedPreferences mSharedPreferences, long interval){
 		long now = System.currentTimeMillis();
 		long lastTime = mSharedPreferences.getLong(KeyUtil.IsEnoughIntervalTime, 0);
+		saveSharedPreferences(mSharedPreferences,KeyUtil.IsEnoughIntervalTime,now);
 		if(now - lastTime > interval){
 			return true;
 		}else{
-			saveSharedPreferences(mSharedPreferences,KeyUtil.IsEnoughIntervalTime,now);
 			return false;
 		}
 	}

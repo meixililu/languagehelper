@@ -1,13 +1,9 @@
 package com.messi.languagehelper;
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
-
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.MenuItem;
-import com.baidu.mobstat.StatService;
 
 public class HelpActivity extends BaseActivity implements OnClickListener {
 
@@ -20,7 +16,12 @@ public class HelpActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void init() {
-        mActionBar.setTitle(getResources().getString(R.string.title_help));
+		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+		if (toolbar != null) {
+			setSupportActionBar(toolbar);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			getSupportActionBar().setTitle(getResources().getString(R.string.title_help));
+		}
 	}
 
 	@Override

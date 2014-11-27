@@ -1,7 +1,8 @@
 package com.messi.languagehelper;
 
-import com.actionbarsherlock.app.SherlockFragment;
+import android.support.v4.app.Fragment;
 
-public class BaseFragment extends SherlockFragment {
+
+public class BaseFragment extends Fragment {
 
 }

@@ -1,12 +1,11 @@
 package com.messi.languagehelper;
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.MenuItem;
 import com.baidu.mobstat.StatService;
 import com.messi.languagehelper.util.Settings;
 
@@ -22,7 +21,12 @@ public class AboutActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void init() {
-        mActionBar.setTitle(getResources().getString(R.string.title_about));
+		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+		if (toolbar != null) {
+			setSupportActionBar(toolbar);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			getSupportActionBar().setTitle(getResources().getString(R.string.title_about));
+		}
         email_layout = (TextView) findViewById(R.id.email_layout);
         email_layout.setOnClickListener(this);
 	}

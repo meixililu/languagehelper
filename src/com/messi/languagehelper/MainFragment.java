@@ -27,7 +27,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.baidu.mobstat.StatService;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
@@ -40,6 +39,7 @@ import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.http.LanguagehelperHttpClient;
 import com.messi.languagehelper.http.RequestParams;
 import com.messi.languagehelper.http.TextHttpResponseHandler;
+import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.util.BaiduStatistics;
 import com.messi.languagehelper.util.JsonParser;
 import com.messi.languagehelper.util.KeyUtil;
@@ -49,7 +49,7 @@ import com.messi.languagehelper.util.ToastUtil;
 import com.messi.languagehelper.util.XFUtil;
 import com.messi.languagehelper.wxapi.WXEntryActivity;
 
-public class MainFragment extends SherlockFragment implements OnClickListener {
+public class MainFragment extends Fragment implements OnClickListener {
 
 	private EditText input_et;
 	private FrameLayout submit_btn;
@@ -85,6 +85,7 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	public static boolean isRefresh;
 	private View view;
 	public static MainFragment mMainFragment;
+	private FragmentProgressbarListener mProgressbarListener;
 	
 	public static MainFragment getInstance(Bundle bundle){
 		if(mMainFragment == null){
@@ -92,6 +93,16 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 			mMainFragment.bundle = bundle;
 		}
 		return mMainFragment;
+	}
+	
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		try {
+			mProgressbarListener = (FragmentProgressbarListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement FragmentProgressbarListener");
+        }
 	}
 
 	@Override
@@ -291,8 +302,7 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	class WaitTask extends AsyncTask<Void, Void, Void>{
 		@Override
 		protected void onPreExecute() {
-			WXEntryActivity.mWXEntryActivity.setSupportProgressBarIndeterminateVisibility(true);
-			WXEntryActivity.mWXEntryActivity.setSupportProgressBarVisibility(true);
+			loadding();
 		}
 		@Override
 		protected Void doInBackground(Void... params) {
@@ -306,8 +316,7 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 
 		@Override
 		protected void onPostExecute(Void result) {
-			WXEntryActivity.mWXEntryActivity.setSupportProgressBarIndeterminateVisibility(false);
-			WXEntryActivity.mWXEntryActivity.setSupportProgressBarVisibility(false);
+			finishLoadding();
 			mAdapter.notifyDataChange(beans,0);
 		}
 	}
@@ -323,8 +332,7 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	 * send translate request
 	 */
 	private void RequestAsyncTask(){
-		WXEntryActivity.mWXEntryActivity.setSupportProgressBarIndeterminateVisibility(true);
-		WXEntryActivity.mWXEntryActivity.setSupportProgressBarVisibility(true);
+		loadding();
 		submit_btn.setEnabled(false);
 		RequestParams mRequestParams = new RequestParams();
 		mRequestParams.put("client_id", Settings.client_id);
@@ -335,8 +343,7 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 			@Override
 			public void onFinish() {
 				super.onFinish();
-				WXEntryActivity.mWXEntryActivity.setSupportProgressBarIndeterminateVisibility(false);
-				WXEntryActivity.mWXEntryActivity.setSupportProgressBarVisibility(false);
+				finishLoadding();
 				submit_btn.setEnabled(true);
 			}
 			@Override
@@ -412,8 +419,7 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 		}else{
 			finishRecord();
 			recognizer.stopListening();
-			WXEntryActivity.mWXEntryActivity.setSupportProgressBarIndeterminateVisibility(true);
-			WXEntryActivity.mWXEntryActivity.setSupportProgressBarVisibility(true);
+			loadding();
 		}
 	}
 	
@@ -440,15 +446,13 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 			LogUtil.DefalutLog("onError:"+err.getErrorDescription());
 			finishRecord();
 			ToastUtil.diaplayMesShort(getActivity(), err.getErrorDescription());
-			WXEntryActivity.mWXEntryActivity.setSupportProgressBarIndeterminateVisibility(false);
-			WXEntryActivity.mWXEntryActivity.setSupportProgressBarVisibility(false);
+			finishLoadding();
 		}
 
 		@Override
 		public void onEndOfSpeech() {
 			LogUtil.DefalutLog("onEndOfSpeech");
-			WXEntryActivity.mWXEntryActivity.setSupportProgressBarIndeterminateVisibility(true);
-			WXEntryActivity.mWXEntryActivity.setSupportProgressBarVisibility(true);
+			loadding();
 			finishRecord();
 		}
 
@@ -506,6 +510,24 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 	}
 	
 	/**
+	 * 通过接口回调activity执行进度条显示控制
+	 */
+	private void loadding(){
+		if(mProgressbarListener != null){
+			mProgressbarListener.showProgressbar();
+		}
+	}
+	
+	/**
+	 * 通过接口回调activity执行进度条显示控制
+	 */
+	private void finishLoadding(){
+		if(mProgressbarListener != null){
+			mProgressbarListener.hideProgressbar();
+		}
+	}
+	
+	/**
 	 * submit request task
 	 */
 	private void submit(){
@@ -515,8 +537,7 @@ public class MainFragment extends SherlockFragment implements OnClickListener {
 			StatService.onEvent(getActivity(), BaiduStatistics.TranslateBtn, "翻译按钮", 1);
 		} else {
 			showToast(getActivity().getResources().getString(R.string.input_et_hint));
-			WXEntryActivity.mWXEntryActivity.setSupportProgressBarIndeterminateVisibility(false);
-			WXEntryActivity.mWXEntryActivity.setSupportProgressBarVisibility(false);
+			finishLoadding();
 		}
 	}
 	

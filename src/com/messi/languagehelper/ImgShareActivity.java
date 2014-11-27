@@ -9,7 +9,10 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.View.OnClickListener;
@@ -18,8 +21,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.baidu.mobstat.StatService;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
@@ -50,7 +51,13 @@ public class ImgShareActivity extends BaseActivity implements OnClickListener {
 	private void init() {
 		Intent intent = getIntent();
 		shareContent = intent.getStringExtra(KeyUtil.ShareContentKey);
-		mActionBar.setTitle(getResources().getString(R.string.title_share_preview));
+		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+		if (toolbar != null) {
+			setSupportActionBar(toolbar);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			getSupportActionBar().setTitle(getResources().getString(R.string.title_share_preview));
+		}
+		
         parent_layout = (LinearLayout)findViewById(R.id.parent_layout);
         share_content = (EditText) findViewById(R.id.share_content);
         share_foot = (TextView) findViewById(R.id.share_foot);

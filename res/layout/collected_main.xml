@@ -23,7 +23,6 @@
 
     <ProgressBar
         android:id="@+id/lottery_result_hall_progressbar_m"
-        style="@style/Widget.Sherlock.Light.ProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

@@ -1,31 +1,23 @@
 package com.messi.languagehelper;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.MenuItem;
+import android.view.Window;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.Window;
 import com.baidu.mobstat.StatService;
 import com.messi.languagehelper.util.AudioTrackUtil;
 
-public class BaseActivity extends SherlockFragmentActivity {
+public class BaseActivity extends ActionBarActivity {
 
-	public ActionBar mActionBar;
+	public Toolbar toolbar;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		requestWindowFeature(Window.FEATURE_PROGRESS);
 		super.onCreate(savedInstanceState);
-		mActionBar = getSupportActionBar();
-        mActionBar.setBackgroundDrawable(getResources().getDrawable(R.color.load_blue));
-        mActionBar.setDisplayHomeAsUpEnabled(true);
-        mActionBar.setDisplayShowHomeEnabled(false);
-        mActionBar.setHomeButtonEnabled(true);
-        setSupportProgressBarIndeterminateVisibility(false);
-		setSupportProgressBarVisibility(false);
 	}
 
 	@Override

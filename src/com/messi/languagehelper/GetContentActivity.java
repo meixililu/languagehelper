@@ -1,12 +1,13 @@
 package com.messi.languagehelper;
 
-import com.baidu.mobstat.StatService;
-import com.messi.languagehelper.util.Settings;
-
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
+
+import com.baidu.mobstat.StatService;
+import com.messi.languagehelper.util.Settings;
 
 public class GetContentActivity extends BaseActivity implements OnClickListener {
 
@@ -20,7 +21,12 @@ public class GetContentActivity extends BaseActivity implements OnClickListener 
 	}
 
 	private void initViews(){
-		mActionBar.setTitle(getResources().getString(R.string.sorry));
+		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+		if (toolbar != null) {
+			setSupportActionBar(toolbar);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		}
+		getSupportActionBar().setTitle(getResources().getString(R.string.sorry));
 		layout_1 = (FrameLayout)findViewById(R.id.layout_1);
 		layout_2 = (FrameLayout)findViewById(R.id.layout_2);
 		layout_1.setOnClickListener(this);

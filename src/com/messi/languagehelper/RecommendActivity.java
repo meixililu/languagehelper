@@ -3,16 +3,13 @@ package com.messi.languagehelper;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.MenuItem;
 import com.baidu.mobstat.StatService;
-import com.messi.languagehelper.util.ToastUtil;
-import com.messi.languagehelper.wxapi.WXEntryActivity;
 
 public class RecommendActivity extends BaseActivity implements OnClickListener {
 
@@ -26,7 +23,12 @@ public class RecommendActivity extends BaseActivity implements OnClickListener {
 	}
 	
 	private void init() {
-        mActionBar.setTitle(this.getResources().getString(R.string.title_apps));
+		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+		if (toolbar != null) {
+			setSupportActionBar(toolbar);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			getSupportActionBar().setTitle(this.getResources().getString(R.string.title_apps));
+		}
         
         recommend_yyzs = (FrameLayout) findViewById(R.id.recommend_yyzs);
         recommend_zrzs = (FrameLayout) findViewById(R.id.recommend_zrzs);

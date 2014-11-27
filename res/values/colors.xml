@@ -10,11 +10,13 @@
     <color name="dullred">#bc4c4c</color>
     <color name="orange">#FFEF6800</color>
     <color name="green">#77c924</color>
+    <color name="green_500">#4CAF50</color>
     <color name="green_light">#d3e8be</color>
     <color name="green_dark">#6cb51f</color>
 	<color name="blue">#ff0000ff</color>
 	<color name="gray">#FF888888</color>
-	<color name="load_blue">#FF1875bd</color>
+	<color name="cyan">#00BCD4</color>
+	<color name="load_blue">#2196F3</color>
 	<color name="mic_blue">#991e7dc8</color>
 	<color name="bg_white">#f7fafe</color>
     <color name="lightgrey">#FFEBE7DB</color>
@@ -82,7 +84,7 @@
 	
 	<color name="app_lightblue">#4ea7e6</color>
 	<color name="list_menu_bg_color">#ebf7fc</color>
-	<color name="light_blue">#559ee7fc</color>
+	<color name="light_blue">#03A9F4</color>
 	<color name="btn_grey">#f1f1f1</color>
 	<color name="btn_light_blue">#4ea7e6</color>
 	

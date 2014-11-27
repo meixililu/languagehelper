@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -17,8 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.baidu.mobstat.StatService;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
@@ -87,7 +88,12 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void initView() {
-        mActionBar.setTitle(getResources().getString(R.string.title_Practice));
+		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+		if (toolbar != null) {
+			setSupportActionBar(toolbar);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			getSupportActionBar().setTitle(getResources().getString(R.string.title_Practice));
+		}
         mSharedPreferences = Settings.getSharedPreferences(this);
         mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this,null);
         recognizer = SpeechRecognizer.createRecognizer(this,null);
@@ -465,7 +471,7 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0,0,0,this.getResources().getString(R.string.title_settings)).setIcon(R.drawable.icon_speed).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		menu.add(0,0,0,this.getResources().getString(R.string.title_settings)).setIcon(R.drawable.icon_speed);
 		return true;
 	}
 	

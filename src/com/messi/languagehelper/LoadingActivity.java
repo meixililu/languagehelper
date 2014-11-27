@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.LinearLayout;
 
 import com.baidu.mobstat.StatService;
@@ -23,6 +22,7 @@ public class LoadingActivity extends Activity {
 		// 缓存，保存当前的引擎参数到下一次启动应用程序使用.
 		private SharedPreferences mSharedPreferences;
 		private LinearLayout middle_ad;
+		private IFLYFullScreenAdView fullScreenAd;
 
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
@@ -30,28 +30,33 @@ public class LoadingActivity extends Activity {
 			setContentView(R.layout.loading_activity);
 			mSharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
 			boolean isShowLoading = Settings.isEnoughTime(mSharedPreferences,IntervalTime);
-			if(isShowLoading){
+//			if(isShowLoading){
 				init();
 				new WaitTask().execute();
-			}else{
-				toNextPage();
-			}
+//			}else{
+//				toNextPage();
+//			}
 		}
 		
 		private void init(){
 			ShortCut.addShortcut(this, mSharedPreferences);
 			middle_ad = (LinearLayout)findViewById(R.id.middle_ad);
-			final IFLYFullScreenAdView fullScreenAd = ADUtil.initQuanPingAD(this, middle_ad);
-			fullScreenAd.setAdListener(new IFLYAdListener() {
+			fullScreenAd = ADUtil.initQuanPingAD(this, middle_ad);
+			fullScreenAd.loadAd(new IFLYAdListener() {
 				@Override
-				public void onReceiveAd() {
-					fullScreenAd.showAd();
+				public void onAdReceive() {
+					if(fullScreenAd != null){
+						fullScreenAd.showAd();
+					}
 				}
 				@Override
-				public void onPresentScreen() {
+				public void onAdFailed(int arg0, String arg1) {
 				}
 				@Override
-				public void onFailedToReceiveAd(String arg0) {
+				public void onAdClose() {
+				}
+				@Override
+				public void onAdClick() {
 				}
 			});
 		}
@@ -95,5 +100,9 @@ public class LoadingActivity extends Activity {
 		@Override
 		protected void onDestroy() {
 			super.onDestroy();
+			if(fullScreenAd != null){
+				fullScreenAd.destroy();
+				fullScreenAd = null;
+			}
 		}
 }

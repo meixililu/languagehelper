@@ -6,24 +6,25 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.baidu.mobstat.StatService;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.adapter.CollectedListItemAdapter;
 import com.messi.languagehelper.bean.DialogBean;
 import com.messi.languagehelper.db.DataBaseUtil;
+import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.wxapi.WXEntryActivity;
 
-public class CollectedFragment extends SherlockFragment implements OnClickListener {
+public class CollectedFragment extends Fragment implements OnClickListener {
 
 	private ListView recent_used_lv;
 	private View view;
@@ -45,6 +46,7 @@ public class CollectedFragment extends SherlockFragment implements OnClickListen
 	public static boolean isRespondWX;
 	public static boolean isRefresh;
 	public static CollectedFragment mMainFragment;
+	private FragmentProgressbarListener mProgressbarListener;
 	
 	public static CollectedFragment getInstance(Bundle bundle){
 		if(mMainFragment == null){
@@ -52,6 +54,16 @@ public class CollectedFragment extends SherlockFragment implements OnClickListen
 			mMainFragment.bundle = bundle;
 		}
 		return mMainFragment;
+	}
+	
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		try {
+			mProgressbarListener = (FragmentProgressbarListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement FragmentProgressbarListener");
+        }
 	}
 
 	@Override
@@ -118,8 +130,7 @@ public class CollectedFragment extends SherlockFragment implements OnClickListen
 	class WaitTask extends AsyncTask<Void, Void, Void>{
 		@Override
 		protected void onPreExecute() {
-			WXEntryActivity.mWXEntryActivity.setSupportProgressBarIndeterminateVisibility(true);
-			WXEntryActivity.mWXEntryActivity.setSupportProgressBarVisibility(true);
+			loadding();
 		}
 		@Override
 		protected Void doInBackground(Void... params) {
@@ -133,9 +144,26 @@ public class CollectedFragment extends SherlockFragment implements OnClickListen
 		@Override
 		protected void onPostExecute(Void result) {
 //			recent_used_lv.onRefreshComplete();
-			WXEntryActivity.mWXEntryActivity.setSupportProgressBarIndeterminateVisibility(false);
-			WXEntryActivity.mWXEntryActivity.setSupportProgressBarVisibility(false);
+			finishLoadding();
 			mAdapter.notifyDataChange(beans,maxNumber);
+		}
+	}
+	
+	/**
+	 * 通过接口回调activity执行进度条显示控制
+	 */
+	private void loadding(){
+		if(mProgressbarListener != null){
+			mProgressbarListener.showProgressbar();
+		}
+	}
+	
+	/**
+	 * 通过接口回调activity执行进度条显示控制
+	 */
+	private void finishLoadding(){
+		if(mProgressbarListener != null){
+			mProgressbarListener.hideProgressbar();
 		}
 	}
 	
