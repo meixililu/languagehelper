@@ -19,6 +19,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@color/style3_color1"
+        android:layout_margin="@dimen/padding_margin"
         android:foreground="@drawable/framelayout_selector"
         android:orientation="vertical" >
             <TextView
@@ -40,7 +41,8 @@
         android:id="@+id/layout_2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_7"
+        android:layout_marginLeft="@dimen/padding_margin"
+        android:layout_marginRight="@dimen/padding_margin"
         android:background="@color/style3_color1"
         android:foreground="@drawable/framelayout_selector"
         android:orientation="vertical" >

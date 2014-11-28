@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
@@ -14,7 +15,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/padding_margin"
             android:background="@drawable/list_item_bg_white"
             android:orientation="vertical"
             >
@@ -61,29 +62,17 @@
 	            </FrameLayout>
             </RelativeLayout>
 
-            <FrameLayout
-                android:id="@+id/submit_btn_layout"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:gravity="center_vertical"
-		        android:layout_marginLeft="1px"
-		        android:layout_marginRight="1px"
-		        android:layout_marginBottom="1px"
-                android:foreground="@drawable/framelayout_selector"
-                >
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:background="@color/app_lightblue"
-                    android:gravity="center"
-                    android:layout_marginLeft="1px"
-                    android:layout_marginRight="1px"
-                    android:layout_marginBottom="1px"
-                    android:text="@string/translate"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/big"
-                    />
-            </FrameLayout>
+            <com.gc.materialdesign.views.ButtonRectangle
+                android:id="@+id/submit_btn"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:background="@color/load_blue"
+                android:text="@string/translate"
+                android:textColor="@color/white"
+                android:textSize="@dimen/big"
+                android:gravity="center" 
+                materialdesign:rippleSpeed="90"
+                />
         </LinearLayout>
 
         <RelativeLayout
@@ -99,11 +88,11 @@
                 android:background="@color/none"
                 android:cacheColorHint="@color/none"
                 android:divider="@color/none"
-                android:dividerHeight="3dp"
+                android:dividerHeight="@dimen/padding_margin"
                 android:fadingEdge="none"
                 android:listSelector="@color/none"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
+                android:paddingLeft="@dimen/padding_margin"
+                android:paddingRight="@dimen/padding_margin"
                 android:scrollbars="none" />
             
             <RelativeLayout
@@ -126,7 +115,7 @@
 	                <RadioButton
 	                    android:id="@+id/cb_speak_language_ch"
 	                    android:layout_width="0dp"
-	                    android:layout_height="53dp"
+	                    android:layout_height="50dp"
 	                    android:layout_weight="1"
 	                    android:background="@drawable/checkbox_language_right_selector"
 	                    android:button="@null"
@@ -138,7 +127,7 @@
 	                <RadioButton
 	                    android:id="@+id/cb_speak_language_en"
 	                    android:layout_width="0dp"
-	                    android:layout_height="53dp"
+	                    android:layout_height="50dp"
 	                    android:layout_weight="1"
 	                    android:background="@drawable/checkbox_language_right_selector"
 	                    android:button="@null"
@@ -156,8 +145,8 @@
                     
 	                <LinearLayout
 	                    android:id="@+id/speak_round_layout"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
+	                    android:layout_width="75dp"
+	                    android:layout_height="75dp"
 	                    android:layout_marginBottom="-6dp"
 	                    android:background="@drawable/round_gray_bgl"
 	                    android:gravity="center"
@@ -165,10 +154,9 @@
 	
 	                    <Button
 	                        android:id="@+id/voice_btn"
-	                        android:layout_width="75dp"
-	                        android:layout_height="75dp"
+	                        android:layout_width="40dp"
+	                        android:layout_height="40dp"
 	                        android:background="@drawable/ic_voice_padded_normal"
-	                        android:clickable="false"
 	                        android:gravity="center"
 	                        android:orientation="horizontal"
 	                        android:textColor="@color/white"

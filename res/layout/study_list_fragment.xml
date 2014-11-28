@@ -20,12 +20,12 @@
         android:background="@color/none"
         android:cacheColorHint="@color/none"
         android:divider="@color/none"
-        android:dividerHeight="@dimen/padding_7"
+        android:dividerHeight="@dimen/padding_margin"
         android:fadingEdge="none"
         android:listSelector="@color/none"
-        android:layout_marginTop="@dimen/padding_7"
-        android:paddingLeft="@dimen/padding_7"
-        android:paddingRight="@dimen/padding_7"
+        android:layout_marginTop="@dimen/padding_margin"
+        android:paddingLeft="@dimen/padding_margin"
+        android:paddingRight="@dimen/padding_margin"
         android:scrollbars="none" />
 
 </LinearLayout>

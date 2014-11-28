@@ -4,8 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" 
     android:orientation="vertical"
-    android:background="@color/white"
-    android:padding="@dimen/padding_7"
+    android:background="@color/contentbg"
+    android:padding="@dimen/padding_margin"
     android:weightSum="10"
     >
 
@@ -38,7 +38,7 @@
 	    android:layout_height="0dp"
 	    android:layout_weight="2.5" 
 	    android:orientation="vertical"
-	    android:layout_marginTop="@dimen/padding_7"
+	    android:layout_marginTop="@dimen/padding_margin"
 	   	android:foreground="@drawable/framelayout_selector"
         >
         <TextView 
@@ -62,7 +62,7 @@
 	    android:layout_height="0dp"
 	    android:layout_weight="2.5" 
 	    android:orientation="vertical"
-	    android:layout_marginTop="@dimen/padding_7"
+	    android:layout_marginTop="@dimen/padding_margin"
 	   	android:foreground="@drawable/framelayout_selector"
         >
         <TextView 
@@ -87,7 +87,7 @@
 	    android:layout_height="0dp"
 	    android:layout_weight="2" 
 	    android:orientation="vertical"
-	    android:layout_marginTop="@dimen/padding_7"
+	    android:layout_marginTop="@dimen/padding_margin"
 	   	android:foreground="@drawable/framelayout_selector"
         >
         <TextView 

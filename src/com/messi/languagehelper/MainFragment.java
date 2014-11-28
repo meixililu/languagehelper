@@ -28,6 +28,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 
 import com.baidu.mobstat.StatService;
+import com.gc.materialdesign.views.ButtonRectangle;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
@@ -47,12 +48,11 @@ import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.ToastUtil;
 import com.messi.languagehelper.util.XFUtil;
-import com.messi.languagehelper.wxapi.WXEntryActivity;
 
 public class MainFragment extends Fragment implements OnClickListener {
 
 	private EditText input_et;
-	private FrameLayout submit_btn;
+	private ButtonRectangle submit_btn;
 	private LinearLayout baidu_translate,baidu_tranlate_prompt;;
 	private FrameLayout clear_btn_layout;
 	private Button voice_btn;
@@ -146,7 +146,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 		
 		recent_used_lv = (ListView) view.findViewById(R.id.recent_used_lv);
 		input_et = (EditText) view.findViewById(R.id.input_et);
-		submit_btn = (FrameLayout) view.findViewById(R.id.submit_btn_layout);
+		submit_btn = (ButtonRectangle) view.findViewById(R.id.submit_btn);
 		cb_speak_language_ch = (RadioButton) view.findViewById(R.id.cb_speak_language_ch);
 		cb_speak_language_en = (RadioButton) view.findViewById(R.id.cb_speak_language_en);
 		speak_round_layout = (LinearLayout) view.findViewById(R.id.speak_round_layout);
@@ -216,7 +216,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 	
 	@Override
 	public void onClick(View v) {
-		if (v.getId() == R.id.submit_btn_layout) {
+		if (v.getId() == R.id.submit_btn) {
 			hideIME();
 			submit();
 			StatService.onEvent(getActivity(), "1.6_fanyibtn", "翻译按钮", 1);

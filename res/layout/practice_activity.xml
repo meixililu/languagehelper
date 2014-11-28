@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
     
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/contentbg"
+        android:orientation="vertical" >
+
     <android.support.v7.widget.Toolbar
 	    xmlns:app="http://schemas.android.com/apk/res-auto"
 	    android:id="@+id/my_awesome_toolbar"
@@ -11,13 +18,7 @@
 	    android:layout_width="match_parent"
 	    android:minHeight="?attr/actionBarSize"
 	    android:background="?attr/colorPrimary" />
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@color/contentbg"
-        android:orientation="vertical" >
-
+    
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -51,9 +52,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="1"
-                            android:paddingBottom="5dp"
-                            android:paddingLeft="10dp"
-                            android:paddingTop="7dp"
+                            android:paddingBottom="8dp"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="12dp"
                             android:shadowColor="@color/green"
                             android:shadowDx="0.5"
                             android:shadowDy="0.5"
@@ -89,9 +90,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="1"
-                            android:paddingBottom="7dp"
-                            android:paddingLeft="10dp"
-                            android:paddingTop="5dp"
+                            android:paddingBottom="10dp"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="7dp"
                             android:text=""
                             android:textColor="@color/text_grey"
                             android:textSize="@dimen/bigger" />
@@ -162,9 +163,9 @@
                     android:layout_height="fill_parent"
                     android:gravity="center"
                     android:shadowColor="@color/text_grey1"
-                    android:shadowDx="0.5"
-                    android:shadowDy="0.5"
-                    android:shadowRadius="0.5"
+                    android:shadowDx="0.3"
+                    android:shadowDy="0.3"
+                    android:shadowRadius="0.3"
                     android:text=""
                     android:textColor="@color/text_grey1"
                     android:textSize="@dimen/bigger" />
@@ -180,31 +181,18 @@
                 android:gravity="bottom"
                 android:orientation="horizontal" >
 
-                <LinearLayout
-                    android:id="@+id/speak_round_layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="-6dp"
-                    android:background="@drawable/round_gray_bgl"
-                    android:gravity="center"
-                    android:orientation="horizontal" >
 
-                    <Button
-                        android:id="@+id/voice_btn"
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        android:background="@color/none"
-                        android:clickable="false"
-                        android:gravity="center"
-                        android:shadowColor="@color/text_black"
-                        android:shadowDx="0.5"
-                        android:shadowDy="0.5"
-                        android:shadowRadius="0.5"
-                        android:text="Start"
-                        android:textColor="@color/text_black"
-                        android:textSize="@dimen/title" />
-                </LinearLayout>
+                <com.gc.materialdesign.views.ButtonRectangle
+                    android:id="@+id/voice_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@color/load_blue"
+                    android:clickable="false"
+                    android:gravity="center"
+                    materialdesign:rippleSpeed="90"
+                    android:text="Start"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/title" />
             </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>

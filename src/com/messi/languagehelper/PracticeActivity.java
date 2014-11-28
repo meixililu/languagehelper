@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -21,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.baidu.mobstat.StatService;
+import com.gc.materialdesign.views.ButtonRectangle;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
@@ -54,11 +54,10 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 	private FrameLayout record_question_cover,record_answer_cover,practice_page_exchange;
 	private ImageButton voice_play_answer,voice_play_question;
 	private TextView record_question,record_answer,practice_prompt,record_animation_text;
-	private LinearLayout speak_round_layout;
 	private ListView recent_used_lv;
 	private ImageView record_anim_img;
 	private LinearLayout record_layout,record_animation_layout;
-	private Button voice_btn;
+	private ButtonRectangle voice_btn;
 	
 	private MyOnClickListener mAnswerOnClickListener,mQuestionOnClickListener;
 	private DataBaseUtil mDataBaseUtil;
@@ -107,11 +106,10 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 		record_question = (TextView) findViewById(R.id.record_question);
 		voice_play_answer = (ImageButton) findViewById(R.id.voice_play_answer);
 		voice_play_question = (ImageButton) findViewById(R.id.voice_play_question);
-		voice_btn = (Button) findViewById(R.id.voice_btn);
+		voice_btn = (ButtonRectangle) findViewById(R.id.voice_btn);
 		record_anim_img = (ImageView) findViewById(R.id.record_anim_img);
 		record_layout = (LinearLayout) findViewById(R.id.record_layout);
 		record_animation_layout = (LinearLayout) findViewById(R.id.record_animation_layout);
-		speak_round_layout = (LinearLayout) findViewById(R.id.speak_round_layout);
 		record_animation_text = (TextView) findViewById(R.id.record_animation_text);
 		recent_used_lv = (ListView) findViewById(R.id.recent_used_lv);
 		recent_used_lv.setAdapter(adapter);
@@ -125,7 +123,7 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 		
 		record_question_cover.setOnClickListener(mQuestionOnClickListener);
 		record_answer_cover.setOnClickListener(mAnswerOnClickListener);
-		speak_round_layout.setOnClickListener(this);
+		voice_btn.setOnClickListener(this);
 		practice_page_exchange.setOnClickListener(this);
 		
 	}
@@ -143,7 +141,7 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) { 
-		case R.id.speak_round_layout:
+		case R.id.voice_btn:
 			showIatDialog();
 			StatService.onEvent(PracticeActivity.this, "1.8_practice_speak_btn", "口语练习-说话按钮", 1);
 			break;
@@ -188,10 +186,7 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 				record_animation_text.setText("Listen");
 			}else{
 				record_layout.setVisibility(View.VISIBLE);
-				voice_btn.setBackgroundColor(this.getResources().getColor(R.color.none));
-				voice_btn.setTextColor( this.getResources().getColor(R.color.white) );
 				voice_btn.setText(this.getResources().getString(R.string.finish));
-				speak_round_layout.setBackgroundResource(R.drawable.round_light_blue_bgl);
 				XFUtil.showSpeechRecognizer(this,mSharedPreferences,recognizer,recognizerListener);
 			}
 		}else{
@@ -208,9 +203,6 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 		record_layout.setVisibility(View.GONE);
 		record_anim_img.setBackgroundResource(R.drawable.speak_voice_1);
 		voice_btn.setText("Start");
-		voice_btn.setTextColor( this.getResources().getColor(R.color.text_grey) );
-		voice_btn.setBackgroundColor(this.getResources().getColor(R.color.none));
-		speak_round_layout.setBackgroundResource(R.drawable.round_gray_bgl);
 	}
 	
 	private void onfinishPlay(){
@@ -471,14 +463,14 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0,0,0,this.getResources().getString(R.string.title_settings)).setIcon(R.drawable.icon_speed);
+		getMenuInflater().inflate(R.menu.settings, menu);
 		return true;
 	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case 0:  
+		case R.id.action_settings:  
 			toSettingActivity();
 //			StatService.onEvent(this, "1.8_menu_to_share_activity", "去自定义分享页面", 1);
 			break;
