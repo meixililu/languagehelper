@@ -17,7 +17,15 @@
 	    android:layout_height="wrap_content"
 	    android:layout_width="match_parent"
 	    android:minHeight="?attr/actionBarSize"
-	    android:background="?attr/colorPrimary" />
+	    android:background="?attr/colorPrimary" >
+	    <com.gc.materialdesign.views.ProgressBarCircularIndetermininate
+	                android:id="@+id/progressBarCircularIndetermininate"
+	                android:layout_width="28dp"
+	                android:layout_height="28dp"
+            		android:layout_gravity="right"
+            		android:visibility="gone"
+	                android:background="@color/white" />
+   </android.support.v7.widget.Toolbar>
     
         <LinearLayout
             android:layout_width="fill_parent"
