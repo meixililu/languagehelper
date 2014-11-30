@@ -10,7 +10,8 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.baidu.mobstat.StatService;
-import com.iflytek.adserving.IFLYBannerAdView;
+import com.iflytek.adserving.IFLYInterstitialAdView;
+import com.iflytek.adserving.request.IFLYAdListener;
 import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.Settings;
@@ -20,7 +21,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 	private View view;
 	private FrameLayout cailing_layout,app_layout,yuedu_layout;
 	private LinearLayout ad_layout;
-	private IFLYBannerAdView bannerAd;
+	private IFLYInterstitialAdView mInterstitialAd;
 	public static LeisureFragment mMainFragment;
 	
 	public static LeisureFragment getInstance(){
@@ -45,7 +46,27 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		cailing_layout.setOnClickListener(this);
 		yuedu_layout.setOnClickListener(this);
 		app_layout.setOnClickListener(this);
-		ADUtil.initChaPingAD(getActivity(), ad_layout);
+		mInterstitialAd = ADUtil.initChaPingAD(getActivity(), ad_layout);
+		mInterstitialAd.loadAd(new IFLYAdListener() {
+			@Override
+			public void onAdReceive() {
+				if(mInterstitialAd != null){
+					mInterstitialAd.showAd();
+				}
+			}
+			@Override
+			public void onAdFailed(int arg0, String arg1) {
+				
+			}
+			@Override
+			public void onAdClose() {
+				
+			}
+			@Override
+			public void onAdClick() {
+				
+			}
+		});
 	}
 
 	@Override
@@ -82,4 +103,12 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		StatService.onEvent(getActivity(),"19_authors_software", "作者其他应用", 1);
 	}
 	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		if(mInterstitialAd != null){
+			mInterstitialAd.destroy();
+			mInterstitialAd = null;
+		}
+	}
 }

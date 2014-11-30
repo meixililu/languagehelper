@@ -37,12 +37,13 @@ public class ADUtil {
 	 * @param mActivity
 	 * @param view
 	 */
-	public static void initChaPingAD(Activity mActivity,LinearLayout view){
+	public static IFLYInterstitialAdView initChaPingAD(Activity mActivity,LinearLayout view){
 		//创建IFLYBannerAdView对象 
 		final IFLYInterstitialAdView interstitialAd = new IFLYInterstitialAdView (mActivity,ChaPingADId);
 		//设置需要请求的广告大小 
 		interstitialAd.setAdSize(IFLYAdSize.INTERSTITIAL); 
-		view.addView(interstitialAd); 
+		view.addView(interstitialAd);
+		return interstitialAd;
 	}
 	
 	/**

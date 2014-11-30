@@ -10,7 +10,7 @@
         android:id="@+id/cailing_layout"
         android:layout_width="fill_parent"
         android:layout_height="100dp"
-        android:background="@color/style6_color1"
+        android:background="@color/style6_color3"
         android:foreground="@drawable/framelayout_selector"
         android:orientation="vertical" >
 
@@ -84,7 +84,7 @@
         android:layout_width="fill_parent"
         android:layout_height="100dp"
         android:layout_marginTop="@dimen/padding_margin"
-        android:background="@color/style6_color3"
+        android:background="@color/style6_color1"
         android:foreground="@drawable/framelayout_selector"
         android:orientation="vertical" >
 

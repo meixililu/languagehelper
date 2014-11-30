@@ -17,11 +17,11 @@ import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baidu.mobstat.StatService;
+import com.gc.materialdesign.views.ButtonRectangle;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.SDCardUtil;
@@ -30,7 +30,7 @@ import com.messi.languagehelper.util.ToastUtil;
 public class ImgShareActivity extends BaseActivity implements OnClickListener {
 
 	private EditText share_content;
-	private FrameLayout share_btn_cover;
+	private ButtonRectangle share_btn_cover;
 	private LinearLayout parent_layout;
 	private TextView share_foot;
 	private String shareContent;
@@ -61,7 +61,7 @@ public class ImgShareActivity extends BaseActivity implements OnClickListener {
         parent_layout = (LinearLayout)findViewById(R.id.parent_layout);
         share_content = (EditText) findViewById(R.id.share_content);
         share_foot = (TextView) findViewById(R.id.share_foot);
-        share_btn_cover = (FrameLayout) findViewById(R.id.share_btn_cover);
+        share_btn_cover = (ButtonRectangle) findViewById(R.id.share_btn_cover);
         mSoundPoll = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
         mSoundId = mSoundPoll.load(this, R.raw.camera, 1);
         

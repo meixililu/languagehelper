@@ -21,7 +21,7 @@
         android:gravity="center"
         android:background="@color/white"
         android:orientation="vertical"
-        android:padding="15dp" >
+        android:padding="5dp" >
 
         <LinearLayout
             android:id="@+id/parent_layout"
@@ -65,21 +65,17 @@
         </LinearLayout>
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/share_btn_cover"
-        android:layout_width="fill_parent"
-        android:layout_height="55dp"
-        android:clickable="true"
-        android:foreground="@drawable/framelayout_selector" >
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="@color/btn_grey"
-            android:gravity="center"
-            android:text="@string/share"
-            android:textColor="@color/text_black"
-            android:textSize="@dimen/bigger" />
-    </FrameLayout>
+    <com.gc.materialdesign.views.ButtonRectangle
+        		xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/share_btn_cover"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@color/load_blue"
+                android:text="@string/share"
+                android:textColor="@color/white"
+                android:textSize="@dimen/big"
+                android:gravity="center" 
+                materialdesign:rippleSpeed="90"
+                />
 
 </LinearLayout>
