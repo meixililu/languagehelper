@@ -6,30 +6,35 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewTreeObserver.OnScrollChangedListener;
-import android.view.Window;
+import android.view.ViewTreeObserver;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.baidu.mobstat.StatService;
+import com.messi.languagehelper.observablescrollview.ObservableScrollViewCallbacks;
+import com.messi.languagehelper.observablescrollview.ObservableWebView;
+import com.messi.languagehelper.observablescrollview.ScrollState;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
+import com.nineoldandroids.animation.ObjectAnimator;
 
 
-public class WebViewActivity extends BaseActivity{
+public class WebViewActivity extends BaseActivity implements ObservableScrollViewCallbacks{
 	
 	private SwipeRefreshLayout mSwipeRefreshLayout;
-	private WebView mWebView;
+	private ObservableWebView mWebView;
     private String Url;
     private String title;
     private boolean isReedPullDownRefresh;
     private float mActionBarHeight;
+    private int mQuickReturnHeight;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -63,13 +68,12 @@ public class WebViewActivity extends BaseActivity{
 	
 	private void initViews(){
 		mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
-		mWebView = (WebView) findViewById(R.id.refreshable_webview);
+		mWebView = (ObservableWebView) findViewById(R.id.refreshable_webview);
 		mWebView.requestFocus();//如果不设置，则在点击网页文本输入框时，不能弹出软键盘及不响应其他的一些事件。
 		mWebView.getSettings().setJavaScriptEnabled(true);//如果访问的页面中有Javascript，则webview必须设置支持Javascript。
-		
 		mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
 		mWebView.requestFocus();
-		
+		mWebView.setScrollViewCallbacks(this);
 		//当前页面加载
 		mWebView.setWebViewClient(new WebViewClient() {
 
@@ -91,6 +95,15 @@ public class WebViewActivity extends BaseActivity{
 			}
 
 		});
+		
+		toolbar.getViewTreeObserver().addOnGlobalLayoutListener(
+				new ViewTreeObserver.OnGlobalLayoutListener() {
+					@Override
+					public void onGlobalLayout() {
+						mQuickReturnHeight = toolbar.getHeight();
+					}
+				});
+		
 		mSwipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright, 
 	            R.color.holo_green_light, 
 	            R.color.holo_orange_light, 
@@ -166,6 +179,37 @@ public class WebViewActivity extends BaseActivity{
 //		if(mWebView != null){
 //			mWebView.destroy();
 //		}
+	}
+
+	@Override
+	public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
+		
+	}
+
+	@Override
+	public void onDownMotionEvent() {
+		
+	}
+
+	@Override
+	public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+		ActionBar mActionBar = getSupportActionBar();
+        if (scrollState == ScrollState.UP) {
+            if (mActionBar.isShowing()) {
+//            	toolbar.s
+            }
+        } else if (scrollState == ScrollState.DOWN) {
+            if (!mActionBar.isShowing()) {
+                
+            }
+        }
+	}
+	
+	private void hideActionbar(){
+		ObjectAnimator itemAnimator1 = ObjectAnimator.ofFloat(toolbar, "y", toolbar.getBottom(), mQuickReturnHeight);
+		itemAnimator1.setDuration(250).start();
+		getSupportActionBar().hide();
+		
 	}
 	
 }

@@ -8,8 +8,9 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 
 import com.baidu.mobstat.StatService;
-import com.iflytek.adserving.IFLYFullScreenAdView;
-import com.iflytek.adserving.request.IFLYAdListener;
+import com.iflytek.voiceads.ErrorDescription;
+import com.iflytek.voiceads.IFLYAdListener;
+import com.iflytek.voiceads.IFLYFullScreenAdView;
 import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.ShortCut;
@@ -50,13 +51,13 @@ public class LoadingActivity extends Activity {
 					}
 				}
 				@Override
-				public void onAdFailed(int arg0, String arg1) {
-				}
-				@Override
 				public void onAdClose() {
 				}
 				@Override
 				public void onAdClick() {
+				}
+				@Override
+				public void onAdFailed(ErrorDescription arg0) {
 				}
 			});
 		}

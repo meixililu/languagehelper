@@ -10,8 +10,9 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.baidu.mobstat.StatService;
-import com.iflytek.adserving.IFLYInterstitialAdView;
-import com.iflytek.adserving.request.IFLYAdListener;
+import com.iflytek.voiceads.ErrorDescription;
+import com.iflytek.voiceads.IFLYAdListener;
+import com.iflytek.voiceads.IFLYInterstitialAdView;
 import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.Settings;
@@ -55,16 +56,13 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 				}
 			}
 			@Override
-			public void onAdFailed(int arg0, String arg1) {
-				
-			}
-			@Override
 			public void onAdClose() {
-				
 			}
 			@Override
 			public void onAdClick() {
-				
+			}
+			@Override
+			public void onAdFailed(ErrorDescription arg0) {
 			}
 		});
 	}

@@ -81,9 +81,8 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 		mPlanetTitles = getResources().getStringArray(R.array.planets_array);
 		mInflater = getLayoutInflater(); 
 		
-		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
 		if (toolbar != null) {
-			setSupportActionBar(toolbar);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 			toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
 		}
 	    // Inflate a menu to be displayed in the toolbar

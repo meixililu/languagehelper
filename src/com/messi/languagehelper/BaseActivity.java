@@ -19,6 +19,23 @@ public class BaseActivity extends ActionBarActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	}
+	
+	@Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+        getActionBarToolbar();
+    }
+	
+	protected Toolbar getActionBarToolbar() {
+        if (toolbar == null) {
+        	toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+            if (toolbar != null) {
+                setSupportActionBar(toolbar);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            }
+        }
+        return toolbar;
+    }
 
 	@Override
 	protected void onResume() {

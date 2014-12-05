@@ -1,13 +1,14 @@
 package com.messi.languagehelper.util;
 
+
+import com.iflytek.voiceads.IFLYAdSize;
+import com.iflytek.voiceads.IFLYBannerAdView;
+import com.iflytek.voiceads.IFLYFullScreenAdView;
+import com.iflytek.voiceads.IFLYInterstitialAdView;
+
 import android.app.Activity;
 import android.widget.LinearLayout;
 
-import com.iflytek.adserving.IFLYBannerAdView;
-import com.iflytek.adserving.IFLYFullScreenAdView;
-import com.iflytek.adserving.IFLYInterstitialAdView;
-import com.iflytek.adserving.IFLYSplashAdView;
-import com.iflytek.adserving.request.IFLYAdSize;
 
 public class ADUtil {
 	

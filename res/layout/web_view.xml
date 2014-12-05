@@ -22,7 +22,7 @@
     android:layout_height="match_parent"
     
     >
-    <WebView
+    <com.messi.languagehelper.observablescrollview.ObservableWebView
         android:id="@+id/refreshable_webview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

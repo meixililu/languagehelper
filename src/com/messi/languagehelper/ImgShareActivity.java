@@ -32,7 +32,6 @@ public class ImgShareActivity extends BaseActivity implements OnClickListener {
 	private EditText share_content;
 	private ButtonRectangle share_btn_cover;
 	private LinearLayout parent_layout;
-	private TextView share_foot;
 	private String shareContent;
 	protected SoundPool mSoundPoll;
 	private int mSoundId;
@@ -60,7 +59,6 @@ public class ImgShareActivity extends BaseActivity implements OnClickListener {
 		
         parent_layout = (LinearLayout)findViewById(R.id.parent_layout);
         share_content = (EditText) findViewById(R.id.share_content);
-        share_foot = (TextView) findViewById(R.id.share_foot);
         share_btn_cover = (ButtonRectangle) findViewById(R.id.share_btn_cover);
         mSoundPoll = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
         mSoundId = mSoundPoll.load(this, R.raw.camera, 1);
@@ -69,7 +67,6 @@ public class ImgShareActivity extends BaseActivity implements OnClickListener {
         	share_content.setText(shareContent);
         }
         share_btn_cover.setOnClickListener(this);
-        share_foot.setOnClickListener(this);
 	}
 	
 	private void shareWithImg() throws IOException{
@@ -124,10 +121,6 @@ public class ImgShareActivity extends BaseActivity implements OnClickListener {
 		case R.id.share_btn_cover:
 			share();
 			StatService.onEvent(ImgShareActivity.this, "1.8_img_share_btn", "点击图片分享页面分享按钮", 1);
-			break;
-		case R.id.share_foot:
-			share_foot.setVisibility(View.GONE);
-			StatService.onEvent(ImgShareActivity.this, "1.8_img_share_hide", "点击图片分享页面隐藏文字按钮", 1);
 			break;
 		default:
 			break;

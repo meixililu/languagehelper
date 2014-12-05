@@ -21,12 +21,7 @@ public class AboutActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void init() {
-		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
-		if (toolbar != null) {
-			setSupportActionBar(toolbar);
-			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-			getSupportActionBar().setTitle(getResources().getString(R.string.title_about));
-		}
+		getSupportActionBar().setTitle(getResources().getString(R.string.title_about));
         email_layout = (TextView) findViewById(R.id.email_layout);
         email_layout.setOnClickListener(this);
 	}

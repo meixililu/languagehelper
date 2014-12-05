@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" 
+    android:orientation="vertical"
+    android:background="@color/text_tint1"
+    >
+	
+    <TextView
+        android:id="@+id/questiontv" 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+    	android:textColor="@color/text_dark"
+    	android:shadowDx="0.3"
+        android:shadowDy="0.3"
+        android:shadowRadius="0.3"
+        android:shadowColor="@color/text_dark"
+        android:layout_marginLeft="@dimen/padding_10"
+        android:layout_marginTop="@dimen/padding_5"
+        android:layout_marginRight="@dimen/padding_10"
+    	android:textSize="@dimen/bigger"
+        />
+    
+    <RelativeLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+        <android.support.v4.view.ViewPager
+	        android:id="@+id/viewpager"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content" />
+
+	    <LinearLayout
+	        android:id="@+id/viewpager_dot_layout"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:padding="7dp"
+	        android:gravity="center"
+	        android:orientation="horizontal" />
+    </RelativeLayout>
+    
+    <Button 
+                android:id="@+id/check_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+    	android:text="@string/practice_check"
+    	android:textColor="@drawable/txt_color_gray_white_selector"
+        android:textSize="@dimen/bigger"
+        android:background="@drawable/btn_color_gray_green_selector"
+        android:layout_margin="@dimen/padding_10"
+        android:enabled="false"
+        />
+
+</LinearLayout>
