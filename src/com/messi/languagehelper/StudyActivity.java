@@ -39,11 +39,6 @@ public class StudyActivity extends BaseActivity implements PracticeProgressListe
 	}
 
 	private void initViews() {
-		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
-		if (toolbar != null) {
-			setSupportActionBar(toolbar);
-			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		}
 		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this,null);
 		mSharedPreferences = Settings.getSharedPreferences(this);
 		fragmentManager = getSupportFragmentManager();
@@ -75,10 +70,11 @@ public class StudyActivity extends BaseActivity implements PracticeProgressListe
 	}
 
 	private void addFragment() {
-		String type = studylist_part1_content[pageIndex].split("#")[2];
+		String[]contents = studylist_part1_content[pageIndex].split("#");
+		String type = contents[contents.length-1];
 		getSupportActionBar().setTitle( getActionbarTitle(type) );
 		Fragment mpramf = getStudyType(type);
-		getSupportActionBar().setTitle(getResources().getString(R.string.practice_spoken_englist_style_fourinone));
+		getSupportActionBar().setTitle(getResources().getString(R.string.practice_spoken_englist_style_studyevery));
 		fragmentManager.beginTransaction()
 				.add(R.id.page_content, mpramf)
 				.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -102,7 +98,8 @@ public class StudyActivity extends BaseActivity implements PracticeProgressListe
 		ViewUtil.setPracticeIndicator(this, page_navigation, pageIndex);
 		pageIndex++;
 		if (pageIndex < studylist_part1_content.length) {
-			String type = studylist_part1_content[pageIndex].split("#")[2];
+			String[]contents = studylist_part1_content[pageIndex].split("#");
+			String type = contents[contents.length-1];
 			getSupportActionBar().setTitle( getActionbarTitle(type) );
 			Fragment mpramf = getStudyType(type);
 			setFragment(mpramf);
@@ -116,7 +113,12 @@ public class StudyActivity extends BaseActivity implements PracticeProgressListe
 	
 	private Fragment getStudyType(String type){
 		Fragment mpramf = new Fragment();
-		if(type.equals(KeyUtil.Practice_FourInOne)){
+		if(type.equals(KeyUtil.Study_Every)){
+			mpramf = new PracticeEveryFragment(studylist_part1_content[pageIndex], this,
+					vedioPath + KeyUtil.Study_Every + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
+			
+			StatService.onEvent(this, "19_practice_page_studyevery", "学单词", 1);
+		}else if(type.equals(KeyUtil.Practice_FourInOne)){
 			mpramf = new PracticeFourChooseOneFragment(studylist_part1_content[pageIndex], this,
 					vedioPath + KeyUtil.Practice_FourInOne + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
@@ -144,7 +146,9 @@ public class StudyActivity extends BaseActivity implements PracticeProgressListe
 	
 	private String getActionbarTitle(String type){
 		String mpramf = "";
-		if(type.equals(KeyUtil.Practice_FourInOne)){
+		if(type.equals(KeyUtil.Study_Every)){
+			mpramf = getResources().getString(R.string.practice_spoken_englist_style_fourinone);
+		}else if(type.equals(KeyUtil.Practice_FourInOne)){
 			mpramf = getResources().getString(R.string.practice_spoken_englist_style_fourinone);
 		}else if(type.equals(KeyUtil.Practice_ReadAfterMe)){
 			mpramf = getResources().getString(R.string.practice_spoken_englist_style_readafterme);

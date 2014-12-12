@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/text_tint1"
+        android:background="@color/app_background"
         android:orientation="vertical" >
 
         <FrameLayout

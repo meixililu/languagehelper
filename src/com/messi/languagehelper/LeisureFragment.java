@@ -20,7 +20,7 @@ import com.messi.languagehelper.util.Settings;
 public class LeisureFragment extends BaseFragment implements OnClickListener {
 
 	private View view;
-	private FrameLayout cailing_layout,app_layout,yuedu_layout;
+	private FrameLayout cailing_layout,app_layout,yuedu_layout,hotal_layout;
 	private LinearLayout ad_layout;
 	private IFLYInterstitialAdView mInterstitialAd;
 	public static LeisureFragment mMainFragment;
@@ -42,10 +42,12 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 	private void initViews(){
 		cailing_layout = (FrameLayout)view.findViewById(R.id.cailing_layout);
 		yuedu_layout = (FrameLayout)view.findViewById(R.id.yuedu_layout);
+		hotal_layout = (FrameLayout)view.findViewById(R.id.hotal_layout);
 		app_layout = (FrameLayout)view.findViewById(R.id.app_layout);
 		ad_layout = (LinearLayout)view.findViewById(R.id.ad_layout);
 		cailing_layout.setOnClickListener(this);
 		yuedu_layout.setOnClickListener(this);
+		hotal_layout.setOnClickListener(this);
 		app_layout.setOnClickListener(this);
 		mInterstitialAd = ADUtil.initChaPingAD(getActivity(), ad_layout);
 		mInterstitialAd.loadAd(new IFLYAdListener() {
@@ -73,6 +75,8 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 			toCailingActivity();
 		}else if(v.getId() == R.id.yuedu_layout){
 			toYueduActivity();
+		}else if(v.getId() == R.id.hotal_layout){
+			toHotelActivity();
 		}else if(v.getId() == R.id.app_layout){
 			toAppActivity();
 		}
@@ -93,6 +97,14 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		intent.putExtra(KeyUtil.IsReedPullDownRefresh, false);
 		getActivity().startActivity(intent);
 		StatService.onEvent(getActivity(), "20_to_yuedu_page", "去阅读页面", 1);
+	}
+	
+	private void toHotelActivity(){
+		Intent intent = new Intent(getActivity(),WebViewActivity.class);
+		intent.putExtra(KeyUtil.URL, Settings.HotalUrl);
+		intent.putExtra(KeyUtil.ActionbarTitle, getActivity().getResources().getString(R.string.title_hotel));
+		getActivity().startActivity(intent);
+		StatService.onEvent(getActivity(), "20_to_hotel_page", "去订酒店页面", 1);
 	}
 	
 	private void toAppActivity(){

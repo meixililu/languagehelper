@@ -6,14 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.gc.materialdesign.views.ButtonRectangle;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.impl.PracticeProgressListener;
 import com.messi.languagehelper.util.NumberUtil;
 import com.messi.languagehelper.util.SDCardUtil;
+import com.messi.languagehelper.util.SpannableStringUtil;
 import com.messi.languagehelper.util.XFUtil;
 
 public class PracticeFourChooseOneFragment extends BaseFragment implements OnClickListener{
@@ -21,12 +22,12 @@ public class PracticeFourChooseOneFragment extends BaseFragment implements OnCli
 	private View view;
 	private String content;
 	private TextView questionTv;
-	private Button check_btn;
+	private ButtonRectangle check_btn;
 	private PracticeProgressListener mPracticeProgress;
 	private CheckBox select_answer1,select_answer2,select_answer3,select_answer4;
 	private int resultPosition;
 	private int userSelect;
-	private String[] cn,en;
+	private String[] yb,cn,en;
 	private boolean isGoNext;
 	private String videoPath;
 	private SpeechSynthesizer mSpeechSynthesizer;
@@ -45,8 +46,14 @@ public class PracticeFourChooseOneFragment extends BaseFragment implements OnCli
 	
 	private void getContent(){
 		String temp[] = content.split("#");
-		cn = temp[0].split(",");
-		en = temp[1].split(",");
+		if(temp.length > 3){
+			yb = temp[0].split(",");
+			cn = temp[1].split(",");
+			en = temp[2].split(",");
+		}else{
+			cn = temp[0].split(",");
+			en = temp[1].split(",");
+		}
 	}
 	
 	@Override
@@ -62,9 +69,9 @@ public class PracticeFourChooseOneFragment extends BaseFragment implements OnCli
 		select_answer2 = (CheckBox)view.findViewById(R.id.select_answer2);
 		select_answer3 = (CheckBox)view.findViewById(R.id.select_answer3);
 		select_answer4 = (CheckBox)view.findViewById(R.id.select_answer4);
-		check_btn = (Button)view.findViewById(R.id.check_btn);
+		check_btn = (ButtonRectangle)view.findViewById(R.id.check_btn);
 		setContent();
-		
+		check_btn.setEnabled(false);
 		select_answer1.setOnClickListener(this);
 		select_answer2.setOnClickListener(this);
 		select_answer3.setOnClickListener(this);
@@ -74,10 +81,21 @@ public class PracticeFourChooseOneFragment extends BaseFragment implements OnCli
 	
 	private void setContent(){
 		questionTv.setText("选择  " + "\"" + cn[resultPosition] +"\"");
-		select_answer1.setText(en[0]);
-		select_answer2.setText(en[1]);
-		select_answer3.setText(en[2]);
-		select_answer4.setText(en[3]);
+		if(yb != null){
+			select_answer1.setText(en[0] +"\n" );
+			select_answer1.append( SpannableStringUtil.setTextSize(getActivity(), yb[0], R.dimen.big) );
+			select_answer2.setText(en[1] +"\n");
+			select_answer2.append( SpannableStringUtil.setTextSize(getActivity(), yb[1], R.dimen.big) );
+			select_answer3.setText(en[2] +"\n");
+			select_answer3.append( SpannableStringUtil.setTextSize(getActivity(), yb[2], R.dimen.big) );
+			select_answer4.setText(en[3] +"\n");
+			select_answer4.append( SpannableStringUtil.setTextSize(getActivity(), yb[3], R.dimen.big) );
+		}else{
+			select_answer1.setText(en[0]);
+			select_answer2.setText(en[1]);
+			select_answer3.setText(en[2]);
+			select_answer4.setText(en[3]);
+		}
 	}
 
 	@Override
@@ -133,13 +151,17 @@ public class PracticeFourChooseOneFragment extends BaseFragment implements OnCli
 		}else{
 			tryAgain();
 			if(userSelect == 0){
-				select_answer1.setText(en[0] + "\n" + cn[0]);
+				select_answer1.append("\n");
+				select_answer1.append( SpannableStringUtil.setTextSize(getActivity(), cn[0], R.dimen.big) );
 			}else if(userSelect == 1){
-				select_answer2.setText(en[1] + "\n" + cn[1]);
+				select_answer2.append("\n");
+				select_answer2.append( SpannableStringUtil.setTextSize(getActivity(), cn[1], R.dimen.big) );
 			}else if(userSelect == 2){
-				select_answer3.setText(en[2] + "\n" + cn[2]);
+				select_answer3.append("\n");
+				select_answer3.append( SpannableStringUtil.setTextSize(getActivity(), cn[2], R.dimen.big) );
 			}else if(userSelect == 3){
-				select_answer4.setText(en[3] + "\n" + cn[3]);
+				select_answer4.append("\n");
+				select_answer4.append( SpannableStringUtil.setTextSize(getActivity(), cn[3], R.dimen.big) );
 			}
 		}
 	}

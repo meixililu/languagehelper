@@ -40,26 +40,30 @@ public class LoadingActivity extends Activity {
 		}
 		
 		private void init(){
-			ShortCut.addShortcut(this, mSharedPreferences);
-			middle_ad = (LinearLayout)findViewById(R.id.middle_ad);
-			fullScreenAd = ADUtil.initQuanPingAD(this, middle_ad);
-			fullScreenAd.loadAd(new IFLYAdListener() {
-				@Override
-				public void onAdReceive() {
-					if(fullScreenAd != null){
-						fullScreenAd.showAd();
+			try {
+				ShortCut.addShortcut(this, mSharedPreferences);
+				middle_ad = (LinearLayout)findViewById(R.id.middle_ad);
+				fullScreenAd = ADUtil.initQuanPingAD(this, middle_ad);
+				fullScreenAd.loadAd(new IFLYAdListener() {
+					@Override
+					public void onAdReceive() {
+						if(fullScreenAd != null){
+							fullScreenAd.showAd();
+						}
 					}
-				}
-				@Override
-				public void onAdClose() {
-				}
-				@Override
-				public void onAdClick() {
-				}
-				@Override
-				public void onAdFailed(ErrorDescription arg0) {
-				}
-			});
+					@Override
+					public void onAdClose() {
+					}
+					@Override
+					public void onAdClick() {
+					}
+					@Override
+					public void onAdFailed(ErrorDescription arg0) {
+					}
+				});
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 		private void toNextPage(){

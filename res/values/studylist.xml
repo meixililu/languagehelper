@@ -21,22 +21,26 @@
     </string-array>
      
     <string-array name="studylist_part1_content1">
-        <item>男孩,女孩,男人,女人#boy,girl,man,woman#Practice_FourInOne</item>
+        <item>[bɔɪ],[ɡɜ:l],[mæn],[\'wʊmən]#男孩,女孩,男人,女人#boy,girl,man,woman#study_every</item>
+        <item>[bɔɪ],[ɡɜ:l],[mæn],[\'wʊmən]#男孩,女孩,男人,女人#boy,girl,man,woman#Practice_FourInOne</item>
         <item>一个男孩,一个女孩,一个男人,一个女人#a boy,a girl,a man,a woman#Practice_ReadAfterMe</item>
         <item>他是一个男孩,她是一个女孩,他是一个男人,她是一个女人#he is a boy,she is a girl,he is a man,she is a woman#Practice_Translate</item>
         <item>他是一个男孩,她是一个女孩,他是一个男人,她是一个女人#he is a boy,she is a girl,he is a man,she is a woman#Practice_SpeakAfterMe</item>
     </string-array>
     <string-array name="studylist_part1_content2">
+        <item>白色,黑色,红色,绿色#white,black,red,green#study_every</item>
         <item>白色,黑色,红色,绿色#white,black,red,green#Practice_FourInOne</item>
         <item>白色,黑色,红色,绿色#white,black,red,green#Practice_ReadAfterMe</item>
         <item>白色,黑色,红色,绿色#white,black,red,green#Practice_Translate</item>
     </string-array>
     <string-array name="studylist_part1_content3">
+        <item>早上好,下午好,晚上好,晚安#Good morning,Good afternoon,Good evening,Good night#study_every</item>
         <item>早上好,下午好,晚上好,晚安#Good morning,Good afternoon,Good evening,Good night#Practice_FourInOne</item>
         <item>早上好,下午好,晚上好,晚安#Good morning,Good afternoon,Good evening,Good night#Practice_ReadAfterMe</item>
         <item>早上好,下午好,晚上好,晚安#Good morning,Good afternoon,Good evening,Good night#Practice_Translate</item>
     </string-array>
     <string-array name="studylist_part1_content4">
+        <item>年轻的,老的,美丽的,英俊的#young,old,beautiful,handsome#study_every</item>
         <item>年轻的,老的,美丽的,英俊的#young,old,beautiful,handsome#Practice_FourInOne</item>
         <item>年轻的,老的,美丽的,英俊的#young,old,beautiful,handsome#Practice_ReadAfterMe</item>
         <item>年轻的,老的,美丽的,英俊的#young,old,beautiful,handsome#Practice_Translate</item>

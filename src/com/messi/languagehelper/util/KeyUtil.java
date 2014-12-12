@@ -2,6 +2,8 @@ package com.messi.languagehelper.util;
 
 public class KeyUtil {
 
+	public static final String Study_Every = "study_every";
+	
 	public static final String Practice_FourInOne = "Practice_FourInOne";
 	
 	public static final String Practice_ReadAfterMe = "Practice_ReadAfterMe";

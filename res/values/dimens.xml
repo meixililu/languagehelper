@@ -2,6 +2,8 @@
 <resources>
 
 	<dimen name="title">24sp</dimen>
+	<dimen name="bigxx">32sp</dimen>
+	<dimen name="bigx">28sp</dimen>
 	<dimen name="bigest">22sp</dimen>
 	<dimen name="bigger">18sp</dimen>
 	<dimen name="big">16sp</dimen>

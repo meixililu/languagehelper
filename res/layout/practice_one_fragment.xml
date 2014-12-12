@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" 
     android:orientation="vertical"
-    android:background="@color/text_tint1"
+    android:background="@color/app_background"
     >
 	
     <TextView
@@ -50,7 +50,7 @@
 		        android:shadowDy="0.3"
 		        android:shadowRadius="0.3"
 		        android:shadowColor="@color/text_dark"
-		    	android:textSize="@dimen/bigger"
+		    	android:textSize="@dimen/bigest"
 		    	android:background="@drawable/cb_white_blue_selector"
 		    	android:button="@null"
 		        />
@@ -68,7 +68,7 @@
 		        android:shadowDy="0.3"
 		        android:shadowRadius="0.3"
 		        android:shadowColor="@color/text_dark"
-		    	android:textSize="@dimen/bigger"
+		    	android:textSize="@dimen/bigest"
 		    	android:background="@drawable/cb_white_blue_selector"
 		    	android:button="@null"
 		        />
@@ -95,7 +95,7 @@
 		        android:shadowDy="0.3"
 		        android:shadowRadius="0.3"
 		        android:shadowColor="@color/text_dark"
-		    	android:textSize="@dimen/bigger"
+		    	android:textSize="@dimen/bigest"
 		    	android:background="@drawable/cb_white_blue_selector"
 		    	android:button="@null"
 		        />
@@ -113,24 +113,26 @@
 		        android:shadowDy="0.3"
 		        android:shadowRadius="0.3"
 		        android:shadowColor="@color/text_dark"
-		    	android:textSize="@dimen/bigger"
+		    	android:textSize="@dimen/bigest"
 		    	android:background="@drawable/cb_white_blue_selector"
 		    	android:button="@null"
 		        />
         </LinearLayout>
     </LinearLayout>
     
-    <Button 
-                android:id="@+id/check_btn"
+    <com.gc.materialdesign.views.ButtonRectangle 
+        xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/check_btn"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="52dp"
         android:gravity="center"
     	android:text="@string/practice_check"
-    	android:textColor="@drawable/txt_color_gray_white_selector"
-        android:textSize="@dimen/bigger"
-        android:background="@drawable/btn_color_gray_green_selector"
-        android:layout_margin="@dimen/padding_10"
-        android:enabled="false"
+    	android:textColor="@color/white"
+        android:textSize="@dimen/bigest"
+        android:background="@color/green"
+        android:layout_marginLeft="@dimen/padding_5"
+        android:layout_marginRight="@dimen/padding_5"
+        materialdesign:rippleSpeed="90"
         />
 
 </LinearLayout>

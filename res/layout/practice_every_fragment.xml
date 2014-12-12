@@ -1,28 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" 
     android:orientation="vertical"
-    android:background="@color/text_tint1"
+    android:background="@color/app_background"
     >
 	
-    <TextView
-        android:id="@+id/questiontv" 
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="left"
-    	android:textColor="@color/text_dark"
-    	android:shadowDx="0.3"
-        android:shadowDy="0.3"
-        android:shadowRadius="0.3"
-        android:shadowColor="@color/text_dark"
-        android:layout_marginLeft="@dimen/padding_10"
-        android:layout_marginTop="@dimen/padding_5"
-        android:layout_marginRight="@dimen/padding_10"
-    	android:textSize="@dimen/bigger"
-        />
-    
     <RelativeLayout 
         android:layout_width="fill_parent"
         android:layout_height="0dp"
@@ -37,23 +22,25 @@
 	        android:id="@+id/viewpager_dot_layout"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_alignParentBottom="true"
+	        android:layout_alignParentTop="true"
+	        android:layout_marginTop="13dp"
 	        android:padding="7dp"
 	        android:gravity="center"
 	        android:orientation="horizontal" />
     </RelativeLayout>
     
-    <Button 
-                android:id="@+id/check_btn"
+    <com.gc.materialdesign.views.ButtonRectangle 
+        android:id="@+id/check_btn"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="52dp"
         android:gravity="center"
-    	android:text="@string/practice_check"
-    	android:textColor="@drawable/txt_color_gray_white_selector"
-        android:textSize="@dimen/bigger"
-        android:background="@drawable/btn_color_gray_green_selector"
-        android:layout_margin="@dimen/padding_10"
-        android:enabled="false"
+    	android:text="@string/practice_next"
+    	android:textColor="@color/white"
+        android:textSize="@dimen/bigest"
+        android:background="@color/green"
+        android:layout_marginLeft="@dimen/padding_5"
+        android:layout_marginRight="@dimen/padding_5"
+        materialdesign:rippleSpeed="90"
         />
 
 </LinearLayout>

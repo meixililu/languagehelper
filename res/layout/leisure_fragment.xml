@@ -1,16 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true"
+    >
+    
+<LinearLayout 
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/contentbg"
     android:orientation="vertical"
-    android:padding="@dimen/padding_margin" >
+    >
 
+    <LinearLayout
+        android:id="@+id/ad_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/padding_7"
+        android:layout_marginBottom="@dimen/padding_7"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:orientation="vertical" >
+
+
+    </LinearLayout>
+    
     <FrameLayout
         android:id="@+id/cailing_layout"
         android:layout_width="fill_parent"
-        android:layout_height="100dp"
+        android:layout_height="75dp"
         android:background="@color/style6_color3"
+        android:layout_marginLeft="@dimen/padding_7"
+        android:layout_marginRight="@dimen/padding_7"
         android:foreground="@drawable/framelayout_selector"
         android:orientation="vertical" >
 
@@ -45,9 +68,11 @@
     <FrameLayout
         android:id="@+id/yuedu_layout"
         android:layout_width="fill_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="@dimen/padding_margin"
-        android:background="@color/style6_color2"
+        android:layout_height="75dp"
+        android:layout_marginTop="@dimen/padding_7"
+        android:layout_marginLeft="@dimen/padding_7"
+        android:layout_marginRight="@dimen/padding_7"
+        android:background="@color/style5_color2"
         android:foreground="@drawable/framelayout_selector"
         android:orientation="vertical" >
 
@@ -78,12 +103,54 @@
                 android:textSize="@dimen/small" />
         </LinearLayout>
     </FrameLayout>
+    
+    <FrameLayout
+        android:id="@+id/hotal_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="75dp"
+        android:layout_marginTop="@dimen/padding_7"
+        android:layout_marginLeft="@dimen/padding_7"
+        android:layout_marginRight="@dimen/padding_7"
+        android:background="@color/style5_color4"
+        android:foreground="@drawable/framelayout_selector"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:shadowColor="@color/white"
+                android:shadowDx="0.3"
+                android:shadowDy="0.3"
+                android:shadowRadius="0.3"
+                android:text="@string/leisuer_hotel"
+                android:textColor="@color/white"
+                android:textSize="@dimen/bigger" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/leisuer_hotel_subtitle"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small" />
+        </LinearLayout>
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/app_layout"
         android:layout_width="fill_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="@dimen/padding_margin"
+        android:layout_height="75dp"
+        android:layout_marginTop="@dimen/padding_7"
+        android:layout_marginLeft="@dimen/padding_7"
+        android:layout_marginRight="@dimen/padding_7"
+        android:layout_marginBottom="@dimen/padding_7"
         android:background="@color/style6_color1"
         android:foreground="@drawable/framelayout_selector"
         android:orientation="vertical" >
@@ -116,15 +183,6 @@
         </LinearLayout>
     </FrameLayout>
     
-    <LinearLayout
-        android:id="@+id/ad_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/padding_margin"
-        android:orientation="vertical" >
-
-
-    </LinearLayout>
-
 </LinearLayout>
+
+</ScrollView>

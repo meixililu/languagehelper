@@ -14,9 +14,13 @@
     <uses-permission android:name="android.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 	<uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+	<uses-permission android:name="android.permission.GET_TASKS" />
 
-    <uses-sdk android:minSdkVersion="7"/>
+    <uses-sdk android:minSdkVersion="7"
+        android:targetSdkVersion="14"
+        />
 
     <supports-screens
         android:anyDensity="true"
@@ -56,7 +60,7 @@
 		<meta-data android:name="IFLYTEK_CHANNEL" android:value="messi"/>
 		
 		<activity 
-		    android:name="com.iflytek.adserving.request.IFLYBrowser" 
+		    android:name="com.iflytek.voiceads.request.IFLYBrowser" 
 		    android:configChanges="orientation|keyboardHidden|keyboard|screenSize"/>
         
         <activity

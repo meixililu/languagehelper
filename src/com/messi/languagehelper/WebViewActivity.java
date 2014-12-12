@@ -45,11 +45,6 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 	}
 	
 	private void initData(){
-		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
-		if (toolbar != null) {
-			setSupportActionBar(toolbar);
-			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		}
 		Url = getIntent().getStringExtra(KeyUtil.URL);
 		title = getIntent().getStringExtra(KeyUtil.ActionbarTitle);
 		isReedPullDownRefresh = getIntent().getBooleanExtra(KeyUtil.IsReedPullDownRefresh, true);
@@ -149,6 +144,9 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 			}else if(Url.equals(Settings.YueduUrl)){
 				shareLink(WebViewActivity.this.getResources().getString(R.string.yuedu_ad_prompt));
 				StatService.onEvent(this, "20_menu_to_share_yuedu_link", "分享阅读链接", 1);
+			}else if(Url.equals(Settings.HotalUrl)){
+				shareLink(WebViewActivity.this.getResources().getString(R.string.hotel_ad_prompt));
+				StatService.onEvent(this, "20_menu_to_share_hotel_link", "分享订酒店链接", 1);
 			}
 			break;
 		}
@@ -196,11 +194,11 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 		ActionBar mActionBar = getSupportActionBar();
         if (scrollState == ScrollState.UP) {
             if (mActionBar.isShowing()) {
-//            	toolbar.s
+            	mActionBar.hide();
             }
         } else if (scrollState == ScrollState.DOWN) {
             if (!mActionBar.isShowing()) {
-                
+            	mActionBar.show();
             }
         }
 	}
