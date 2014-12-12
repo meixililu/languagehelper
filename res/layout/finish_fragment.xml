@@ -34,7 +34,7 @@
                 android:gravity="center"
                 android:paddingTop="35dp"
                 android:paddingBottom="35dp"
-                android:maxEms="10"
+                android:maxEms="15"
                 android:shadowColor="@color/white"
                 android:shadowDx="0.1"
                 android:shadowDy="0.1"
