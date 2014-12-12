@@ -16,11 +16,11 @@ import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baidu.mobstat.StatService;
+import com.gc.materialdesign.views.ButtonRectangle;
 import com.messi.languagehelper.impl.PracticeProgressListener;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.SDCardUtil;
@@ -29,9 +29,8 @@ import com.messi.languagehelper.util.ToastUtil;
 public class FinishFragment extends BaseFragment implements OnClickListener {
 
 	private TextView share_content;
-	private Button share_btn_cover,check_btn;
+	private ButtonRectangle share_btn_cover,check_btn;
 	private LinearLayout parent_layout;
-	private TextView share_foot;
 	private String shareContent;
 	protected SoundPool mSoundPoll;
 	private int mSoundId;
@@ -55,15 +54,13 @@ public class FinishFragment extends BaseFragment implements OnClickListener {
 	private void init() {
         parent_layout = (LinearLayout) getView().findViewById(R.id.parent_layout);
         share_content = (TextView) getView().findViewById(R.id.share_content);
-        share_foot = (TextView) getView().findViewById(R.id.share_foot);
-        share_btn_cover = (Button) getView().findViewById(R.id.share_btn_cover);
-        check_btn = (Button) getView().findViewById(R.id.check_btn);
+        share_btn_cover = (ButtonRectangle) getView().findViewById(R.id.share_btn_cover);
+        check_btn = (ButtonRectangle) getView().findViewById(R.id.check_btn);
         mSoundPoll = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
         mSoundId = mSoundPoll.load(getActivity(), R.raw.camera, 1);
         
         share_btn_cover.setOnClickListener(this);
         check_btn.setOnClickListener(this);
-        share_foot.setOnClickListener(this);
 	}
 	
 	private void shareWithImg() throws IOException{
@@ -98,10 +95,6 @@ public class FinishFragment extends BaseFragment implements OnClickListener {
 		case R.id.share_btn_cover:
 			share();
 			StatService.onEvent(getActivity(), "19_practice_finish_share", "口语练习完成分享按钮", 1);
-			break;
-		case R.id.share_foot:
-			share_foot.setVisibility(View.GONE);
-			StatService.onEvent(getActivity(), "19_practice_finish_close", "口语练习完成完成按钮", 1);
 			break;
 		case R.id.check_btn:
 			toNextPage();

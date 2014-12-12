@@ -10,10 +10,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.gc.materialdesign.views.ButtonRectangle;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.bean.UserSpeakBean;
 import com.messi.languagehelper.impl.PracticeProgressListener;
@@ -28,7 +28,7 @@ public class PracticeWriteFragment extends BaseFragment implements OnClickListen
 	private View view;
 	private String content;
 	private TextView questionTv;
-	private Button check_btn;
+	private ButtonRectangle check_btn;
 	private PracticeProgressListener mPracticeProgress;
 	private EditText translate_input;
 	private int resultPosition;
@@ -65,9 +65,9 @@ public class PracticeWriteFragment extends BaseFragment implements OnClickListen
 	private void initViews(){
 		questionTv = (TextView)view.findViewById(R.id.questiontv);
 		translate_input = (EditText)view.findViewById(R.id.translate_input);
-		check_btn = (Button)view.findViewById(R.id.check_btn);
+		check_btn = (ButtonRectangle)view.findViewById(R.id.check_btn);
 		setContent();
-		
+		check_btn.setEnabled(false);
 		check_btn.setOnClickListener(this);
 		
 		translate_input.addTextChangedListener(new TextWatcher() {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/white"
@@ -13,14 +14,14 @@
         android:gravity="center"
         android:background="@color/white"
         android:orientation="vertical"
-        android:padding="10dp" >
+        android:padding="7dp" >
 
         <LinearLayout
             android:id="@+id/parent_layout"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="@color/green_dark"
-            android:padding="7dp"
+            android:padding="5dp"
             android:gravity="center"
             android:orientation="vertical" >
 
@@ -40,45 +41,37 @@
                 android:shadowRadius="0.1"
                 android:textColor="@color/white"
                 android:text="@string/practice_congratulation"
-                android:textSize="18sp"
+                android:textSize="@dimen/big"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/share_foot"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:gravity="right"
-                android:shadowColor="@color/white"
-                android:text="@string/app_name_share"
-                android:textColor="@color/white"
-                android:textSize="@dimen/smaller" />
         </LinearLayout>
     </LinearLayout>
 
-    <Button 
-        android:id="@+id/share_btn_cover"
-        android:layout_width="fill_parent"
-        android:layout_height="55dp"
-        android:gravity="center"
-    	android:text="@string/share"
-    	android:textColor="@drawable/txt_color_gray_white_selector"
-        android:textSize="@dimen/bigger"
-        android:background="@drawable/btn_color_gray_green_selector"
-        android:layout_marginLeft="@dimen/padding_10"
-        android:layout_marginRight="@dimen/padding_10"
-        />
+    <com.gc.materialdesign.views.ButtonRectangle 
+		        android:id="@+id/share_btn_cover"
+		        android:layout_width="fill_parent"
+		        android:layout_height="52dp"
+		        android:gravity="center"
+		    	android:text="@string/share"
+		    	android:textColor="@color/white"
+		        android:textSize="@dimen/bigest"
+		        android:background="@color/green"
+		        android:layout_marginLeft="@dimen/padding_5"
+		        android:layout_marginRight="@dimen/padding_5"
+		        materialdesign:rippleSpeed="90"
+		        />
+    <com.gc.materialdesign.views.ButtonRectangle 
+		        android:id="@+id/check_btn"
+		        android:layout_width="fill_parent"
+		        android:layout_height="52dp"
+		        android:gravity="center"
+		    	android:text="@string/practice_finish"
+		    	android:textColor="@color/white"
+		        android:textSize="@dimen/bigest"
+		        android:background="@color/green"
+		        android:layout_marginLeft="@dimen/padding_5"
+		        android:layout_marginRight="@dimen/padding_5"
+		        materialdesign:rippleSpeed="90"
+		        />
     
-    <Button 
-        android:id="@+id/check_btn"
-        android:layout_width="fill_parent"
-        android:layout_height="55dp"
-        android:gravity="center"
-    	android:text="@string/practice_finish"
-    	android:textColor="@drawable/txt_color_gray_white_selector"
-        android:textSize="@dimen/bigger"
-        android:background="@drawable/btn_color_gray_green_selector"
-        android:layout_margin="@dimen/padding_10"
-        />
-
 </LinearLayout>

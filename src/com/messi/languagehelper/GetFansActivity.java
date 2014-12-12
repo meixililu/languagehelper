@@ -22,12 +22,7 @@ public class GetFansActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void initViews(){
-		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
-		if (toolbar != null) {
-			setSupportActionBar(toolbar);
-			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-			getSupportActionBar().setTitle(getResources().getString(R.string.fighting));
-		}
+		getSupportActionBar().setTitle(getResources().getString(R.string.fighting));
 		layout_1 = (FrameLayout)findViewById(R.id.layout_1);
 		layout_2 = (FrameLayout)findViewById(R.id.layout_2);
 		layout_3 = (FrameLayout)findViewById(R.id.layout_3);

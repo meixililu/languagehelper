@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -18,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.baidu.mobstat.StatService;
+import com.gc.materialdesign.views.ButtonRectangle;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
@@ -53,7 +53,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 	private TextView repeat_time,repeat_time_minus,repeat_time_plus;
 	private ListView recent_used_lv;
 	private ImageView record_anim_img;
-	private Button voice_btn;
+	private ButtonRectangle voice_btn;
 	private LinearLayout record_layout,record_animation_layout;
 	
 	private MyOnClickListener mAnswerOnClickListener;
@@ -125,7 +125,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 		record_answer = (TextView) getView().findViewById(R.id.record_answer);
 		record_question = (TextView) getView().findViewById(R.id.record_question);
 		voice_play_answer = (ImageButton) getView().findViewById(R.id.voice_play_answer);
-		voice_btn = (Button) getView().findViewById(R.id.check_btn);
+		voice_btn = (ButtonRectangle) getView().findViewById(R.id.check_btn);
 		record_anim_img = (ImageView) getView().findViewById(R.id.record_anim_img);
 		record_layout = (LinearLayout) getView().findViewById(R.id.record_layout);
 		record_animation_layout = (LinearLayout) getView().findViewById(R.id.record_animation_layout);

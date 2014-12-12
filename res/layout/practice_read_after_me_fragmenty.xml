@@ -167,18 +167,21 @@
                 
             </FrameLayout>
 
-            <Button 
-                android:id="@+id/check_btn"
+            <com.gc.materialdesign.views.ButtonRectangle 
+                xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+		        android:id="@+id/check_btn"
 		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
+		        android:layout_height="52dp"
 		        android:gravity="center"
 		    	android:text="@string/practice_start"
-		    	android:textColor="@drawable/txt_color_gray_white_selector"
-		        android:textSize="@dimen/bigger"
-		        android:background="@drawable/btn_color_gray_green_selector"
-		        android:layout_margin="@dimen/padding_10"
+		    	android:textColor="@color/white"
+		        android:textSize="@dimen/bigest"
+		        android:background="@color/green"
+		        android:layout_marginLeft="@dimen/padding_5"
+		        android:layout_marginRight="@dimen/padding_5"
+		        materialdesign:rippleSpeed="90"
+		        android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
 		        />
         </RelativeLayout>
     </LinearLayout>
