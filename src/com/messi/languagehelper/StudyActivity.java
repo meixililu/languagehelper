@@ -62,6 +62,24 @@ public class StudyActivity extends BaseActivity implements PracticeProgressListe
 			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content3);
 		} else if(studylist_position == 3){
 			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content4);
+		} else if(studylist_position == 4){
+			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content5);
+		} else if(studylist_position == 5){
+			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content6);
+		} else if(studylist_position == 6){
+			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content7);
+		} else if(studylist_position == 7){
+			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content8);
+		} else if(studylist_position == 8){
+			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content9);
+		} else if(studylist_position == 9){
+			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content10);
+		} else if(studylist_position == 10){
+			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content11);
+		} else if(studylist_position == 11){
+			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content12);
+		} else if(studylist_position == 12){
+			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content13);
 		}
 	}
 
@@ -113,27 +131,28 @@ public class StudyActivity extends BaseActivity implements PracticeProgressListe
 	
 	private Fragment getStudyType(String type){
 		Fragment mpramf = new Fragment();
-		if(type.equals(KeyUtil.Study_Every)){
+		type = type.toLowerCase();
+		if(type.equals(KeyUtil.Study_Every.toLowerCase())){
 			mpramf = new PracticeEveryFragment(studylist_part1_content[pageIndex], this,
 					vedioPath + KeyUtil.Study_Every + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
 			StatService.onEvent(this, "19_practice_page_studyevery", "学单词", 1);
-		}else if(type.equals(KeyUtil.Practice_FourInOne)){
+		}else if(type.equals(KeyUtil.Practice_FourInOne.toLowerCase())){
 			mpramf = new PracticeFourChooseOneFragment(studylist_part1_content[pageIndex], this,
 					vedioPath + KeyUtil.Practice_FourInOne + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
 			StatService.onEvent(this, "19_practice_page_fourinone", "口语练习四选一", 1);
-		}else if(type.equals(KeyUtil.Practice_ReadAfterMe)){
+		}else if(type.equals(KeyUtil.Practice_ReadAfterMe.toLowerCase())){
 			mpramf = new PracticeReadAfterMeFragment(studylist_part1_content[pageIndex], this, 
 					vedioPath + KeyUtil.Practice_ReadAfterMe + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
 			StatService.onEvent(this, "19_practice_page_readafterme", "口语练习跟我读", 1);
-		}else if(type.equals(KeyUtil.Practice_Translate)){
+		}else if(type.equals(KeyUtil.Practice_Translate.toLowerCase())){
 			mpramf = new PracticeWriteFragment(studylist_part1_content[pageIndex], this, 
 					vedioPath + KeyUtil.Practice_Translate + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
 			StatService.onEvent(this, "19_practice_page_write", "口语练习书写校验", 1);
-		}else if(type.equals(KeyUtil.Practice_SpeakAfterMe)){
+		}else if(type.equals(KeyUtil.Practice_SpeakAfterMe.toLowerCase())){
 			mpramf = new PracticeReadAfterMeFragment(studylist_part1_content[pageIndex], this, 
 					vedioPath + KeyUtil.Practice_SpeakAfterMe + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			

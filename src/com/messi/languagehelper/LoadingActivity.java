@@ -24,7 +24,7 @@ public class LoadingActivity extends Activity {
 		private SharedPreferences mSharedPreferences;
 		private LinearLayout middle_ad;
 		private IFLYFullScreenAdView fullScreenAd;
-
+		
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);

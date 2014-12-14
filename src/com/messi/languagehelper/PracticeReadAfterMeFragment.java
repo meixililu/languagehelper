@@ -324,7 +324,8 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 			if(isLast) {
 				hideProgressbar();
 				finishRecord();
-				UserSpeakBean bean = ScoreUtil.score(getActivity(), text, record_answer.getText().toString());
+				UserSpeakBean bean = ScoreUtil.score(getActivity(), text.toLowerCase(), 
+						record_answer.getText().toString().toLowerCase());
 				mUserSpeakBeanList.add(0,bean);
 				adapter.notifyDataSetChanged();
 				animationReward(bean.getScoreInt());
