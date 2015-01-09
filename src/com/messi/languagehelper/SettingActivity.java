@@ -17,6 +17,7 @@ import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.SDCardUtil;
 import com.messi.languagehelper.util.Settings;
+import com.messi.languagehelper.util.ShareUtil;
 import com.messi.languagehelper.util.ToastUtil;
 
 public class SettingActivity extends BaseActivity implements OnClickListener,SeekBar.OnSeekBarChangeListener {
@@ -25,7 +26,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 	private SeekBar seekbar;
 	private ImageView autoread_unread_dot;
 	private FrameLayout speak_yueyu,auto_play;
-	private FrameLayout clear_all_except_favorite,clear_all;
+	private FrameLayout clear_all_except_favorite,clear_all,invite_friends;
 	private CheckBox speak_yueyu_cb,auto_play_cb;
 	private SharedPreferences mSharedPreferences;
 	
@@ -54,11 +55,13 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
         auto_play_cb = (CheckBox) findViewById(R.id.setting_auto_play_cb);
         clear_all_except_favorite = (FrameLayout) findViewById(R.id.setting_clear_all_except_favorite);
         clear_all = (FrameLayout) findViewById(R.id.setting_clear_all);
+        invite_friends = (FrameLayout) findViewById(R.id.setting_invite_friends);
         
         seekbar.setOnSeekBarChangeListener(this);
         speak_yueyu.setOnClickListener(this);
         clear_all_except_favorite.setOnClickListener(this);
         clear_all.setOnClickListener(this);
+        invite_friends.setOnClickListener(this);
         auto_play.setOnClickListener(this);
 	}
 	
@@ -112,6 +115,10 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 			SDCardUtil.deleteOldFile();
 			ToastUtil.diaplayMesShort(SettingActivity.this, this.getResources().getString(R.string.clear_success));
 			StatService.onEvent(this, "1.8_clear_all", "清楚所有记录", 1);
+			break;
+		case R.id.setting_invite_friends:
+			ShareUtil.shareLink(SettingActivity.this,SettingActivity.this.getResources().getString(R.string.invite_friends_prompt));
+			StatService.onEvent(this, "invite_friends", "邀请小伙伴", 1);
 			break;
 		default:
 			break;

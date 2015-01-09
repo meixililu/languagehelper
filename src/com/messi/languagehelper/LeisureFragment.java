@@ -1,29 +1,34 @@
 package com.messi.languagehelper;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.baidu.mobstat.StatService;
-import com.iflytek.voiceads.ErrorDescription;
+import com.iflytek.voiceads.AdError;
 import com.iflytek.voiceads.IFLYAdListener;
-import com.iflytek.voiceads.IFLYInterstitialAdView;
+import com.iflytek.voiceads.IFLYInterstitialAd;
 import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
 
 public class LeisureFragment extends BaseFragment implements OnClickListener {
 
 	private View view;
 	private FrameLayout cailing_layout,app_layout,yuedu_layout,hotal_layout;
-	private LinearLayout ad_layout;
-	private IFLYInterstitialAdView mInterstitialAd;
+	private RelativeLayout ad_layout;
+	private IFLYInterstitialAd mInterstitialAd;
 	public static LeisureFragment mMainFragment;
+	private SharedPreferences mSharedPreferences;
 	
 	public static LeisureFragment getInstance(){
 		if(mMainFragment == null){
@@ -40,33 +45,66 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 	}
 	
 	private void initViews(){
+		mSharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);
 		cailing_layout = (FrameLayout)view.findViewById(R.id.cailing_layout);
 		yuedu_layout = (FrameLayout)view.findViewById(R.id.yuedu_layout);
 		hotal_layout = (FrameLayout)view.findViewById(R.id.hotal_layout);
 		app_layout = (FrameLayout)view.findViewById(R.id.app_layout);
-		ad_layout = (LinearLayout)view.findViewById(R.id.ad_layout);
+		ad_layout = (RelativeLayout)view.findViewById(R.id.ad_layout);
 		cailing_layout.setOnClickListener(this);
 		yuedu_layout.setOnClickListener(this);
 		hotal_layout.setOnClickListener(this);
 		app_layout.setOnClickListener(this);
-		mInterstitialAd = ADUtil.initChaPingAD(getActivity(), ad_layout);
-		mInterstitialAd.loadAd(new IFLYAdListener() {
-			@Override
-			public void onAdReceive() {
-				if(mInterstitialAd != null){
-					mInterstitialAd.showAd();
+		if(showNewFunction()){
+			mInterstitialAd = ADUtil.initChaPingAD(getActivity(), ad_layout);
+			mInterstitialAd.loadAd(new IFLYAdListener() {
+				@Override
+				public void onAdReceive() {
+					LogUtil.DefalutLog("LeisureFragment---InterstitialAd---onAdReceive");
+					if(mInterstitialAd != null){
+						mInterstitialAd.showAd();
+						addCloseButton();
+					}
 				}
-			}
+				@Override
+				public void onAdClose() {
+					ad_layout.removeAllViews();
+				}
+				@Override
+				public void onAdClick() {
+				}
+				@Override
+				public void onAdFailed(AdError arg0) {
+					LogUtil.DefalutLog("LeisureFragment---onAdFailed:"+arg0.getErrorCode()+"---"+arg0.getErrorDescription());
+				}
+			});
+		}else{
+			ad_layout.setVisibility(View.GONE);
+		}
+		
+	}
+	
+	private void addCloseButton(){
+		ImageView img = new ImageView(getActivity());
+		img.setImageResource(R.drawable.ic_clear_grey600_36dp);
+		img.setOnClickListener(new OnClickListener() {
 			@Override
-			public void onAdClose() {
-			}
-			@Override
-			public void onAdClick() {
-			}
-			@Override
-			public void onAdFailed(ErrorDescription arg0) {
+			public void onClick(View v) {
+				ad_layout.setVisibility(View.GONE);
 			}
 		});
+		ad_layout.addView(img);
+	}
+	
+	private boolean showNewFunction(){
+		int IsCanShowAD_Leisure = mSharedPreferences.getInt(KeyUtil.IsCanShowAD_Leisure, 0);
+        if(IsCanShowAD_Leisure > 1){
+        	return true;
+        }else{
+        	IsCanShowAD_Leisure++;
+        	Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsCanShowAD_Leisure,IsCanShowAD_Leisure);
+        	return false;
+        }
 	}
 
 	@Override
@@ -116,8 +154,8 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		ad_layout.removeAllViews();
 		if(mInterstitialAd != null){
-			mInterstitialAd.destroy();
 			mInterstitialAd = null;
 		}
 	}

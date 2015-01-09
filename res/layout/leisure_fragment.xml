@@ -11,21 +11,19 @@
     android:layout_height="fill_parent"
     android:background="@color/contentbg"
     android:orientation="vertical"
+    android:paddingTop="@dimen/padding_7"
     >
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/ad_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="@dimen/padding_7"
         android:layout_marginBottom="@dimen/padding_7"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:orientation="vertical" >
-
-
-    </LinearLayout>
+    </RelativeLayout>
     
     <FrameLayout
         android:id="@+id/cailing_layout"

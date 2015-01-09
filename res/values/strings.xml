@@ -66,6 +66,7 @@
     <string name="i_speak_cantonese">我说粤语</string>
     <string name="clear_all_except_favorite">保留收藏记录，清除其他所有记录</string>
     <string name="clear_all_record">清除所有记录</string>
+    <string name="invite_friends">还不错，告诉小伙伴</string>
     <string name="clear_success">清除成功</string>
     
     <string name="preference_key_tts_music">tts_music</string>
@@ -123,6 +124,7 @@
 	<string name="cailing_ad_prompt">三块钱你买不了吃亏，买不了上当，只需三块钱，就能让电话另一头的TA拥有一次美好而有爱的等待，而不是平凡并且枯燥的嘟。。。嘟。。。嘟。。。还等什么呢，赶紧操作起来，为TA设置一段好玩又有新意的铃声吧! http://api.openspeech.cn/kyls/NTBhYTEyMTM=</string>
 	<string name="yuedu_ad_prompt">专注随身阅读30年! http://api.openspeech.cn/cmread/NTBhYTEyMTM=</string>
 	<string name="hotel_ad_prompt">专注开房30年! http://api.openspeech.cn/trip/NTBhYTEyMTM=</string>
+	<string name="invite_friends_prompt">哎呦，这个软件不错哦，小伙伴快来！ http://a.app.qq.com/o/simple.jsp?pkgname=com.messi.languagehelper</string>
 	
 	<string name="introduction">第一部分</string>
 	<string name="primary_lever">第二部分</string>

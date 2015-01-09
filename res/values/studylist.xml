@@ -110,8 +110,8 @@
         <item>[\'ʌŋkl],[ɑ:nt],[\ˈfæməli],[\'peərənts]#叔叔,阿姨,家庭,父母#uncle,aunt,family,parents#study_every</item>
 		<item>[\'ʌŋkl],[ɑ:nt],[\ˈfæməli],[\'peərənts]#叔叔,阿姨,家庭,父母#uncle,aunt,family,parents#Practice_FourinOne</item>
 		<item>约翰叔叔,贝蒂阿姨,我的家人,我的父母#Uncle John,Aunt Betty,My family,My parents#Practice_ReadAfterMe</item>
-		<item>这位是我叔叔,那是我阿姨,那是我家人,他们是我父母This is my uncle,That is my aunt,That is my family,They are my parents#Practice_Translate</item>
-		<item>这位是我叔叔,那是我阿姨,那是我家人,他们是我父母This is my uncle,That is my aunt,That is my family,They are my parents#Practice_SpeakAfterMe</item>
+		<item>这位是我叔叔,那是我阿姨,那是我家人,他们是我父母#This is my uncle,That is my aunt,That is my family,They are my parents#Practice_Translate</item>
+		<item>这位是我叔叔,那是我阿姨,那是我家人,他们是我父母#This is my uncle,That is my aunt,That is my family,They are my parents#Practice_SpeakAfterMe</item>
     </string-array>
     <string-array name="studylist_part1_content13">
         <item>[maɪ],[jɔ:],[hɪz],[hə(r)]#我的,你们的,他的,她的#my,your,his,her#study_every</item>

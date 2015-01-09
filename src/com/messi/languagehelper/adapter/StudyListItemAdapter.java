@@ -20,7 +20,6 @@ public class StudyListItemAdapter extends BaseAdapter {
 	private LayoutInflater mInflater;
 	private Context context;
 	private String[] studylist_part;
-	private int[] colors;
 	private String level;
 
 	public StudyListItemAdapter(Context mContext, String[] mPlanetTitles, String level) {
@@ -28,8 +27,6 @@ public class StudyListItemAdapter extends BaseAdapter {
 		this.level = level;
 		this.mInflater = LayoutInflater.from(mContext);
 		this.studylist_part = mPlanetTitles;
-		colors = new int[studylist_part.length];
-		ColorUtil.setColor(studylist_part.length, colors);
 	}
 
 	public int getCount() {
@@ -55,12 +52,6 @@ public class StudyListItemAdapter extends BaseAdapter {
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
-		}
-		try{
-			holder.cover.setBackgroundColor(context.getResources().getColor(colors[position]));
-		}catch(Exception e){
-			holder.cover.setBackgroundColor(context.getResources().getColor(R.color.style1_color1));
-			e.printStackTrace();
 		}
 		holder.name.setText(studylist_part[position]);
 		holder.cover.setOnClickListener(new OnClickListener() {

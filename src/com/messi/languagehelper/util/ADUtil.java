@@ -1,13 +1,15 @@
 package com.messi.languagehelper.util;
 
 
-import com.iflytek.voiceads.IFLYAdSize;
-import com.iflytek.voiceads.IFLYBannerAdView;
-import com.iflytek.voiceads.IFLYFullScreenAdView;
-import com.iflytek.voiceads.IFLYInterstitialAdView;
-
 import android.app.Activity;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import com.iflytek.voiceads.IFLYAdSize;
+import com.iflytek.voiceads.IFLYBannerAd;
+import com.iflytek.voiceads.IFLYFullScreenAd;
+import com.iflytek.voiceads.IFLYInterstitialAd;
 
 
 public class ADUtil {
@@ -26,8 +28,7 @@ public class ADUtil {
 	 */
 	public static void initBannerAD(Activity mActivity,LinearLayout view){
 		//创建IFLYBannerAdView对象 
-		final IFLYBannerAdView bannerAd = new IFLYBannerAdView(mActivity,BannerADId); 
-		//设置需要请求的广告大小 
+		final IFLYBannerAd bannerAd = IFLYBannerAd.createBannerAd(mActivity,BannerADId); 
 		bannerAd.setAdSize(IFLYAdSize.BANNER); 
 		view.addView(bannerAd); 
 		//添加监听器 
@@ -38,9 +39,9 @@ public class ADUtil {
 	 * @param mActivity
 	 * @param view
 	 */
-	public static IFLYInterstitialAdView initChaPingAD(Activity mActivity,LinearLayout view){
+	public static IFLYInterstitialAd initChaPingAD(Activity mActivity,ViewGroup view){
 		//创建IFLYBannerAdView对象 
-		final IFLYInterstitialAdView interstitialAd = new IFLYInterstitialAdView (mActivity,ChaPingADId);
+		final IFLYInterstitialAd interstitialAd = IFLYInterstitialAd.createInterstitialAd(mActivity,ChaPingADId);
 		//设置需要请求的广告大小 
 		interstitialAd.setAdSize(IFLYAdSize.INTERSTITIAL); 
 		view.addView(interstitialAd);
@@ -52,10 +53,11 @@ public class ADUtil {
 	 * @param mActivity
 	 * @param view
 	 */
-	public static IFLYFullScreenAdView initQuanPingAD(Activity mActivity, LinearLayout view){
+	public static IFLYFullScreenAd initQuanPingAD(Activity mActivity, LinearLayout view){
 		//创建IFLYBannerAdView对象 
-		final IFLYFullScreenAdView fullScreenAd = new IFLYFullScreenAdView (mActivity,QuanPingADId);
+		final IFLYFullScreenAd fullScreenAd = IFLYFullScreenAd.createFullScreenAd(mActivity,QuanPingADId);
 		fullScreenAd.setAdSize(IFLYAdSize.FULLSCREEN); 
+		fullScreenAd.setDisplayTime(3000);
 		view.addView(fullScreenAd); 
 		return fullScreenAd;
 	}

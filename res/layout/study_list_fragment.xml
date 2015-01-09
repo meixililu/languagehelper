@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/white"
+    android:background="@color/text_tint"
     android:orientation="vertical" >
 
     <android.support.v7.widget.Toolbar
@@ -20,7 +20,7 @@
         android:background="@color/none"
         android:cacheColorHint="@color/none"
         android:divider="@color/none"
-        android:dividerHeight="@dimen/padding_margin"
+        android:dividerHeight="1px"
         android:fadingEdge="none"
         android:listSelector="@color/none"
         android:layout_marginTop="@dimen/padding_margin"

@@ -55,7 +55,9 @@ public class KeyUtil {
 	
 	public static String IsReedPullDownRefresh = "IsReedPullDownRefresh";
 	
+	public static String IsCanShowAD_Loading = "IsCanShowAD_Loading";
 	
+	public static String IsCanShowAD_Leisure = "IsCanShowAD_Leisure";
 	
 	
 	

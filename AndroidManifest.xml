@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.messi.languagehelper"
-    android:versionCode="11"
-    android:versionName="2.0" >
+    android:versionCode="12"
+    android:versionName="2.1" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 	<uses-permission android:name="android.permission.WRITE_SETTINGS"/>
 	<uses-permission android:name="android.permission.GET_TASKS" />
+	<uses-permission android:name="com.xiaomi.market.sdk.UPDATE" />
 
     <uses-sdk android:minSdkVersion="7"
         android:targetSdkVersion="14"
@@ -55,9 +56,15 @@
 		<!-- 日志仅在wifi网络下发送，默认为false -->
 		<meta-data android:name="BaiduMobAd_ONLY_WIFI" android:value="false" />
 		
-		<meta-data android:name="IFLYTEK_APPKEY" android:value="'5450bd92'"/> 
+		<meta-data android:name="IFLYTEK_APPKEY_AD" android:value="'5450bd92'"/> 
 		
 		<meta-data android:name="IFLYTEK_CHANNEL" android:value="messi"/>
+		
+		<receiver android:name="com.xiaomi.market.sdk.DownloadCompleteReceiver" >
+			<intent-filter>
+				<action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+			</intent-filter>
+		</receiver>
 		
 		<activity 
 		    android:name="com.iflytek.voiceads.request.IFLYBrowser" 
@@ -86,9 +93,12 @@
             android:name=".StudyListActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity
+        <activity android:uiOptions="splitActionBarWhenNarrow"
             android:name=".WebViewActivity"
+            
             android:screenOrientation="portrait">
+            <meta-data android:name="android.support.UI_OPTIONS"
+                   android:value="splitActionBarWhenNarrow" />
         </activity>
         <activity
             android:name=".GetFansActivity"

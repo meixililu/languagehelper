@@ -8,35 +8,42 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 
 import com.baidu.mobstat.StatService;
-import com.iflytek.voiceads.ErrorDescription;
+import com.iflytek.voiceads.AdError;
 import com.iflytek.voiceads.IFLYAdListener;
-import com.iflytek.voiceads.IFLYFullScreenAdView;
+import com.iflytek.voiceads.IFLYFullScreenAd;
 import com.messi.languagehelper.util.ADUtil;
+import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.ShortCut;
 import com.messi.languagehelper.wxapi.WXEntryActivity;
 
 public class LoadingActivity extends Activity {
 	
-//		public static final long IntervalTime = 1000 * 60 * 60 * 3;
-		public static final long IntervalTime = 1000 * 60 * 1;
+		public static final long IntervalTime = 1000 * 60 * 30;
+//		public static final long IntervalTime = 1000 * 60 * 1;
 		// 缓存，保存当前的引擎参数到下一次启动应用程序使用.
 		private SharedPreferences mSharedPreferences;
 		private LinearLayout middle_ad;
-		private IFLYFullScreenAdView fullScreenAd;
+		private IFLYFullScreenAd fullScreenAd;
 		
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.loading_activity);
-			mSharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
-			boolean isShowLoading = Settings.isEnoughTime(mSharedPreferences,IntervalTime);
-//			if(isShowLoading){
-				init();
-				new WaitTask().execute();
-//			}else{
-//				toNextPage();
-//			}
+			try {
+				mSharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
+//				boolean isShowLoading = Settings.isEnoughTime(mSharedPreferences,IntervalTime);
+//				if(isShowLoading){
+					init();
+					new WaitTask().execute();
+//				}else{
+//					toNextPage();
+//				}
+			} catch (Exception e) {
+				toNextPage();
+				e.printStackTrace();
+			}
 		}
 		
 		private void init(){
@@ -44,26 +51,41 @@ public class LoadingActivity extends Activity {
 				ShortCut.addShortcut(this, mSharedPreferences);
 				middle_ad = (LinearLayout)findViewById(R.id.middle_ad);
 				fullScreenAd = ADUtil.initQuanPingAD(this, middle_ad);
-				fullScreenAd.loadAd(new IFLYAdListener() {
-					@Override
-					public void onAdReceive() {
-						if(fullScreenAd != null){
-							fullScreenAd.showAd();
+//				if(showNewFunction()){
+					fullScreenAd.loadAd(new IFLYAdListener() {
+						@Override
+						public void onAdReceive() {
+							LogUtil.DefalutLog("LoadingActivity---fullScreenAd---onAdReceive");
+							if(fullScreenAd != null){
+								fullScreenAd.showAd();
+							}
 						}
-					}
-					@Override
-					public void onAdClose() {
-					}
-					@Override
-					public void onAdClick() {
-					}
-					@Override
-					public void onAdFailed(ErrorDescription arg0) {
-					}
-				});
+						@Override
+						public void onAdClose() {
+						}
+						@Override
+						public void onAdClick() {
+						}
+						@Override
+						public void onAdFailed(AdError arg0) {
+							LogUtil.DefalutLog("LoadingActivity---onAdFailed:"+arg0.getErrorCode()+"---"+arg0.getErrorDescription());
+						}
+					});
+//				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}
+		
+		private boolean showNewFunction(){
+			int IsCanShowAD_Loading = mSharedPreferences.getInt(KeyUtil.IsCanShowAD_Loading, 0);
+	        if(IsCanShowAD_Loading > 0){
+	        	return true;
+	        }else{
+	        	IsCanShowAD_Loading++;
+	        	Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsCanShowAD_Loading,IsCanShowAD_Loading);
+	        	return false;
+	        }
 		}
 		
 		private void toNextPage(){
@@ -77,7 +99,7 @@ public class LoadingActivity extends Activity {
 			@Override
 			protected Void doInBackground(Void... params) {
 				try {
-					Thread.sleep(2500);
+					Thread.sleep(3000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -105,8 +127,8 @@ public class LoadingActivity extends Activity {
 		@Override
 		protected void onDestroy() {
 			super.onDestroy();
+			middle_ad.removeAllViews();
 			if(fullScreenAd != null){
-				fullScreenAd.destroy();
 				fullScreenAd = null;
 			}
 		}

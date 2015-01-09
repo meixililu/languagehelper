@@ -3,7 +3,7 @@
     android:id="@+id/layout_cover"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/style2_color1"
+    android:background="@color/white"
     android:foreground="@drawable/framelayout_selector"
     android:orientation="vertical"
     android:paddingBottom="25dp"
@@ -20,12 +20,12 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:shadowColor="@color/white"
+            android:shadowColor="@color/text_black1"
             android:shadowDx="0.3"
             android:shadowDy="0.3"
             android:shadowRadius="0.3"
-            android:textColor="@color/white"
-            android:textSize="@dimen/middle" />
+            android:textColor="@color/text_black1"
+            android:textSize="@dimen/big" />
     </LinearLayout>
 
 </FrameLayout>

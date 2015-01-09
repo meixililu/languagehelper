@@ -66,6 +66,7 @@
     <string name="auto_play_after_translate">Auto Play After Translate</string>
     <string name="clear_all_except_favorite">Clear Records Except Favorites</string>
     <string name="clear_all_record">Clear All Records</string>
+    <string name="invite_friends">Very good,invite some friends</string>
     <string name="clear_success">Clear Success</string>
 
     <string name="feedback">Feedback</string>
@@ -120,6 +121,7 @@
 	<string name="cailing_ad_prompt">三块钱你买不了吃亏，买不了上当，只需三块钱，就能让电话另一头的TA拥有一次美好而有爱的等待，而不是平凡并且枯燥的嘟。。。嘟。。。嘟。。。还等什么呢，赶紧操作起来，为TA设置一段好玩又有新意的铃声吧! http://api.openspeech.cn/kyls/NTBhYTEyMTM=</string>
 	<string name="yuedu_ad_prompt">专注随身阅读30年! http://api.openspeech.cn/cmread/NTBhYTEyMTM=</string>
 	<string name="hotel_ad_prompt">专注开房30年! http://api.openspeech.cn/trip/NTBhYTEyMTM=</string>
+	<string name="invite_friends_prompt">so cool！ http://a.app.qq.com/o/simple.jsp?pkgname=com.messi.languagehelper</string>
 	
 	<string name="introduction">Part One</string>
 	<string name="primary_lever">Part Two</string>

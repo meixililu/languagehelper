@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -38,6 +39,7 @@ import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.views.PagerSlidingTabStrip;
+import com.xiaomi.market.sdk.XiaomiUpdateAgent;
 
 public class WXEntryActivity extends BaseActivity implements OnClickListener,FragmentProgressbarListener {
 	
@@ -65,9 +67,14 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 			setContentView(R.layout.content_frame);
 			initDatas();
 			initViews();
+			checkUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void checkUpdate(){
+		XiaomiUpdateAgent.update(this);
 	}
 	
 	private void initDatas(){
@@ -93,13 +100,12 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		indicator = (PagerSlidingTabStrip) findViewById(R.id.indicator);
 		mAdapter = new MainPageAdapter(this.getSupportFragmentManager(),bundle,this);
+		initLeftMenuHeader();
 		viewPager.setAdapter(mAdapter);
 		viewPager.setOffscreenPageLimit(3);
 		indicator.setViewPager(viewPager);
 		MenuListItemAdapter adapter = new MenuListItemAdapter(this,mPlanetTitles,mDrawerLayout,mDrawerList);
 		mDrawerList.setAdapter(adapter);
-		
-		initLeftMenuHeader();
 		
         // Set the list's click listener
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
@@ -120,7 +126,7 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-        
+        showNewFunction();
 	}
 	
 	private void initLeftMenuHeader(){
@@ -137,7 +143,18 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 	}
 	
 	private void toNewFunctionActivity(){
-		
+		animationCloseOrOpen(800);
+		animationCloseOrOpen(1600);
+	}
+	
+	private void animationCloseOrOpen(int mis){
+		new Handler().postDelayed(new Runnable() {
+			
+			@Override
+			public void run() {
+				menu();
+			}
+		}, mis);
 	}
 	
 	public void showProgressbar(){

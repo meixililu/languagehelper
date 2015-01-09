@@ -13,6 +13,8 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewTreeObserver;
+import android.view.Window;
+import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -23,6 +25,7 @@ import com.messi.languagehelper.observablescrollview.ScrollState;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
+import com.messi.languagehelper.util.ShareUtil;
 import com.nineoldandroids.animation.ObjectAnimator;
 
 
@@ -39,6 +42,7 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.web_view);
 		initData();
 		initViews();
@@ -59,6 +63,8 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
     	styledAttributes.recycle(); 
     	
     	LogUtil.DefalutLog("mActionBarHeight:"+mActionBarHeight);
+//    	getSupportActionBar().setHideOnContentScrollEnabled(true);
+//    	getSupportActionBar().setShowHideAnimationEnabled(true);
 	}
 	
 	private void initViews(){
@@ -139,13 +145,13 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 		switch (item.getItemId()) {
 		case 0:  
 			if(Url.equals(Settings.CaiLingUrl)){
-				shareLink(WebViewActivity.this.getResources().getString(R.string.cailing_ad_prompt));
+				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.cailing_ad_prompt));
 				StatService.onEvent(this, "1.9_menu_to_share_link", "分享彩铃链接", 1);
 			}else if(Url.equals(Settings.YueduUrl)){
-				shareLink(WebViewActivity.this.getResources().getString(R.string.yuedu_ad_prompt));
+				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.yuedu_ad_prompt));
 				StatService.onEvent(this, "20_menu_to_share_yuedu_link", "分享阅读链接", 1);
 			}else if(Url.equals(Settings.HotalUrl)){
-				shareLink(WebViewActivity.this.getResources().getString(R.string.hotel_ad_prompt));
+				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.hotel_ad_prompt));
 				StatService.onEvent(this, "20_menu_to_share_hotel_link", "分享订酒店链接", 1);
 			}
 			break;
@@ -160,15 +166,6 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
-	}
-	
-	private void shareLink(String dstString){
-		Intent intent = new Intent(Intent.ACTION_SEND);    
-		intent.setType("text/plain"); // 纯文本     
-		intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.share));    
-		intent.putExtra(Intent.EXTRA_TEXT, dstString);    
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);    
-		startActivity(Intent.createChooser(intent, getResources().getString(R.string.share)));    
 	}
 	
 	@Override
@@ -199,6 +196,7 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
         } else if (scrollState == ScrollState.DOWN) {
             if (!mActionBar.isShowing()) {
             	mActionBar.show();
+//            	mActionBar.getCustomView().startAnimation(AnimationUtils.loadAnimation(WebViewActivity.this, R.anim.slide_in_from_top));
             }
         }
 	}
@@ -207,7 +205,6 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 		ObjectAnimator itemAnimator1 = ObjectAnimator.ofFloat(toolbar, "y", toolbar.getBottom(), mQuickReturnHeight);
 		itemAnimator1.setDuration(250).start();
 		getSupportActionBar().hide();
-		
 	}
 	
 }
