@@ -1,24 +1,26 @@
 package com.messi.languagehelper;
 
-import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver;
-import android.view.Window;
-import android.view.animation.AnimationUtils;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 
 import com.baidu.mobstat.StatService;
+import com.gc.materialdesign.views.ProgressBarDetermininate;
 import com.messi.languagehelper.observablescrollview.ObservableScrollViewCallbacks;
 import com.messi.languagehelper.observablescrollview.ObservableWebView;
 import com.messi.languagehelper.observablescrollview.ScrollState;
@@ -31,18 +33,20 @@ import com.nineoldandroids.animation.ObjectAnimator;
 
 public class WebViewActivity extends BaseActivity implements ObservableScrollViewCallbacks{
 	
+	private ProgressBarDetermininate progressdeterminate;
 	private SwipeRefreshLayout mSwipeRefreshLayout;
 	private ObservableWebView mWebView;
+	private TextView tap_to_reload;
     private String Url;
     private String title;
     private boolean isReedPullDownRefresh;
     private float mActionBarHeight;
     private int mQuickReturnHeight;
+    private long lastClick;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		setContentView(R.layout.web_view);
 		initData();
 		initViews();
@@ -63,31 +67,58 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
     	styledAttributes.recycle(); 
     	
     	LogUtil.DefalutLog("mActionBarHeight:"+mActionBarHeight);
-//    	getSupportActionBar().setHideOnContentScrollEnabled(true);
-//    	getSupportActionBar().setShowHideAnimationEnabled(true);
 	}
 	
 	private void initViews(){
 		mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+		progressdeterminate = (ProgressBarDetermininate) findViewById(R.id.progressdeterminate);
 		mWebView = (ObservableWebView) findViewById(R.id.refreshable_webview);
+		tap_to_reload = (TextView) findViewById(R.id.tap_to_reload);
 		mWebView.requestFocus();//如果不设置，则在点击网页文本输入框时，不能弹出软键盘及不响应其他的一些事件。
 		mWebView.getSettings().setJavaScriptEnabled(true);//如果访问的页面中有Javascript，则webview必须设置支持Javascript。
 		mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
 		mWebView.requestFocus();
 		mWebView.setScrollViewCallbacks(this);
+		
+		tap_to_reload.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mWebView.loadUrl(Url);
+				tap_to_reload.setVisibility(View.GONE);
+				lastClick = System.currentTimeMillis();
+			}
+		});
 		//当前页面加载
 		mWebView.setWebViewClient(new WebViewClient() {
 
 			@Override
 			public void onPageStarted(WebView view, String url, Bitmap favicon) {
-				mSwipeRefreshLayout.setRefreshing(true);
 				super.onPageStarted(view, url, favicon);
+				LogUtil.DefalutLog("WebViewClient:onPageStarted");
+			}
+
+			@Override
+			public void onReceivedError(WebView view, int errorCode,String description, String failingUrl) {
+				super.onReceivedError(view, errorCode, description, failingUrl);
+				view.loadUrl("");
+				if(System.currentTimeMillis() - lastClick < 500){
+					new Handler().postDelayed(new Runnable() {
+						@Override
+						public void run() {
+							tap_to_reload.setVisibility(View.VISIBLE);
+						}
+					}, 600);
+				}else{
+					tap_to_reload.setVisibility(View.VISIBLE);
+				}
+				LogUtil.DefalutLog("WebViewClient:onReceivedError---"+errorCode);
 			}
 
 			@Override
 			public void onPageFinished(WebView view, String url) {
-				mSwipeRefreshLayout.setRefreshing(false);
 				super.onPageFinished(view, url);
+				mSwipeRefreshLayout.setRefreshing(false);
+				LogUtil.DefalutLog("WebViewClient:onPageFinished");
 			}
 
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -96,6 +127,21 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 			}
 
 		});
+		
+		mWebView.setWebChromeClient(new WebChromeClient() {
+	        @Override
+	        public void onProgressChanged(WebView view, int newProgress) {
+	            if (newProgress == 100) {
+	            	progressdeterminate.setVisibility(View.GONE);
+	            	LogUtil.DefalutLog("WebViewClient:newProgress == 100");
+	            } else {
+	                if (progressdeterminate.getVisibility() == View.GONE)
+	                	progressdeterminate.setVisibility(View.VISIBLE);
+	                progressdeterminate.setProgress(newProgress);
+	            }
+	            super.onProgressChanged(view, newProgress);
+	        }
+	    });
 		
 		toolbar.getViewTreeObserver().addOnGlobalLayoutListener(
 				new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -196,7 +242,6 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
         } else if (scrollState == ScrollState.DOWN) {
             if (!mActionBar.isShowing()) {
             	mActionBar.show();
-//            	mActionBar.getCustomView().startAnimation(AnimationUtils.loadAnimation(WebViewActivity.this, R.anim.slide_in_from_top));
             }
         }
 	}

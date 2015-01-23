@@ -18,7 +18,7 @@
     
     <string-array name="studylist_part1">
         <item>A,boy,girl,man,woman\n一个,男孩,女孩,男人,女人</item>
-        <item>white,black,red,rreen\n白色,黑色,红色,绿色</item>
+        <item>white,black,red,green\n白色,黑色,红色,绿色</item>
         <item>good morning,afternoon,evening,night\n早上好,下午好,晚上好,晚安</item>
         <item>young,old,beautiful,handsome\n年轻的,老的,美丽的,英俊的</item>
         <item>tall,short,thin,fat\n高的,矮的,瘦的,胖的</item>
