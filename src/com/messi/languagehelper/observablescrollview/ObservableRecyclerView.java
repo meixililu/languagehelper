@@ -19,18 +19,20 @@ package com.messi.languagehelper.observablescrollview;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.SparseIntArray;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.ListView;
 
 /**
- * ListView that its scroll position can be observed.
+ * RecyclerView that its scroll position can be observed.
+ * Before using this, please consider to use the RecyclerView.OnScrollListener
+ * provided by the support library officially.
  */
-public class ObservableListView extends ListView implements Scrollable {
+public class ObservableRecyclerView extends RecyclerView implements Scrollable {
 
     // Fields that should be saved onSaveInstanceState
     private int mPrevFirstVisiblePosition;
@@ -49,38 +51,17 @@ public class ObservableListView extends ListView implements Scrollable {
     private MotionEvent mPrevMoveEvent;
     private ViewGroup mTouchInterceptionViewGroup;
 
-    private OnScrollListener mOriginalScrollListener;
-    private OnScrollListener mScrollListener = new OnScrollListener() {
-        @Override
-        public void onScrollStateChanged(AbsListView view, int scrollState) {
-            if (mOriginalScrollListener != null) {
-                mOriginalScrollListener.onScrollStateChanged(view, scrollState);
-            }
-        }
-
-        @Override
-        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-            if (mOriginalScrollListener != null) {
-                mOriginalScrollListener.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
-            }
-            // AbsListView#invokeOnItemScrollListener calls onScrollChanged(0, 0, 0, 0)
-            // on Android 4.0+, but Android 2.3 is not. (Android 3.0 is unknown)
-            // So call it with onScrollListener.
-            onScrollChanged();
-        }
-    };
-
-    public ObservableListView(Context context) {
+    public ObservableRecyclerView(Context context) {
         super(context);
         init();
     }
 
-    public ObservableListView(Context context, AttributeSet attrs) {
+    public ObservableRecyclerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public ObservableListView(Context context, AttributeSet attrs, int defStyle) {
+    public ObservableRecyclerView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }
@@ -108,6 +89,84 @@ public class ObservableListView extends ListView implements Scrollable {
         ss.scrollY = mScrollY;
         ss.childrenHeights = mChildrenHeights;
         return ss;
+    }
+
+    @Override
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        super.onScrollChanged(l, t, oldl, oldt);
+        if (mCallbacks != null) {
+            if (getChildCount() > 0) {
+                int firstVisiblePosition = getChildPosition(getChildAt(0));
+                int lastVisiblePosition = getChildPosition(getChildAt(getChildCount() - 1));
+                for (int i = firstVisiblePosition, j = 0; i <= lastVisiblePosition; i++, j++) {
+                    if (mChildrenHeights.indexOfKey(i) < 0 || getChildAt(j).getHeight() != mChildrenHeights.get(i)) {
+                        mChildrenHeights.put(i, getChildAt(j).getHeight());
+                    }
+                }
+
+                View firstVisibleChild = getChildAt(0);
+                if (firstVisibleChild != null) {
+                    if (mPrevFirstVisiblePosition < firstVisiblePosition) {
+                        // scroll down
+                        int skippedChildrenHeight = 0;
+                        if (firstVisiblePosition - mPrevFirstVisiblePosition != 1) {
+                            for (int i = firstVisiblePosition - 1; i > mPrevFirstVisiblePosition; i--) {
+                                if (0 < mChildrenHeights.indexOfKey(i)) {
+                                    skippedChildrenHeight += mChildrenHeights.get(i);
+                                } else {
+                                    // Approximate each item's height to the first visible child.
+                                    // It may be incorrect, but without this, scrollY will be broken
+                                    // when scrolling from the bottom.
+                                    skippedChildrenHeight += firstVisibleChild.getHeight();
+                                }
+                            }
+                        }
+                        mPrevScrolledChildrenHeight += mPrevFirstVisibleChildHeight + skippedChildrenHeight;
+                        mPrevFirstVisibleChildHeight = firstVisibleChild.getHeight();
+                    } else if (firstVisiblePosition < mPrevFirstVisiblePosition) {
+                        // scroll up
+                        int skippedChildrenHeight = 0;
+                        if (mPrevFirstVisiblePosition - firstVisiblePosition != 1) {
+                            for (int i = mPrevFirstVisiblePosition - 1; i > firstVisiblePosition; i--) {
+                                if (0 < mChildrenHeights.indexOfKey(i)) {
+                                    skippedChildrenHeight += mChildrenHeights.get(i);
+                                } else {
+                                    // Approximate each item's height to the first visible child.
+                                    // It may be incorrect, but without this, scrollY will be broken
+                                    // when scrolling from the bottom.
+                                    skippedChildrenHeight += firstVisibleChild.getHeight();
+                                }
+                            }
+                        }
+                        mPrevScrolledChildrenHeight -= firstVisibleChild.getHeight() + skippedChildrenHeight;
+                        mPrevFirstVisibleChildHeight = firstVisibleChild.getHeight();
+                    } else if (firstVisiblePosition == 0) {
+                        mPrevFirstVisibleChildHeight = firstVisibleChild.getHeight();
+                    }
+                    if (mPrevFirstVisibleChildHeight < 0) {
+                        mPrevFirstVisibleChildHeight = 0;
+                    }
+                    mScrollY = mPrevScrolledChildrenHeight - firstVisibleChild.getTop();
+                    mPrevFirstVisiblePosition = firstVisiblePosition;
+
+                    mCallbacks.onScrollChanged(mScrollY, mFirstScroll, mDragging);
+                    if (mFirstScroll) {
+                        mFirstScroll = false;
+                    }
+
+                    if (mPrevScrollY < mScrollY) {
+                        //down
+                        mScrollState = ScrollState.UP;
+                    } else if (mScrollY < mPrevScrollY) {
+                        //up
+                        mScrollState = ScrollState.DOWN;
+                    } else {
+                        mScrollState = ScrollState.STOP;
+                    }
+                    mPrevScrollY = mScrollY;
+                }
+            }
+        }
     }
 
     @Override
@@ -202,13 +261,6 @@ public class ObservableListView extends ListView implements Scrollable {
     }
 
     @Override
-    public void setOnScrollListener(OnScrollListener l) {
-        // Don't set l to super.setOnScrollListener().
-        // l receives all events through mScrollListener.
-        mOriginalScrollListener = l;
-    }
-
-    @Override
     public void setScrollViewCallbacks(ObservableScrollViewCallbacks listener) {
         mCallbacks = listener;
     }
@@ -224,7 +276,30 @@ public class ObservableListView extends ListView implements Scrollable {
         if (firstVisibleChild != null) {
             int baseHeight = firstVisibleChild.getHeight();
             int position = y / baseHeight;
-            setSelection(position);
+            scrollVerticallyToPosition(position);
+        }
+    }
+
+    /**
+     * <p>Same as {@linkplain #scrollToPosition(int)} but it scrolls to the position not only make
+     * the position visible.</p>
+     * <p>It depends on {@code LayoutManager} how {@linkplain #scrollToPosition(int)} works,
+     * and currently we know that {@linkplain LinearLayoutManager#scrollToPosition(int)} just
+     * make the position visible.</p>
+     * <p>In LinearLayoutManager, scrollToPositionWithOffset() is provided for scrolling to the position.
+     * This method checks which LayoutManager is set,
+     * and handles which method should be called for scrolling.</p>
+     * <p>Other know classes (StaggeredGridLayoutManager and GridLayoutManager) are not tested.</p>
+     *
+     * @param position position to scroll
+     */
+    public void scrollVerticallyToPosition(int position) {
+        LayoutManager lm = getLayoutManager();
+
+        if (lm != null && lm instanceof LinearLayoutManager) {
+            ((LinearLayoutManager) lm).scrollToPositionWithOffset(position, 0);
+        } else {
+            scrollToPosition(position);
         }
     }
 
@@ -235,83 +310,25 @@ public class ObservableListView extends ListView implements Scrollable {
 
     private void init() {
         mChildrenHeights = new SparseIntArray();
-        super.setOnScrollListener(mScrollListener);
     }
 
-    private void onScrollChanged() {
-        if (mCallbacks != null) {
-            if (getChildCount() > 0) {
-                int firstVisiblePosition = getFirstVisiblePosition();
-                for (int i = getFirstVisiblePosition(), j = 0; i <= getLastVisiblePosition(); i++, j++) {
-                    if (mChildrenHeights.indexOfKey(i) < 0 || getChildAt(j).getHeight() != mChildrenHeights.get(i)) {
-                        mChildrenHeights.put(i, getChildAt(j).getHeight());
-                    }
-                }
+    /**
+     * This saved state class is a Parcelable and should not extend
+     * {@link android.view.View.BaseSavedState} nor {@link android.view.AbsSavedState}
+     * because its super class AbsSavedState's constructor
+     * {@link android.view.AbsSavedState#AbsSavedState(Parcel)} currently passes null
+     * as a class loader to read its superstate from Parcelable.
+     * This causes {@link android.os.BadParcelableException} when restoring saved states.
+     * <p/>
+     * The super class "RecyclerView" is a part of the support library,
+     * and restoring its saved state requires the class loader that loaded the RecyclerView.
+     * It seems that the class loader is not required when restoring from RecyclerView itself,
+     * but it is required when restoring from RecyclerView's subclasses.
+     */
+    static class SavedState implements Parcelable {
+        public static final SavedState EMPTY_STATE = new SavedState() {
+        };
 
-                View firstVisibleChild = getChildAt(0);
-                if (firstVisibleChild != null) {
-                    if (mPrevFirstVisiblePosition < firstVisiblePosition) {
-                        // scroll down
-                        int skippedChildrenHeight = 0;
-                        if (firstVisiblePosition - mPrevFirstVisiblePosition != 1) {
-                            for (int i = firstVisiblePosition - 1; i > mPrevFirstVisiblePosition; i--) {
-                                if (0 < mChildrenHeights.indexOfKey(i)) {
-                                    skippedChildrenHeight += mChildrenHeights.get(i);
-                                } else {
-                                    // Approximate each item's height to the first visible child.
-                                    // It may be incorrect, but without this, scrollY will be broken
-                                    // when scrolling from the bottom.
-                                    skippedChildrenHeight += firstVisibleChild.getHeight();
-                                }
-                            }
-                        }
-                        mPrevScrolledChildrenHeight += mPrevFirstVisibleChildHeight + skippedChildrenHeight;
-                        mPrevFirstVisibleChildHeight = firstVisibleChild.getHeight();
-                    } else if (firstVisiblePosition < mPrevFirstVisiblePosition) {
-                        // scroll up
-                        int skippedChildrenHeight = 0;
-                        if (mPrevFirstVisiblePosition - firstVisiblePosition != 1) {
-                            for (int i = mPrevFirstVisiblePosition - 1; i > firstVisiblePosition; i--) {
-                                if (0 < mChildrenHeights.indexOfKey(i)) {
-                                    skippedChildrenHeight += mChildrenHeights.get(i);
-                                } else {
-                                    // Approximate each item's height to the first visible child.
-                                    // It may be incorrect, but without this, scrollY will be broken
-                                    // when scrolling from the bottom.
-                                    skippedChildrenHeight += firstVisibleChild.getHeight();
-                                }
-                            }
-                        }
-                        mPrevScrolledChildrenHeight -= firstVisibleChild.getHeight() + skippedChildrenHeight;
-                        mPrevFirstVisibleChildHeight = firstVisibleChild.getHeight();
-                    } else if (firstVisiblePosition == 0) {
-                        mPrevFirstVisibleChildHeight = firstVisibleChild.getHeight();
-                    }
-                    if (mPrevFirstVisibleChildHeight < 0) {
-                        mPrevFirstVisibleChildHeight = 0;
-                    }
-                    mScrollY = mPrevScrolledChildrenHeight - firstVisibleChild.getTop();
-                    mPrevFirstVisiblePosition = firstVisiblePosition;
-
-                    mCallbacks.onScrollChanged(mScrollY, mFirstScroll, mDragging);
-                    if (mFirstScroll) {
-                        mFirstScroll = false;
-                    }
-
-                    if (mPrevScrollY < mScrollY) {
-                        mScrollState = ScrollState.UP;
-                    } else if (mScrollY < mPrevScrollY) {
-                        mScrollState = ScrollState.DOWN;
-                    } else {
-                        mScrollState = ScrollState.STOP;
-                    }
-                    mPrevScrollY = mScrollY;
-                }
-            }
-        }
-    }
-
-    static class SavedState extends BaseSavedState {
         int prevFirstVisiblePosition;
         int prevFirstVisibleChildHeight = -1;
         int prevScrolledChildrenHeight;
@@ -319,18 +336,32 @@ public class ObservableListView extends ListView implements Scrollable {
         int scrollY;
         SparseIntArray childrenHeights;
 
+        // This keeps the parent(RecyclerView)'s state
+        Parcelable superState;
+
+        /**
+         * Called by EMPTY_STATE instantiation.
+         */
+        private SavedState() {
+            superState = null;
+        }
+
         /**
          * Called by onSaveInstanceState.
          */
         SavedState(Parcelable superState) {
-            super(superState);
+            this.superState = superState != EMPTY_STATE ? superState : null;
         }
 
         /**
          * Called by CREATOR.
          */
         private SavedState(Parcel in) {
-            super(in);
+            // Parcel 'in' has its parent(RecyclerView)'s saved state.
+            // To restore it, class loader that loaded RecyclerView is required.
+            Parcelable superState = in.readParcelable(RecyclerView.class.getClassLoader());
+            this.superState = superState != null ? superState : EMPTY_STATE;
+
             prevFirstVisiblePosition = in.readInt();
             prevFirstVisibleChildHeight = in.readInt();
             prevScrolledChildrenHeight = in.readInt();
@@ -348,8 +379,14 @@ public class ObservableListView extends ListView implements Scrollable {
         }
 
         @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
         public void writeToParcel(Parcel out, int flags) {
-            super.writeToParcel(out, flags);
+            out.writeParcelable(superState, flags);
+
             out.writeInt(prevFirstVisiblePosition);
             out.writeInt(prevFirstVisibleChildHeight);
             out.writeInt(prevScrolledChildrenHeight);
@@ -363,6 +400,10 @@ public class ObservableListView extends ListView implements Scrollable {
                     out.writeInt(childrenHeights.valueAt(i));
                 }
             }
+        }
+
+        public Parcelable getSuperState() {
+            return superState;
         }
 
         public static final Parcelable.Creator<SavedState> CREATOR

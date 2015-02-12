@@ -1,30 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/contentbg"
     android:orientation="vertical" >
 
-    <ListView
-        android:id="@+id/collected_listview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:cacheColorHint="@color/none"
-        android:divider="@color/none"
-        android:padding="@dimen/padding_margin"
-        android:dividerHeight="@dimen/padding_margin"
-        android:fadingEdge="none"
-        android:fastScrollEnabled="false"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false"
-        android:scrollbars="none"
-        android:smoothScrollbar="true" />
-
-    <ProgressBar
-        android:id="@+id/lottery_result_hall_progressbar_m"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.Toolbar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/my_awesome_toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize" />
+
+    <com.messi.languagehelper.observablescrollview.ObservableRecyclerView
+        android:id="@+id/collected_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_margin"
+        android:layout_marginTop="?attr/actionBarSize"
+        />
+
+    <com.gc.materialdesign.views.ProgressBarCircularIndetermininate
+        android:id="@+id/lottery_result_hall_progressbar_m"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
         android:layout_gravity="center"
+        android:background="@color/blue"
         android:visibility="gone" />
 
-</LinearLayout>
+</FrameLayout>

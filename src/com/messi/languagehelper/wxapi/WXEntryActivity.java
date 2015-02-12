@@ -29,6 +29,7 @@ import com.gc.materialdesign.views.ProgressBarCircularIndetermininate;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.messi.languagehelper.BaseActivity;
+import com.messi.languagehelper.CollectedActivity;
 import com.messi.languagehelper.ImgShareActivity;
 import com.messi.languagehelper.R;
 import com.messi.languagehelper.SettingActivity;
@@ -78,7 +79,7 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 	}
 	
 	private void initDatas(){
-		setMiddleVolume();
+//		setMiddleVolume();
 		bundle = getIntent().getExtras();
 		SpeechUtility.createUtility(this, SpeechConstant.APPID + "=" +getString(R.string.app_id));
 	}
@@ -186,6 +187,9 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 		case R.id.action_share:
 			toShareActivity();
 			break;
+		case R.id.action_collected:
+			toCollectedActivity();
+			break;
 		}
        return true;
 	}
@@ -217,6 +221,11 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 		Intent intent = new Intent(this, ImgShareActivity.class); 
 		startActivity(intent); 
 		StatService.onEvent(this, "1.8_menu_to_share_activity", "去自定义分享页面", 1);
+	}
+	
+	private void toCollectedActivity(){
+		Intent intent = new Intent(this, CollectedActivity.class); 
+		startActivity(intent); 
 	}
 	
 	/**

@@ -1,19 +1,23 @@
 package com.messi.languagehelper;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
-import android.view.Window;
+import android.view.View;
+import android.widget.FrameLayout;
 
 import com.baidu.mobstat.StatService;
+import com.messi.languagehelper.observablescrollview.Scrollable;
 import com.messi.languagehelper.util.AudioTrackUtil;
+import com.nineoldandroids.animation.ValueAnimator;
+import com.nineoldandroids.view.ViewHelper;
 
 public class BaseActivity extends ActionBarActivity {
 
 	public Toolbar toolbar;
+	private View mScrollable;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +40,15 @@ public class BaseActivity extends ActionBarActivity {
         }
         return toolbar;
     }
-
+	
+	protected int getScreenHeight() {
+        return findViewById(android.R.id.content).getHeight();
+    }
+	
+	protected void setScrollable(View s){
+		mScrollable = s;
+	}
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -70,4 +82,39 @@ public class BaseActivity extends ActionBarActivity {
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+	
+	protected boolean toolbarIsShown() {
+        return ViewHelper.getTranslationY(toolbar) == 0;
+    }
+
+	protected boolean toolbarIsHidden() {
+        return ViewHelper.getTranslationY(toolbar) == -toolbar.getHeight();
+    }
+    
+	protected void showToolbar() {
+        moveToolbar(0);
+    }
+
+	protected void hideToolbar() {
+        moveToolbar(-toolbar.getHeight());
+    }
+    
+    private void moveToolbar(float toTranslationY) {
+        if (ViewHelper.getTranslationY(toolbar) == toTranslationY) {
+            return;
+        }
+        ValueAnimator animator = ValueAnimator.ofFloat(ViewHelper.getTranslationY(toolbar), toTranslationY).setDuration(200);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float translationY = (Float) animation.getAnimatedValue();
+                ViewHelper.setTranslationY(toolbar, translationY);
+                ViewHelper.setTranslationY((View) mScrollable, translationY);
+                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) ((View) mScrollable).getLayoutParams();
+                lp.height = (int) -translationY + getScreenHeight() - lp.topMargin;
+                ((View) mScrollable).requestLayout();
+            }
+        });
+        animator.start();
+    }
 }

@@ -22,7 +22,6 @@ public class MainPageAdapter extends FragmentPagerAdapter {
         this.bundle = bundle;
         CONTENT = new String[] { mContext.getResources().getString(R.string.app_name),
         		mContext.getResources().getString(R.string.title_study),
-        		mContext.getResources().getString(R.string.title_favorite),
         		mContext.getResources().getString(R.string.title_leisure)
         };
     }
@@ -34,8 +33,6 @@ public class MainPageAdapter extends FragmentPagerAdapter {
         }else if( position == 1 ){
         	return StudyFragment.getInstance();
         }else if( position == 2 ){
-        	return CollectedFragment.getInstance(bundle);
-        }else if( position == 3 ){
         	return LeisureFragment.getInstance();
         }
         return null;

@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver;
+import android.view.animation.AccelerateInterpolator;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -41,7 +42,6 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
     private String title;
     private boolean isReedPullDownRefresh;
     private float mActionBarHeight;
-    private int mQuickReturnHeight;
     private long lastClick;
 
 	@Override
@@ -74,6 +74,7 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 		progressdeterminate = (ProgressBarDetermininate) findViewById(R.id.progressdeterminate);
 		mWebView = (ObservableWebView) findViewById(R.id.refreshable_webview);
 		tap_to_reload = (TextView) findViewById(R.id.tap_to_reload);
+		setScrollable(mSwipeRefreshLayout);
 		mWebView.requestFocus();//如果不设置，则在点击网页文本输入框时，不能弹出软键盘及不响应其他的一些事件。
 		mWebView.getSettings().setJavaScriptEnabled(true);//如果访问的页面中有Javascript，则webview必须设置支持Javascript。
 		mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
@@ -133,6 +134,7 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 	        public void onProgressChanged(WebView view, int newProgress) {
 	            if (newProgress == 100) {
 	            	progressdeterminate.setVisibility(View.GONE);
+	            	mSwipeRefreshLayout.setRefreshing(false);
 	            	LogUtil.DefalutLog("WebViewClient:newProgress == 100");
 	            } else {
 	                if (progressdeterminate.getVisibility() == View.GONE)
@@ -142,14 +144,6 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 	            super.onProgressChanged(view, newProgress);
 	        }
 	    });
-		
-		toolbar.getViewTreeObserver().addOnGlobalLayoutListener(
-				new ViewTreeObserver.OnGlobalLayoutListener() {
-					@Override
-					public void onGlobalLayout() {
-						mQuickReturnHeight = toolbar.getHeight();
-					}
-				});
 		
 		mSwipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright, 
 	            R.color.holo_green_light, 
@@ -167,22 +161,11 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 		}
 		mWebView.loadUrl(Url);
 		
-//		mWebView.getViewTreeObserver().addOnScrollChangedListener(new OnScrollChangedListener() {
-//			@Override
-//			public void onScrollChanged() {
-//				float y = mWebView.getScrollY();
-//				if (y >= mActionBarHeight && getSupportActionBar().isShowing()) {
-//					getSupportActionBar().hide();
-//				} else if ( y==0 && !getSupportActionBar().isShowing()) {
-//					getSupportActionBar().show();
-//				}
-//			}
-//		});
 	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0,0,0,this.getResources().getString(R.string.menu_share)).setIcon(R.drawable.icon_share).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		menu.add(0,0,0,this.getResources().getString(R.string.menu_share)).setIcon(R.drawable.ic_share_white_36dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		return true;
 	}
 	
@@ -234,22 +217,23 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 
 	@Override
 	public void onUpOrCancelMotionEvent(ScrollState scrollState) {
-		ActionBar mActionBar = getSupportActionBar();
-        if (scrollState == ScrollState.UP) {
-            if (mActionBar.isShowing()) {
-            	mActionBar.hide();
+		if (scrollState == ScrollState.UP) {
+            if (toolbarIsShown()) {
+            	if(mWebView.getScrollY() != 0){
+            		hideToolbar();
+            		progressdeterminate.setVisibility(View.GONE);
+            	}
             }
+            LogUtil.DefalutLog("onUpOrCancelMotionEvent-getScrollY:"+mWebView.getScrollY());
+            LogUtil.DefalutLog("onUpOrCancelMotionEvent:ScrollState.UP");
         } else if (scrollState == ScrollState.DOWN) {
-            if (!mActionBar.isShowing()) {
-            	mActionBar.show();
-            }
+        	if(mWebView.getContentHeight()*mWebView.getScale()-(mWebView.getHeight()+mWebView.getScrollY()) != 0){
+        		if (toolbarIsHidden()) {
+        			showToolbar();
+        		}
+        	}
+            LogUtil.DefalutLog("onUpOrCancelMotionEvent:ScrollState.DOWN");
         }
-	}
-	
-	private void hideActionbar(){
-		ObjectAnimator itemAnimator1 = ObjectAnimator.ofFloat(toolbar, "y", toolbar.getBottom(), mQuickReturnHeight);
-		itemAnimator1.setDuration(250).start();
-		getSupportActionBar().hide();
 	}
 	
 }
