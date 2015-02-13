@@ -24,8 +24,6 @@ public class StudyListActivity extends BaseActivity {
 	private void initViews(){
 		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
 		if (toolbar != null) {
-			setSupportActionBar(toolbar);
-			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 			getSupportActionBar().setTitle(getResources().getString(R.string.introduction));
 		}
 		level = getIntent().getStringExtra(KeyUtil.LevelKey);

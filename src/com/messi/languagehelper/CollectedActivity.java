@@ -28,6 +28,7 @@ import com.messi.languagehelper.observablescrollview.ObservableScrollViewCallbac
 import com.messi.languagehelper.observablescrollview.ScrollState;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
+import com.messi.languagehelper.views.DividerItemDecoration;
 import com.messi.languagehelper.wxapi.WXEntryActivity;
 
 public class CollectedActivity extends BaseActivity implements OnClickListener,ObservableScrollViewCallbacks {
@@ -72,6 +73,7 @@ public class CollectedActivity extends BaseActivity implements OnClickListener,O
 	    mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 		recent_used_lv.setLayoutManager(mLayoutManager);
 		recent_used_lv.setScrollViewCallbacks(this);
+		recent_used_lv.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.abc_list_divider_mtrl_alpha)));
 		
 		mDataBaseUtil = new DataBaseUtil(this);
 		beans = mDataBaseUtil.getDataListCollected(0, Settings.offset);

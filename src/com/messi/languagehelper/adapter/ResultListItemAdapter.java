@@ -109,6 +109,13 @@ public class ResultListItemAdapter extends RecyclerView.Adapter<ResultListItemAd
 			collected_btn = (FrameLayout) convertView.findViewById(R.id.collected_btn);
 			weixi_btn = (FrameLayout) convertView.findViewById(R.id.weixi_btn);
 			play_content_btn_progressbar = (ProgressBar) convertView.findViewById(R.id.play_content_btn_progressbar);
+			
+//			delete_btn.setOnClickListener(new OnClickListener() {
+//				@Override
+//				public void onClick(View v) {
+//					
+//				}
+//			});
         }
     }
 	
@@ -123,8 +130,18 @@ public class ResultListItemAdapter extends RecyclerView.Adapter<ResultListItemAd
 		return new ViewHolder(v);
 	}
 	
+	public void addEntity(int i, DialogBean entity) {
+		beans.add(i, entity);
+        notifyItemInserted(i);
+    }
+ 
+    public void deleteEntity(int i) {
+    	beans.remove(i);
+        notifyItemRemoved(i);
+    }
+	
 	@Override
-	public void onBindViewHolder(final ViewHolder holder, int position) {
+	public void onBindViewHolder(final ViewHolder holder, final int position) {
 		final DialogBean mBean = beans.get(position);
 		AnimationDrawable animationDrawable = (AnimationDrawable) holder.voice_play.getBackground();
 		MyOnClickListener mMyOnClickListener = new MyOnClickListener(mBean,animationDrawable,holder.voice_play,
@@ -153,11 +170,13 @@ public class ResultListItemAdapter extends RecyclerView.Adapter<ResultListItemAd
 		holder.delete_btn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				int position = beans.indexOf(mBean);
+				beans.remove(position);
+				notifyItemRemoved(position);
 				mDataBaseUtil.dele(mBean.getId());
-				beans.remove(mBean);
-				notifyDataSetChanged();
 				showToast(context.getResources().getString(R.string.dele_success));
 				MainFragment.isRefresh = true;
+				LogUtil.DefalutLog("setOnClickListener---position:"+position);
 				StatService.onEvent(context, "1.6_deletebtn", "删除按钮", 1);
 			}
 		});
