@@ -15,22 +15,47 @@
 	    android:layout_height="0dp"
 	    android:layout_weight="3" 
 	    android:orientation="vertical"
+	    android:background="@color/style5_color1"
 	   	android:foreground="@drawable/framelayout_selector"
         >
         <TextView 
+            android:id="@+id/dailysentence_txt"
             android:layout_width="fill_parent"
 	    	android:layout_height="fill_parent"
-	    	android:gravity="center"
-	    	android:text="@string/introduction"
+	    	android:gravity="left|center_vertical"
+	    	android:text="@string/dailysentence"
 	    	android:textColor="@color/white"
 	    	android:shadowDx="0.4"
 	        android:shadowDy="0.4"
 	        android:shadowRadius="0.4"
 	        android:shadowColor="@color/white"
-	    	android:textSize="@dimen/bigger"
-	    	android:background="@color/style5_color1"
+	    	android:textSize="@dimen/biggerx"
+	    	android:layout_marginTop="@dimen/padding_20"
+	    	android:layout_marginBottom="@dimen/padding_20"
+	    	android:layout_marginLeft="@dimen/padding_10"
+	    	android:layout_marginRight="@dimen/padding_10"
             />
-        
+        <TextView 
+            android:layout_width="fill_parent"
+	    	android:layout_height="wrap_content"
+	    	android:gravity="right"
+	    	android:layout_gravity="bottom"
+	    	android:text="@string/dailysentence"
+	    	android:textColor="@color/white"
+	    	android:textSize="@dimen/small"
+	    	android:background="@color/style5_color1"
+	    	android:layout_margin="@dimen/padding_5"
+            />
+        <ImageView 
+		        android:id="@+id/unread_dot"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="right|top"
+		        android:src="@drawable/unread_dot"
+		        android:layout_marginTop="5dp"
+		        android:layout_marginRight="5dp"
+		        android:visibility="gone"
+		        />
     </FrameLayout>
     <FrameLayout 
         android:id="@+id/study_part2"

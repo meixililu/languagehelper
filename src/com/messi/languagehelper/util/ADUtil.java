@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.iflytek.voiceads.AdKeys;
 import com.iflytek.voiceads.IFLYAdSize;
 import com.iflytek.voiceads.IFLYBannerAd;
 import com.iflytek.voiceads.IFLYFullScreenAd;
@@ -56,8 +57,8 @@ public class ADUtil {
 	public static IFLYFullScreenAd initQuanPingAD(Activity mActivity, LinearLayout view){
 		//创建IFLYBannerAdView对象 
 		final IFLYFullScreenAd fullScreenAd = IFLYFullScreenAd.createFullScreenAd(mActivity,QuanPingADId);
-		fullScreenAd.setAdSize(IFLYAdSize.FULLSCREEN); 
-		fullScreenAd.setDisplayTime(3000);
+		fullScreenAd.setAdSize(IFLYAdSize.FULLSCREEN);
+		fullScreenAd.setParameter(AdKeys.SHOW_TIME_FULLSCREEN, "3000");
 		view.addView(fullScreenAd); 
 		return fullScreenAd;
 	}

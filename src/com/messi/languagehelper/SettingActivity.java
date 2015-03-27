@@ -103,13 +103,13 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 			StatService.onEvent(this, "19_auto_play", "翻译完成之后自动播放", 1);
 			break;
 		case R.id.setting_clear_all_except_favorite:
-			new DataBaseUtil(SettingActivity.this).clearExceptFavorite();
+			DataBaseUtil.getInstance().clearExceptFavorite();
 			MainFragment.isRefresh = true;
 			ToastUtil.diaplayMesShort(SettingActivity.this, this.getResources().getString(R.string.clear_success));
 			StatService.onEvent(this, "1.8_clear_all_except", "清楚收藏以外的记录", 1);
 			break;
 		case R.id.setting_clear_all:
-			new DataBaseUtil(SettingActivity.this).clearAll();
+			DataBaseUtil.getInstance().clearAll();
 			MainFragment.isRefresh = true;
 			CollectedFragment.isRefresh = true;
 			SDCardUtil.deleteOldFile();

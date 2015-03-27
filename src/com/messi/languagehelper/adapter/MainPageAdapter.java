@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.messi.languagehelper.CollectedFragment;
+import com.messi.languagehelper.DictionaryFragment;
 import com.messi.languagehelper.LeisureFragment;
 import com.messi.languagehelper.MainFragment;
 import com.messi.languagehelper.R;
@@ -20,7 +20,9 @@ public class MainPageAdapter extends FragmentPagerAdapter {
     public MainPageAdapter(FragmentManager fm,Bundle bundle,Context mContext) {
         super(fm);
         this.bundle = bundle;
-        CONTENT = new String[] { mContext.getResources().getString(R.string.app_name),
+        CONTENT = new String[] { 
+        		mContext.getResources().getString(R.string.title_translate),
+        		mContext.getResources().getString(R.string.title_dictionary),
         		mContext.getResources().getString(R.string.title_study),
         		mContext.getResources().getString(R.string.title_leisure)
         };
@@ -31,8 +33,10 @@ public class MainPageAdapter extends FragmentPagerAdapter {
         if( position == 0 ){
         	return MainFragment.getInstance(bundle);
         }else if( position == 1 ){
-        	return StudyFragment.getInstance();
+        	return DictionaryFragment.getInstance(bundle);
         }else if( position == 2 ){
+        	return StudyFragment.getInstance();
+        }else if( position == 3 ){
         	return LeisureFragment.getInstance();
         }
         return null;

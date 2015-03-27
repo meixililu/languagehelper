@@ -30,8 +30,8 @@ import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.messi.languagehelper.adapter.PracticePageListItemAdapter;
-import com.messi.languagehelper.bean.DialogBean;
 import com.messi.languagehelper.bean.UserSpeakBean;
+import com.messi.languagehelper.dao.record;
 import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.task.PublicTask;
 import com.messi.languagehelper.task.PublicTask.PublicTaskListener;
@@ -51,7 +51,7 @@ import com.nineoldandroids.animation.ObjectAnimator;
 
 public class PracticeActivity extends BaseActivity implements OnClickListener {
 
-	private DialogBean mBean;
+	private record mBean;
 	private FrameLayout record_question_cover,record_answer_cover,practice_page_exchange;
 	private ImageButton voice_play_answer,voice_play_question;
 	private TextView record_question,record_answer,practice_prompt,record_animation_text;
@@ -62,7 +62,6 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 	private ProgressBarCircularIndetermininate mProgressbar;
 	
 	private MyOnClickListener mAnswerOnClickListener,mQuestionOnClickListener;
-	private DataBaseUtil mDataBaseUtil;
 	private SpeechSynthesizer mSpeechSynthesizer;
 	private SpeechRecognizer recognizer;
 	private SharedPreferences mSharedPreferences;
@@ -82,8 +81,8 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 	}
 	
 	private void initData(){
-		mBean = (DialogBean)LanguageApplication.dataMap.get(KeyUtil.DialogBeanKey);
-		isEnglish = StringUtils.isEnglish(mBean.getAnswer());
+		mBean = (record)LanguageApplication.dataMap.get(KeyUtil.DialogBeanKey);
+		isEnglish = StringUtils.isEnglish(mBean.getEnglish());
 		mUserSpeakBeanList = new ArrayList<UserSpeakBean>();
 		adapter = new PracticePageListItemAdapter(this, mUserSpeakBeanList);
 	}
@@ -98,8 +97,6 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
         mSharedPreferences = Settings.getSharedPreferences(this);
         mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this,null);
         recognizer = SpeechRecognizer.createRecognizer(this,null);
-        mDataBaseUtil = new DataBaseUtil(this);
-        
 		record_answer_cover = (FrameLayout) findViewById(R.id.record_answer_cover);
 		record_question_cover = (FrameLayout) findViewById(R.id.record_question_cover);
 		practice_page_exchange = (FrameLayout) findViewById(R.id.practice_page_exchange);
@@ -117,8 +114,8 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 		recent_used_lv = (ListView) findViewById(R.id.recent_used_lv);
 		recent_used_lv.setAdapter(adapter);
 		
-		record_question.setText(mBean.getQuestion());
-		record_answer.setText(mBean.getAnswer());
+		record_question.setText(mBean.getChinese());
+		record_answer.setText(mBean.getEnglish());
 		
 		initSpeakLanguage();
 		mAnswerOnClickListener = new MyOnClickListener(mBean,voice_play_answer,true);
@@ -341,7 +338,7 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 	
 	public class MyOnClickListener implements OnClickListener {
 		
-		private DialogBean mBean;
+		private record mBean;
 		private ImageButton voice_play;
 		private AnimationDrawable animationDrawable;
 		private boolean isPlayResult;
@@ -350,7 +347,7 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 			this.isPlayResult = isPlayResult;
 		}
 
-		private MyOnClickListener(DialogBean bean,ImageButton voice_play,boolean isPlayResult){
+		private MyOnClickListener(record bean,ImageButton voice_play,boolean isPlayResult){
 			this.mBean = bean;
 			this.voice_play = voice_play;
 			this.animationDrawable = (AnimationDrawable) voice_play.getBackground();
@@ -370,11 +367,11 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 			if(isPlayResult){
 				filepath = path + mBean.getResultVoiceId() + ".pcm";
 				mBean.setResultAudioPath(filepath);
-				speakContent = mBean.getAnswer();
+				speakContent = mBean.getEnglish();
 			}else{
 				filepath = path + mBean.getQuestionVoiceId() + ".pcm";
 				mBean.setQuestionAudioPath(filepath);
-				speakContent = mBean.getQuestion();
+				speakContent = mBean.getChinese();
 			}
 			if(mBean.getSpeak_speed() != MainFragment.speed){
 				String filep1 = path + mBean.getResultVoiceId() + ".pcm";
@@ -412,7 +409,7 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 						if(arg0 != null){
 							ToastUtil.diaplayMesShort(PracticeActivity.this, arg0.getErrorDescription());
 						}
-						mDataBaseUtil.update(mBean);
+						DataBaseUtil.getInstance().update(mBean);
 						animationDrawable.setOneShot(true);
 						animationDrawable.stop(); 
 						animationDrawable.selectDrawable(0);

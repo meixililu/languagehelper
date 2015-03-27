@@ -57,7 +57,6 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 	private LinearLayout record_layout,record_animation_layout;
 	
 	private MyOnClickListener mAnswerOnClickListener;
-	private DataBaseUtil mDataBaseUtil;
 	private SpeechSynthesizer mSpeechSynthesizer;
 	private SpeechRecognizer recognizer;
 	private SharedPreferences mSharedPreferences;
@@ -111,7 +110,6 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 	private void initView() {
         mSharedPreferences = Settings.getSharedPreferences(getActivity());
         recognizer = SpeechRecognizer.createRecognizer(getActivity(), null);
-        mDataBaseUtil = new DataBaseUtil(getActivity());
         repeatTimes = mSharedPreferences.getInt(KeyUtil.ReadRepeatTime, 2);
         
 		record_answer_cover = (FrameLayout) getView().findViewById(R.id.record_answer_cover);

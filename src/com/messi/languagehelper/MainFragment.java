@@ -35,7 +35,7 @@ import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.adapter.CollectedListItemAdapter;
-import com.messi.languagehelper.bean.DialogBean;
+import com.messi.languagehelper.dao.record;
 import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.http.LanguagehelperHttpClient;
 import com.messi.languagehelper.http.RequestParams;
@@ -62,11 +62,11 @@ public class MainFragment extends Fragment implements OnClickListener {
 	/**record**/
 	private LinearLayout record_layout;
 	private ImageView record_anim_img;
-	private DialogBean currentDialogBean;
+	private record currentDialogBean;
 	
 	private LayoutInflater mInflater;
 	private CollectedListItemAdapter mAdapter;
-	private List<DialogBean> beans;
+	private List<record> beans;
 	private String dstString = "";
 	private Animation fade_in,fade_out;
 
@@ -80,7 +80,6 @@ public class MainFragment extends Fragment implements OnClickListener {
 	public static int speed;
 	private boolean isSpeakYueyu;
 	public static boolean isSpeakYueyuNeedUpdate;
-	private DataBaseUtil mDataBaseUtil;
 	private Bundle bundle;
 	public static boolean isRefresh;
 	private View view;
@@ -114,7 +113,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		LogUtil.DefalutLog("MainFragment-onCreateView");
-		view = inflater.inflate(R.layout.activity_main, null);
+		view = inflater.inflate(R.layout.fragment_translate, null);
 		init();
 		return view;
 	}
@@ -139,10 +138,9 @@ public class MainFragment extends Fragment implements OnClickListener {
 		
 		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity(), null);
 		recognizer = SpeechRecognizer.createRecognizer(getActivity(), null);
-		mDataBaseUtil = new DataBaseUtil(getActivity());
-		beans = mDataBaseUtil.getDataList(0, Settings.offset);
+		beans = DataBaseUtil.getInstance().getDataListRecord(0, Settings.offset);
 		mAdapter = new CollectedListItemAdapter(getActivity(), mInflater, beans, 
-				mSpeechSynthesizer, mSharedPreferences, mDataBaseUtil, bundle, "MainFragment");
+				mSpeechSynthesizer, mSharedPreferences, bundle, "MainFragment");
 		
 		recent_used_lv = (ListView) view.findViewById(R.id.recent_used_lv);
 		input_et = (EditText) view.findViewById(R.id.input_et);
@@ -184,8 +182,8 @@ public class MainFragment extends Fragment implements OnClickListener {
 	}
 	
 	private void initSample(){
-		DialogBean sampleBean = new DialogBean("Click the mic to speak", "点击话筒说话");
-		long newRowId = mDataBaseUtil.insert(sampleBean);
+		record sampleBean = new record("Click the mic to speak", "点击话筒说话");
+		long newRowId = DataBaseUtil.getInstance().insert(sampleBean);
 		beans.add(0,sampleBean);
 	}
 	
@@ -307,7 +305,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 		@Override
 		protected Void doInBackground(Void... params) {
 			try {
-				beans = mDataBaseUtil.getDataList(0, Settings.offset);
+				beans = DataBaseUtil.getInstance().getDataListRecord(0, Settings.offset);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -339,7 +337,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 		mRequestParams.put("q", Settings.q);
 		mRequestParams.put("from", Settings.from);
 		mRequestParams.put("to", Settings.to);
-		LanguagehelperHttpClient.post(mRequestParams, new TextHttpResponseHandler() {
+		LanguagehelperHttpClient.post(Settings.baiduTranslateUrl, mRequestParams, new TextHttpResponseHandler() {
 			@Override
 			public void onFinish() {
 				super.onFinish();
@@ -358,8 +356,8 @@ public class MainFragment extends Fragment implements OnClickListener {
 					if (dstString.contains("error_msg:")) {
 						showToast(dstString);
 					} else {
-						currentDialogBean = new DialogBean(dstString, Settings.q);
-						long newRowId = mDataBaseUtil.insert(currentDialogBean);
+						currentDialogBean = new record(dstString, Settings.q);
+						long newRowId = DataBaseUtil.getInstance().insert(currentDialogBean);
 						beans.add(0,currentDialogBean);
 						mAdapter.notifyDataSetChanged();
 						recent_used_lv.setSelection(0);

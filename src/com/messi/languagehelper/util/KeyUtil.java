@@ -59,6 +59,7 @@ public class KeyUtil {
 	
 	public static String IsCanShowAD_Leisure = "IsCanShowAD_Leisure";
 	
+	public static String LastTimeSelectTab = "LastTimeSelectTab";
 	
 	
 	

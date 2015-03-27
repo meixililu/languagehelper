@@ -5,12 +5,15 @@
 	<dimen name="bigxx">32sp</dimen>
 	<dimen name="bigx">28sp</dimen>
 	<dimen name="bigest">22sp</dimen>
+	<dimen name="biggerx">20sp</dimen>
 	<dimen name="bigger">18sp</dimen>
 	<dimen name="big">16sp</dimen>
 	<dimen name="middle">14sp</dimen>
 	<dimen name="small">12sp</dimen>
 	<dimen name="smaller">8sp</dimen>
 	<dimen name="action_size">36sp</dimen>
+	
+	<dimen name="tabs_heigh">34dp</dimen>
 	
 	<dimen name="slidingmenu_offset">150dp</dimen>
 	<dimen name="shadow_width">3dp</dimen>

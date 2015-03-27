@@ -11,7 +11,12 @@ import com.messi.languagehelper.R;
 
 public class Settings {
 
-	public static String baiduUrl = "http://openapi.baidu.com/public/2.0/bmt/translate";
+	/**baidu translate api**/
+	public static String baiduTranslateUrl = "http://openapi.baidu.com/public/2.0/bmt/translate";
+	/**baidu dictionary api**/
+	public static String baiduDictionaryUrl = "http://openapi.baidu.com/public/2.0/translate/dict/simple";
+	/**jinshan daily sentence api**/
+	public static String DailySentenceUrl = "http://open.iciba.com/dsapi/";
 	
 	public static final String client_id = "vCV6TTGRTI5QrckdYSKHQIhq";	
 	public static String from = "auto";	
@@ -20,6 +25,8 @@ public class Settings {
 	public static String role = "vimary";	
 	
 	public static final int offset = 100;
+	
+	public static final String InstagramUrl = "http://pinsta.me/";
 	
 	public static final String CaiLingUrl = "http://api.openspeech.cn/kyls/NTBhYTEyMTM=";
 	
@@ -34,7 +41,7 @@ public class Settings {
 	 * @return
 	 */
 	public static boolean isTodayShow(SharedPreferences mSharedPreferences){
-		String today = TimeUtil.getDate(System.currentTimeMillis());
+		String today = TimeUtil.getTimeDate(System.currentTimeMillis());
 		LogUtil.DefalutLog("---isTodayShow---today:"+today);
 		String lastTime = mSharedPreferences.getString(KeyUtil.IsLoadingShowToday, "");
 		if(today.equals(lastTime)){

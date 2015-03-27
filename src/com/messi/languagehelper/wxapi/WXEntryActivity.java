@@ -38,6 +38,7 @@ import com.messi.languagehelper.adapter.MainPageAdapter;
 import com.messi.languagehelper.adapter.MenuListItemAdapter;
 import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.views.PagerSlidingTabStrip;
 import com.xiaomi.market.sdk.XiaomiUpdateAgent;
@@ -107,7 +108,6 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 		indicator.setViewPager(viewPager);
 		MenuListItemAdapter adapter = new MenuListItemAdapter(this,mPlanetTitles,mDrawerLayout,mDrawerList);
 		mDrawerList.setAdapter(adapter);
-		
         // Set the list's click listener
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 		mDrawerLayout.setScrimColor(getResources().getColor(android.R.color.transparent));
@@ -127,7 +127,13 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+        setLastTimeSelectTab();
         showNewFunction();
+	}
+	
+	private void setLastTimeSelectTab(){
+		int index = mSharedPreferences.getInt(KeyUtil.LastTimeSelectTab, 0);
+		viewPager.setCurrentItem(index);
 	}
 	
 	private void initLeftMenuHeader(){
@@ -269,6 +275,13 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		saveSelectTab();
 		WebViewFragment.mMainFragment = null;
+	}
+	
+	private void saveSelectTab(){
+		int index = viewPager.getCurrentItem();
+		LogUtil.DefalutLog("WXEntryActivity---onDestroy---saveSelectTab---index:"+index);
+		Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.LastTimeSelectTab,index);
 	}
 }

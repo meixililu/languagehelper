@@ -34,7 +34,7 @@ import com.messi.languagehelper.LanguageApplication;
 import com.messi.languagehelper.MainFragment;
 import com.messi.languagehelper.PracticeActivity;
 import com.messi.languagehelper.R;
-import com.messi.languagehelper.bean.DialogBean;
+import com.messi.languagehelper.dao.record;
 import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.dialog.PopDialog;
 import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
@@ -53,16 +53,15 @@ import com.messi.languagehelper.util.XFUtil;
 public class CollectedListItemAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
-	private List<DialogBean> beans;
+	private List<record> beans;
 	private Context context;
-	private DataBaseUtil mDataBaseUtil;
 	private SpeechSynthesizer mSpeechSynthesizer;
 	private SharedPreferences mSharedPreferences;
 	private Bundle bundle;
 	private String from;
 
-	public CollectedListItemAdapter(Context mContext,LayoutInflater mInflater,List<DialogBean> mBeans,
-			SpeechSynthesizer mSpeechSynthesizer,SharedPreferences mSharedPreferences,DataBaseUtil mDataBaseUtil,
+	public CollectedListItemAdapter(Context mContext,LayoutInflater mInflater,List<record> mBeans,
+			SpeechSynthesizer mSpeechSynthesizer,SharedPreferences mSharedPreferences, 
 			Bundle bundle, String from) {
 		LogUtil.DefalutLog("public CollectedListItemAdapter");
 		context = mContext;
@@ -70,7 +69,6 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		this.mInflater = mInflater;
 		this.mSharedPreferences = mSharedPreferences;
 		this.mSpeechSynthesizer = mSpeechSynthesizer;
-		this.mDataBaseUtil = mDataBaseUtil;
 		this.bundle = bundle;
 		this.from = from;
 	}
@@ -112,7 +110,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		final DialogBean mBean = beans.get(position);
+		final record mBean = beans.get(position);
 		AnimationDrawable animationDrawable = (AnimationDrawable) holder.voice_play.getBackground();
 		MyOnClickListener mMyOnClickListener = new MyOnClickListener(mBean,animationDrawable,holder.voice_play,
 				holder.play_content_btn_progressbar,true);
@@ -130,8 +128,8 @@ public class CollectedListItemAdapter extends BaseAdapter {
 				holder.unread_dot.setVisibility(View.GONE);
 			}
 		}
-		holder.record_question.setText(mBean.getQuestion());
-		holder.record_answer.setText(mBean.getAnswer());
+		holder.record_question.setText(mBean.getChinese());
+		holder.record_answer.setText(mBean.getEnglish());
 		
 		holder.record_question_cover.setOnClickListener(mQuestionOnClickListener);
 		holder.record_answer_cover.setOnClickListener(mMyOnClickListener);
@@ -140,7 +138,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		holder.delete_btn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mDataBaseUtil.dele(mBean.getId());
+				DataBaseUtil.getInstance().dele(mBean);
 				beans.remove(mBean);
 				notifyDataSetChanged();
 				showToast(context.getResources().getString(R.string.dele_success));
@@ -151,7 +149,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		holder.copy_btn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				copy(mBean.getAnswer());
+				copy(mBean.getEnglish());
 				StatService.onEvent(context, "1.6_copybtn", "复制按钮", 1);
 			}
 		});
@@ -207,7 +205,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		ProgressBar play_content_btn_progressbar;
 	}
 	
-	public void notifyDataChange(List<DialogBean> mBeans,int maxNumber){
+	public void notifyDataChange(List<record> mBeans,int maxNumber){
 		if(maxNumber == 0){
 			beans = mBeans;
 		}else{
@@ -230,7 +228,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 	/**
 	 * 分享
 	 */
-	private void sendToWechat(final DialogBean mBean){
+	private void sendToWechat(final record mBean){
 		String[] tempText = new String[2];
 		tempText[0] = context.getResources().getString(R.string.share_dialog_text_1);
 		tempText[1] = context.getResources().getString(R.string.share_dialog_text_2);
@@ -244,7 +242,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 			}
 			@Override
 			public void onFirstClick(View v) {
-				toShareTextActivity(mBean.getAnswer());
+				toShareTextActivity(mBean.getEnglish());
 				StatService.onEvent(context, "1.8_to_share_text_btn", "去文字分享页面按钮", 1);
 			}
 		});
@@ -260,13 +258,13 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		context.startActivity(Intent.createChooser(intent, context.getResources().getString(R.string.share)));    
 	}
 	
-	private void toShareImageActivity(DialogBean mBean){
+	private void toShareImageActivity(record mBean){
 		Intent intent = new Intent(context, ImgShareActivity.class); 
-		intent.putExtra(KeyUtil.ShareContentKey, mBean.getAnswer()+"\n"+mBean.getQuestion());
+		intent.putExtra(KeyUtil.ShareContentKey, mBean.getEnglish()+"\n"+mBean.getChinese());
 		context.startActivity(intent); 
 	}
 	
-	private void updateCollectedStatus(DialogBean mBean){
+	private void updateCollectedStatus(record mBean){
 		if(mBean.getIscollected().equals("0")){
 			mBean.setIscollected("1");
 			showToast(context.getResources().getString(R.string.favorite_success));
@@ -281,7 +279,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		}else{
 			CollectedFragment.isRefresh = true;
 		}
-		mDataBaseUtil.update(mBean);
+		DataBaseUtil.getInstance().update(mBean);
 	}
 	
 	/**
@@ -300,13 +298,13 @@ public class CollectedListItemAdapter extends BaseAdapter {
 
 	public class MyOnClickListener implements OnClickListener {
 		
-		private DialogBean mBean;
+		private record mBean;
 		private ImageButton voice_play;
 		private AnimationDrawable animationDrawable;
 		private ProgressBar play_content_btn_progressbar;
 		private boolean isPlayResult;
 		
-		private MyOnClickListener(DialogBean bean,AnimationDrawable mAnimationDrawable,ImageButton voice_play,
+		private MyOnClickListener(record bean,AnimationDrawable mAnimationDrawable,ImageButton voice_play,
 				ProgressBar progressbar, boolean isPlayResult){
 			this.mBean = bean;
 			this.voice_play = voice_play;
@@ -327,11 +325,11 @@ public class CollectedListItemAdapter extends BaseAdapter {
 			if(isPlayResult){
 				filepath = path + mBean.getResultVoiceId() + ".pcm";
 				mBean.setResultAudioPath(filepath);
-				speakContent = mBean.getAnswer();
+				speakContent = mBean.getEnglish();
 			}else{
 				filepath = path + mBean.getQuestionVoiceId() + ".pcm";
 				mBean.setQuestionAudioPath(filepath);
-				speakContent = mBean.getQuestion();
+				speakContent = mBean.getChinese();
 			}
 			if(mBean.getSpeak_speed() != MainFragment.speed){
 				String filep1 = path + mBean.getResultVoiceId() + ".pcm";
@@ -370,7 +368,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 						if(arg0 != null){
 							ToastUtil.diaplayMesShort(context, arg0.getErrorDescription());
 						}
-						mDataBaseUtil.update(mBean);
+						DataBaseUtil.getInstance().update(mBean);
 						animationDrawable.setOneShot(true);
 						animationDrawable.stop(); 
 						animationDrawable.selectDrawable(0);

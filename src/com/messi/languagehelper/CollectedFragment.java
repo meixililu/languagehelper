@@ -17,12 +17,11 @@ import com.baidu.mobstat.StatService;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.adapter.CollectedListItemAdapter;
-import com.messi.languagehelper.bean.DialogBean;
+import com.messi.languagehelper.dao.record;
 import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
-import com.messi.languagehelper.wxapi.WXEntryActivity;
 
 public class CollectedFragment extends Fragment implements OnClickListener {
 
@@ -30,7 +29,7 @@ public class CollectedFragment extends Fragment implements OnClickListener {
 	private View view;
 	private LayoutInflater mInflater;
 	private CollectedListItemAdapter mAdapter;
-	private List<DialogBean> beans;
+	private List<record> beans;
 
 	// 识别对象
 	private SpeechRecognizer recognizer;
@@ -39,7 +38,6 @@ public class CollectedFragment extends Fragment implements OnClickListener {
 	//合成对象.
 	private SpeechSynthesizer mSpeechSynthesizer;
 
-	private DataBaseUtil mDataBaseUtil;
 	private Bundle bundle;
 	private int maxNumber = 0;
 	
@@ -91,10 +89,9 @@ public class CollectedFragment extends Fragment implements OnClickListener {
 		recent_used_lv = (ListView) view.findViewById(R.id.collected_listview);
 		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity(), null);
 		recognizer = SpeechRecognizer.createRecognizer(getActivity(), null);
-		mDataBaseUtil = new DataBaseUtil(getActivity());
-		beans = mDataBaseUtil.getDataListCollected(0, Settings.offset);
+		beans = DataBaseUtil.getInstance().getDataListCollected(0, Settings.offset);
 		mAdapter = new CollectedListItemAdapter(getActivity(), mInflater, beans, 
-				mSpeechSynthesizer, mSharedPreferences, mDataBaseUtil, bundle, "CollectedFragment");
+				mSpeechSynthesizer, mSharedPreferences, bundle, "CollectedFragment");
 		recent_used_lv.setAdapter(mAdapter);
 		
 //		recent_used_lv.setOnRefreshListener(new OnRefreshListener<ListView>() {
@@ -135,7 +132,7 @@ public class CollectedFragment extends Fragment implements OnClickListener {
 		@Override
 		protected Void doInBackground(Void... params) {
 			try {
-				beans = mDataBaseUtil.getDataListCollected(maxNumber, maxNumber+Settings.offset);
+				beans = DataBaseUtil.getInstance().getDataListCollected(maxNumber, maxNumber+Settings.offset);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -143,7 +140,6 @@ public class CollectedFragment extends Fragment implements OnClickListener {
 		}
 		@Override
 		protected void onPostExecute(Void result) {
-//			recent_used_lv.onRefreshComplete();
 			finishLoadding();
 			mAdapter.notifyDataChange(beans,maxNumber);
 		}

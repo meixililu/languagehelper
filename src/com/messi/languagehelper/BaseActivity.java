@@ -6,11 +6,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 
 import com.baidu.mobstat.StatService;
 import com.messi.languagehelper.observablescrollview.Scrollable;
 import com.messi.languagehelper.util.AudioTrackUtil;
+import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
@@ -90,19 +93,28 @@ public class BaseActivity extends ActionBarActivity {
 	protected boolean toolbarIsHidden() {
         return ViewHelper.getTranslationY(toolbar) == -toolbar.getHeight();
     }
+	
+	protected void hideViews() {
+		ObjectAnimator animY = ObjectAnimator.ofFloat(toolbar, "y", -toolbar.getHeight());
+    	animY.setInterpolator(new AccelerateInterpolator(2));
+    	animY.start();
+    }
+
+	protected void showViews() {
+    	ObjectAnimator animY = ObjectAnimator.ofFloat(toolbar, "y", 0);
+    	animY.setInterpolator(new DecelerateInterpolator(2));
+    	animY.start();
+    }
     
 	protected void showToolbar() {
         moveToolbar(0);
     }
 
 	protected void hideToolbar() {
-        moveToolbar(-toolbar.getHeight());
+		moveToolbar(-toolbar.getHeight());
     }
     
     private void moveToolbar(float toTranslationY) {
-        if (ViewHelper.getTranslationY(toolbar) == toTranslationY) {
-            return;
-        }
         ValueAnimator animator = ValueAnimator.ofFloat(ViewHelper.getTranslationY(toolbar), toTranslationY).setDuration(200);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override

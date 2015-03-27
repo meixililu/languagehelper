@@ -10,8 +10,11 @@
     <string name="title_Practice">口语修炼</string>
     <string name="title_help">使用帮助</string>
     <string name="title_more">更多</string>
-    <string name="title_study">口语学习</string>
-    <string name="title_leisure">休闲专区</string>
+    <string name="title_translate">翻译</string>
+    <string name="title_dictionary">词典</string>
+    <string name="title_study">学习</string>
+    <string name="title_leisure">休闲</string>
+    <string name="title_instagram">图片分享社区</string>
     <string name="title_cailing">酷炫彩铃</string>
     <string name="title_reading">阅读基地</string>
     <string name="title_favorite">我的收藏</string>
@@ -127,12 +130,15 @@
 	<string name="hotel_ad_prompt">专注开房30年! http://api.openspeech.cn/trip/NTBhYTEyMTM=</string>
 	<string name="invite_friends_prompt">哎呦，这个软件不错哦，小伙伴快来！ http://a.app.qq.com/o/simple.jsp?pkgname=com.messi.languagehelper</string>
 	
+	<string name="dailysentence">每日一句</string>
 	<string name="introduction">第一部分</string>
 	<string name="primary_lever">第二部分</string>
 	<string name="intermediate_lever">第三部分</string>
 	<string name="fighting">你不是一个人在战斗！</string>
 	<string name="sorry">很抱歉，我们的速度不够快</string>
 	
+	<string name="instagram_pinsta">发现美好的世界</string>
+	<string name="instagram_subtitle">国外的月亮比较圆有木有</string>
 	<string name="leisuer_one">酷炫彩铃</string>
 	<string name="leisuer_one_subtitle">听听音乐放松一下</string>
 	<string name="leisuer_reading">阅读基地</string>

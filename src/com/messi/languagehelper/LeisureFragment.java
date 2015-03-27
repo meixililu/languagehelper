@@ -25,6 +25,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 
 	private View view;
 	private FrameLayout cailing_layout,app_layout,yuedu_layout,hotal_layout;
+	private FrameLayout instagram_layout;
 	private RelativeLayout ad_layout;
 	private IFLYInterstitialAd mInterstitialAd;
 	public static LeisureFragment mMainFragment;
@@ -46,11 +47,13 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 	
 	private void initViews(){
 		mSharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);
+		instagram_layout = (FrameLayout)view.findViewById(R.id.instagram_layout);
 		cailing_layout = (FrameLayout)view.findViewById(R.id.cailing_layout);
 		yuedu_layout = (FrameLayout)view.findViewById(R.id.yuedu_layout);
 		hotal_layout = (FrameLayout)view.findViewById(R.id.hotal_layout);
 		app_layout = (FrameLayout)view.findViewById(R.id.app_layout);
 		ad_layout = (RelativeLayout)view.findViewById(R.id.ad_layout);
+		instagram_layout.setOnClickListener(this);
 		cailing_layout.setOnClickListener(this);
 		yuedu_layout.setOnClickListener(this);
 		hotal_layout.setOnClickListener(this);
@@ -63,7 +66,6 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 					LogUtil.DefalutLog("LeisureFragment---InterstitialAd---onAdReceive");
 					if(mInterstitialAd != null){
 						mInterstitialAd.showAd();
-						addCloseButton();
 					}
 				}
 				@Override
@@ -82,18 +84,6 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 			ad_layout.setVisibility(View.GONE);
 		}
 		
-	}
-	
-	private void addCloseButton(){
-		ImageView img = new ImageView(getActivity());
-		img.setImageResource(R.drawable.ic_clear_grey600_36dp);
-		img.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				ad_layout.setVisibility(View.GONE);
-			}
-		});
-		ad_layout.addView(img);
 	}
 	
 	private boolean showNewFunction(){
@@ -117,7 +107,17 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 			toHotelActivity();
 		}else if(v.getId() == R.id.app_layout){
 			toAppActivity();
+		}else if(v.getId() == R.id.instagram_layout){
+			toInstagramActivity();
 		}
+	}
+	
+	private void toInstagramActivity(){
+		Intent intent = new Intent(getActivity(),WebViewActivity.class);
+		intent.putExtra(KeyUtil.URL, Settings.InstagramUrl);
+		intent.putExtra(KeyUtil.ActionbarTitle, getActivity().getResources().getString(R.string.title_instagram));
+		getActivity().startActivity(intent);
+		StatService.onEvent(getActivity(), "19_to_cailing_page", "去彩铃页面", 1);
 	}
 	
 	private void toCailingActivity(){

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.baidu.mobstat.StatService;
@@ -30,6 +32,7 @@ public class LoadingActivity extends Activity {
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
+			getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 			setContentView(R.layout.loading_activity);
 			try {
 				mSharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
@@ -55,10 +58,10 @@ public class LoadingActivity extends Activity {
 					fullScreenAd.loadAd(new IFLYAdListener() {
 						@Override
 						public void onAdReceive() {
-							LogUtil.DefalutLog("LoadingActivity---fullScreenAd---onAdReceive");
 							if(fullScreenAd != null){
 								fullScreenAd.showAd();
 							}
+							LogUtil.DefalutLog("LoadingActivity---fullScreenAd---onAdReceive");
 						}
 						@Override
 						public void onAdClose() {

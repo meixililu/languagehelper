@@ -31,6 +31,7 @@
         android:smallScreens="true" />
 
     <application
+        android:name=".BaseApplication"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
@@ -67,8 +68,8 @@
 		</receiver>
 		
 		<activity 
-		    android:name="com.iflytek.voiceads.request.IFLYBrowser" 
-		    android:configChanges="orientation|keyboardHidden|keyboard|screenSize"/>
+		    android:name="com.iflytek.voiceads.request.IFLYBrowser"
+		    android:screenOrientation="portrait"/>
         
         <activity
             android:name=".InvestmentActivity"

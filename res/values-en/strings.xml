@@ -10,6 +10,9 @@
     <string name="title_Practice">Practice</string>
     <string name="title_help">Help</string>
     <string name="title_more">More</string>
+    <string name="title_translate">Translate</string>
+    <string name="title_dictionary">Dictionary</string>
+    <string name="title_instagram">Instagram</string>
     <string name="title_study">Study</string>
     <string name="title_leisure">Recreation</string>
     <string name="title_cailing">Ring</string>
@@ -124,6 +127,7 @@
 	<string name="hotel_ad_prompt">专注开房30年! http://api.openspeech.cn/trip/NTBhYTEyMTM=</string>
 	<string name="invite_friends_prompt">so cool！ http://a.app.qq.com/o/simple.jsp?pkgname=com.messi.languagehelper</string>
 	
+	<string name="dailysentence">Daily Sentence</string>
 	<string name="introduction">Part One</string>
 	<string name="primary_lever">Part Two</string>
 	<string name="intermediate_lever">Part Three</string>

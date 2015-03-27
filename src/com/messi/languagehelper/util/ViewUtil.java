@@ -1,6 +1,7 @@
 package com.messi.languagehelper.util;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -10,6 +11,19 @@ import com.messi.languagehelper.R;
 
 public class ViewUtil {
 
+	public static int getToolbarHeight(Context context) {
+        final TypedArray styledAttributes = context.getTheme().obtainStyledAttributes(
+                new int[]{R.attr.actionBarSize});
+        int toolbarHeight = (int) styledAttributes.getDimension(0, 0);
+        styledAttributes.recycle();
+
+        return toolbarHeight;
+    }
+
+    public static int getTabsHeight(Context context) {
+        return (int) context.getResources().getDimension(R.dimen.tabs_heigh);
+    }
+    
 	public static TextView getImageView(Context mContext, int color, int margin){
 		TextView img = new TextView(mContext);
 		img.setBackgroundColor(mContext.getResources().getColor(color));

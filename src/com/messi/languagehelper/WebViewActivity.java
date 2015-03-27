@@ -221,9 +221,9 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
             if (toolbarIsShown()) {
             	if(mWebView.getScrollY() != 0){
             		hideToolbar();
-            		progressdeterminate.setVisibility(View.GONE);
             	}
             }
+            progressdeterminate.setVisibility(View.GONE);
             LogUtil.DefalutLog("onUpOrCancelMotionEvent-getScrollY:"+mWebView.getScrollY());
             LogUtil.DefalutLog("onUpOrCancelMotionEvent:ScrollState.UP");
         } else if (scrollState == ScrollState.DOWN) {
