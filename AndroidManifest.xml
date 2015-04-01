@@ -70,65 +70,55 @@
 		<activity 
 		    android:name="com.iflytek.voiceads.request.IFLYBrowser"
 		    android:screenOrientation="portrait"/>
-        
         <activity
             android:name=".InvestmentActivity"
-            android:screenOrientation="portrait"
-            >
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".StudyActivity"
             android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"
-            >
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".GetContentActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".RecommendActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".StudyListActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity android:uiOptions="splitActionBarWhenNarrow"
             android:name=".WebViewActivity"
-            
             android:screenOrientation="portrait">
             <meta-data android:name="android.support.UI_OPTIONS"
                    android:value="splitActionBarWhenNarrow" />
         </activity>
         <activity
             android:name=".GetFansActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".EnglishWebsiteRecommendActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".DailySentenceActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".CollectedActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".AboutActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SettingActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".HelpActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".PracticeActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ImgShareActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity 
             android:name=".wxapi.WXEntryActivity" 
             android:exported="true"

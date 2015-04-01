@@ -27,12 +27,18 @@ public class ADUtil {
 	 * @param mActivity
 	 * @param view
 	 */
-	public static void initBannerAD(Activity mActivity,LinearLayout view){
+	public static IFLYBannerAd initBannerAD(Activity mActivity,LinearLayout view){
 		//创建IFLYBannerAdView对象 
 		final IFLYBannerAd bannerAd = IFLYBannerAd.createBannerAd(mActivity,BannerADId); 
 		bannerAd.setAdSize(IFLYAdSize.BANNER); 
-		view.addView(bannerAd); 
+		try {
+			view.removeAllViews();
+			view.addView(bannerAd);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
 		//添加监听器 
+		return bannerAd;
 	}
 	
 	/**
@@ -44,8 +50,13 @@ public class ADUtil {
 		//创建IFLYBannerAdView对象 
 		final IFLYInterstitialAd interstitialAd = IFLYInterstitialAd.createInterstitialAd(mActivity,ChaPingADId);
 		//设置需要请求的广告大小 
-		interstitialAd.setAdSize(IFLYAdSize.INTERSTITIAL); 
-		view.addView(interstitialAd);
+		interstitialAd.setAdSize(IFLYAdSize.INTERSTITIAL);
+		try {
+			view.removeAllViews();
+			view.addView(interstitialAd);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return interstitialAd;
 	}
 	
@@ -59,7 +70,12 @@ public class ADUtil {
 		final IFLYFullScreenAd fullScreenAd = IFLYFullScreenAd.createFullScreenAd(mActivity,QuanPingADId);
 		fullScreenAd.setAdSize(IFLYAdSize.FULLSCREEN);
 		fullScreenAd.setParameter(AdKeys.SHOW_TIME_FULLSCREEN, "3000");
-		view.addView(fullScreenAd); 
+		try {
+			view.removeAllViews();
+			view.addView(fullScreenAd);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
 		return fullScreenAd;
 	}
 

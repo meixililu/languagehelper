@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/contentbg"
+    android:orientation="vertical" >
+
+    <android.support.v7.widget.Toolbar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/my_awesome_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/contentbg"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/padding_7" >
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="@dimen/padding_7"
+                android:layout_marginRight="@dimen/padding_7"
+                android:background="@color/white"
+                android:foreground="@drawable/framelayout_selector"
+                android:orientation="vertical" >
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:text="@string/website_attention"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/middle" />
+            </FrameLayout>
+            
+            <FrameLayout
+                android:id="@+id/english_website_layout1"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:layout_marginLeft="@dimen/padding_7"
+                android:layout_marginRight="@dimen/padding_7"
+                android:layout_marginTop="@dimen/padding_7"
+                android:background="@color/white"
+                android:foreground="@drawable/framelayout_selector"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:shadowColor="@color/text_black"
+                        android:shadowDx="0.3"
+                        android:shadowDy="0.3"
+                        android:shadowRadius="0.3"
+                        android:text="@string/instagram_pinsta"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/bigger" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/instagram_subtitle"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/small" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/english_website_layout2"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:layout_marginLeft="@dimen/padding_7"
+                android:layout_marginRight="@dimen/padding_7"
+                android:layout_marginTop="@dimen/padding_7"
+                android:background="@color/white"
+                android:foreground="@drawable/framelayout_selector"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:shadowColor="@color/text_black"
+                        android:shadowDx="0.3"
+                        android:shadowDy="0.3"
+                        android:shadowRadius="0.3"
+                        android:text="@string/website_msnbc"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/bigger" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/website_msnbc_subtitle"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/small" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/english_website_layout3"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:layout_marginLeft="@dimen/padding_7"
+                android:layout_marginRight="@dimen/padding_7"
+                android:layout_marginTop="@dimen/padding_7"
+                android:background="@color/white"
+                android:foreground="@drawable/framelayout_selector"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:shadowColor="@color/text_black"
+                        android:shadowDx="0.3"
+                        android:shadowDy="0.3"
+                        android:shadowRadius="0.3"
+                        android:text="@string/website_bbc_news"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/bigger" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/website_bbc_news_subtitle"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/small" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/english_website_layout4"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:layout_marginLeft="@dimen/padding_7"
+                android:layout_marginRight="@dimen/padding_7"
+                android:layout_marginTop="@dimen/padding_7"
+                android:background="@color/white"
+                android:foreground="@drawable/framelayout_selector"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:shadowColor="@color/text_black"
+                        android:shadowDx="0.3"
+                        android:shadowDy="0.3"
+                        android:shadowRadius="0.3"
+                        android:text="@string/website_bbc_learning"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/bigger" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/website_bbc_learning_subtitle"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/small" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/english_website_layout5"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:layout_marginLeft="@dimen/padding_7"
+                android:layout_marginRight="@dimen/padding_7"
+                android:layout_marginTop="@dimen/padding_7"
+                android:background="@color/white"
+                android:foreground="@drawable/framelayout_selector"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:shadowColor="@color/text_black"
+                        android:shadowDx="0.3"
+                        android:shadowDy="0.3"
+                        android:shadowRadius="0.3"
+                        android:text="@string/website_engadget"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/bigger" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/website_engadget_subtitle"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/small" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/english_website_layout6"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:layout_marginLeft="@dimen/padding_7"
+                android:layout_marginRight="@dimen/padding_7"
+                android:layout_marginTop="@dimen/padding_7"
+                android:background="@color/white"
+                android:foreground="@drawable/framelayout_selector"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:shadowColor="@color/text_black"
+                        android:shadowDx="0.3"
+                        android:shadowDy="0.3"
+                        android:shadowRadius="0.3"
+                        android:text="@string/website_phonedog"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/bigger" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/website_phonedog_subtitle"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/small" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/english_website_layout7"
+                android:layout_width="fill_parent"
+                android:layout_height="75dp"
+                android:layout_marginBottom="@dimen/padding_7"
+                android:layout_marginLeft="@dimen/padding_7"
+                android:layout_marginRight="@dimen/padding_7"
+                android:layout_marginTop="@dimen/padding_7"
+                android:background="@color/white"
+                android:foreground="@drawable/framelayout_selector"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:shadowColor="@color/text_black"
+                        android:shadowDx="0.3"
+                        android:shadowDy="0.3"
+                        android:shadowRadius="0.3"
+                        android:text="@string/website_tobecontinue"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/bigger" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/website_tobecontinue_subtitle"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/small" />
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

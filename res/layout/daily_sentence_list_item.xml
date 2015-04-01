@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/daily_sentence_list_item_cover"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:foreground="@drawable/framelayout_selector" >
+
+    <LinearLayout
+        android:id="@+id/daily_sentence_list_item_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/daily_sentence_list_item_middle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/none"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/english_txt"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/padding_7"
+            android:layout_marginLeft="@dimen/padding_10"
+            android:layout_marginRight="@dimen/padding_10"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/bigest" />
+
+        <TextView
+            android:id="@+id/chinese_txt"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/padding_5"
+            android:layout_marginLeft="@dimen/padding_10"
+            android:layout_marginRight="@dimen/padding_10"
+            android:layout_marginBottom="@dimen/padding_10"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/big" />
+    </LinearLayout>
+
+</FrameLayout>

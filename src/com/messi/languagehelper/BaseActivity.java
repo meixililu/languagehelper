@@ -1,18 +1,21 @@
 package com.messi.languagehelper;
 
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 
 import com.baidu.mobstat.StatService;
-import com.messi.languagehelper.observablescrollview.Scrollable;
 import com.messi.languagehelper.util.AudioTrackUtil;
+import com.messi.languagehelper.util.ScreenUtil;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
@@ -25,6 +28,16 @@ public class BaseActivity extends ActionBarActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		TransparentStatusbar();
+	}
+	
+	protected void TransparentStatusbar(){
+		if(VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
+            //透明状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+		}
 	}
 	
 	@Override
@@ -39,6 +52,9 @@ public class BaseActivity extends ActionBarActivity {
             if (toolbar != null) {
                 setSupportActionBar(toolbar);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            }
+            if(VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
+            	toolbar.setPadding(0, ScreenUtil.dip2px(this, 5), 0, 0);
             }
         }
         return toolbar;

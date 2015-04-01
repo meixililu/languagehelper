@@ -27,7 +27,6 @@ import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.messi.languagehelper.adapter.PracticePageListItemAdapter;
 import com.messi.languagehelper.bean.UserSpeakBean;
-import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.impl.PracticeProgressListener;
 import com.messi.languagehelper.task.PublicTask;
 import com.messi.languagehelper.task.PublicTask.PublicTaskListener;

@@ -115,7 +115,7 @@
     <color name="style3_color4">#cb8552</color>
     <color name="style3_color5">#b83d4f</color>
     
-    <color name="style6_color1">#b5ef9b</color>
+    <color name="style6_color1">#70CBA6</color>
     <color name="style6_color2">#76b351</color>
     <color name="style6_color3">#b2dcf5</color>
     <color name="style6_color4">#ffb9ad</color>
@@ -130,4 +130,6 @@
     <color name="style5_color2">#a8e2c6</color>
     <color name="style5_color3">#ecdca7</color>
     <color name="style5_color4">#f69d8c</color>
+    <color name="style5_color5">#F4A5CE</color>
+    <color name="style5_color6">#8AB1F6</color>
 </resources>

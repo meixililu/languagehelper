@@ -18,7 +18,6 @@ import android.view.View.MeasureSpec;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.baidu.mobstat.StatService;
 import com.gc.materialdesign.views.ButtonRectangle;

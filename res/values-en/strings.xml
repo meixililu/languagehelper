@@ -128,10 +128,12 @@
 	<string name="invite_friends_prompt">so cool！ http://a.app.qq.com/o/simple.jsp?pkgname=com.messi.languagehelper</string>
 	
 	<string name="dailysentence">Daily Sentence</string>
+	<string name="spokenEnglishTest">Test</string>
+	<string name="simulation_dialogue">Dialogue</string>
 	<string name="introduction">Part One</string>
 	<string name="primary_lever">Part Two</string>
 	<string name="intermediate_lever">Part Three</string>
-	<string name="fighting">You are not a person in battle</string>
+	<string name="fighting">To All User</string>
 	<string name="sorry">We Are Sorry</string>
 	
 	<string name="leisuer_one">Ringback Music</string>

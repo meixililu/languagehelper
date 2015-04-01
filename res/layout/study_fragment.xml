@@ -1,134 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" 
-    android:orientation="vertical"
-    android:background="@color/contentbg"
-    android:padding="@dimen/padding_margin"
-    android:weightSum="10"
-    >
+    android:layout_height="fill_parent"
+    android:fillViewport="true" >
 
-    <FrameLayout 
-        android:id="@+id/study_part1"
+    <LinearLayout
         android:layout_width="fill_parent"
-	    android:layout_height="0dp"
-	    android:layout_weight="3" 
-	    android:orientation="vertical"
-	    android:background="@color/style5_color1"
-	   	android:foreground="@drawable/framelayout_selector"
-        >
-        <TextView 
-            android:id="@+id/dailysentence_txt"
-            android:layout_width="fill_parent"
-	    	android:layout_height="fill_parent"
-	    	android:gravity="left|center_vertical"
-	    	android:text="@string/dailysentence"
-	    	android:textColor="@color/white"
-	    	android:shadowDx="0.4"
-	        android:shadowDy="0.4"
-	        android:shadowRadius="0.4"
-	        android:shadowColor="@color/white"
-	    	android:textSize="@dimen/biggerx"
-	    	android:layout_marginTop="@dimen/padding_20"
-	    	android:layout_marginBottom="@dimen/padding_20"
-	    	android:layout_marginLeft="@dimen/padding_10"
-	    	android:layout_marginRight="@dimen/padding_10"
-            />
-        <TextView 
-            android:layout_width="fill_parent"
-	    	android:layout_height="wrap_content"
-	    	android:gravity="right"
-	    	android:layout_gravity="bottom"
-	    	android:text="@string/dailysentence"
-	    	android:textColor="@color/white"
-	    	android:textSize="@dimen/small"
-	    	android:background="@color/style5_color1"
-	    	android:layout_margin="@dimen/padding_5"
-            />
-        <ImageView 
-		        android:id="@+id/unread_dot"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_gravity="right|top"
-		        android:src="@drawable/unread_dot"
-		        android:layout_marginTop="5dp"
-		        android:layout_marginRight="5dp"
-		        android:visibility="gone"
-		        />
-    </FrameLayout>
-    <FrameLayout 
-        android:id="@+id/study_part2"
-        android:layout_width="fill_parent"
-	    android:layout_height="0dp"
-	    android:layout_weight="2.5" 
-	    android:orientation="vertical"
-	    android:layout_marginTop="@dimen/padding_margin"
-	   	android:foreground="@drawable/framelayout_selector"
-        >
-        <TextView 
-            android:layout_width="fill_parent"
-	    	android:layout_height="fill_parent"
-	    	android:gravity="center"
-	    	android:text="@string/primary_lever"
-	    	android:textColor="@color/white"
-	    	android:shadowDx="0.4"
-	        android:shadowDy="0.4"
-	        android:shadowRadius="0.4"
-	        android:shadowColor="@color/white"
-	    	android:textSize="@dimen/bigger"
-	    	android:background="@color/style5_color2"
-            />
-        
-    </FrameLayout>
-    <FrameLayout 
-        android:id="@+id/study_part3"
-        android:layout_width="fill_parent"
-	    android:layout_height="0dp"
-	    android:layout_weight="2.5" 
-	    android:orientation="vertical"
-	    android:layout_marginTop="@dimen/padding_margin"
-	   	android:foreground="@drawable/framelayout_selector"
-        >
-        <TextView 
-            android:layout_width="fill_parent"
-	    	android:layout_height="fill_parent"
-	    	android:gravity="center"
-	    	android:text="@string/intermediate_lever"
-	    	android:textColor="@color/white"
-	    	android:shadowDx="0.4"
-	        android:shadowDy="0.4"
-	        android:shadowRadius="0.4"
-	        android:shadowColor="@color/white"
-	    	android:textSize="@dimen/bigger"
-	    	android:background="@color/style5_color3"
-            />
-        
-    </FrameLayout>
-    
-    <FrameLayout 
-        android:id="@+id/study_part4"
-        android:layout_width="fill_parent"
-	    android:layout_height="0dp"
-	    android:layout_weight="2" 
-	    android:orientation="vertical"
-	    android:layout_marginTop="@dimen/padding_margin"
-	   	android:foreground="@drawable/framelayout_selector"
-        >
-        <TextView 
-            android:layout_width="fill_parent"
-	    	android:layout_height="fill_parent"
-	    	android:gravity="center"
-	    	android:text="@string/fighting"
-	    	android:textColor="@color/white"
-	    	android:shadowDx="0.4"
-	        android:shadowDy="0.4"
-	        android:shadowRadius="0.4"
-	        android:shadowColor="@color/white"
-	    	android:textSize="@dimen/middle"
-	    	android:background="@color/style5_color4"
-            />
-        
-    </FrameLayout>
+        android:layout_height="fill_parent"
+        android:background="@color/contentbg"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_7"
+        android:weightSum="10" >
 
-</LinearLayout>
+        <FrameLayout
+            android:id="@+id/study_part1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/style5_color5"
+            android:foreground="@drawable/framelayout_selector"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/dailysentence_txt"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="@dimen/padding_20"
+                android:layout_marginLeft="@dimen/padding_10"
+                android:layout_marginRight="@dimen/padding_10"
+                android:layout_marginTop="@dimen/padding_20"
+                android:gravity="left|center_vertical"
+                android:shadowColor="@color/white"
+                android:shadowDx="0.4"
+                android:shadowDy="0.4"
+                android:shadowRadius="0.4"
+                android:text="@string/dailysentence"
+                android:textColor="@color/white"
+                android:textSize="@dimen/biggerx" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_margin="@dimen/padding_5"
+                android:gravity="right"
+                android:text="@string/dailysentence"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small" />
+
+            <ImageView
+                android:id="@+id/unread_dot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|top"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/unread_dot"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/study_part2"
+            android:layout_width="fill_parent"
+            android:layout_height="90dp"
+            android:layout_marginTop="@dimen/padding_7"
+            android:foreground="@drawable/framelayout_selector"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/style5_color2"
+                android:gravity="center"
+                android:shadowColor="@color/white"
+                android:shadowDx="0.4"
+                android:shadowDy="0.4"
+                android:shadowRadius="0.4"
+                android:text="@string/title_Practice"
+                android:textColor="@color/white"
+                android:textSize="@dimen/bigger" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/study_part4"
+            android:layout_width="fill_parent"
+            android:layout_height="90dp"
+            android:layout_marginTop="@dimen/padding_7"
+            android:foreground="@drawable/framelayout_selector"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/style5_color1"
+                android:gravity="center"
+                android:shadowColor="@color/white"
+                android:shadowDx="0.4"
+                android:shadowDy="0.4"
+                android:shadowRadius="0.4"
+                android:text="@string/simulation_dialogue"
+                android:textColor="@color/white"
+                android:textSize="@dimen/bigger" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/study_part3"
+            android:layout_width="fill_parent"
+            android:layout_height="90dp"
+            android:layout_marginTop="@dimen/padding_7"
+            android:foreground="@drawable/framelayout_selector"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/style5_color3"
+                android:gravity="center"
+                android:shadowColor="@color/white"
+                android:shadowDx="0.4"
+                android:shadowDy="0.4"
+                android:shadowRadius="0.4"
+                android:text="@string/spokenEnglishTest"
+                android:textColor="@color/white"
+                android:textSize="@dimen/bigger" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/study_part5"
+            android:layout_width="fill_parent"
+            android:layout_height="90dp"
+            android:layout_marginTop="@dimen/padding_7"
+            android:foreground="@drawable/framelayout_selector"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/style5_color4"
+                android:gravity="center"
+                android:shadowColor="@color/white"
+                android:shadowDx="0.4"
+                android:shadowDy="0.4"
+                android:shadowRadius="0.4"
+                android:text="@string/fighting"
+                android:textColor="@color/white"
+                android:textSize="@dimen/bigger" />
+        </FrameLayout>
+        
+        <LinearLayout
+            android:id="@+id/study_ad_view"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_7"
+            android:background="@color/none"
+            android:orientation="vertical" >
+
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

@@ -14,13 +14,18 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baidu.mobstat.StatService;
+import com.iflytek.voiceads.AdError;
+import com.iflytek.voiceads.IFLYAdListener;
+import com.iflytek.voiceads.IFLYBannerAd;
 import com.messi.languagehelper.dao.EveryDaySentence;
 import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.http.JsonHttpResponseHandler;
 import com.messi.languagehelper.http.LanguagehelperHttpClient;
+import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.JsonParser;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
@@ -34,6 +39,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	private FrameLayout study_part1,study_part2,study_part3,study_part4;
 	private TextView dailysentence_txt;
 	private ImageView unread_dot;
+	private LinearLayout study_ad_view;
 	public static StudyFragment mMainFragment;
 	
 	public static final String PartOne = "part_one";
@@ -41,6 +47,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	public static final String PartThree = "part_three";
 	
 	private EveryDaySentence mEveryDaySentence;
+	private IFLYBannerAd mIFLYBannerAd;
 	
 	public static StudyFragment getInstance(){
 		if(mMainFragment == null){
@@ -63,6 +70,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		study_part2 = (FrameLayout)view.findViewById(R.id.study_part2);
 		study_part3 = (FrameLayout)view.findViewById(R.id.study_part3);
 		study_part4 = (FrameLayout)view.findViewById(R.id.study_part4);
+		study_ad_view = (LinearLayout)view.findViewById(R.id.study_ad_view);
 		dailysentence_txt = (TextView)view.findViewById(R.id.dailysentence_txt);
 		unread_dot = (ImageView)view.findViewById(R.id.unread_dot);
 		study_part1.setOnClickListener(this);
@@ -70,6 +78,24 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		study_part3.setOnClickListener(this);
 		study_part4.setOnClickListener(this);
 		dailysentence_txt.setOnClickListener(this);
+		mIFLYBannerAd = ADUtil.initBannerAD(getActivity(), study_ad_view);
+		mIFLYBannerAd.loadAd(new IFLYAdListener() {
+			@Override
+			public void onAdReceive() {
+				if(mIFLYBannerAd != null){
+					mIFLYBannerAd.showAd();
+				}
+			}
+			@Override
+			public void onAdFailed(AdError arg0) {
+			}
+			@Override
+			public void onAdClose() {
+			}
+			@Override
+			public void onAdClick() {
+			}
+		});
 	}
 	
 	private void getDailySentence(){
@@ -151,7 +177,8 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	}
 	
 	private void toDailySentenceActivity(){
-		toStudyListActivity(PartOne);
+		Intent intent = new Intent(getActivity(),DailySentenceActivity.class);
+		startActivity(intent);
 		unread_dot.setVisibility(View.GONE);
 		StatService.onEvent(getActivity(), "19_studylist_part1", "口语练习第1部分", 1);
 	}

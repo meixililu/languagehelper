@@ -6,15 +6,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
-import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewTreeObserver;
-import android.view.animation.AccelerateInterpolator;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -29,7 +26,6 @@ import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.ShareUtil;
-import com.nineoldandroids.animation.ObjectAnimator;
 
 
 public class WebViewActivity extends BaseActivity implements ObservableScrollViewCallbacks{
@@ -182,6 +178,18 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 			}else if(Url.equals(Settings.HotalUrl)){
 				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.hotel_ad_prompt));
 				StatService.onEvent(this, "20_menu_to_share_hotel_link", "分享订酒店链接", 1);
+			}else if(Url.equals(Settings.InstagramUrl)){
+				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.instagram_pinsta));
+			}else if(Url.equals(Settings.MsnbcUrl)){
+				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.website_msnbc));
+			}else if(Url.equals(Settings.BbcNewsUrl)){
+				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.website_bbc_news));
+			}else if(Url.equals(Settings.BbcLearningenglishUrl)){
+				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.website_bbc_learning));
+			}else if(Url.equals(Settings.EngadgetUrl)){
+				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.website_engadget));
+			}else if(Url.equals(Settings.PhonedogUrl)){
+				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.website_phonedog));
 			}
 			break;
 		}

@@ -13,20 +13,28 @@ public class Settings {
 
 	/**baidu translate api**/
 	public static String baiduTranslateUrl = "http://openapi.baidu.com/public/2.0/bmt/translate";
+	
 	/**baidu dictionary api**/
 	public static String baiduDictionaryUrl = "http://openapi.baidu.com/public/2.0/translate/dict/simple";
+	
 	/**jinshan daily sentence api**/
 	public static String DailySentenceUrl = "http://open.iciba.com/dsapi/";
 	
-	public static final String client_id = "vCV6TTGRTI5QrckdYSKHQIhq";	
-	public static String from = "auto";	
-	public static String to = "auto";	
-	public static String q = "";	
-	public static String role = "vimary";	
-	
-	public static final int offset = 100;
-	
+	/**foreign website url**/
 	public static final String InstagramUrl = "http://pinsta.me/";
+	
+	public static final String MsnbcUrl = "http://www.msnbc.com/";
+	
+	public static final String BbcNewsUrl = "http://www.bbc.com/news";
+	
+	public static final String BbcLearningenglishUrl = "http://www.bbc.co.uk/learningenglish/";
+	
+	public static final String EngadgetUrl = "http://www.engadget.com/";
+	
+	public static final String PhonedogUrl = "http://www.phonedog.com/";
+	
+	public static final String PinterestUrl = "https://www.pinterest.com/";
+	/**foreign website url**/
 	
 	public static final String CaiLingUrl = "http://api.openspeech.cn/kyls/NTBhYTEyMTM=";
 	
@@ -35,6 +43,13 @@ public class Settings {
 	public static final String HotalUrl = "http://api.openspeech.cn/trip/NTBhYTEyMTM=";
 
 	public static final String Email = "meixililulu@163.com";
+	
+	public static final String client_id = "vCV6TTGRTI5QrckdYSKHQIhq";	
+	public static String from = "auto";	
+	public static String to = "auto";	
+	public static String q = "";	
+	public static String role = "vimary";	
+	public static final int offset = 100;
 	
 	/**is today already do something
 	 * @param mSharedPreferences

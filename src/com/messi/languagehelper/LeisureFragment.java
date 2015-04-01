@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.baidu.mobstat.StatService;
@@ -23,6 +23,8 @@ import com.messi.languagehelper.util.Settings;
 
 public class LeisureFragment extends BaseFragment implements OnClickListener {
 
+	public static final long IntervalTime = 1000 * 20;
+	
 	private View view;
 	private FrameLayout cailing_layout,app_layout,yuedu_layout,hotal_layout;
 	private FrameLayout instagram_layout;
@@ -30,6 +32,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 	private IFLYInterstitialAd mInterstitialAd;
 	public static LeisureFragment mMainFragment;
 	private SharedPreferences mSharedPreferences;
+	private Handler mHandler;
 	
 	public static LeisureFragment getInstance(){
 		if(mMainFragment == null){
@@ -58,33 +61,47 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		yuedu_layout.setOnClickListener(this);
 		hotal_layout.setOnClickListener(this);
 		app_layout.setOnClickListener(this);
+		mInterstitialAd = ADUtil.initChaPingAD(getActivity(), ad_layout);
+		mHandler = new Handler();
+		showAD();
+	}
+	
+	private void showAD(){
 		if(showNewFunction()){
-			mInterstitialAd = ADUtil.initChaPingAD(getActivity(), ad_layout);
-			mInterstitialAd.loadAd(new IFLYAdListener() {
-				@Override
-				public void onAdReceive() {
-					LogUtil.DefalutLog("LeisureFragment---InterstitialAd---onAdReceive");
-					if(mInterstitialAd != null){
-						mInterstitialAd.showAd();
-					}
-				}
-				@Override
-				public void onAdClose() {
-					ad_layout.removeAllViews();
-				}
-				@Override
-				public void onAdClick() {
-				}
-				@Override
-				public void onAdFailed(AdError arg0) {
-					LogUtil.DefalutLog("LeisureFragment---onAdFailed:"+arg0.getErrorCode()+"---"+arg0.getErrorDescription());
-				}
-			});
+			mInterstitialAd.loadAd(mIFLYAdListener);
 		}else{
 			ad_layout.setVisibility(View.GONE);
 		}
-		
 	}
+	
+	private Runnable mRunnable = new Runnable() {
+		@Override
+		public void run() {
+			showAD();
+		}
+	};
+	
+	private IFLYAdListener mIFLYAdListener = new IFLYAdListener() {
+		@Override
+		public void onAdReceive() {
+			LogUtil.DefalutLog("LeisureFragment---InterstitialAd---onAdReceive");
+			if(mInterstitialAd != null){
+				mInterstitialAd.showAd();
+				mHandler.postDelayed(mRunnable,IntervalTime);
+			}
+		}
+		@Override
+		public void onAdClose() {
+			ad_layout.removeAllViews();
+		}
+		@Override
+		public void onAdClick() {
+		}
+		@Override
+		public void onAdFailed(AdError arg0) {
+			LogUtil.DefalutLog("LeisureFragment---onAdFailed:"+arg0.getErrorCode()+"---"+arg0.getErrorDescription());
+		}
+	};
 	
 	private boolean showNewFunction(){
 		int IsCanShowAD_Leisure = mSharedPreferences.getInt(KeyUtil.IsCanShowAD_Leisure, 0);
@@ -108,14 +125,12 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		}else if(v.getId() == R.id.app_layout){
 			toAppActivity();
 		}else if(v.getId() == R.id.instagram_layout){
-			toInstagramActivity();
+			toEnglishWebsiteRecommendActivity();
 		}
 	}
 	
-	private void toInstagramActivity(){
-		Intent intent = new Intent(getActivity(),WebViewActivity.class);
-		intent.putExtra(KeyUtil.URL, Settings.InstagramUrl);
-		intent.putExtra(KeyUtil.ActionbarTitle, getActivity().getResources().getString(R.string.title_instagram));
+	private void toEnglishWebsiteRecommendActivity(){
+		Intent intent = new Intent(getActivity(),EnglishWebsiteRecommendActivity.class);
 		getActivity().startActivity(intent);
 		StatService.onEvent(getActivity(), "19_to_cailing_page", "去彩铃页面", 1);
 	}
@@ -154,7 +169,12 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		ad_layout.removeAllViews();
+		if(ad_layout != null){
+			ad_layout.removeAllViews();
+		}
+		if(mHandler != null){
+			mHandler.removeCallbacks(mRunnable);
+		}
 		if(mInterstitialAd != null){
 			mInterstitialAd = null;
 		}
