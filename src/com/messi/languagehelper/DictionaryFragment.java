@@ -34,7 +34,7 @@ import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
-import com.messi.languagehelper.adapter.CollectedListItemAdapter;
+import com.messi.languagehelper.adapter.DictionaryListViewAdapter;
 import com.messi.languagehelper.dao.Dictionary;
 import com.messi.languagehelper.dao.record;
 import com.messi.languagehelper.db.DataBaseUtil;
@@ -62,11 +62,10 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 	/**record**/
 	private LinearLayout record_layout;
 	private ImageView record_anim_img;
-	private record currentDialogBean;
 	
 	private LayoutInflater mInflater;
-	private CollectedListItemAdapter mAdapter;
-	private List<record> beans;
+	private DictionaryListViewAdapter mAdapter;
+	private List<Dictionary> beans;
 	private Animation fade_in,fade_out;
 	
 	private Dictionary mDictionaryBean;
@@ -119,28 +118,14 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		return view;
 	}
 
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		if(mSpeechSynthesizer != null){
-			mSpeechSynthesizer.destroy();
-			mSpeechSynthesizer = null;
-		}
-		if(recognizer != null){
-			recognizer.destroy();
-			recognizer = null;
-		}
-		LogUtil.DefalutLog("MainFragment-onDestroy");
-	}
-
 	private void init() {
 		mInflater = LayoutInflater.from(getActivity());
 		mSharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Activity.MODE_PRIVATE);
 		
 		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(getActivity(), null);
 		recognizer = SpeechRecognizer.createRecognizer(getActivity(), null);
-		beans = DataBaseUtil.getInstance().getDataListRecord(0, Settings.offset);
-		mAdapter = new CollectedListItemAdapter(getActivity(), mInflater, beans, 
+		beans = DataBaseUtil.getInstance().getDataListDictionary(0, Settings.offset);
+		mAdapter = new DictionaryListViewAdapter(getActivity(), mInflater, beans, 
 				mSpeechSynthesizer, mSharedPreferences, bundle, "MainFragment");
 		
 		recent_used_lv = (ListView) view.findViewById(R.id.recent_used_lv);
@@ -286,7 +271,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		@Override
 		protected Void doInBackground(Void... params) {
 			try {
-				beans = DataBaseUtil.getInstance().getDataListRecord(0, Settings.offset);
+				beans = DataBaseUtil.getInstance().getDataListDictionary(0, Settings.offset);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -337,25 +322,15 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 					
 					if(mDictionaryBean != null){
 						DataBaseUtil.getInstance().insert(mDictionaryBean);
+						beans.add(0,mDictionaryBean);
+						mAdapter.notifyDataSetChanged();
+						recent_used_lv.setSelection(0);
 						LogUtil.DefalutLog("Dictionary---------count:" + DataBaseUtil.getInstance().getDictionaryCount());
-						List<Dictionary> mDictionaryList = DataBaseUtil.getInstance().getDataListDictionary(0, 100);
-						for(Dictionary bean : mDictionaryList){
-							LogUtil.DefalutLog("Dictionary---------value:" + bean.toString());
-						}
 					}
 					
-//					if (dstString.contains("error_msg:")) {
-//						showToast(dstString);
-//					} else {
-//						currentDialogBean = new DialogBean(dstString, Settings.q);
-//						long newRowId = mDataBaseUtil.insert(currentDialogBean);
-//						beans.add(0,currentDialogBean);
-//						mAdapter.notifyDataSetChanged();
-//						recent_used_lv.setSelection(0);
 //						if(mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false)){
 //							new AutoPlayWaitTask().execute();
 //						}
-//						LogUtil.DefalutLog("mDataBaseUtil:"+currentDialogBean.toString());
 //					}
 				} else {
 					showToast(getActivity().getResources().getString(R.string.network_error));
@@ -530,4 +505,17 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		}
 	}
 	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		if(mSpeechSynthesizer != null){
+			mSpeechSynthesizer.destroy();
+			mSpeechSynthesizer = null;
+		}
+		if(recognizer != null){
+			recognizer.destroy();
+			recognizer = null;
+		}
+		LogUtil.DefalutLog("MainFragment-onDestroy");
+	}
 }
