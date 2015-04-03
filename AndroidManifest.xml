@@ -17,7 +17,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 	<uses-permission android:name="android.permission.WRITE_SETTINGS"/>
 	<uses-permission android:name="android.permission.GET_TASKS" />
-	<uses-permission android:name="com.xiaomi.market.sdk.UPDATE" />
 
     <uses-sdk android:minSdkVersion="7"
         android:targetSdkVersion="14"
@@ -61,11 +60,18 @@
 		
 		<meta-data android:name="IFLYTEK_CHANNEL" android:value="messi"/>
 		
-		<receiver android:name="com.xiaomi.market.sdk.DownloadCompleteReceiver" >
-			<intent-filter>
-				<action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
-			</intent-filter>
-		</receiver>
+		<!-- 友盟 -->
+		<meta-data android:value="551e3853fd98c5403800122c" android:name="UMENG_APPKEY"/>
+		<meta-data android:value="messi" android:name="UMENG_CHANNEL"/>
+		<service
+		    android:name="com.umeng.update.net.DownloadingService"
+		    android:process=":DownloadingService" >
+		</service>
+		<activity 
+		    android:name="com.umeng.update.UpdateDialogActivity"
+		    android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+		</activity>
+		<!-- 友盟 -->
 		
 		<activity 
 		    android:name="com.iflytek.voiceads.request.IFLYBrowser"
@@ -82,6 +88,9 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".RecommendActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ViewImageActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".StudyListActivity"

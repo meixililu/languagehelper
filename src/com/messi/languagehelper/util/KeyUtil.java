@@ -61,6 +61,7 @@ public class KeyUtil {
 	
 	public static String LastTimeSelectTab = "LastTimeSelectTab";
 	
+	public static String DailySentenceBigImgUrl = "DailySentenceBigImgUrl";
 	
 	
 	

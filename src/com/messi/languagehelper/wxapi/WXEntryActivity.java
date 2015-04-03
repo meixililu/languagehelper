@@ -41,7 +41,7 @@ import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.views.PagerSlidingTabStrip;
-import com.xiaomi.market.sdk.XiaomiUpdateAgent;
+import com.umeng.update.UmengUpdateAgent;
 
 public class WXEntryActivity extends BaseActivity implements OnClickListener,FragmentProgressbarListener {
 	
@@ -76,11 +76,12 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 	}
 	
 	private void checkUpdate(){
-		XiaomiUpdateAgent.update(this);
+		UmengUpdateAgent.setUpdateOnlyWifi(false);
+//		UmengUpdateAgent.setSlotId("");
+		UmengUpdateAgent.update(this);
 	}
 	
 	private void initDatas(){
-//		setMiddleVolume();
 		bundle = getIntent().getExtras();
 		SpeechUtility.createUtility(this, SpeechConstant.APPID + "=" +getString(R.string.app_id));
 	}

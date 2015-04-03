@@ -4,8 +4,10 @@
 
 	<color name="none">#00000000</color>
 	<color name="none_thin">#aa000000</color>
+	<color name="none_alpha">#77000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="white_alph">#aaFFFFFF</color>
+    <color name="white_alph_dark">#ddFFFFFF</color>
+    <color name="white_alph">#99FFFFFF</color>
     <color name="black">#FF000000</color>
     <color name="red">#FFDE0000</color>
     <color name="dullred">#bc4c4c</color>

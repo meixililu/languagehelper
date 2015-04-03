@@ -52,9 +52,9 @@ public class BaseActivity extends ActionBarActivity {
             if (toolbar != null) {
                 setSupportActionBar(toolbar);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            }
-            if(VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
-            	toolbar.setPadding(0, ScreenUtil.dip2px(this, 5), 0, 0);
+                if(VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
+                	toolbar.setPadding(0, ScreenUtil.dip2px(this, 5), 0, 0);
+                }
             }
         }
         return toolbar;

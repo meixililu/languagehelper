@@ -71,7 +71,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/big"
                 android:gravity="center" 
-                materialdesign:rippleSpeed="90"
+                materialdesign:rippleSpeed="95"
                 />
         </LinearLayout>
 

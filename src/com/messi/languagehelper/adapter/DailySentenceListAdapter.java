@@ -5,8 +5,6 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
-import android.net.Uri;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.ClipboardManager;
 import android.text.TextUtils;
@@ -15,34 +13,20 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
-import com.iflytek.cloud.SpeechConstant;
-import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.SynthesizerListener;
-import com.messi.languagehelper.CollectedFragment;
-import com.messi.languagehelper.ImgShareActivity;
-import com.messi.languagehelper.MainFragment;
 import com.messi.languagehelper.R;
+import com.messi.languagehelper.ViewImageActivity;
 import com.messi.languagehelper.dao.EveryDaySentence;
-import com.messi.languagehelper.db.DataBaseUtil;
-import com.messi.languagehelper.dialog.PopDialog;
-import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
 import com.messi.languagehelper.task.PublicTask;
 import com.messi.languagehelper.task.PublicTask.PublicTaskListener;
 import com.messi.languagehelper.util.AudioTrackUtil;
 import com.messi.languagehelper.util.BaiduStatistics;
 import com.messi.languagehelper.util.KeyUtil;
-import com.messi.languagehelper.util.LogUtil;
-import com.messi.languagehelper.util.SDCardUtil;
-import com.messi.languagehelper.util.ShowView;
-import com.messi.languagehelper.util.ToastUtil;
-import com.messi.languagehelper.util.XFUtil;
+import com.squareup.picasso.Picasso;
 
 public class DailySentenceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -62,13 +46,13 @@ public class DailySentenceListAdapter extends RecyclerView.Adapter<RecyclerView.
 		
 		public TextView english_txt;
 		public TextView chinese_txt;
-		public LinearLayout daily_sentence_list_item_img;
+		public ImageView daily_sentence_list_item_img;
 		public FrameLayout daily_sentence_list_item_cover;
 		
         public ItemViewHolder(View convertView) {
             super(convertView);
             daily_sentence_list_item_cover = (FrameLayout) convertView.findViewById(R.id.daily_sentence_list_item_cover);
-            daily_sentence_list_item_img = (LinearLayout) convertView.findViewById(R.id.daily_sentence_list_item_img);
+            daily_sentence_list_item_img = (ImageView) convertView.findViewById(R.id.daily_sentence_list_item_img);
 			english_txt = (TextView) convertView.findViewById(R.id.english_txt);
 			chinese_txt = (TextView) convertView.findViewById(R.id.chinese_txt);
         }
@@ -130,24 +114,24 @@ public class DailySentenceListAdapter extends RecyclerView.Adapter<RecyclerView.
 			final EveryDaySentence mBean = beans.get(position-1);
 			holder.english_txt.setText(mBean.getContent());
 			holder.chinese_txt.setText(mBean.getNote());
+			Picasso.with(context)
+			.load(mBean.getPicture2())
+			.tag(context)
+			.into(holder.daily_sentence_list_item_img);
 			
-//			holder.record_question_cover.setOnClickListener(mQuestionOnClickListener);
-//			holder.record_answer_cover.setOnClickListener(mMyOnClickListener);
-//			holder.voice_play_layout.setOnClickListener(mMyOnClickListener);
-//			
-//			holder.delete_btn.setOnClickListener(new OnClickListener() {
-//				@Override
-//				public void onClick(View v) {
-//					int clickItemPosition = beans.indexOf(mBean);
-//					beans.remove(clickItemPosition);
-//					notifyItemRemoved(clickItemPosition+1);
-//					showToast(context.getResources().getString(R.string.dele_success));
-//					MainFragment.isRefresh = true;
-//					LogUtil.DefalutLog("setOnClickListener---position:"+clickItemPosition);
-//					StatService.onEvent(context, "1.6_deletebtn", "删除按钮", 1);
-//				}
-//			});
+			holder.daily_sentence_list_item_cover.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					toViewImgActivity(mBean.getFenxiang_img());
+				}
+			});
 		}
+	}
+	
+	private void toViewImgActivity(String imgurl){
+		Intent intent = new Intent(context, ViewImageActivity.class);
+		intent.putExtra(KeyUtil.DailySentenceBigImgUrl, imgurl);
+		context.startActivity(intent);
 	}
 
 	/**
