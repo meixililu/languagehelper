@@ -135,7 +135,6 @@
                 android:shadowDx="0.3"
                 android:shadowDy="0.3"
                 android:shadowRadius="0.3"
-                android:text="@string/getfans_6"
                 android:textColor="@color/white"
                 android:paddingLeft="@dimen/padding_10"
                 android:paddingRight="@dimen/padding_10"

@@ -80,6 +80,9 @@
             android:name=".InvestmentActivity"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".StudyCategoryActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".StudyActivity"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"/>

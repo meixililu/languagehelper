@@ -48,7 +48,6 @@ public class GetFansActivity extends BaseActivity implements OnClickListener {
 			StatService.onEvent(this, "19_getfans_email", "邀请用户发邮件提出想法", 1);
 			break;
 		case R.id.layout_6:
-			toInvestorListActivity();
 			StatService.onEvent(this, "19_to_investor_list_activity", "去投资人列表页面", 1);
 			break;
 		default:
@@ -56,9 +55,5 @@ public class GetFansActivity extends BaseActivity implements OnClickListener {
 		}
 	}
 	
-	private void toInvestorListActivity(){
-		Intent intent = new Intent(this,InvestmentActivity.class);
-		startActivity(intent);
-	}
 	
 }

@@ -13,7 +13,7 @@
         android:weightSum="10" >
 
         <FrameLayout
-            android:id="@+id/study_part1"
+            android:id="@+id/study_daily_sentence"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/style5_color5"
@@ -59,7 +59,7 @@
         </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/study_part2"
+            android:id="@+id/study_spoken_english"
             android:layout_width="fill_parent"
             android:layout_height="90dp"
             android:layout_marginTop="@dimen/padding_7"
@@ -81,7 +81,7 @@
         </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/study_part4"
+            android:id="@+id/study_dailog"
             android:layout_width="fill_parent"
             android:layout_height="90dp"
             android:layout_marginTop="@dimen/padding_7"
@@ -103,7 +103,7 @@
         </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/study_part3"
+            android:id="@+id/study_test"
             android:layout_width="fill_parent"
             android:layout_height="90dp"
             android:layout_marginTop="@dimen/padding_7"
@@ -125,7 +125,7 @@
         </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/study_part5"
+            android:id="@+id/study_to_all_user"
             android:layout_width="fill_parent"
             android:layout_height="90dp"
             android:layout_marginTop="@dimen/padding_7"

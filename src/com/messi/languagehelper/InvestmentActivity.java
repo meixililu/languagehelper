@@ -22,12 +22,7 @@ public class InvestmentActivity extends BaseActivity {
 	}
 
 	private void initViews(){
-		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
-		if (toolbar != null) {
-			setSupportActionBar(toolbar);
-			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-			getSupportActionBar().setTitle(getResources().getString(R.string.invest_activity_title));
-		}
+		getSupportActionBar().setTitle(getResources().getString(R.string.invest_activity_title));
 		level = getIntent().getStringExtra(KeyUtil.LevelKey);
 		studylist_part1 = getResources().getStringArray(R.array.investors);
 		studylist_lv = (ListView) findViewById(R.id.studylist_lv);

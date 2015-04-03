@@ -20,11 +20,11 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:shadowColor="@color/text_black1"
+            android:shadowColor="@color/white"
             android:shadowDx="0.3"
             android:shadowDy="0.3"
             android:shadowRadius="0.3"
-            android:textColor="@color/text_black1"
+            android:textColor="@color/white"
             android:textSize="@dimen/big" />
     </LinearLayout>
 

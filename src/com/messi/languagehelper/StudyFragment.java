@@ -36,15 +36,11 @@ import com.messi.languagehelper.util.TimeUtil;
 public class StudyFragment extends Fragment implements OnClickListener{
 
 	private View view;
-	private FrameLayout study_part1,study_part2,study_part3,study_part4;
+	private FrameLayout study_daily_sentence,study_spoken_english,study_dailog,study_test,study_to_all_user;
 	private TextView dailysentence_txt;
 	private ImageView unread_dot;
 	private LinearLayout study_ad_view;
 	public static StudyFragment mMainFragment;
-	
-	public static final String PartOne = "part_one";
-	public static final String PartTwo = "part_two";
-	public static final String PartThree = "part_three";
 	
 	private EveryDaySentence mEveryDaySentence;
 	private IFLYBannerAd mIFLYBannerAd;
@@ -66,18 +62,22 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	}
 	
 	private void initViews(){
-		study_part1 = (FrameLayout)view.findViewById(R.id.study_part1);
-		study_part2 = (FrameLayout)view.findViewById(R.id.study_part2);
-		study_part3 = (FrameLayout)view.findViewById(R.id.study_part3);
-		study_part4 = (FrameLayout)view.findViewById(R.id.study_part4);
+		study_daily_sentence = (FrameLayout)view.findViewById(R.id.study_daily_sentence);
+		study_spoken_english = (FrameLayout)view.findViewById(R.id.study_spoken_english);
+		study_dailog = (FrameLayout)view.findViewById(R.id.study_dailog);
+		study_test = (FrameLayout)view.findViewById(R.id.study_test);
+		study_to_all_user = (FrameLayout)view.findViewById(R.id.study_to_all_user);
 		study_ad_view = (LinearLayout)view.findViewById(R.id.study_ad_view);
 		dailysentence_txt = (TextView)view.findViewById(R.id.dailysentence_txt);
 		unread_dot = (ImageView)view.findViewById(R.id.unread_dot);
-		study_part1.setOnClickListener(this);
-		study_part2.setOnClickListener(this);
-		study_part3.setOnClickListener(this);
-		study_part4.setOnClickListener(this);
+		
+		study_daily_sentence.setOnClickListener(this);
+		study_spoken_english.setOnClickListener(this);
+		study_dailog.setOnClickListener(this);
+		study_test.setOnClickListener(this);
+		study_to_all_user.setOnClickListener(this);
 		dailysentence_txt.setOnClickListener(this);
+		
 		mIFLYBannerAd = ADUtil.initBannerAD(getActivity(), study_ad_view);
 		mIFLYBannerAd.loadAd(new IFLYAdListener() {
 			@Override
@@ -156,18 +156,22 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		case R.id.dailysentence_txt:
 			toDailySentenceActivity();
 			break;
-		case R.id.study_part1:
+		case R.id.study_daily_sentence:
 			toDailySentenceActivity();
 			break;
-		case R.id.study_part2:
-			toGetContentActivity();
+		case R.id.study_spoken_english:
+			toStudyListActivity();
 			StatService.onEvent(getActivity(), "19_studylist_part2", "口语练习第2部分", 1);
 			break;
-		case R.id.study_part3:
+		case R.id.study_dailog:
 			toGetContentActivity();
 			StatService.onEvent(getActivity(), "19_studylist_part3", "口语练习第3部分", 1);
 			break;
-		case R.id.study_part4:
+		case R.id.study_test:
+			toGetContentActivity();
+			StatService.onEvent(getActivity(), "19_studylist_part4", "你不是一个人在战斗", 1);
+			break;
+		case R.id.study_to_all_user:
 			toGetfansActivity();
 			StatService.onEvent(getActivity(), "19_studylist_part4", "你不是一个人在战斗", 1);
 			break;
@@ -187,9 +191,9 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		Intent intent = new Intent(getActivity(),GetFansActivity.class);
 		startActivity(intent);
 	}
-	private void toStudyListActivity(String level){
-		Intent intent = new Intent(getActivity(),StudyListActivity.class);
-		intent.putExtra(KeyUtil.LevelKey, level);
+	
+	private void toStudyListActivity(){
+		Intent intent = new Intent(getActivity(),StudyCategoryActivity.class);
 		startActivity(intent);
 	}
 	private void toGetContentActivity(){

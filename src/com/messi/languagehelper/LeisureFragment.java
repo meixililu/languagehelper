@@ -27,7 +27,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 	
 	private View view;
 	private FrameLayout cailing_layout,app_layout,yuedu_layout,hotal_layout;
-	private FrameLayout instagram_layout;
+	private FrameLayout instagram_layout, invest_layout;
 	private RelativeLayout ad_layout;
 	private IFLYInterstitialAd mInterstitialAd;
 	public static LeisureFragment mMainFragment;
@@ -55,12 +55,14 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		yuedu_layout = (FrameLayout)view.findViewById(R.id.yuedu_layout);
 		hotal_layout = (FrameLayout)view.findViewById(R.id.hotal_layout);
 		app_layout = (FrameLayout)view.findViewById(R.id.app_layout);
+		invest_layout = (FrameLayout)view.findViewById(R.id.invest_layout);
 		ad_layout = (RelativeLayout)view.findViewById(R.id.ad_layout);
 		instagram_layout.setOnClickListener(this);
 		cailing_layout.setOnClickListener(this);
 		yuedu_layout.setOnClickListener(this);
 		hotal_layout.setOnClickListener(this);
 		app_layout.setOnClickListener(this);
+		invest_layout.setOnClickListener(this);
 		mInterstitialAd = ADUtil.initChaPingAD(getActivity(), ad_layout);
 		mHandler = new Handler();
 		showAD();
@@ -126,7 +128,14 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 			toAppActivity();
 		}else if(v.getId() == R.id.instagram_layout){
 			toEnglishWebsiteRecommendActivity();
+		}else if(v.getId() == R.id.invest_layout){
+			toInvestorListActivity();
 		}
+	}
+	
+	private void toInvestorListActivity(){
+		Intent intent = new Intent(getActivity(),InvestmentActivity.class);
+		startActivity(intent);
 	}
 	
 	private void toEnglishWebsiteRecommendActivity(){

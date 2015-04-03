@@ -148,6 +148,8 @@
 	<string name="leisuer_reading_subtitle">看看小说放松一下</string>
 	<string name="leisuer_hotel">订酒店</string>
 	<string name="leisuer_hotel_subtitle">房还是要开的</string>
+	<string name="leisuer_invest">投资人列表</string>
+	<string name="leisuer_invest_subtitle">提意见点广告都是对软件投资</string>
 	
 	<string name="website_attention">提示：国外网站的打开速度稍微慢点</string>
 	<string name="instagram_pinsta">Instagram（网页版）</string>
@@ -168,7 +170,7 @@
 	<string name="leisuer_two">作者其他软件</string>
 	<string name="leisuer_two_subtitle">其他语言，其他类型</string>
 	
-	<string name="invest_activity_title">投资人</string>
+	<string name="invest_activity_title">投资人列表</string>
 	
 	<string name="practice_finish">完成</string>
 	<string name="practice_next">下一个</string>
@@ -189,7 +191,6 @@
 	    你可以自豪的说这个软件是你参与设计的，你是投资人之一！</string>
 	<string name="getfans_4">有想法：meixililulu@163.com</string>
 	<string name="getfans_5">带你融资带你飞，带你路演到天黑！</string>
-	<string name="getfans_6">投資人列表（提了就有你）</string>
 	    
 	<string name="getcontent_1">由于人员有限，我们正在不断的增加学习内容，如果您需要加快更新某方面的内容，
 	    可以发邮件告诉我们，和我们一起开发软件，不断丰富软件内容，提高软件水平，说的就是你，赶紧发邮件给我们提出您伟大的要求！</string>
