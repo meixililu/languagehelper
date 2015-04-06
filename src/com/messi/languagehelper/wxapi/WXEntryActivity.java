@@ -25,7 +25,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
-import com.gc.materialdesign.views.ProgressBarCircularIndetermininate;
+import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.messi.languagehelper.BaseActivity;
@@ -49,7 +49,7 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 	private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
 	private ViewPager viewPager;
-	private ProgressBarCircularIndetermininate mProgressbar;
+	private ProgressBarCircularIndeterminate mProgressbar;
 	private PagerSlidingTabStrip indicator;
 	private MainPageAdapter mAdapter;
 	private View leftMenuHeader;
@@ -97,7 +97,7 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 		}
 	    // Inflate a menu to be displayed in the toolbar
 		// toolbar.inflateMenu(R.menu.your_toolbar_menu);
-		mProgressbar = (ProgressBarCircularIndetermininate) findViewById(R.id.progressBarCircularIndetermininate);
+		mProgressbar = (ProgressBarCircularIndeterminate) findViewById(R.id.progressBarCircularIndetermininate);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 		viewPager = (ViewPager) findViewById(R.id.pager);

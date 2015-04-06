@@ -10,12 +10,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
-        <LinearLayout 
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:orientation="vertical"
-	        >
 		    <FrameLayout 
 		        android:id="@+id/record_answer_cover"
 		        android:layout_width="fill_parent"
@@ -28,7 +22,6 @@
 			        android:layout_height="wrap_content"
 			        android:paddingLeft="10dp"
 			        android:paddingTop="7dp"
-			        android:paddingBottom="5dp"
 			        android:text=""
 			        android:textColor="@color/text_black"
 			        android:textSize="@dimen/bigger" />
@@ -45,54 +38,11 @@
 			        android:layout_width="fill_parent"
 			        android:layout_height="wrap_content"
 			        android:paddingLeft="10dp"
-			        android:paddingTop="5dp"
 			        android:paddingBottom="7dp"
 			        android:text=""
 			        android:textColor="@color/text_black"
-			        android:textSize="@dimen/big" />
+			        android:textSize="@dimen/bigger" />
 		    </FrameLayout>
-	        
-	    </LinearLayout>
-	    
-        <LinearLayout 
-            android:layout_width="wrap_content"
-	        android:layout_height="fill_parent"
-	        android:orientation="horizontal"
-	        android:gravity="center"
-            >
-		    <ImageView
-		        android:layout_width="1px"
-		        android:layout_height="fill_parent"
-		        android:background="@color/line_color_gray" />
-            <FrameLayout 
-		        android:id="@+id/record_to_practice"
-		        android:layout_width="35dp"
-		        android:layout_height="fill_parent"
-		        android:foreground="@drawable/framelayout_selector"
-		        >
-			    <TextView
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:gravity="center"
-			        android:background="@drawable/expend_right"
-			        android:layout_gravity="center"
-			        android:textColor="@color/text_grey"
-			        android:textSize="@dimen/big" 
-			        />
-			    <ImageView 
-			        android:id="@+id/unread_dot"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:src="@drawable/unread_dot"
-			        android:layout_gravity="top|right"
-			        android:layout_marginRight="3dp"
-			        android:layout_marginTop="3dp"
-			        android:visibility="gone"
-			        />
-			    
-		    </FrameLayout>
-        </LinearLayout>
-        
     </LinearLayout>
     
     <ImageView

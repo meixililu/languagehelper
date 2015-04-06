@@ -40,6 +40,7 @@
     <string name="speak_english">请点击话筒说英文</string>
     <string name="speak_chinese">请点击话筒说中文</string>
     <string name="network_error">网络错误，请稍后重试</string>
+    <string name="no_result">没有查询到结果</string>
     
     <string name="app_id">50aa1213</string>
     <string name="preference_default_iat_engine_en">sms-en</string>

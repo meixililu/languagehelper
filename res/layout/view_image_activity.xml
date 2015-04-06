@@ -6,7 +6,7 @@
     android:background="@color/black"
     android:orientation="vertical" >
 
-    <com.gc.materialdesign.views.ProgressBarCircularIndetermininate
+    <com.gc.materialdesign.views.ProgressBarCircularIndeterminate
         android:id="@+id/lottery_result_hall_progressbar_m"
         android:layout_width="54dp"
         android:layout_height="54dp"

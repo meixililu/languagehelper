@@ -18,7 +18,7 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.baidu.mobstat.StatService;
-import com.gc.materialdesign.views.ProgressBarDetermininate;
+import com.gc.materialdesign.views.ProgressBarDeterminate;
 import com.messi.languagehelper.observablescrollview.ObservableScrollViewCallbacks;
 import com.messi.languagehelper.observablescrollview.ObservableWebView;
 import com.messi.languagehelper.observablescrollview.ScrollState;
@@ -30,7 +30,7 @@ import com.messi.languagehelper.util.ShareUtil;
 
 public class WebViewActivity extends BaseActivity implements ObservableScrollViewCallbacks{
 	
-	private ProgressBarDetermininate progressdeterminate;
+	private ProgressBarDeterminate progressdeterminate;
 	private SwipeRefreshLayout mSwipeRefreshLayout;
 	private ObservableWebView mWebView;
 	private TextView tap_to_reload;
@@ -67,7 +67,7 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 	
 	private void initViews(){
 		mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
-		progressdeterminate = (ProgressBarDetermininate) findViewById(R.id.progressdeterminate);
+		progressdeterminate = (ProgressBarDeterminate) findViewById(R.id.progressdeterminate);
 		mWebView = (ObservableWebView) findViewById(R.id.refreshable_webview);
 		tap_to_reload = (TextView) findViewById(R.id.tap_to_reload);
 		setScrollable(mSwipeRefreshLayout);

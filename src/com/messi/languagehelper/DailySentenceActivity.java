@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.gc.materialdesign.views.ProgressBarCircularIndetermininate;
+import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.adapter.DailySentenceListAdapter;
@@ -28,7 +28,7 @@ public class DailySentenceActivity extends BaseActivity implements OnClickListen
 	private LayoutInflater mInflater;
 	private DailySentenceListAdapter mAdapter;
 	private List<EveryDaySentence> beans;
-	private ProgressBarCircularIndetermininate progressbar;
+	private ProgressBarCircularIndeterminate progressbar;
 
 	// 识别对象
 //	private SpeechRecognizer recognizer;
@@ -51,7 +51,7 @@ public class DailySentenceActivity extends BaseActivity implements OnClickListen
 		getSupportActionBar().setTitle(getResources().getString(R.string.dailysentence));
 		mInflater = LayoutInflater.from(this);
 		recent_used_lv = (RecyclerView) findViewById(R.id.collected_listview);
-		progressbar = (ProgressBarCircularIndetermininate) findViewById(R.id.lottery_result_hall_progressbar_m);
+		progressbar = (ProgressBarCircularIndeterminate) findViewById(R.id.lottery_result_hall_progressbar_m);
 //		mSharedPreferences = this.getSharedPreferences(this.getPackageName(), Activity.MODE_PRIVATE);
 //		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this, null);
 //		recognizer = SpeechRecognizer.createRecognizer(this, null);

@@ -24,10 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
-import com.iflytek.cloud.SpeechConstant;
-import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
-import com.iflytek.cloud.SynthesizerListener;
 import com.messi.languagehelper.CollectedFragment;
 import com.messi.languagehelper.ImgShareActivity;
 import com.messi.languagehelper.LanguageApplication;
@@ -35,8 +32,8 @@ import com.messi.languagehelper.MainFragment;
 import com.messi.languagehelper.PracticeActivity;
 import com.messi.languagehelper.R;
 import com.messi.languagehelper.dao.Dictionary;
+import com.messi.languagehelper.dao.Means;
 import com.messi.languagehelper.dao.Parts;
-import com.messi.languagehelper.dao.record;
 import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.dialog.PopDialog;
 import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
@@ -49,8 +46,6 @@ import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.SDCardUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.ShowView;
-import com.messi.languagehelper.util.ToastUtil;
-import com.messi.languagehelper.util.XFUtil;
 
 public class DictionaryListViewAdapter extends BaseAdapter {
 
@@ -92,14 +87,12 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 		LogUtil.DefalutLog("CollectedListItemAdapter---getView");
 		final ViewHolder holder;
 		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.listview_item_recent_used, null);
+			convertView = mInflater.inflate(R.layout.listview_item_dictionary, null);
 			holder = new ViewHolder();
 			holder.record_question_cover = (FrameLayout) convertView.findViewById(R.id.record_question_cover);
 			holder.record_answer_cover = (FrameLayout) convertView.findViewById(R.id.record_answer_cover);
-			holder.record_to_practice = (FrameLayout) convertView.findViewById(R.id.record_to_practice);
 			holder.record_question = (TextView) convertView.findViewById(R.id.record_question);
 			holder.record_answer = (TextView) convertView.findViewById(R.id.record_answer);
-			holder.unread_dot = (ImageView) convertView.findViewById(R.id.unread_dot);
 			holder.voice_play = (ImageButton) convertView.findViewById(R.id.voice_play);
 			holder.collected_cb = (CheckBox) convertView.findViewById(R.id.collected_cb);
 			holder.voice_play_layout = (FrameLayout) convertView.findViewById(R.id.voice_play_layout);
@@ -123,15 +116,13 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 		}else{
 			holder.collected_cb.setChecked(true);
 		}
-		if(isFirstLoaded()){
-			if(position == 0){
-				holder.unread_dot.setVisibility(View.VISIBLE);
-			}else{
-				holder.unread_dot.setVisibility(View.GONE);
-			}
+		try {
+			holder.record_answer.setText( getQuestion(mBean) );
+			holder.record_question.setText( getListToString(mBean) );
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		holder.record_answer.setText( getQuestion(mBean) );
-		holder.record_question.setText(mBean.getWord_name() );
+		LogUtil.DefalutLog(mBean.toString());
 		
 		holder.record_question_cover.setOnClickListener(mQuestionOnClickListener);
 		holder.record_answer_cover.setOnClickListener(mMyOnClickListener);
@@ -169,55 +160,52 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 				StatService.onEvent(context, "1.6_collectedbtn", "收藏按钮", 1);
 			}
 		});
-		holder.record_to_practice.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				holder.unread_dot.setVisibility(View.GONE);
-				Intent intent = new Intent(context,PracticeActivity.class);
-				LanguageApplication.dataMap.put(KeyUtil.DialogBeanKey, mBean);
-				context.startActivity(intent);
-				StatService.onEvent(context, "1.8_to_practice", "去口语练页面", 1);
-			}
-		});
 		return convertView;
 	}
 	
-	private String getQuestion(Dictionary mBean){
+	private String getQuestion(Dictionary mBean) throws Exception{
 		if(mBean.getFrom().equals("en")){
-			return mBean.getWord_name() + "    美 " + mBean.getPh_am() + "    英"  + mBean.getPh_en();
+			return mBean.getWord_name() + "\n" + "美 [" + mBean.getPh_am() + "]      英 ["  + mBean.getPh_en() +"]";
 		}else{
-			return mBean.getWord_name() + "    拼 " + mBean.getPh_zh();
+			return mBean.getWord_name() + "\n" + "拼 [" + mBean.getPh_zh() +"]";
 		}
 	}
 	
-	private String getListToString(Dictionary mBean){
+	private String getListToString(Dictionary mBean) throws Exception{
+		StringBuilder sb = new StringBuilder();
 		List<Parts> partsList = mBean.getPartsList();
 		for(Parts mParts : partsList){
-			
+			sb.append(mParts.getPart());
+			sb.append(" ");
+			sb.append( getMeans(mParts.getParts(), mBean.getTo().equals("en")) );
+			sb.append("\n");
 		}
-		return "";
+		return sb.toString();
 	}
 	
-	private boolean isFirstLoaded(){
-		boolean result = mSharedPreferences.getBoolean(KeyUtil.IsShowNewFunction, false);
-		if(!result){
-			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsShowNewFunction, true);
+	private String getMeans(List<Means> mMeans, boolean isEnglishResult) throws Exception{
+		StringBuilder sb = new StringBuilder();
+		for(Means mbean : mMeans){
+			sb.append(mbean.getMean());
+			if(isEnglishResult){
+				sb.append("\n");
+			}else{
+				sb.append(" ");
+			}
 		}
-		return !result;
+		return sb.toString();
 	}
 	
 	static class ViewHolder {
 		TextView record_question;
 		TextView record_answer;
 		FrameLayout record_answer_cover;
-		FrameLayout record_to_practice;
 		FrameLayout record_question_cover;
 		FrameLayout delete_btn;
 		FrameLayout copy_btn;
 		FrameLayout collected_btn;
 		FrameLayout weixi_btn;
 		ImageButton voice_play;
-		ImageView unread_dot;
 		CheckBox collected_cb;
 		FrameLayout voice_play_layout;
 		ProgressBar play_content_btn_progressbar;

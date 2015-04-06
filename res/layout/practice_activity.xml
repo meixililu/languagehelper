@@ -18,7 +18,7 @@
 	    android:layout_width="match_parent"
 	    android:minHeight="?attr/actionBarSize"
 	    android:background="?attr/colorPrimary" >
-	    <com.gc.materialdesign.views.ProgressBarCircularIndetermininate
+	    <com.gc.materialdesign.views.ProgressBarCircularIndeterminate
 	                android:id="@+id/progressBarCircularIndetermininate"
 	                android:layout_width="28dp"
 	                android:layout_height="28dp"

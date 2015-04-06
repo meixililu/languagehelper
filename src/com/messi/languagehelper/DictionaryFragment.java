@@ -326,6 +326,8 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 						mAdapter.notifyDataSetChanged();
 						recent_used_lv.setSelection(0);
 						LogUtil.DefalutLog("Dictionary---------count:" + DataBaseUtil.getInstance().getDictionaryCount());
+					}else{
+						showToast(getActivity().getResources().getString(R.string.no_result));
 					}
 					
 //						if(mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false)){

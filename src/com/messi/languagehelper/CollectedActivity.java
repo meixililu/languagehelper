@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.baidu.mobstat.StatService;
-import com.gc.materialdesign.views.ProgressBarCircularIndetermininate;
+import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.adapter.ResultListHeaderAdapter;
@@ -29,7 +29,7 @@ public class CollectedActivity extends BaseActivity implements OnClickListener {
 	private LayoutInflater mInflater;
 	private ResultListHeaderAdapter mAdapter;
 	private List<record> beans;
-	private ProgressBarCircularIndetermininate progressbar;
+	private ProgressBarCircularIndeterminate progressbar;
 
 	// 识别对象
 	private SpeechRecognizer recognizer;
@@ -54,7 +54,7 @@ public class CollectedActivity extends BaseActivity implements OnClickListener {
 		mInflater = LayoutInflater.from(this);
 		mSharedPreferences = this.getSharedPreferences(this.getPackageName(), Activity.MODE_PRIVATE);
 		recent_used_lv = (RecyclerView) findViewById(R.id.collected_listview);
-		progressbar = (ProgressBarCircularIndetermininate) findViewById(R.id.lottery_result_hall_progressbar_m);
+		progressbar = (ProgressBarCircularIndeterminate) findViewById(R.id.lottery_result_hall_progressbar_m);
 		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this, null);
 		recognizer = SpeechRecognizer.createRecognizer(this, null);
 		

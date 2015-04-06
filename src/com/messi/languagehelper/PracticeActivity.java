@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import com.baidu.mobstat.StatService;
 import com.gc.materialdesign.views.ButtonRectangle;
-import com.gc.materialdesign.views.ProgressBarCircularIndetermininate;
+import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
@@ -59,7 +59,7 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 	private ImageView record_anim_img;
 	private LinearLayout record_layout,record_animation_layout;
 	private ButtonRectangle voice_btn;
-	private ProgressBarCircularIndetermininate mProgressbar;
+	private ProgressBarCircularIndeterminate mProgressbar;
 	
 	private MyOnClickListener mAnswerOnClickListener,mQuestionOnClickListener;
 	private SpeechSynthesizer mSpeechSynthesizer;
@@ -100,7 +100,7 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 		record_answer_cover = (FrameLayout) findViewById(R.id.record_answer_cover);
 		record_question_cover = (FrameLayout) findViewById(R.id.record_question_cover);
 		practice_page_exchange = (FrameLayout) findViewById(R.id.practice_page_exchange);
-		mProgressbar = (ProgressBarCircularIndetermininate) findViewById(R.id.progressBarCircularIndetermininate);
+		mProgressbar = (ProgressBarCircularIndeterminate) findViewById(R.id.progressBarCircularIndetermininate);
 		practice_prompt = (TextView) findViewById(R.id.practice_prompt);
 		record_answer = (TextView) findViewById(R.id.record_answer);
 		record_question = (TextView) findViewById(R.id.record_question);
