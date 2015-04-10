@@ -167,6 +167,8 @@
 	<string name="website_phonedog_subtitle">国外手机新闻报道网站</string>
 	<string name="website_tobecontinue">未完待续</string>
 	<string name="website_tobecontinue_subtitle">To be continue</string>
+	<string name="leisuer_game">轻游戏中心</string>
+	<string name="leisuer_game_subtitle">大家都爱玩的小游戏</string>
 	
 	<string name="leisuer_two">作者其他软件</string>
 	<string name="leisuer_two_subtitle">其他语言，其他类型</string>

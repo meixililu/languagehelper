@@ -43,7 +43,6 @@ public class EveryDaySentenceDao extends AbstractDao<EveryDaySentence, Long> {
         public final static Property Backup1 = new Property(17, String.class, "backup1", false, "BACKUP1");
         public final static Property Backup2 = new Property(18, String.class, "backup2", false, "BACKUP2");
         public final static Property Backup3 = new Property(19, String.class, "backup3", false, "BACKUP3");
-        public final static Property TagId = new Property(20, Long.class, "tagId", false, "TAG_ID");
     };
 
     private DaoSession daoSession;
@@ -81,8 +80,7 @@ public class EveryDaySentenceDao extends AbstractDao<EveryDaySentence, Long> {
                 "'FENXIANG_IMG_LOCAL_POSITION' TEXT," + // 16: fenxiang_img_local_position
                 "'BACKUP1' TEXT," + // 17: backup1
                 "'BACKUP2' TEXT," + // 18: backup2
-                "'BACKUP3' TEXT," + // 19: backup3
-                "'TAG_ID' INTEGER);"); // 20: tagId
+                "'BACKUP3' TEXT);"); // 19: backup3
     }
 
     /** Drops the underlying database table. */
@@ -195,11 +193,6 @@ public class EveryDaySentenceDao extends AbstractDao<EveryDaySentence, Long> {
         if (backup3 != null) {
             stmt.bindString(20, backup3);
         }
- 
-        Long tagId = entity.getTagId();
-        if (tagId != null) {
-            stmt.bindLong(21, tagId);
-        }
     }
 
     @Override
@@ -237,8 +230,7 @@ public class EveryDaySentenceDao extends AbstractDao<EveryDaySentence, Long> {
             cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // fenxiang_img_local_position
             cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // backup1
             cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18), // backup2
-            cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19), // backup3
-            cursor.isNull(offset + 20) ? null : cursor.getLong(offset + 20) // tagId
+            cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19) // backup3
         );
         return entity;
     }
@@ -266,7 +258,6 @@ public class EveryDaySentenceDao extends AbstractDao<EveryDaySentence, Long> {
         entity.setBackup1(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
         entity.setBackup2(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
         entity.setBackup3(cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19));
-        entity.setTagId(cursor.isNull(offset + 20) ? null : cursor.getLong(offset + 20));
      }
     
     /** @inheritdoc */

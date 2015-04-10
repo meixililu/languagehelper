@@ -30,7 +30,6 @@ public class EveryDaySentence {
     private String backup1;
     private String backup2;
     private String backup3;
-    private Long tagId;
 
     /** Used to resolve relations */
     private transient DaoSession daoSession;
@@ -38,7 +37,7 @@ public class EveryDaySentence {
     /** Used for active entity operations. */
     private transient EveryDaySentenceDao myDao;
 
-    private List<Tag> tagList;
+    private List<Tag> taglist;
 
     public EveryDaySentence() {
     }
@@ -47,7 +46,7 @@ public class EveryDaySentence {
         this.id = id;
     }
 
-    public EveryDaySentence(Long id, Long cid, String sid, String tts, String tts_local_position, String content, String note, String love, String translation, String picture, String picture2, String caption, String dateline, String s_pv, String sp_pv, String fenxiang_img, String fenxiang_img_local_position, String backup1, String backup2, String backup3, Long tagId) {
+    public EveryDaySentence(Long id, Long cid, String sid, String tts, String tts_local_position, String content, String note, String love, String translation, String picture, String picture2, String caption, String dateline, String s_pv, String sp_pv, String fenxiang_img, String fenxiang_img_local_position, String backup1, String backup2, String backup3) {
         this.id = id;
         this.cid = cid;
         this.sid = sid;
@@ -68,7 +67,6 @@ public class EveryDaySentence {
         this.backup1 = backup1;
         this.backup2 = backup2;
         this.backup3 = backup3;
-        this.tagId = tagId;
     }
 
     /** called by internal mechanisms, do not call yourself. */
@@ -237,34 +235,26 @@ public class EveryDaySentence {
         this.backup3 = backup3;
     }
 
-    public Long getTagId() {
-        return tagId;
-    }
-
-    public void setTagId(Long tagId) {
-        this.tagId = tagId;
-    }
-
     /** To-many relationship, resolved on first access (and after reset). Changes to to-many relations are not persisted, make changes to the target entity. */
-    public List<Tag> getTagList() {
-        if (tagList == null) {
+    public List<Tag> getTaglist() {
+        if (taglist == null) {
             if (daoSession == null) {
                 throw new DaoException("Entity is detached from DAO context");
             }
             TagDao targetDao = daoSession.getTagDao();
-            List<Tag> tagListNew = targetDao._queryEveryDaySentence_TagList(id);
+            List<Tag> taglistNew = targetDao._queryEveryDaySentence_Taglist(id);
             synchronized (this) {
-                if(tagList == null) {
-                    tagList = tagListNew;
+                if(taglist == null) {
+                    taglist = taglistNew;
                 }
             }
         }
-        return tagList;
+        return taglist;
     }
 
     /** Resets a to-many relationship, making the next get call to query for a fresh result. */
-    public synchronized void resetTagList() {
-        tagList = null;
+    public synchronized void resetTaglist() {
+        taglist = null;
     }
 
     /** Convenient call for {@link AbstractDao#delete(Object)}. Entity must attached to an entity context. */

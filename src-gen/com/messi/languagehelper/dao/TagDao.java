@@ -28,10 +28,10 @@ public class TagDao extends AbstractDao<Tag, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Name = new Property(1, String.class, "name", false, "NAME");
-        public final static Property TagId = new Property(2, Long.class, "tagId", false, "TAG_ID");
+        public final static Property EveryDaySentenceId = new Property(2, Long.class, "everyDaySentenceId", false, "EVERY_DAY_SENTENCE_ID");
     };
 
-    private Query<Tag> everyDaySentence_TagListQuery;
+    private Query<Tag> everyDaySentence_TaglistQuery;
 
     public TagDao(DaoConfig config) {
         super(config);
@@ -47,7 +47,7 @@ public class TagDao extends AbstractDao<Tag, Long> {
         db.execSQL("CREATE TABLE " + constraint + "'TAG' (" + //
                 "'_id' INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "'NAME' TEXT," + // 1: name
-                "'TAG_ID' INTEGER);"); // 2: tagId
+                "'EVERY_DAY_SENTENCE_ID' INTEGER);"); // 2: everyDaySentenceId
     }
 
     /** Drops the underlying database table. */
@@ -70,6 +70,11 @@ public class TagDao extends AbstractDao<Tag, Long> {
         if (name != null) {
             stmt.bindString(2, name);
         }
+ 
+        Long everyDaySentenceId = entity.getEveryDaySentenceId();
+        if (everyDaySentenceId != null) {
+            stmt.bindLong(3, everyDaySentenceId);
+        }
     }
 
     /** @inheritdoc */
@@ -83,7 +88,8 @@ public class TagDao extends AbstractDao<Tag, Long> {
     public Tag readEntity(Cursor cursor, int offset) {
         Tag entity = new Tag( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1) // name
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // name
+            cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2) // everyDaySentenceId
         );
         return entity;
     }
@@ -93,6 +99,7 @@ public class TagDao extends AbstractDao<Tag, Long> {
     public void readEntity(Cursor cursor, Tag entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setEveryDaySentenceId(cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2));
      }
     
     /** @inheritdoc */
@@ -118,17 +125,17 @@ public class TagDao extends AbstractDao<Tag, Long> {
         return true;
     }
     
-    /** Internal query to resolve the "tagList" to-many relationship of EveryDaySentence. */
-    public List<Tag> _queryEveryDaySentence_TagList(Long tagId) {
+    /** Internal query to resolve the "taglist" to-many relationship of EveryDaySentence. */
+    public List<Tag> _queryEveryDaySentence_Taglist(Long everyDaySentenceId) {
         synchronized (this) {
-            if (everyDaySentence_TagListQuery == null) {
+            if (everyDaySentence_TaglistQuery == null) {
                 QueryBuilder<Tag> queryBuilder = queryBuilder();
-                queryBuilder.where(Properties.TagId.eq(null));
-                everyDaySentence_TagListQuery = queryBuilder.build();
+                queryBuilder.where(Properties.EveryDaySentenceId.eq(null));
+                everyDaySentence_TaglistQuery = queryBuilder.build();
             }
         }
-        Query<Tag> query = everyDaySentence_TagListQuery.forCurrentThread();
-        query.setParameter(0, tagId);
+        Query<Tag> query = everyDaySentence_TaglistQuery.forCurrentThread();
+        query.setParameter(0, everyDaySentenceId);
         return query.list();
     }
 

@@ -15,6 +15,7 @@ import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.adapter.DailySentenceListAdapter;
+import com.messi.languagehelper.dao.Dictionary;
 import com.messi.languagehelper.dao.EveryDaySentence;
 import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.listener.HidingScrollListener;

@@ -25,7 +25,6 @@ public class Dictionary {
     private String backup1;
     private String backup2;
     private String backup3;
-    private Long partsId;
 
     /** Used to resolve relations */
     private transient DaoSession daoSession;
@@ -33,7 +32,7 @@ public class Dictionary {
     /** Used for active entity operations. */
     private transient DictionaryDao myDao;
 
-    private List<Parts> partsList;
+    private List<Parts> partList;
 
     public Dictionary() {
     }
@@ -42,7 +41,7 @@ public class Dictionary {
         this.id = id;
     }
 
-    public Dictionary(Long id, String word_name, String to, String from, String ph_am, String ph_en, String ph_zh, String questionVoiceId, String questionAudioPath, String iscollected, Integer visit_times, Integer speak_speed, String backup1, String backup2, String backup3, Long partsId) {
+    public Dictionary(Long id, String word_name, String to, String from, String ph_am, String ph_en, String ph_zh, String questionVoiceId, String questionAudioPath, String iscollected, Integer visit_times, Integer speak_speed, String backup1, String backup2, String backup3) {
         this.id = id;
         this.word_name = word_name;
         this.to = to;
@@ -58,7 +57,6 @@ public class Dictionary {
         this.backup1 = backup1;
         this.backup2 = backup2;
         this.backup3 = backup3;
-        this.partsId = partsId;
     }
 
     /** called by internal mechanisms, do not call yourself. */
@@ -187,34 +185,26 @@ public class Dictionary {
         this.backup3 = backup3;
     }
 
-    public Long getPartsId() {
-        return partsId;
-    }
-
-    public void setPartsId(Long partsId) {
-        this.partsId = partsId;
-    }
-
     /** To-many relationship, resolved on first access (and after reset). Changes to to-many relations are not persisted, make changes to the target entity. */
-    public List<Parts> getPartsList() {
-        if (partsList == null) {
+    public List<Parts> getPartList() {
+        if (partList == null) {
             if (daoSession == null) {
                 throw new DaoException("Entity is detached from DAO context");
             }
             PartsDao targetDao = daoSession.getPartsDao();
-            List<Parts> partsListNew = targetDao._queryDictionary_PartsList(id);
+            List<Parts> partListNew = targetDao._queryDictionary_PartList(id);
             synchronized (this) {
-                if(partsList == null) {
-                    partsList = partsListNew;
+                if(partList == null) {
+                    partList = partListNew;
                 }
             }
         }
-        return partsList;
+        return partList;
     }
 
     /** Resets a to-many relationship, making the next get call to query for a fresh result. */
-    public synchronized void resetPartsList() {
-        partsList = null;
+    public synchronized void resetPartList() {
+        partList = null;
     }
 
     /** Convenient call for {@link AbstractDao#delete(Object)}. Entity must attached to an entity context. */

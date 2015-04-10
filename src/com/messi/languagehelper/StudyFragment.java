@@ -127,7 +127,6 @@ public class StudyFragment extends Fragment implements OnClickListener{
 				super.onSuccess(statusCode, headers, response);
 				mEveryDaySentence = JsonParser.parseEveryDaySentence(response);
 				setSentence();
-				DataBaseUtil.getInstance().insert(mEveryDaySentence);
 				unread_dot.setVisibility(View.VISIBLE);
 			}
 

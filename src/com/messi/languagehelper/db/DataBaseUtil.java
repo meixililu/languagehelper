@@ -11,6 +11,12 @@ import com.messi.languagehelper.dao.Dictionary;
 import com.messi.languagehelper.dao.DictionaryDao;
 import com.messi.languagehelper.dao.EveryDaySentence;
 import com.messi.languagehelper.dao.EveryDaySentenceDao;
+import com.messi.languagehelper.dao.Means;
+import com.messi.languagehelper.dao.MeansDao;
+import com.messi.languagehelper.dao.Parts;
+import com.messi.languagehelper.dao.PartsDao;
+import com.messi.languagehelper.dao.Tag;
+import com.messi.languagehelper.dao.TagDao;
 import com.messi.languagehelper.dao.record;
 import com.messi.languagehelper.dao.recordDao;
 import com.messi.languagehelper.dao.recordDao.Properties;
@@ -25,8 +31,11 @@ public class DataBaseUtil {
     private static Context appContext;  
     private DaoSession mDaoSession;  
     private recordDao recordDao; 
-    private DictionaryDao mDictionaryDao;
     private EveryDaySentenceDao mEveryDaySentenceDao;
+    private DictionaryDao mDictionaryDao;
+    private MeansDao MmeansDao;
+    private PartsDao mPartsDao;
+    private TagDao mTagDao;
 
 	public DataBaseUtil() {
 	}
@@ -41,6 +50,9 @@ public class DataBaseUtil {
             instance.recordDao = instance.mDaoSession.getRecordDao();  
             instance.mDictionaryDao = instance.mDaoSession.getDictionaryDao();  
             instance.mEveryDaySentenceDao = instance.mDaoSession.getEveryDaySentenceDao();  
+            instance.mPartsDao = instance.mDaoSession.getPartsDao();  
+            instance.MmeansDao = instance.mDaoSession.getMeansDao();  
+            instance.mTagDao = instance.mDaoSession.getTagDao();  
         }  
         return instance;  
     }  
@@ -51,6 +63,18 @@ public class DataBaseUtil {
 		bean.setSpeak_speed(MainFragment.speed);
 		bean.setQuestionVoiceId(System.currentTimeMillis() + "");
 		return mDictionaryDao.insert(bean);
+	}
+	
+	public long insert(Parts bean){
+		return mPartsDao.insert(bean);
+	}
+	
+	public long insert(Tag bean){
+		return mTagDao.insert(bean);
+	}
+	
+	public long insert(Means bean){
+		return MmeansDao.insert(bean);
 	}
 
 	public long insert(record bean) {

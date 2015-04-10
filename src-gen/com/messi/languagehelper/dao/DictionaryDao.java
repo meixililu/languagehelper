@@ -38,7 +38,6 @@ public class DictionaryDao extends AbstractDao<Dictionary, Long> {
         public final static Property Backup1 = new Property(12, String.class, "backup1", false, "BACKUP1");
         public final static Property Backup2 = new Property(13, String.class, "backup2", false, "BACKUP2");
         public final static Property Backup3 = new Property(14, String.class, "backup3", false, "BACKUP3");
-        public final static Property PartsId = new Property(15, Long.class, "partsId", false, "PARTS_ID");
     };
 
     private DaoSession daoSession;
@@ -71,8 +70,7 @@ public class DictionaryDao extends AbstractDao<Dictionary, Long> {
                 "'SPEAK_SPEED' INTEGER," + // 11: speak_speed
                 "'BACKUP1' TEXT," + // 12: backup1
                 "'BACKUP2' TEXT," + // 13: backup2
-                "'BACKUP3' TEXT," + // 14: backup3
-                "'PARTS_ID' INTEGER);"); // 15: partsId
+                "'BACKUP3' TEXT);"); // 14: backup3
     }
 
     /** Drops the underlying database table. */
@@ -160,11 +158,6 @@ public class DictionaryDao extends AbstractDao<Dictionary, Long> {
         if (backup3 != null) {
             stmt.bindString(15, backup3);
         }
- 
-        Long partsId = entity.getPartsId();
-        if (partsId != null) {
-            stmt.bindLong(16, partsId);
-        }
     }
 
     @Override
@@ -197,8 +190,7 @@ public class DictionaryDao extends AbstractDao<Dictionary, Long> {
             cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11), // speak_speed
             cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // backup1
             cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // backup2
-            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // backup3
-            cursor.isNull(offset + 15) ? null : cursor.getLong(offset + 15) // partsId
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14) // backup3
         );
         return entity;
     }
@@ -221,7 +213,6 @@ public class DictionaryDao extends AbstractDao<Dictionary, Long> {
         entity.setBackup1(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
         entity.setBackup2(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
         entity.setBackup3(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
-        entity.setPartsId(cursor.isNull(offset + 15) ? null : cursor.getLong(offset + 15));
      }
     
     /** @inheritdoc */

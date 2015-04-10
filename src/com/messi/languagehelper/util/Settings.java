@@ -41,6 +41,8 @@ public class Settings {
 	public static final String YueduUrl = "http://api.openspeech.cn/cmread/NTBhYTEyMTM=";
 	
 	public static final String HotalUrl = "http://api.openspeech.cn/trip/NTBhYTEyMTM=";
+	
+	public static final String GameUrl = "http://h5.huosu.com/zhongyinghuyi/";
 
 	public static final String Email = "meixililulu@163.com";
 	

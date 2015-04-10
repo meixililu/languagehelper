@@ -321,7 +321,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 					mDictionaryBean = JsonParser.parseDictionaryJson(responseString);
 					
 					if(mDictionaryBean != null){
-						DataBaseUtil.getInstance().insert(mDictionaryBean);
+						
 						beans.add(0,mDictionaryBean);
 						mAdapter.notifyDataSetChanged();
 						recent_used_lv.setSelection(0);
@@ -498,6 +498,12 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 	 */
 	private void submit(){
 		Settings.q = input_et.getText().toString().trim();
+		Settings.q =  Settings.q.replace(".", "");
+		Settings.q =  Settings.q.replace("。", "");
+		Settings.q =  Settings.q.replace("？", "");
+		Settings.q =  Settings.q.replace("?", "");
+		Settings.q =  Settings.q.replace("!", "");
+		Settings.q =  Settings.q.replace("！", "");
 		if (!TextUtils.isEmpty(Settings.q)) {
 			RequestAsyncTask();
 			StatService.onEvent(getActivity(), BaiduStatistics.TranslateBtn, "翻译按钮", 1);

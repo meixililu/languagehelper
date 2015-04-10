@@ -78,6 +78,7 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 	private void checkUpdate(){
 		UmengUpdateAgent.setUpdateOnlyWifi(false);
 //		UmengUpdateAgent.setSlotId("");
+		UmengUpdateAgent.setUpdateCheckConfig(false);
 		UmengUpdateAgent.update(this);
 	}
 	
