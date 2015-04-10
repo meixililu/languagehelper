@@ -8,6 +8,7 @@ public class Tag {
 
     private Long id;
     private String name;
+    private Long everyDaySentenceId;
 
     public Tag() {
     }
@@ -16,9 +17,10 @@ public class Tag {
         this.id = id;
     }
 
-    public Tag(Long id, String name) {
+    public Tag(Long id, String name, Long everyDaySentenceId) {
         this.id = id;
         this.name = name;
+        this.everyDaySentenceId = everyDaySentenceId;
     }
 
     public Long getId() {
@@ -35,6 +37,14 @@ public class Tag {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getEveryDaySentenceId() {
+        return everyDaySentenceId;
+    }
+
+    public void setEveryDaySentenceId(Long everyDaySentenceId) {
+        this.everyDaySentenceId = everyDaySentenceId;
     }
 
 }

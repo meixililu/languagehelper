@@ -28,13 +28,12 @@ public class PartsDao extends AbstractDao<Parts, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Part = new Property(1, String.class, "part", false, "PART");
-        public final static Property MeansId = new Property(2, Long.class, "meansId", false, "MEANS_ID");
-        public final static Property PartsId = new Property(3, Long.class, "partsId", false, "PARTS_ID");
+        public final static Property DictionaryId = new Property(2, Long.class, "dictionaryId", false, "DICTIONARY_ID");
     };
 
     private DaoSession daoSession;
 
-    private Query<Parts> dictionary_PartsListQuery;
+    private Query<Parts> dictionary_PartListQuery;
 
     public PartsDao(DaoConfig config) {
         super(config);
@@ -51,8 +50,7 @@ public class PartsDao extends AbstractDao<Parts, Long> {
         db.execSQL("CREATE TABLE " + constraint + "'PARTS' (" + //
                 "'_id' INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "'PART' TEXT," + // 1: part
-                "'MEANS_ID' INTEGER," + // 2: meansId
-                "'PARTS_ID' INTEGER);"); // 3: partsId
+                "'DICTIONARY_ID' INTEGER);"); // 2: dictionaryId
     }
 
     /** Drops the underlying database table. */
@@ -76,9 +74,9 @@ public class PartsDao extends AbstractDao<Parts, Long> {
             stmt.bindString(2, part);
         }
  
-        Long meansId = entity.getMeansId();
-        if (meansId != null) {
-            stmt.bindLong(3, meansId);
+        Long dictionaryId = entity.getDictionaryId();
+        if (dictionaryId != null) {
+            stmt.bindLong(3, dictionaryId);
         }
     }
 
@@ -100,7 +98,7 @@ public class PartsDao extends AbstractDao<Parts, Long> {
         Parts entity = new Parts( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // part
-            cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2) // meansId
+            cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2) // dictionaryId
         );
         return entity;
     }
@@ -110,7 +108,7 @@ public class PartsDao extends AbstractDao<Parts, Long> {
     public void readEntity(Cursor cursor, Parts entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setPart(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setMeansId(cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2));
+        entity.setDictionaryId(cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2));
      }
     
     /** @inheritdoc */
@@ -136,17 +134,17 @@ public class PartsDao extends AbstractDao<Parts, Long> {
         return true;
     }
     
-    /** Internal query to resolve the "partsList" to-many relationship of Dictionary. */
-    public List<Parts> _queryDictionary_PartsList(Long partsId) {
+    /** Internal query to resolve the "partList" to-many relationship of Dictionary. */
+    public List<Parts> _queryDictionary_PartList(Long dictionaryId) {
         synchronized (this) {
-            if (dictionary_PartsListQuery == null) {
+            if (dictionary_PartListQuery == null) {
                 QueryBuilder<Parts> queryBuilder = queryBuilder();
-                queryBuilder.where(Properties.PartsId.eq(null));
-                dictionary_PartsListQuery = queryBuilder.build();
+                queryBuilder.where(Properties.DictionaryId.eq(null));
+                dictionary_PartListQuery = queryBuilder.build();
             }
         }
-        Query<Parts> query = dictionary_PartsListQuery.forCurrentThread();
-        query.setParameter(0, partsId);
+        Query<Parts> query = dictionary_PartListQuery.forCurrentThread();
+        query.setParameter(0, dictionaryId);
         return query.list();
     }
 

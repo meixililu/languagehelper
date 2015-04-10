@@ -10,6 +10,7 @@ public class Means {
     private String mean;
     private String resultVoiceId;
     private String resultAudioPath;
+    private Long partsId;
 
     public Means() {
     }
@@ -18,11 +19,12 @@ public class Means {
         this.id = id;
     }
 
-    public Means(Long id, String mean, String resultVoiceId, String resultAudioPath) {
+    public Means(Long id, String mean, String resultVoiceId, String resultAudioPath, Long partsId) {
         this.id = id;
         this.mean = mean;
         this.resultVoiceId = resultVoiceId;
         this.resultAudioPath = resultAudioPath;
+        this.partsId = partsId;
     }
 
     public Long getId() {
@@ -57,10 +59,12 @@ public class Means {
         this.resultAudioPath = resultAudioPath;
     }
 
-	@Override
-	public String toString() {
-		return "Means [id=" + id + ", mean=" + mean + ", resultVoiceId="
-				+ resultVoiceId + ", resultAudioPath=" + resultAudioPath + "]";
-	}
+    public Long getPartsId() {
+        return partsId;
+    }
+
+    public void setPartsId(Long partsId) {
+        this.partsId = partsId;
+    }
 
 }

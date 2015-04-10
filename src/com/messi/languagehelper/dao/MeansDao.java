@@ -30,10 +30,10 @@ public class MeansDao extends AbstractDao<Means, Long> {
         public final static Property Mean = new Property(1, String.class, "mean", false, "MEAN");
         public final static Property ResultVoiceId = new Property(2, String.class, "resultVoiceId", false, "RESULT_VOICE_ID");
         public final static Property ResultAudioPath = new Property(3, String.class, "resultAudioPath", false, "RESULT_AUDIO_PATH");
-        public final static Property MeansId = new Property(4, Long.class, "meansId", false, "MEANS_ID");
+        public final static Property PartsId = new Property(4, Long.class, "partsId", false, "PARTS_ID");
     };
 
-    private Query<Means> parts_PartsQuery;
+    private Query<Means> parts_MeanListQuery;
 
     public MeansDao(DaoConfig config) {
         super(config);
@@ -51,7 +51,7 @@ public class MeansDao extends AbstractDao<Means, Long> {
                 "'MEAN' TEXT," + // 1: mean
                 "'RESULT_VOICE_ID' TEXT," + // 2: resultVoiceId
                 "'RESULT_AUDIO_PATH' TEXT," + // 3: resultAudioPath
-                "'MEANS_ID' INTEGER);"); // 4: meansId
+                "'PARTS_ID' INTEGER);"); // 4: partsId
     }
 
     /** Drops the underlying database table. */
@@ -84,6 +84,11 @@ public class MeansDao extends AbstractDao<Means, Long> {
         if (resultAudioPath != null) {
             stmt.bindString(4, resultAudioPath);
         }
+ 
+        Long partsId = entity.getPartsId();
+        if (partsId != null) {
+            stmt.bindLong(5, partsId);
+        }
     }
 
     /** @inheritdoc */
@@ -99,7 +104,8 @@ public class MeansDao extends AbstractDao<Means, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // mean
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // resultVoiceId
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // resultAudioPath
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // resultAudioPath
+            cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4) // partsId
         );
         return entity;
     }
@@ -111,6 +117,7 @@ public class MeansDao extends AbstractDao<Means, Long> {
         entity.setMean(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setResultVoiceId(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setResultAudioPath(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setPartsId(cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4));
      }
     
     /** @inheritdoc */
@@ -136,17 +143,17 @@ public class MeansDao extends AbstractDao<Means, Long> {
         return true;
     }
     
-    /** Internal query to resolve the "parts" to-many relationship of Parts. */
-    public List<Means> _queryParts_Parts(Long meansId) {
+    /** Internal query to resolve the "meanList" to-many relationship of Parts. */
+    public List<Means> _queryParts_MeanList(Long partsId) {
         synchronized (this) {
-            if (parts_PartsQuery == null) {
+            if (parts_MeanListQuery == null) {
                 QueryBuilder<Means> queryBuilder = queryBuilder();
-                queryBuilder.where(Properties.MeansId.eq(null));
-                parts_PartsQuery = queryBuilder.build();
+                queryBuilder.where(Properties.PartsId.eq(null));
+                parts_MeanListQuery = queryBuilder.build();
             }
         }
-        Query<Means> query = parts_PartsQuery.forCurrentThread();
-        query.setParameter(0, meansId);
+        Query<Means> query = parts_MeanListQuery.forCurrentThread();
+        query.setParameter(0, partsId);
         return query.list();
     }
 

@@ -12,7 +12,7 @@ public class Parts {
 
     private Long id;
     private String part;
-    private Long meansId;
+    private Long dictionaryId;
 
     /** Used to resolve relations */
     private transient DaoSession daoSession;
@@ -20,23 +20,19 @@ public class Parts {
     /** Used for active entity operations. */
     private transient PartsDao myDao;
 
-    private List<Means> parts;
+    private List<Means> meanList;
 
-    public void setParts(List<Means> parts) {
-		this.parts = parts;
-	}
-
-	public Parts() {
+    public Parts() {
     }
 
     public Parts(Long id) {
         this.id = id;
     }
 
-    public Parts(Long id, String part, Long meansId) {
+    public Parts(Long id, String part, Long dictionaryId) {
         this.id = id;
         this.part = part;
-        this.meansId = meansId;
+        this.dictionaryId = dictionaryId;
     }
 
     /** called by internal mechanisms, do not call yourself. */
@@ -61,34 +57,34 @@ public class Parts {
         this.part = part;
     }
 
-    public Long getMeansId() {
-        return meansId;
+    public Long getDictionaryId() {
+        return dictionaryId;
     }
 
-    public void setMeansId(Long meansId) {
-        this.meansId = meansId;
+    public void setDictionaryId(Long dictionaryId) {
+        this.dictionaryId = dictionaryId;
     }
 
     /** To-many relationship, resolved on first access (and after reset). Changes to to-many relations are not persisted, make changes to the target entity. */
-    public List<Means> getParts() {
-        if (parts == null) {
+    public List<Means> getMeanList() {
+        if (meanList == null) {
             if (daoSession == null) {
                 throw new DaoException("Entity is detached from DAO context");
             }
             MeansDao targetDao = daoSession.getMeansDao();
-            List<Means> partsNew = targetDao._queryParts_Parts(id);
+            List<Means> meanListNew = targetDao._queryParts_MeanList(id);
             synchronized (this) {
-                if(parts == null) {
-                    parts = partsNew;
+                if(meanList == null) {
+                    meanList = meanListNew;
                 }
             }
         }
-        return parts;
+        return meanList;
     }
 
     /** Resets a to-many relationship, making the next get call to query for a fresh result. */
-    public synchronized void resetParts() {
-        parts = null;
+    public synchronized void resetMeanList() {
+        meanList = null;
     }
 
     /** Convenient call for {@link AbstractDao#delete(Object)}. Entity must attached to an entity context. */
@@ -114,11 +110,5 @@ public class Parts {
         }    
         myDao.refresh(this);
     }
-
-	@Override
-	public String toString() {
-		return "Parts [id=" + id + ", part=" + part + ", meansId=" + meansId
-				+ ", parts=" + parts + "]";
-	}
 
 }
