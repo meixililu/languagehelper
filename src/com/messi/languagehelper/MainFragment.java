@@ -47,6 +47,7 @@ import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.ToastUtil;
+import com.messi.languagehelper.util.ViewUtil;
 import com.messi.languagehelper.util.XFUtil;
 
 public class MainFragment extends Fragment implements OnClickListener {
@@ -163,10 +164,11 @@ public class MainFragment extends Fragment implements OnClickListener {
 			baidu_translate.setOnClickListener(this);
 			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsHasShowBaiduMessage, true);
 			initSample();
+			recent_used_lv.addFooterView(listviewFooter);
 		}else{
-			baidu_tranlate_prompt.setVisibility(View.GONE);
+//			baidu_tranlate_prompt.setVisibility(View.GONE);
+			recent_used_lv.addFooterView( ViewUtil.getListFooterView(getActivity()) );
 		}
-		recent_used_lv.addFooterView(listviewFooter);
 		
 		initLanguage();
 		submit_btn.setOnClickListener(this);

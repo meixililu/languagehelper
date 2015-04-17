@@ -5,7 +5,9 @@ import java.util.List;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -41,7 +43,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	private ImageView unread_dot;
 	private LinearLayout study_ad_view;
 	public static StudyFragment mMainFragment;
-	
+	private SharedPreferences mSharedPreferences;
 	private EveryDaySentence mEveryDaySentence;
 	private IFLYBannerAd mIFLYBannerAd;
 	
@@ -62,6 +64,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	}
 	
 	private void initViews(){
+		mSharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);
 		study_daily_sentence = (FrameLayout)view.findViewById(R.id.study_daily_sentence);
 		study_spoken_english = (FrameLayout)view.findViewById(R.id.study_spoken_english);
 		study_dailog = (FrameLayout)view.findViewById(R.id.study_dailog);
@@ -77,25 +80,37 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		study_test.setOnClickListener(this);
 		study_to_all_user.setOnClickListener(this);
 		dailysentence_txt.setOnClickListener(this);
-		
-		mIFLYBannerAd = ADUtil.initBannerAD(getActivity(), study_ad_view);
-		mIFLYBannerAd.loadAd(new IFLYAdListener() {
-			@Override
-			public void onAdReceive() {
-				if(mIFLYBannerAd != null){
-					mIFLYBannerAd.showAd();
+		if(showNewFunction()){
+			mIFLYBannerAd = ADUtil.initBannerAD(getActivity(), study_ad_view);
+			mIFLYBannerAd.loadAd(new IFLYAdListener() {
+				@Override
+				public void onAdReceive() {
+					if(mIFLYBannerAd != null){
+						mIFLYBannerAd.showAd();
+					}
 				}
-			}
-			@Override
-			public void onAdFailed(AdError arg0) {
-			}
-			@Override
-			public void onAdClose() {
-			}
-			@Override
-			public void onAdClick() {
-			}
-		});
+				@Override
+				public void onAdFailed(AdError arg0) {
+				}
+				@Override
+				public void onAdClose() {
+				}
+				@Override
+				public void onAdClick() {
+				}
+			});
+		}
+	}
+	
+	private boolean showNewFunction(){
+		int IsCanShowAD_Study = mSharedPreferences.getInt(KeyUtil.IsCanShowAD_Study, 0);
+        if(IsCanShowAD_Study > 1){
+        	return true;
+        }else{
+        	IsCanShowAD_Study++;
+        	Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsCanShowAD_Study,IsCanShowAD_Study);
+        	return false;
+        }
 	}
 	
 	private void getDailySentence(){

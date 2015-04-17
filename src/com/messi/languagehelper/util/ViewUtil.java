@@ -3,6 +3,7 @@ package com.messi.languagehelper.util;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.view.View;
+import android.widget.AbsListView.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -81,6 +82,13 @@ public class ViewUtil {
 			img.setEnabled(false);
 		}
 		return img;
+	}
+	
+	public static View getListFooterView(Context mContext){
+		View mView = new View(mContext);
+		LayoutParams mparam = new LayoutParams(LayoutParams.MATCH_PARENT, ScreenUtil.dip2px(mContext, 70));
+		mView.setLayoutParams(mparam);
+		return mView;
 	}
 	
 }

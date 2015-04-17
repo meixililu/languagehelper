@@ -12,19 +12,25 @@ public class Dictionary {
 
     private Long id;
     private String word_name;
+    private String result;
     private String to;
     private String from;
     private String ph_am;
     private String ph_en;
     private String ph_zh;
+    private String type;
     private String questionVoiceId;
     private String questionAudioPath;
+    private String resultVoiceId;
+    private String resultAudioPath;
     private String iscollected;
     private Integer visit_times;
     private Integer speak_speed;
     private String backup1;
     private String backup2;
     private String backup3;
+    private String backup4;
+    private String backup5;
 
     /** Used to resolve relations */
     private transient DaoSession daoSession;
@@ -41,22 +47,28 @@ public class Dictionary {
         this.id = id;
     }
 
-    public Dictionary(Long id, String word_name, String to, String from, String ph_am, String ph_en, String ph_zh, String questionVoiceId, String questionAudioPath, String iscollected, Integer visit_times, Integer speak_speed, String backup1, String backup2, String backup3) {
+    public Dictionary(Long id, String word_name, String result, String to, String from, String ph_am, String ph_en, String ph_zh, String type, String questionVoiceId, String questionAudioPath, String resultVoiceId, String resultAudioPath, String iscollected, Integer visit_times, Integer speak_speed, String backup1, String backup2, String backup3, String backup4, String backup5) {
         this.id = id;
         this.word_name = word_name;
+        this.result = result;
         this.to = to;
         this.from = from;
         this.ph_am = ph_am;
         this.ph_en = ph_en;
         this.ph_zh = ph_zh;
+        this.type = type;
         this.questionVoiceId = questionVoiceId;
         this.questionAudioPath = questionAudioPath;
+        this.resultVoiceId = resultVoiceId;
+        this.resultAudioPath = resultAudioPath;
         this.iscollected = iscollected;
         this.visit_times = visit_times;
         this.speak_speed = speak_speed;
         this.backup1 = backup1;
         this.backup2 = backup2;
         this.backup3 = backup3;
+        this.backup4 = backup4;
+        this.backup5 = backup5;
     }
 
     /** called by internal mechanisms, do not call yourself. */
@@ -79,6 +91,14 @@ public class Dictionary {
 
     public void setWord_name(String word_name) {
         this.word_name = word_name;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
     }
 
     public String getTo() {
@@ -121,6 +141,14 @@ public class Dictionary {
         this.ph_zh = ph_zh;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getQuestionVoiceId() {
         return questionVoiceId;
     }
@@ -135,6 +163,22 @@ public class Dictionary {
 
     public void setQuestionAudioPath(String questionAudioPath) {
         this.questionAudioPath = questionAudioPath;
+    }
+
+    public String getResultVoiceId() {
+        return resultVoiceId;
+    }
+
+    public void setResultVoiceId(String resultVoiceId) {
+        this.resultVoiceId = resultVoiceId;
+    }
+
+    public String getResultAudioPath() {
+        return resultAudioPath;
+    }
+
+    public void setResultAudioPath(String resultAudioPath) {
+        this.resultAudioPath = resultAudioPath;
     }
 
     public String getIscollected() {
@@ -183,6 +227,22 @@ public class Dictionary {
 
     public void setBackup3(String backup3) {
         this.backup3 = backup3;
+    }
+
+    public String getBackup4() {
+        return backup4;
+    }
+
+    public void setBackup4(String backup4) {
+        this.backup4 = backup4;
+    }
+
+    public String getBackup5() {
+        return backup5;
+    }
+
+    public void setBackup5(String backup5) {
+        this.backup5 = backup5;
     }
 
     /** To-many relationship, resolved on first access (and after reset). Changes to to-many relations are not persisted, make changes to the target entity. */

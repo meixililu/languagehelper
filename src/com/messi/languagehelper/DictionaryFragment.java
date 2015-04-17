@@ -48,6 +48,7 @@ import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.ToastUtil;
+import com.messi.languagehelper.util.ViewUtil;
 import com.messi.languagehelper.util.XFUtil;
 
 public class DictionaryFragment extends Fragment implements OnClickListener {
@@ -148,6 +149,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		speak_round_layout.setOnClickListener(this);
 		clear_btn_layout.setOnClickListener(this);
 		
+		recent_used_lv.addFooterView( ViewUtil.getListFooterView(getActivity()) );
 		recent_used_lv.setAdapter(mAdapter);
 		getAccent();
 		speed = mSharedPreferences.getInt(getString(R.string.preference_key_tts_speed), 50);
@@ -319,26 +321,67 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 				if (!TextUtils.isEmpty(responseString)) {
 					LogUtil.DefalutLog(responseString);
 					mDictionaryBean = JsonParser.parseDictionaryJson(responseString);
-					
 					if(mDictionaryBean != null){
-						
-						beans.add(0,mDictionaryBean);
-						mAdapter.notifyDataSetChanged();
-						recent_used_lv.setSelection(0);
-						LogUtil.DefalutLog("Dictionary---------count:" + DataBaseUtil.getInstance().getDictionaryCount());
+						setData();
 					}else{
-						showToast(getActivity().getResources().getString(R.string.no_result));
+						GetDictionaryFaultAsyncTask();
 					}
-					
-//						if(mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false)){
-//							new AutoPlayWaitTask().execute();
-//						}
-//					}
+					if(mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false)){
+						new AutoPlayWaitTask().execute();
+					}
 				} else {
 					showToast(getActivity().getResources().getString(R.string.network_error));
 				}
 			}
 		});
+	}
+	
+	private void GetDictionaryFaultAsyncTask(){
+		loadding();
+		submit_btn.setEnabled(false);
+		Settings.q = input_et.getText().toString().trim();
+		RequestParams mRequestParams = new RequestParams();
+		mRequestParams.put("client_id", Settings.client_id);
+		mRequestParams.put("q", Settings.q);
+		mRequestParams.put("from", Settings.from);
+		mRequestParams.put("to", Settings.to);
+		LanguagehelperHttpClient.get(Settings.baiduTranslateUrl, mRequestParams, new TextHttpResponseHandler() {
+			@Override
+			public void onFinish() {
+				super.onFinish();
+				finishLoadding();
+				submit_btn.setEnabled(true);
+			}
+			@Override
+			public void onFailure(int statusCode, Header[] headers,String responseString, Throwable throwable) {
+				showToast("Error("+statusCode+")");
+			}
+			@Override
+			public void onSuccess(int statusCode, Header[] headers, String responseString) {
+				if (!TextUtils.isEmpty(responseString)) {
+					LogUtil.DefalutLog(responseString);
+					String dstString = JsonParser.getTranslateResult(responseString);
+					if (dstString.contains("error_msg:")) {
+						showToast(dstString);
+					} else {
+						mDictionaryBean = new Dictionary();
+						mDictionaryBean.setType(KeyUtil.ResultTypeTranslate);
+						mDictionaryBean.setWord_name(Settings.q);
+						mDictionaryBean.setResult(dstString);
+						DataBaseUtil.getInstance().insert(mDictionaryBean);
+						setData();
+					}
+				} else {
+					showToast(getActivity().getResources().getString(R.string.network_error));
+				}
+			}
+		});
+	}
+	
+	private void setData(){
+		beans.add(0,mDictionaryBean);
+		mAdapter.notifyDataSetChanged();
+		recent_used_lv.setSelection(0);
 	}
 	
 	class AutoPlayWaitTask extends AsyncTask<Void, Void, Void>{
@@ -498,12 +541,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 	 */
 	private void submit(){
 		Settings.q = input_et.getText().toString().trim();
-		Settings.q =  Settings.q.replace(".", "");
-		Settings.q =  Settings.q.replace("。", "");
-		Settings.q =  Settings.q.replace("？", "");
-		Settings.q =  Settings.q.replace("?", "");
-		Settings.q =  Settings.q.replace("!", "");
-		Settings.q =  Settings.q.replace("！", "");
+		Settings.q =  Settings.q.replaceAll("[\\p{P}]", "");
 		if (!TextUtils.isEmpty(Settings.q)) {
 			RequestAsyncTask();
 			StatService.onEvent(getActivity(), BaiduStatistics.TranslateBtn, "翻译按钮", 1);

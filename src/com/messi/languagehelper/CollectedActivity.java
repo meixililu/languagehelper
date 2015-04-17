@@ -31,8 +31,6 @@ public class CollectedActivity extends BaseActivity implements OnClickListener {
 	private List<record> beans;
 	private ProgressBarCircularIndeterminate progressbar;
 
-	// 识别对象
-	private SpeechRecognizer recognizer;
 	// 缓存，保存当前的引擎参数到下一次启动应用程序使用.
 	private SharedPreferences mSharedPreferences;
 	//合成对象.
@@ -56,7 +54,6 @@ public class CollectedActivity extends BaseActivity implements OnClickListener {
 		recent_used_lv = (RecyclerView) findViewById(R.id.collected_listview);
 		progressbar = (ProgressBarCircularIndeterminate) findViewById(R.id.lottery_result_hall_progressbar_m);
 		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this, null);
-		recognizer = SpeechRecognizer.createRecognizer(this, null);
 		
 		recent_used_lv.setHasFixedSize(true);
 		LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);

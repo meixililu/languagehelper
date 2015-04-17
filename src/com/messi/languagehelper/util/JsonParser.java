@@ -58,29 +58,36 @@ public class JsonParser {
 				String errno = jObject.getString("errno");
 				if(errno.equals("0")){
 					bean = new Dictionary();
-					JSONObject dataObject = jObject.getJSONObject("data");
-					if(dataObject != null){
-						if(dataObject.has("symbols")){
-							JSONArray symbols = dataObject.getJSONArray("symbols");
-							if(dataObject.has("word_name")){
-								bean.setWord_name(dataObject.getString("word_name")); 
-							}
-							if(symbols != null){
-								for (int i = 0; i < symbols.length(); i++) {
-									JSONObject symbol = symbols.getJSONObject(i);
-									if(symbol.has("ph_zh")){
-										bean.setPh_zh(symbol.getString("ph_zh"));
+					
+					String data = jObject.getString("data");
+					Object json = new JSONTokener(data).nextValue();
+					if(json instanceof JSONObject){
+						JSONObject dataObject = (JSONObject)json;
+						if(dataObject != null){
+							if(dataObject.has("symbols")){
+								JSONArray symbols = dataObject.getJSONArray("symbols");
+								if(dataObject.has("word_name")){
+									bean.setWord_name(dataObject.getString("word_name")); 
+								}
+								if(symbols != null){
+									for (int i = 0; i < symbols.length(); i++) {
+										JSONObject symbol = symbols.getJSONObject(i);
+										if(symbol.has("ph_zh")){
+											bean.setPh_zh(symbol.getString("ph_zh"));
+										}
+										if(symbol.has("ph_en")){
+											bean.setPh_en(symbol.getString("ph_en"));
+										}
+										if(symbol.has("ph_am")){
+											bean.setPh_am(symbol.getString("ph_am"));
+										}
+										parts = symbol.getJSONArray("parts");
 									}
-									if(symbol.has("ph_en")){
-										bean.setPh_en(symbol.getString("ph_en"));
-									}
-									if(symbol.has("ph_am")){
-										bean.setPh_am(symbol.getString("ph_am"));
-									}
-									parts = symbol.getJSONArray("parts");
-					            }
+								}
 							}
 						}
+					}else if (json instanceof JSONArray){
+					    return null;
 					}
 				}
 			}
@@ -91,6 +98,7 @@ public class JsonParser {
 				bean.setFrom(jObject.getString("from")); 
 			}
 			if(bean != null){
+				bean.setType(KeyUtil.ResultTypeDictionary);
 				DataBaseUtil.getInstance().insert(bean);
 				long dictionaryId = bean.getId();
 				LogUtil.DefalutLog("dictionaryId----:"+dictionaryId);

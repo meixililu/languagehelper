@@ -58,10 +58,28 @@ public class KeyUtil {
 	public static String IsCanShowAD_Loading = "IsCanShowAD_Loading";
 	
 	public static String IsCanShowAD_Leisure = "IsCanShowAD_Leisure";
+
+	public static String IsCanShowAD_Study = "IsCanShowAD_Study";
 	
 	public static String LastTimeSelectTab = "LastTimeSelectTab";
 	
 	public static String DailySentenceBigImgUrl = "DailySentenceBigImgUrl";
+	
+	public static String ResultTypeDictionary = "ResultTypeDictionary";
+	
+	public static String ResultTypeTranslate = "ResultTypeTranslate";
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

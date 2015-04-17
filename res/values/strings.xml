@@ -27,6 +27,7 @@
     <string name="menu_settings">语速调节</string>
     <string name="app_name_share">App:中英互译</string>
     <string name="share_text_hint">请输入分享内容</string>
+    <string name="input_et_hint_dictionary">请输入中文或英文单词、词组</string>
     <string name="input_et_hint">请输入需要翻译的中文或英文</string>
     <string name="input_translate_hint">请翻译</string>
     <string name="auto_play_after_translate">翻译完成后自动播放</string>

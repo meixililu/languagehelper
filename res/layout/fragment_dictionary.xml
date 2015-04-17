@@ -30,7 +30,7 @@
 	                android:layout_height="wrap_content"
 	                android:background="@color/none"
 	                android:gravity="left"
-	                android:hint="@string/input_et_hint"
+	                android:hint="@string/input_et_hint_dictionary"
 	                android:imeOptions="actionDone"
 	                android:layout_margin="5dp"
 	                android:minLines="3"
