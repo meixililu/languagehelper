@@ -7,16 +7,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.text.ClipboardManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,141 +46,194 @@ import com.messi.languagehelper.util.SDCardUtil;
 import com.messi.languagehelper.util.ShowView;
 import com.messi.languagehelper.util.XFUtil;
 
-public class DictionaryListViewAdapter extends BaseAdapter {
+public class DictionaryRecyclerviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+	private static final int TYPE_HEADER = 2;
+    private static final int TYPE_ITEM = 1;
 	private LayoutInflater mInflater;
 	private List<Dictionary> beans;
 	private Context context;
 	private SpeechSynthesizer mSpeechSynthesizer;
 	private SharedPreferences mSharedPreferences;
 	private Bundle bundle;
+	private boolean isShowHeader;
 
-	public DictionaryListViewAdapter(Context mContext,
-			LayoutInflater mInflater, List<Dictionary> mBeans,
-			SpeechSynthesizer mSpeechSynthesizer,
-			SharedPreferences mSharedPreferences, Bundle bundle) {
-		LogUtil.DefalutLog("public CollectedListItemAdapter");
+	public DictionaryRecyclerviewAdapter(Context mContext,LayoutInflater mInflater, List<Dictionary> mBeans,SpeechSynthesizer mSpeechSynthesizer,
+			SharedPreferences mSharedPreferences, Bundle bundle, boolean isShowHeader) {
 		context = mContext;
 		beans = mBeans;
 		this.mInflater = mInflater;
 		this.mSharedPreferences = mSharedPreferences;
 		this.mSpeechSynthesizer = mSpeechSynthesizer;
 		this.bundle = bundle;
+		this.isShowHeader = isShowHeader;
 	}
-
-	public int getCount() {
-		return beans.size();
-	}
-
-	public Object getItem(int position) {
-		return beans.get(position);
-	}
-
-	public long getItemId(int position) {
-		return position;
+	
+	public static class ItemViewHolder extends RecyclerView.ViewHolder {
+		
+		public TextView record_question;
+		public TextView record_answer;
+		public FrameLayout record_answer_cover;
+		public FrameLayout record_to_practice;
+		public FrameLayout record_question_cover;
+		public FrameLayout delete_btn;
+		public FrameLayout copy_btn;
+		public FrameLayout collected_btn;
+		public FrameLayout weixi_btn;
+		public ImageButton voice_play;
+		public ImageView unread_dot;
+		public CheckBox collected_cb;
+		public FrameLayout voice_play_layout;
+		public ProgressBar play_content_btn_progressbar;
+		
+        public ItemViewHolder(View convertView) {
+            super(convertView);
+            record_question_cover = (FrameLayout) convertView.findViewById(R.id.record_question_cover);
+			record_answer_cover = (FrameLayout) convertView.findViewById(R.id.record_answer_cover);
+			record_to_practice = (FrameLayout) convertView.findViewById(R.id.record_to_practice);
+			record_question = (TextView) convertView.findViewById(R.id.record_question);
+			record_answer = (TextView) convertView.findViewById(R.id.record_answer);
+			unread_dot = (ImageView) convertView.findViewById(R.id.unread_dot);
+			voice_play = (ImageButton) convertView.findViewById(R.id.voice_play);
+			collected_cb = (CheckBox) convertView.findViewById(R.id.collected_cb);
+			voice_play_layout = (FrameLayout) convertView.findViewById(R.id.voice_play_layout);
+			delete_btn = (FrameLayout) convertView.findViewById(R.id.delete_btn);
+			copy_btn = (FrameLayout) convertView.findViewById(R.id.copy_btn);
+			collected_btn = (FrameLayout) convertView.findViewById(R.id.collected_btn);
+			weixi_btn = (FrameLayout) convertView.findViewById(R.id.weixi_btn);
+			play_content_btn_progressbar = (ProgressBar) convertView.findViewById(R.id.play_content_btn_progressbar);
+        }
+    }
+	
+	public static class RecyclerHeaderViewHolder extends RecyclerView.ViewHolder {
+	    public RecyclerHeaderViewHolder(View itemView) {
+	        super(itemView);
+	    }
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		LogUtil.DefalutLog("DictionaryListViewAdapter---getView");
-		final ViewHolder holder;
-		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.listview_item_dictionary, null);
-			holder = new ViewHolder();
-			holder.cover_result = (FrameLayout) convertView.findViewById(R.id.record_question_cover);
-			holder.cover_question = (FrameLayout) convertView.findViewById(R.id.record_answer_cover);
-			holder.txt_result = (TextView) convertView.findViewById(R.id.record_question);
-			holder.txt_question = (TextView) convertView.findViewById(R.id.record_answer);
-			holder.voice_play = (ImageButton) convertView.findViewById(R.id.voice_play);
-			holder.collected_cb = (CheckBox) convertView.findViewById(R.id.collected_cb);
-			holder.voice_play_layout = (FrameLayout) convertView.findViewById(R.id.voice_play_layout);
-			holder.delete_btn = (FrameLayout) convertView.findViewById(R.id.delete_btn);
-			holder.copy_btn = (FrameLayout) convertView.findViewById(R.id.copy_btn);
-			holder.collected_btn = (FrameLayout) convertView.findViewById(R.id.collected_btn);
-			holder.weixi_btn = (FrameLayout) convertView.findViewById(R.id.weixi_btn);
-			holder.play_content_btn_progressbar = (ProgressBar) convertView.findViewById(R.id.play_content_btn_progressbar);
-			convertView.setTag(holder);
-		} else {
-			holder = (ViewHolder) convertView.getTag();
+	public int getItemCount() {
+		if(isShowHeader){
+			return getBasicItemCount() + 1;
+		}else{
+			return getBasicItemCount();
 		}
-		try {
-			final Dictionary mBean = beans.get(position);
-			AnimationDrawable animationDrawable = (AnimationDrawable) holder.voice_play.getBackground();
-			MyOnClickListener mResultClickListener = new MyOnClickListener(mBean,animationDrawable, holder.voice_play,holder.play_content_btn_progressbar, true);
-			MyOnClickListener mQuestionOnClickListener = new MyOnClickListener(mBean, animationDrawable, holder.voice_play,holder.play_content_btn_progressbar, false);
-			if (mBean.getIscollected().equals("0")) {
-				holder.collected_cb.setChecked(false);
-			} else {
-				holder.collected_cb.setChecked(true);
-			}
-			holder.txt_question.setText(mBean.getWord_name());
-			if(mBean.getType().equals(KeyUtil.ResultTypeDictionary)){
-				holder.txt_result.setText( DictionaryUtil.getListToString(mBean) );
-			}else{
-				holder.txt_result.setText(mBean.getResult());
-			}
-			holder.voice_play_layout.setOnClickListener(mResultClickListener);
-			holder.cover_result.setOnClickListener(mResultClickListener);
-			holder.cover_question.setOnClickListener(mQuestionOnClickListener);
-			
-			holder.delete_btn.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					DataBaseUtil.getInstance().dele(mBean);
-					beans.remove(mBean);
-					notifyDataSetChanged();
-					showToast(context.getResources().getString(R.string.dele_success));
-					StatService.onEvent(context, "1.6_deletebtn", "删除按钮", 1);
-				}
-			});
-			holder.copy_btn.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					String dictionary;
-					try {
-						dictionary = DictionaryUtil.getShareContent(mBean);
-						copy(dictionary);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					StatService.onEvent(context, "1.6_copybtn", "复制按钮", 1);
-				}
-			});
-			holder.weixi_btn.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					sendToWechat(mBean);
-				}
-			});
-			holder.collected_btn.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					updateCollectedStatus(mBean);
-					StatService.onEvent(context, "1.6_collectedbtn", "收藏按钮", 1);
-				}
-			});
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return convertView;
 	}
-
 	
-
-	static class ViewHolder {
-		TextView txt_result;
-		TextView txt_question;
-		FrameLayout cover_question;
-		FrameLayout cover_result;
-		FrameLayout delete_btn;
-		FrameLayout copy_btn;
-		FrameLayout collected_btn;
-		FrameLayout weixi_btn;
-		ImageButton voice_play;
-		CheckBox collected_cb;
-		FrameLayout voice_play_layout;
-		ProgressBar play_content_btn_progressbar;
+	@Override
+	public int getItemViewType(int position) {
+		if(isShowHeader){
+			if (isPositionHeader(position)) {
+				return TYPE_HEADER;
+			}
+		}
+        return TYPE_ITEM;
 	}
+	
+	private boolean isPositionHeader(int position) {
+		if(isShowHeader){
+			return position == 0;
+		}else{
+			return false;
+		}
+    }
+	
+	public int getBasicItemCount() {
+        return beans == null ? 0 : beans.size();
+    }
+
+	@Override
+	public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup arg0, int viewType) {
+		if (viewType == TYPE_ITEM) {
+			View v = mInflater.inflate(R.layout.listview_item_dictionary, arg0, false);
+			return new ItemViewHolder(v);
+		} else {
+			View v = mInflater.inflate(R.layout.recycler_header, arg0, false);
+			return new RecyclerHeaderViewHolder(v);
+		}
+	}
+	
+	public void addEntity(int i, Dictionary entity) {
+		beans.add(i, entity);
+        notifyItemInserted(i);
+    }
+ 
+    public void deleteEntity(int i) {
+    	beans.remove(i);
+        notifyItemRemoved(i);
+    }
+    
+    @Override
+	public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
+		if (!isPositionHeader(position)) {
+			try {
+				LogUtil.DefalutLog("DictionaryListViewAdapter---getView");
+				final ItemViewHolder holder = (ItemViewHolder) viewHolder;
+				int itemposition = position;
+				if(isShowHeader){
+					itemposition = position-1;
+				}
+				final Dictionary mBean = beans.get(position);
+				AnimationDrawable animationDrawable = (AnimationDrawable) holder.voice_play.getBackground();
+				MyOnClickListener mResultClickListener = new MyOnClickListener(mBean,animationDrawable, holder.voice_play,holder.play_content_btn_progressbar, true);
+				MyOnClickListener mQuestionOnClickListener = new MyOnClickListener(mBean, animationDrawable, holder.voice_play,holder.play_content_btn_progressbar, false);
+				if (mBean.getIscollected().equals("0")) {
+					holder.collected_cb.setChecked(false);
+				} else {
+					holder.collected_cb.setChecked(true);
+				}
+				holder.record_answer.setText(mBean.getWord_name());
+				if(mBean.getType().equals(KeyUtil.ResultTypeDictionary)){
+					holder.record_question.setText( DictionaryUtil.getListToString(mBean) );
+				}else{
+					holder.record_question.setText(mBean.getResult());
+				}
+				holder.voice_play_layout.setOnClickListener(mResultClickListener);
+				holder.record_question_cover.setOnClickListener(mResultClickListener);
+				holder.record_answer_cover.setOnClickListener(mQuestionOnClickListener);
+				
+				holder.delete_btn.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						DataBaseUtil.getInstance().dele(mBean);
+						beans.remove(mBean);
+						notifyDataSetChanged();
+						showToast(context.getResources().getString(R.string.dele_success));
+						StatService.onEvent(context, "1.6_deletebtn", "删除按钮", 1);
+					}
+				});
+				holder.copy_btn.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						String dictionary;
+						try {
+							dictionary = DictionaryUtil.getShareContent(mBean);
+							copy(dictionary);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						StatService.onEvent(context, "1.6_copybtn", "复制按钮", 1);
+					}
+				});
+				holder.weixi_btn.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						sendToWechat(mBean);
+					}
+				});
+				holder.collected_btn.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						updateCollectedStatus(mBean);
+						StatService.onEvent(context, "1.6_collectedbtn", "收藏按钮", 1);
+					}
+				});
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+    }
 
 	public void notifyDataChange(List<Dictionary> mBeans, int maxNumber) {
 		if (maxNumber == 0) {
@@ -258,7 +312,13 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 			mBean.setIscollected("0");
 			showToast(context.getResources().getString(R.string.favorite_cancle));
 		}
-		notifyDataSetChanged();
+		int clickItemPosition = beans.indexOf(mBean);
+		beans.remove(mBean);
+		if(isShowHeader){
+			clickItemPosition = clickItemPosition+1;
+		}
+		notifyItemRemoved(clickItemPosition);
+		DictionaryFragment.isRefresh = true;
 		DataBaseUtil.getInstance().update(mBean);
 	}
 
@@ -409,4 +469,5 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 			Toast.makeText(context, toastString, 0).show();
 		}
 	}
+
 }

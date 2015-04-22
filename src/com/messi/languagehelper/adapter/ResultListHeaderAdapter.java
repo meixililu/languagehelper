@@ -28,7 +28,6 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
-import com.messi.languagehelper.CollectedFragment;
 import com.messi.languagehelper.ImgShareActivity;
 import com.messi.languagehelper.LanguageApplication;
 import com.messi.languagehelper.MainFragment;
@@ -60,11 +59,11 @@ public class ResultListHeaderAdapter extends RecyclerView.Adapter<RecyclerView.V
 	private SpeechSynthesizer mSpeechSynthesizer;
 	private SharedPreferences mSharedPreferences;
 	private Bundle bundle;
-	private String from;
+	private boolean isShowHeader;
 
 	public ResultListHeaderAdapter(Context mContext,LayoutInflater mInflater,List<record> mBeans,
 			SpeechSynthesizer mSpeechSynthesizer,SharedPreferences mSharedPreferences,
-			Bundle bundle, String from) {
+			Bundle bundle, boolean isShowHeader) {
 		LogUtil.DefalutLog("public CollectedListItemAdapter");
 		context = mContext;
 		beans = mBeans;
@@ -72,7 +71,7 @@ public class ResultListHeaderAdapter extends RecyclerView.Adapter<RecyclerView.V
 		this.mSharedPreferences = mSharedPreferences;
 		this.mSpeechSynthesizer = mSpeechSynthesizer;
 		this.bundle = bundle;
-		this.from = from;
+		this.isShowHeader = isShowHeader;
 	}
 	
 	public static class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -119,19 +118,29 @@ public class ResultListHeaderAdapter extends RecyclerView.Adapter<RecyclerView.V
 	
 	@Override
 	public int getItemCount() {
-		return getBasicItemCount() + 1;
+		if(isShowHeader){
+			return getBasicItemCount() + 1;
+		}else{
+			return getBasicItemCount();
+		}
 	}
 	
 	@Override
 	public int getItemViewType(int position) {
-		if (isPositionHeader(position)) {
-            return TYPE_HEADER;
-        }
+		if(isShowHeader){
+			if (isPositionHeader(position)) {
+				return TYPE_HEADER;
+			}
+		}
         return TYPE_ITEM;
 	}
 	
 	private boolean isPositionHeader(int position) {
-        return position == 0;
+		if(isShowHeader){
+			return position == 0;
+		}else{
+			return false;
+		}
     }
 	
 	public int getBasicItemCount() {
@@ -147,7 +156,6 @@ public class ResultListHeaderAdapter extends RecyclerView.Adapter<RecyclerView.V
 			View v = mInflater.inflate(R.layout.recycler_header, arg0, false);
 			return new RecyclerHeaderViewHolder(v);
 		}
-		
 	}
 	
 	public void addEntity(int i, record entity) {
@@ -164,19 +172,21 @@ public class ResultListHeaderAdapter extends RecyclerView.Adapter<RecyclerView.V
 	public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
 		if (!isPositionHeader(position)) {
 			final ItemViewHolder holder = (ItemViewHolder) viewHolder;
-			final record mBean = beans.get(position-1);
+			int itemposition = position;
+			if(isShowHeader){
+				itemposition = position-1;
+			}
+			final record mBean = beans.get(itemposition);
 			AnimationDrawable animationDrawable = (AnimationDrawable) holder.voice_play.getBackground();
-			MyOnClickListener mMyOnClickListener = new MyOnClickListener(mBean,animationDrawable,holder.voice_play,
-					holder.play_content_btn_progressbar,true);
-			MyOnClickListener mQuestionOnClickListener = new MyOnClickListener(mBean,animationDrawable,holder.voice_play,
-					holder.play_content_btn_progressbar,false);
+			MyOnClickListener mMyOnClickListener = new MyOnClickListener(mBean,animationDrawable,holder.voice_play,holder.play_content_btn_progressbar,true);
+			MyOnClickListener mQuestionOnClickListener = new MyOnClickListener(mBean,animationDrawable,holder.voice_play,holder.play_content_btn_progressbar,false);
 			if(mBean.getIscollected().equals("0")){
 				holder.collected_cb.setChecked(false);
 			}else{
 				holder.collected_cb.setChecked(true);
 			}
 			if(isFirstLoaded()){
-				if(position-1 == 0){
+				if(itemposition == 0){
 					holder.unread_dot.setVisibility(View.VISIBLE);
 				}else{
 					holder.unread_dot.setVisibility(View.GONE);
@@ -194,7 +204,10 @@ public class ResultListHeaderAdapter extends RecyclerView.Adapter<RecyclerView.V
 				public void onClick(View v) {
 					int clickItemPosition = beans.indexOf(mBean);
 					beans.remove(clickItemPosition);
-					notifyItemRemoved(clickItemPosition+1);
+					if(isShowHeader){
+						clickItemPosition = clickItemPosition+1;
+					}
+					notifyItemRemoved(clickItemPosition);
 					DataBaseUtil.getInstance().dele(mBean);
 					showToast(context.getResources().getString(R.string.dele_success));
 					MainFragment.isRefresh = true;
@@ -219,7 +232,6 @@ public class ResultListHeaderAdapter extends RecyclerView.Adapter<RecyclerView.V
 				@Override
 				public void onClick(View v) {
 					updateCollectedStatus(mBean);
-					notifyDataSetChanged();
 					StatService.onEvent(context, "1.6_collectedbtn", "收藏按钮", 1);
 				}
 			});
@@ -312,13 +324,13 @@ public class ResultListHeaderAdapter extends RecyclerView.Adapter<RecyclerView.V
 			mBean.setIscollected("0");
 			showToast(context.getResources().getString(R.string.favorite_cancle));
 		}  
-		if(from.equals("CollectedFragment")){
-			beans.remove(mBean);
-			notifyDataSetChanged();
-			MainFragment.isRefresh = true;
-		}else{
-			CollectedFragment.isRefresh = true;
+		int clickItemPosition = beans.indexOf(mBean);
+		beans.remove(mBean);
+		if(isShowHeader){
+			clickItemPosition = clickItemPosition+1;
 		}
+		notifyItemRemoved(clickItemPosition);
+		MainFragment.isRefresh = true;
 		DataBaseUtil.getInstance().update(mBean);
 	}
 	

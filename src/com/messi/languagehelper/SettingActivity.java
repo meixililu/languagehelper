@@ -111,7 +111,6 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 		case R.id.setting_clear_all:
 			DataBaseUtil.getInstance().clearAll();
 			MainFragment.isRefresh = true;
-			CollectedFragment.isRefresh = true;
 			SDCardUtil.deleteOldFile();
 			ToastUtil.diaplayMesShort(SettingActivity.this, this.getResources().getString(R.string.clear_success));
 			StatService.onEvent(this, "1.8_clear_all", "清楚所有记录", 1);

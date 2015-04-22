@@ -28,7 +28,6 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
-import com.messi.languagehelper.CollectedFragment;
 import com.messi.languagehelper.ImgShareActivity;
 import com.messi.languagehelper.LanguageApplication;
 import com.messi.languagehelper.MainFragment;
@@ -58,11 +57,10 @@ public class CollectedListItemAdapter extends BaseAdapter {
 	private SpeechSynthesizer mSpeechSynthesizer;
 	private SharedPreferences mSharedPreferences;
 	private Bundle bundle;
-	private String from;
 
 	public CollectedListItemAdapter(Context mContext,LayoutInflater mInflater,List<record> mBeans,
 			SpeechSynthesizer mSpeechSynthesizer,SharedPreferences mSharedPreferences, 
-			Bundle bundle, String from) {
+			Bundle bundle) {
 		LogUtil.DefalutLog("public CollectedListItemAdapter");
 		context = mContext;
 		beans = mBeans;
@@ -70,7 +68,6 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		this.mSharedPreferences = mSharedPreferences;
 		this.mSpeechSynthesizer = mSpeechSynthesizer;
 		this.bundle = bundle;
-		this.from = from;
 	}
 
 	public int getCount() {
@@ -163,7 +160,6 @@ public class CollectedListItemAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				updateCollectedStatus(mBean);
-				notifyDataSetChanged();
 				StatService.onEvent(context, "1.6_collectedbtn", "收藏按钮", 1);
 			}
 		});
@@ -272,13 +268,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 			mBean.setIscollected("0");
 			showToast(context.getResources().getString(R.string.favorite_cancle));
 		}  
-		if(from.equals("CollectedFragment")){
-			beans.remove(mBean);
-			notifyDataSetChanged();
-			MainFragment.isRefresh = true;
-		}else{
-			CollectedFragment.isRefresh = true;
-		}
+		notifyDataSetChanged();
 		DataBaseUtil.getInstance().update(mBean);
 	}
 	

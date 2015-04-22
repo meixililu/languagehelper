@@ -115,6 +115,14 @@ public class DataBaseUtil {
 		qb.limit(maxResult);
 		return qb.list();
 	}
+	
+	public List<Dictionary> getDataListDictionaryCollected(int offset, int maxResult) {
+		QueryBuilder<Dictionary> qb = mDictionaryDao.queryBuilder();
+		qb.where(DictionaryDao.Properties.Iscollected.eq("1"));
+		qb.orderDesc(DictionaryDao.Properties.Id);
+		qb.limit(maxResult);
+		return qb.list();
+	}
 
 	public void dele(record bean) {
 		recordDao.delete(bean);

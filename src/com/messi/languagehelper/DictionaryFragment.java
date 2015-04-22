@@ -127,7 +127,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		recognizer = SpeechRecognizer.createRecognizer(getActivity(), null);
 		beans = DataBaseUtil.getInstance().getDataListDictionary(0, Settings.offset);
 		mAdapter = new DictionaryListViewAdapter(getActivity(), mInflater, beans, 
-				mSpeechSynthesizer, mSharedPreferences, bundle, "MainFragment");
+				mSpeechSynthesizer, mSharedPreferences, bundle);
 		
 		recent_used_lv = (ListView) view.findViewById(R.id.recent_used_lv);
 		input_et = (EditText) view.findViewById(R.id.input_et);

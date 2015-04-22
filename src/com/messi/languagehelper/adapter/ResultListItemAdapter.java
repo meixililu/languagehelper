@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -29,7 +28,6 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
-import com.messi.languagehelper.CollectedFragment;
 import com.messi.languagehelper.ImgShareActivity;
 import com.messi.languagehelper.LanguageApplication;
 import com.messi.languagehelper.MainFragment;
@@ -60,11 +58,10 @@ public class ResultListItemAdapter extends RecyclerView.Adapter<ResultListItemAd
 	private SpeechSynthesizer mSpeechSynthesizer;
 	private SharedPreferences mSharedPreferences;
 	private Bundle bundle;
-	private String from;
 
 	public ResultListItemAdapter(Context mContext,LayoutInflater mInflater,List<record> mBeans,
 			SpeechSynthesizer mSpeechSynthesizer,SharedPreferences mSharedPreferences,DataBaseUtil mDataBaseUtil,
-			Bundle bundle, String from) {
+			Bundle bundle) {
 		LogUtil.DefalutLog("public CollectedListItemAdapter");
 		context = mContext;
 		beans = mBeans;
@@ -73,7 +70,6 @@ public class ResultListItemAdapter extends RecyclerView.Adapter<ResultListItemAd
 		this.mSpeechSynthesizer = mSpeechSynthesizer;
 		this.mDataBaseUtil = mDataBaseUtil;
 		this.bundle = bundle;
-		this.from = from;
 	}
 	
 	public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -197,7 +193,6 @@ public class ResultListItemAdapter extends RecyclerView.Adapter<ResultListItemAd
 			@Override
 			public void onClick(View v) {
 				updateCollectedStatus(mBean);
-				notifyDataSetChanged();
 				StatService.onEvent(context, "1.6_collectedbtn", "收藏按钮", 1);
 			}
 		});
@@ -289,13 +284,9 @@ public class ResultListItemAdapter extends RecyclerView.Adapter<ResultListItemAd
 			mBean.setIscollected("0");
 			showToast(context.getResources().getString(R.string.favorite_cancle));
 		}  
-		if(from.equals("CollectedFragment")){
-			beans.remove(mBean);
-			notifyDataSetChanged();
-			MainFragment.isRefresh = true;
-		}else{
-			CollectedFragment.isRefresh = true;
-		}
+		beans.remove(mBean);
+		notifyDataSetChanged();
+		MainFragment.isRefresh = true;
 		mDataBaseUtil.update(mBean);
 	}
 	
