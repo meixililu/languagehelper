@@ -23,7 +23,7 @@ import com.messi.languagehelper.wxapi.WXEntryActivity;
 
 public class LoadingActivity extends Activity {
 	
-	public static final long IntervalTime = 1000 * 30;
+	public static final long IntervalTime = 1000 * 60 * 5;
 	// 缓存，保存当前的引擎参数到下一次启动应用程序使用.
 	private SharedPreferences mSharedPreferences;
 	private LinearLayout middle_ad;

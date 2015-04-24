@@ -133,12 +133,28 @@ public class DataBaseUtil {
 	}
 	
 	public void clearExceptFavorite() {
+		clearTranslateExceptFavorite();
+		clearDictionaryExceptFavorite();
+	}
+	
+	public void clearTranslateExceptFavorite() {
 		QueryBuilder<record> qb = recordDao.queryBuilder();
 		DeleteQuery<record> bd = qb.where(Properties.Iscollected.eq("0")).buildDelete();
 		bd.executeDeleteWithoutDetachingEntities();
 	}
 	
+	public void clearDictionaryExceptFavorite() {
+		QueryBuilder<Dictionary> qb = mDictionaryDao.queryBuilder();
+		DeleteQuery<Dictionary> bd = qb.where(DictionaryDao.Properties.Iscollected.eq("0")).buildDelete();
+		bd.executeDeleteWithoutDetachingEntities();
+	}
+	
 	public void clearAll() {
+		clearAllTranslate();
+		clearAllDictionary();
+	}
+	
+	public void clearAllTranslate(){
 		recordDao.deleteAll();
 	}
 	

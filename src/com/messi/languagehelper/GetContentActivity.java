@@ -21,12 +21,7 @@ public class GetContentActivity extends BaseActivity implements OnClickListener 
 	}
 
 	private void initViews(){
-		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
-		if (toolbar != null) {
-			setSupportActionBar(toolbar);
-			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		}
-		getSupportActionBar().setTitle(getResources().getString(R.string.sorry));
+		getSupportActionBar().setTitle(getResources().getString(R.string.simulation_dialogue));
 		layout_1 = (FrameLayout)findViewById(R.id.layout_1);
 		layout_2 = (FrameLayout)findViewById(R.id.layout_2);
 		layout_1.setOnClickListener(this);

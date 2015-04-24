@@ -113,10 +113,8 @@
 	<string name="recent_use_footer_prompt_content">\t此处只保存100条最近翻译记录，常用的请收藏。目前的翻译结果都不可能百分百准确，
 	    谢谢您的理解，我们会不断改进软件，为您提供更多更好的服务。</string>
 	    
-	<string name="textclickguidedialog_title">我只show一次</string>
-	<string name="textclickguidedialog_content">\t亲，点击翻译内容和结果即可播放语音。</string>
-	<string name="textclickguidedialog_content1">\t应用设置可以调节语音播放速度。</string>
-	<string name="textclickguidedialog_konw">我知道了</string>
+	<string name="textclickguidedialog_title">温馨提示</string>
+	<string name="textclickguidedialog_content">直接点击翻译内容或结果即可播放语音;语音播放速度可在应用设置里调节。</string>
 	
 	<string name="about_play_title">关于语音播报</string>
 	<string name="about_play_content">点击文字即可播放相应的内容，点击喇叭默认播放翻译的结果。</string>
@@ -196,9 +194,8 @@
 	<string name="getfans_4">有想法：meixililulu@163.com</string>
 	<string name="getfans_5">带你融资带你飞，带你路演到天黑！</string>
 	    
-	<string name="getcontent_1">由于人员有限，我们正在不断的增加学习内容，如果您需要加快更新某方面的内容，
-	    可以发邮件告诉我们，和我们一起开发软件，不断丰富软件内容，提高软件水平，说的就是你，赶紧发邮件给我们提出您伟大的要求！</string>
-	<string name="getcontent_2">邮箱联系：meixililulu@163.com</string>
+	<string name="getcontent_1">开发中，敬请期待！</string>
+	<string name="getcontent_2">帮助开发者，请猛戳！</string>
 	
 	<string name="learn_english">学英语\n重在坚持</string>
 </resources>

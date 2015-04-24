@@ -40,12 +40,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 
 	private void init() {
 		mSharedPreferences = getSharedPreferences(this.getPackageName(), Activity.MODE_PRIVATE);
-		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
-		if (toolbar != null) {
-			setSupportActionBar(toolbar);
-			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-			getSupportActionBar().setTitle(this.getResources().getString(R.string.title_settings));
-		}
+		getSupportActionBar().setTitle(this.getResources().getString(R.string.title_settings));
         seekbar_text = (TextView) findViewById(R.id.seekbar_text);
         seekbar = (SeekBar) findViewById(R.id.seekbar);
         autoread_unread_dot = (ImageView) findViewById(R.id.unread_dot);
@@ -105,12 +100,14 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 		case R.id.setting_clear_all_except_favorite:
 			DataBaseUtil.getInstance().clearExceptFavorite();
 			MainFragment.isRefresh = true;
+			DictionaryFragment.isRefresh = true;
 			ToastUtil.diaplayMesShort(SettingActivity.this, this.getResources().getString(R.string.clear_success));
 			StatService.onEvent(this, "1.8_clear_all_except", "清楚收藏以外的记录", 1);
 			break;
 		case R.id.setting_clear_all:
 			DataBaseUtil.getInstance().clearAll();
 			MainFragment.isRefresh = true;
+			DictionaryFragment.isRefresh = true;
 			SDCardUtil.deleteOldFile();
 			ToastUtil.diaplayMesShort(SettingActivity.this, this.getResources().getString(R.string.clear_success));
 			StatService.onEvent(this, "1.8_clear_all", "清楚所有记录", 1);

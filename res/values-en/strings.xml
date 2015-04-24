@@ -107,9 +107,7 @@
 	    And we are trying to improve the translate result and the software,thank you.</string>
 	    
 	<string name="textclickguidedialog_title">I only show once</string>
-	<string name="textclickguidedialog_content">\t Click the content and result also will play the speech.</string>
-	<string name="textclickguidedialog_content1">\t You can change the speech speed in Settings.</string>
-	<string name="textclickguidedialog_konw">I know</string>
+	<string name="textclickguidedialog_content">Click the content and result also will play the speech,You can change the speech speed in Settings.</string>
 	
 	<string name="about_play_title">About Voice Broadcast</string>
 	<string name="about_play_content">Click the content and result will play the speech.</string>
@@ -169,9 +167,8 @@
 	<string name="getfans_5">带你融资带你飞，带你路演到天黑！</string>
 	<string name="getfans_6">投資人列表（提了就有你）</string>
 	
-	<string name="getcontent_1">由于人员有限，我们正在不断的增加学习内容，如果您需要加快更新某方面的内容，
-	    可以发邮件告诉我们，和我们一起开发软件，不断丰富软件内容，提高软件水平，说的就是你，赶紧发邮件给我们提出您伟大的要求！</string>
-	<string name="getcontent_2">邮箱联系：meixililulu@163.com</string>
+	<string name="getcontent_1">Please Look Forward To!</string>
+	<string name="getcontent_2">To Help Developer,Check Here!</string>
 	
 	<string name="learn_english">Learn Chinese\nPerseverance\nAccumulation </string>
 </resources>

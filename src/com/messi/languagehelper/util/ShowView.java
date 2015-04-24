@@ -4,16 +4,19 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import com.messi.languagehelper.dialog.TextClickGuideDialog;
+import com.gc.materialdesign.widgets.Dialog;
+import com.messi.languagehelper.R;
 
 public class ShowView {
 	
 	public static void showIndexPageGuide(Context mContext,String guideKey){
 		SharedPreferences sharedPrefs = mContext.getSharedPreferences(mContext.getPackageName(), Context.MODE_PRIVATE);
 		if(!sharedPrefs.getBoolean(guideKey, false)){
-			TextClickGuideDialog mGuideDialog = new TextClickGuideDialog(mContext);
-			mGuideDialog.setCancelable(true);
-			mGuideDialog.show();
+			String title = mContext.getResources().getString(R.string.textclickguidedialog_title);
+			String content = mContext.getResources().getString(R.string.textclickguidedialog_content);
+			Dialog dialog = new Dialog(mContext, title, content);
+			dialog.setCancelable(true);
+			dialog.show();
 			Editor editor = sharedPrefs.edit();
 			editor.putBoolean(guideKey,true);
 			editor.commit();
