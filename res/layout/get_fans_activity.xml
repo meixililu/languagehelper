@@ -2,173 +2,384 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/contentbg"
     android:orientation="vertical" >
 
     <android.support.v7.widget.Toolbar
-	    xmlns:app="http://schemas.android.com/apk/res-auto"
-	    android:id="@+id/my_awesome_toolbar"
-	    android:layout_height="wrap_content"
-	    android:layout_width="match_parent"
-	    android:minHeight="?attr/actionBarSize"
-	    android:background="?attr/colorPrimary" />
-    
-    <FrameLayout
-        android:id="@+id/layout_1"
-        android:layout_width="fill_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/my_awesome_toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/style3_color1"
-        android:layout_marginTop="@dimen/padding_margin"
-        android:layout_marginLeft="@dimen/padding_margin"
-        android:layout_marginRight="@dimen/padding_margin"
-        android:foreground="@drawable/framelayout_selector"
-        android:orientation="vertical" >
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-		        android:layout_gravity="center"
-                android:shadowColor="@color/white"
-                android:shadowDx="0.3"
-                android:shadowDy="0.3"
-                android:shadowRadius="0.3"
-                android:text="@string/getfans_1"
-                android:textColor="@color/white"
-                android:padding="@dimen/padding_15"
-                android:textSize="@dimen/big" />
-    </FrameLayout>
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize" />
 
-    <FrameLayout
-        android:id="@+id/layout_2"
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_margin"
-        android:layout_marginLeft="@dimen/padding_margin"
-        android:layout_marginRight="@dimen/padding_margin"
-        android:background="@color/style3_color2"
-        android:foreground="@drawable/framelayout_selector"
-        android:orientation="vertical" >
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/contentbg"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_7" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="我们的目标"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/big" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/padding_15"
+                        android:paddingTop="@dimen/padding_15" >
+
+                        <TextView
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:background="@drawable/rounded_round"
+                            android:gravity="center"
+                            android:text="学英语"
+                            android:textColor="@color/green_500"
+                            android:textSize="@dimen/big" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/padding_10"
+                            android:gravity="center"
+                            android:text="干革命"
+                            android:textColor="@color/text_grey"
+                            android:textSize="@dimen/middle" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:paddingBottom="27dp"
+                        android:text=">"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/biggerx" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/padding_15"
+                        android:paddingTop="@dimen/padding_15" >
+
+                        <TextView
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:background="@drawable/rounded_round"
+                            android:gravity="center"
+                            android:text="点广告"
+                            android:textColor="@color/green_500"
+                            android:textSize="@dimen/big" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/padding_10"
+                            android:gravity="center"
+                            android:text="小米加步枪"
+                            android:textColor="@color/text_grey"
+                            android:textSize="@dimen/middle" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:paddingBottom="27dp"
+                        android:text=">"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/biggerx" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/padding_15"
+                        android:paddingTop="@dimen/padding_15" >
+
+                        <TextView
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:background="@drawable/rounded_round"
+                            android:gravity="center"
+                            android:text="领现金"
+                            android:textColor="@color/green_500"
+                            android:textSize="@dimen/big" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/padding_10"
+                            android:gravity="center"
+                            android:text="打土豪分田地"
+                            android:textColor="@color/text_grey"
+                            android:textSize="@dimen/middle" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_7"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_7" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="现阶段大家点广告产生的收益用途"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/big" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/padding_15"
+                        android:paddingTop="@dimen/padding_15" >
+
+                        <TextView
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:background="@drawable/rounded_round"
+                            android:gravity="center"
+                            android:text="广告收益"
+                            android:textColor="@color/green_500"
+                            android:textSize="@dimen/middle" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:text=">"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/biggerx" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/padding_15"
+                        android:paddingTop="@dimen/padding_15" >
+
+                        <TextView
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:background="@drawable/rounded_round"
+                            android:gravity="center"
+                            android:text="招人添加内容"
+                            android:textColor="@color/green_500"
+                            android:textSize="@dimen/middle" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:text=">"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/biggerx" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/padding_15"
+                        android:paddingTop="@dimen/padding_15" >
+
+                        <TextView
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:background="@drawable/rounded_round"
+                            android:gravity="center"
+                            android:text="大家一起学"
+                            android:textColor="@color/green_500"
+                            android:textSize="@dimen/middle" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_7"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_7" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="我们的理念"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/big" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/padding_15"
+                        android:paddingTop="@dimen/padding_15" >
+
+                        <TextView
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:background="@drawable/rounded_round"
+                            android:gravity="center"
+                            android:text="极简"
+                            android:textColor="@color/green_500"
+                            android:textSize="@dimen/middle" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/padding_15"
+                        android:paddingTop="@dimen/padding_15" >
+
+                        <TextView
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:background="@drawable/rounded_round"
+                            android:gravity="center"
+                            android:text="易用"
+                            android:textColor="@color/green_500"
+                            android:textSize="@dimen/middle" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/padding_15"
+                        android:paddingTop="@dimen/padding_15" >
+
+                        <TextView
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:background="@drawable/rounded_round"
+                            android:gravity="center"
+                            android:text="有趣"
+                            android:textColor="@color/green_500"
+                            android:textSize="@dimen/middle" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left"
-		        android:layout_gravity="center"
-                android:shadowColor="@color/white"
-                android:shadowDx="0.3"
-                android:shadowDy="0.3"
-                android:shadowRadius="0.3"
-                android:text="@string/getfans_2"
-                android:textColor="@color/white"
-                android:padding="@dimen/padding_15"
-                android:textSize="@dimen/big" />
-    </FrameLayout>
-    
-    <FrameLayout
-        android:id="@+id/layout_3"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_margin"
-        android:layout_marginLeft="@dimen/padding_margin"
-        android:layout_marginRight="@dimen/padding_margin"
-        android:background="@color/style3_color3"
-        android:foreground="@drawable/framelayout_selector"
-        android:orientation="vertical" >
+                android:layout_marginTop="@dimen/padding_10"
+                android:background="@color/white"
+                android:paddingBottom="@dimen/padding_7"
+                android:paddingLeft="@dimen/padding_15"
+                android:paddingRight="@dimen/padding_7"
+                android:paddingTop="@dimen/padding_7"
+                android:text="@string/getfans_1"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/middle" />
+
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left"
-		        android:layout_gravity="center"
-                android:shadowColor="@color/white"
-                android:shadowDx="0.3"
-                android:shadowDy="0.3"
-                android:shadowRadius="0.3"
-                android:text="@string/getfans_3"
-                android:textColor="@color/white"
-                android:padding="@dimen/padding_15"
-                android:textSize="@dimen/big" />
-    </FrameLayout>
-    
-    <FrameLayout
-        android:id="@+id/layout_4"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_margin"
-        android:layout_marginLeft="@dimen/padding_margin"
-        android:layout_marginRight="@dimen/padding_margin"
-        android:background="@color/style3_color4"
-        android:foreground="@drawable/framelayout_selector"
-        android:orientation="vertical" >
+                android:layout_marginTop="@dimen/padding_10"
+                android:background="@color/white"
+                android:paddingBottom="@dimen/padding_7"
+                android:paddingLeft="@dimen/padding_15"
+                android:paddingRight="@dimen/padding_7"
+                android:paddingTop="@dimen/padding_7"
+                android:text="@string/click_ad_prompt"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/middle" />
+
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-		        android:layout_gravity="center"
-                android:shadowColor="@color/white"
-                android:shadowDx="0.3"
-                android:shadowDy="0.3"
-                android:shadowRadius="0.3"
-                android:text="@string/getfans_4"
-                android:textColor="@color/white"
-                android:paddingLeft="@dimen/padding_10"
-                android:paddingRight="@dimen/padding_10"
-                android:paddingTop="@dimen/padding_15"
-                android:paddingBottom="@dimen/padding_15"
-                android:textSize="@dimen/bigger" />
-    </FrameLayout>
-    
-    <FrameLayout
-        android:id="@+id/layout_6"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_margin"
-        android:layout_marginLeft="@dimen/padding_margin"
-        android:layout_marginRight="@dimen/padding_margin"
-        android:background="@color/style3_color3"
-        android:foreground="@drawable/framelayout_selector"
-        android:orientation="vertical" >
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-		        android:layout_gravity="center"
-                android:shadowColor="@color/white"
-                android:shadowDx="0.3"
-                android:shadowDy="0.3"
-                android:shadowRadius="0.3"
-                android:textColor="@color/white"
-                android:paddingLeft="@dimen/padding_10"
-                android:paddingRight="@dimen/padding_10"
-                android:paddingTop="@dimen/padding_15"
-                android:paddingBottom="@dimen/padding_15"
-                android:textSize="@dimen/bigger" />
-    </FrameLayout>
-    
-    <FrameLayout
-        android:id="@+id/layout_5"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_margin"
-        android:layout_marginLeft="@dimen/padding_margin"
-        android:layout_marginRight="@dimen/padding_margin"
-        android:background="@color/style3_color5"	
-        android:foreground="@drawable/framelayout_selector"
-        android:orientation="vertical" >
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-		        android:layout_gravity="center"
-                android:shadowColor="@color/white"
-                android:shadowDx="0.3"
-                android:shadowDy="0.3"
-                android:shadowRadius="0.3"
-                android:text="@string/getfans_5"
-                android:textColor="@color/white"
-                android:paddingLeft="@dimen/padding_10"
-                android:paddingRight="@dimen/padding_10"
-                android:paddingTop="@dimen/padding_15"
-                android:paddingBottom="@dimen/padding_15"
-                android:textSize="@dimen/bigger" />
-    </FrameLayout>
+                android:layout_marginTop="@dimen/padding_10"
+                android:background="@color/white"
+                android:paddingBottom="@dimen/padding_7"
+                android:paddingLeft="@dimen/padding_15"
+                android:paddingRight="@dimen/padding_7"
+                android:paddingTop="@dimen/padding_7"
+                android:text="@string/getfans_1"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/middle" />
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

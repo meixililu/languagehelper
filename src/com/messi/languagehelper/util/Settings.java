@@ -43,6 +43,9 @@ public class Settings {
 	public static final String HotalUrl = "http://api.openspeech.cn/trip/NTBhYTEyMTM=";
 	
 	public static final String GameUrl = "http://h5.huosu.com/zhongyinghuyi/";
+	
+	/**invest list**/
+	public static final String InvestListUrl = "http://lilu168.sinaapp.com/list.html";
 
 	public static final String Email = "meixililulu@163.com";
 	

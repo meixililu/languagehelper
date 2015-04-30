@@ -11,7 +11,7 @@ import com.messi.languagehelper.util.Settings;
 
 public class GetFansActivity extends BaseActivity implements OnClickListener {
 
-	private FrameLayout layout_1, layout_2, layout_3, layout_4, layout_6;
+	private FrameLayout layout_1, layout_2, layout_3;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -22,34 +22,20 @@ public class GetFansActivity extends BaseActivity implements OnClickListener {
 
 	private void initViews(){
 		getSupportActionBar().setTitle(getResources().getString(R.string.fighting));
-		layout_1 = (FrameLayout)findViewById(R.id.layout_1);
-		layout_2 = (FrameLayout)findViewById(R.id.layout_2);
-		layout_3 = (FrameLayout)findViewById(R.id.layout_3);
-		layout_4 = (FrameLayout)findViewById(R.id.layout_4);
-		layout_6 = (FrameLayout)findViewById(R.id.layout_6);
-		layout_1.setOnClickListener(this);
-		layout_2.setOnClickListener(this);
-		layout_3.setOnClickListener(this);
-		layout_4.setOnClickListener(this);
-		layout_6.setOnClickListener(this);
+//		layout_1 = (FrameLayout)findViewById(R.id.layout_1);
+//		layout_2 = (FrameLayout)findViewById(R.id.layout_2);
+//		layout_1.setOnClickListener(this);
+//		layout_2.setOnClickListener(this);
+//		layout_3.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
-		case R.id.layout_1:
-			break;
-		case R.id.layout_2:
-			break;
-		case R.id.layout_3:
-			break;
-		case R.id.layout_4:
-			Settings.contantUs(GetFansActivity.this);
-			StatService.onEvent(this, "19_getfans_email", "邀请用户发邮件提出想法", 1);
-			break;
-		case R.id.layout_6:
-			StatService.onEvent(this, "19_to_investor_list_activity", "去投资人列表页面", 1);
-			break;
+//		case R.id.layout_4:
+//			Settings.contantUs(GetFansActivity.this);
+//			StatService.onEvent(this, "19_getfans_email", "邀请用户发邮件提出想法", 1);
+//			break;
 		default:
 			break;
 		}

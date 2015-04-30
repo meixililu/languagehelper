@@ -3,16 +3,15 @@ package com.messi.languagehelper;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.baidu.mobstat.StatService;
-import com.gc.materialdesign.views.CheckBox;
 import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.SDCardUtil;
@@ -77,23 +76,23 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.speak_yueyu:
-			if(speak_yueyu_cb.isCheck()){
+			if(speak_yueyu_cb.isChecked()){
 				speak_yueyu_cb.setChecked(false);
 			}else{
 				speak_yueyu_cb.setChecked(true);
 			}
 			MainFragment.isSpeakYueyuNeedUpdate = true;
 			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.SpeakPutonghuaORYueyu,
-					speak_yueyu_cb.isCheck());
+					speak_yueyu_cb.isChecked());
 			break;
 		case R.id.setting_auto_play:
-			if(auto_play_cb.isCheck()){
+			if(auto_play_cb.isChecked()){
 				auto_play_cb.setChecked(false);
 			}else{
 				auto_play_cb.setChecked(true);
 			}
 			autoread_unread_dot.setVisibility(View.GONE);
-			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoPlayResult,auto_play_cb.isCheck());
+			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoPlayResult,auto_play_cb.isChecked());
 			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoPlayUnreadDot,true);
 			StatService.onEvent(this, "19_auto_play", "翻译完成之后自动播放", 1);
 			break;

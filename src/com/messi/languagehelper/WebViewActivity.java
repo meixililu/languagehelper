@@ -179,17 +179,19 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.hotel_ad_prompt));
 				StatService.onEvent(this, "20_menu_to_share_hotel_link", "分享订酒店链接", 1);
 			}else if(Url.equals(Settings.InstagramUrl)){
-				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.instagram_pinsta));
+				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.instagram_subtitle)+" "+Settings.InstagramUrl);
 			}else if(Url.equals(Settings.MsnbcUrl)){
-				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.website_msnbc));
+				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.website_msnbc_subtitle)+" "+Settings.MsnbcUrl);
 			}else if(Url.equals(Settings.BbcNewsUrl)){
-				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.website_bbc_news));
+				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.website_bbc_news_subtitle)+" "+Settings.BbcNewsUrl);
 			}else if(Url.equals(Settings.BbcLearningenglishUrl)){
-				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.website_bbc_learning));
+				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.website_bbc_learning_subtitle)+" "+Settings.BbcLearningenglishUrl);
 			}else if(Url.equals(Settings.EngadgetUrl)){
-				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.website_engadget));
+				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.website_engadget_subtitle)+" "+Settings.EngadgetUrl);
 			}else if(Url.equals(Settings.PhonedogUrl)){
-				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.website_phonedog));
+				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.website_phonedog_subtitle)+" "+Settings.PhonedogUrl);
+			}else if(Url.equals(Settings.InvestListUrl)){
+				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.invest_list_prompt));
 			}
 			break;
 		}

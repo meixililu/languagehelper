@@ -112,7 +112,7 @@ public class LoadingActivity extends Activity {
 		@Override
 		protected Void doInBackground(Void... params) {
 			try {
-				Thread.sleep(3600);
+				Thread.sleep(3500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

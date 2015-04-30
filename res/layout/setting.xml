@@ -89,7 +89,7 @@
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/big" />
 
-                    <com.gc.materialdesign.views.CheckBox
+                    <CheckBox
                         android:id="@+id/speak_yueyu_cb"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
@@ -128,16 +128,14 @@
                         android:textColor="@color/text_black"
                         android:textSize="@dimen/big" />
 
-                    <com.gc.materialdesign.views.CheckBox
-                        xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+                    <CheckBox
                         android:id="@+id/setting_auto_play_cb"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginRight="15dp"
-                        android:background="#1E88E5"
                         android:clickable="false"
                         android:focusable="false"
-                        materialdesign:check="false" />
+                        />
                 </LinearLayout>
 
                 <ImageView

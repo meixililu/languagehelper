@@ -138,8 +138,11 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 	}
 	
 	private void toInvestorListActivity(){
-		Intent intent = new Intent(getActivity(),InvestmentActivity.class);
-		startActivity(intent);
+		Intent intent = new Intent(getActivity(),WebViewActivity.class);
+		intent.putExtra(KeyUtil.URL, Settings.InvestListUrl);
+		intent.putExtra(KeyUtil.ActionbarTitle, getActivity().getResources().getString(R.string.invest_activity_title));
+		getActivity().startActivity(intent);
+		StatService.onEvent(getActivity(), "19_to_cailing_page", "去小游戏页面", 1);
 	}
 	
 	private void toEnglishWebsiteRecommendActivity(){

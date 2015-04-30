@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string-array name="investors">
-        <item>魏京彦（头号投资人）\n陪孩子练英语，查询商务相关单词</item>
-        <item>张晓红\n做家私生意跟海外客户沟通用</item>
-        <item>Michael\n欧美用户，跟中国朋友沟通用</item>
-        <item>陈美佳\n初中生，英语翻译，查询单词</item>
-        <item>凌晨（作者同学）\nIT技术男，装逼查单词用</item>
-        <item>王文琪（作者同学）\n分享装逼用</item>
-        <item>高立伟\n给过一些很不错的建议</item>
-        <item>李燕\n生活翻译查询单词用</item>
-        <item>温馨\n工作需要</item>
-        <item>张美红\n外贸工作者</item>
-        <item>张芳\n在校学生，学习单词</item>
-        <item>持续更新中</item>
-    </string-array>
-    
     <string-array name="studylist_part1">
         <item>A,boy,girl,man,woman\n一个,男孩,女孩,男人,女人</item>
         <item>white,black,red,green\n白色,黑色,红色,绿色</item>
