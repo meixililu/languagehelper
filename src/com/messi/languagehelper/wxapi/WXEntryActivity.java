@@ -208,7 +208,7 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
         } else {
         	mDrawerLayout.openDrawer(mDrawerList);
         }
-		StatService.onEvent(this, "1.6_homemenu", "主页左上角菜单", 1);
+		StatService.onEvent(this, "home_menu", "主页左上角菜单", 1);
 	}
 
 	@Override
@@ -228,12 +228,13 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 	private void toShareActivity(){
 		Intent intent = new Intent(this, ImgShareActivity.class); 
 		startActivity(intent); 
-		StatService.onEvent(this, "1.8_menu_to_share_activity", "去自定义分享页面", 1);
+		StatService.onEvent(this, "menu_to_share_page", "主页右上角去分享页面", 1);
 	}
 	
 	private void toCollectedActivity(){
 		Intent intent = new Intent(this, CollectedActivity.class); 
 		startActivity(intent); 
+		StatService.onEvent(this, "menu_to_favor_page", "主页右上角去收藏页面", 1);
 	}
 	
 	/**
@@ -254,7 +255,7 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 		switch (keyCode) {
 		case KeyEvent.KEYCODE_MENU:
 			 menu();
-			 StatService.onEvent(this, "1.6_xitongmenu", "系统菜单按钮", 1);
+			 StatService.onEvent(this, "system_menu", "系统菜单按钮", 1);
 			 return true;
 		}
 		return super.onKeyDown(keyCode, event);

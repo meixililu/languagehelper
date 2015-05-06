@@ -108,7 +108,6 @@ public class ImgShareActivity extends BaseActivity implements OnClickListener {
 //		switch (item.getItemId()) {
 //		case 0:  
 //			share();
-//			StatService.onEvent(this, "1.8_menu_to_share_activity", "去自定义分享页面", 1);
 //			break;
 //		}
 		return super.onOptionsItemSelected(item);
@@ -119,7 +118,7 @@ public class ImgShareActivity extends BaseActivity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.share_btn_cover:
 			share();
-			StatService.onEvent(ImgShareActivity.this, "1.8_img_share_btn", "点击图片分享页面分享按钮", 1);
+			StatService.onEvent(ImgShareActivity.this, "share_page_share_btn", "分享页面分享按钮", 1);
 			break;
 		default:
 			break;

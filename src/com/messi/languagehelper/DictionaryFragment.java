@@ -36,13 +36,11 @@ import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.adapter.DictionaryListViewAdapter;
 import com.messi.languagehelper.dao.Dictionary;
-import com.messi.languagehelper.dao.record;
 import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.http.LanguagehelperHttpClient;
 import com.messi.languagehelper.http.RequestParams;
 import com.messi.languagehelper.http.TextHttpResponseHandler;
 import com.messi.languagehelper.impl.FragmentProgressbarListener;
-import com.messi.languagehelper.util.BaiduStatistics;
 import com.messi.languagehelper.util.JsonParser;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
@@ -544,7 +542,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		Settings.q =  Settings.q.replaceAll("[\\p{P}]", "");
 		if (!TextUtils.isEmpty(Settings.q)) {
 			RequestAsyncTask();
-			StatService.onEvent(getActivity(), BaiduStatistics.TranslateBtn, "翻译按钮", 1);
+			StatService.onEvent(getActivity(), "tab_dic_submit_btn", "首页词典页面翻译提交按钮", 1);
 		} else {
 			showToast(getActivity().getResources().getString(R.string.input_et_hint));
 			finishLoadding();

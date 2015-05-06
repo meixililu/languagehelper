@@ -27,8 +27,8 @@
 			        android:layout_width="fill_parent"
 			        android:layout_height="wrap_content"
 			        android:paddingLeft="10dp"
-			        android:paddingTop="7dp"
-			        android:paddingBottom="5dp"
+			        android:paddingTop="5dp"
+			        android:paddingBottom="2dp"
 			        android:text=""
 			        android:textColor="@color/text_black"
 			        android:textSize="@dimen/bigger" />
@@ -45,11 +45,11 @@
 			        android:layout_width="fill_parent"
 			        android:layout_height="wrap_content"
 			        android:paddingLeft="10dp"
-			        android:paddingTop="5dp"
-			        android:paddingBottom="7dp"
+			        android:paddingTop="2dp"
+			        android:paddingBottom="5dp"
 			        android:text=""
 			        android:textColor="@color/text_black"
-			        android:textSize="@dimen/big" />
+			        android:textSize="@dimen/bigger" />
 		    </FrameLayout>
 	        
 	    </LinearLayout>

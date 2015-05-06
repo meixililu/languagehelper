@@ -56,7 +56,7 @@ public class RecommendActivity extends BaseActivity implements OnClickListener {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			StatService.onEvent(RecommendActivity.this, "1.8_zrzsbtn", "点击中日助手按钮", 1);
+			StatService.onEvent(RecommendActivity.this, "recommend_page_zrzsbtn", "推荐页点击中日助手按钮", 1);
 			break;
 		case R.id.recommend_yyzs:
 			try {
@@ -66,7 +66,7 @@ public class RecommendActivity extends BaseActivity implements OnClickListener {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			StatService.onEvent(RecommendActivity.this, "1.6_yyzsbtn", "点击粤语助手按钮", 1);
+			StatService.onEvent(RecommendActivity.this, "recommend_page_yyzsbtn", "推荐页点击粤语助手按钮", 1);
 			break;
 		default:
 			break;

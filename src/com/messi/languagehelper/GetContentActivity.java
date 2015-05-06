@@ -38,7 +38,7 @@ public class GetContentActivity extends BaseActivity implements OnClickListener 
 		case R.id.layout_2:
 			Intent intent = new Intent(GetContentActivity.this, GetFansActivity.class);
 			startActivity(intent);
-			StatService.onEvent(this, "19_getcontent_email", "邀请用户发邮件提出内容要求", 1);
+			StatService.onEvent(this, "developing_page_email", "邀请用户发邮件提出内容要求", 1);
 			break;
 		default:
 			break;

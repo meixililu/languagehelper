@@ -171,13 +171,10 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 		case 0:  
 			if(Url.equals(Settings.CaiLingUrl)){
 				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.cailing_ad_prompt));
-				StatService.onEvent(this, "1.9_menu_to_share_link", "分享彩铃链接", 1);
 			}else if(Url.equals(Settings.YueduUrl)){
 				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.yuedu_ad_prompt));
-				StatService.onEvent(this, "20_menu_to_share_yuedu_link", "分享阅读链接", 1);
 			}else if(Url.equals(Settings.HotalUrl)){
 				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.hotel_ad_prompt));
-				StatService.onEvent(this, "20_menu_to_share_hotel_link", "分享订酒店链接", 1);
 			}else if(Url.equals(Settings.InstagramUrl)){
 				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.instagram_subtitle)+" "+Settings.InstagramUrl);
 			}else if(Url.equals(Settings.MsnbcUrl)){
@@ -193,6 +190,7 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 			}else if(Url.equals(Settings.InvestListUrl)){
 				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.invest_list_prompt));
 			}
+			StatService.onEvent(this, "webview_share_link", "分享链接", 1);
 			break;
 		}
        return super.onOptionsItemSelected(item);

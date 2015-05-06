@@ -71,6 +71,7 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 	private boolean isExchange;
 	private boolean isNewIn = true;
 	private boolean isFollow;
+	private StringBuilder sbResult = new StringBuilder();
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -88,12 +89,7 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void initView() {
-		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
-		if (toolbar != null) {
-			setSupportActionBar(toolbar);
-			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-			getSupportActionBar().setTitle(getResources().getString(R.string.title_Practice));
-		}
+		getSupportActionBar().setTitle(getResources().getString(R.string.title_Practice));
         mSharedPreferences = Settings.getSharedPreferences(this);
         mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this,null);
         recognizer = SpeechRecognizer.createRecognizer(this,null);
@@ -143,11 +139,11 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 		switch (v.getId()) { 
 		case R.id.voice_btn:
 			showIatDialog();
-			StatService.onEvent(PracticeActivity.this, "1.8_practice_speak_btn", "口语练习-说话按钮", 1);
+			StatService.onEvent(PracticeActivity.this, "practice_page_speak_btn", "口语练习页说话按钮", 1);
 			break;
 		case R.id.practice_page_exchange:
 			exchangeContentAndResult();
-			StatService.onEvent(PracticeActivity.this, "1.8_practice_exchange_btn", "口语练习-互换按钮", 1);
+			StatService.onEvent(PracticeActivity.this, "practice_page_exchange_btn", "口语练习页互换按钮", 1);
 			break;
 		default:
 			break;
@@ -300,15 +296,18 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 
 		@Override
 		public void onResult(RecognizerResult results, boolean isLast) {
-			LogUtil.DefalutLog("onResult");
+			LogUtil.DefalutLog("onResult---getResultString:"+results.getResultString());
 			String text = JsonParser.parseIatResult(results.getResultString());
+			sbResult.append(text);
 			if(isLast) {
+				LogUtil.DefalutLog("isLast-------onResult:"+sbResult.toString());
 				hideProgressbar();
 				finishRecord();
-				UserSpeakBean bean = ScoreUtil.score(PracticeActivity.this, text, record_answer.getText().toString());
+				UserSpeakBean bean = ScoreUtil.score(PracticeActivity.this, sbResult.toString(), record_answer.getText().toString());
 				mUserSpeakBeanList.add(0,bean);
 				adapter.notifyDataSetChanged();
 				animationReward(bean.getScoreInt());
+				sbResult.setLength(0);
 			}
 		}
 
@@ -428,9 +427,9 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 				playLocalPcm(filepath,animationDrawable);
 			}
 			if(v.getId() == R.id.record_question_cover){
-				StatService.onEvent(PracticeActivity.this, "1.8_practice_play_content", "口语练习-点击翻译内容", 1);
+				StatService.onEvent(PracticeActivity.this, "practice_page_play_content", "口语练习页播放内容", 1);
 			}else if(v.getId() == R.id.record_answer_cover){
-				StatService.onEvent(PracticeActivity.this, "1.8_practice_play_result", "口语练习-点击翻译结果", 1);
+				StatService.onEvent(PracticeActivity.this, "practice_page_play_result", "口语练习页播放结果", 1);
 			}
 		}
 	}
@@ -472,7 +471,7 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 		switch (item.getItemId()) {
 		case R.id.action_settings:  
 			toSettingActivity();
-//			StatService.onEvent(this, "1.8_menu_to_share_activity", "去自定义分享页面", 1);
+			StatService.onEvent(this, "practice_page_to_setting_page", "口语练习页去设置页面", 1);
 			break;
 		}
        return super.onOptionsItemSelected(item);

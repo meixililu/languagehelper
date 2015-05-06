@@ -71,6 +71,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 	private int repeatTimes;
 	private int times;
 	private PracticeProgressListener mPracticeProgress;
+	private StringBuilder sbResult = new StringBuilder();
 	
 	public PracticeReadAfterMeFragment(String content, PracticeProgressListener mPracticeProgress, String videoPath, 
 			SharedPreferences mSharedPreferences,SpeechSynthesizer mSpeechSynthesizer){
@@ -153,7 +154,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 		switch (v.getId()) { 
 		case R.id.check_btn:
 			showIatDialog();
-			StatService.onEvent(getActivity(), "1.8_practice_speak_btn", "口语练习-说话按钮", 1);
+			StatService.onEvent(getActivity(), "readafterme_speak_btn", "跟我读页说话按钮", 1);
 			break;
 		case R.id.repeat_time_minus_cover:
 			if(repeatTimes > 1){
@@ -316,17 +317,19 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 
 		@Override
 		public void onResult(RecognizerResult results, boolean isLast) {
-			LogUtil.DefalutLog("onResult");
+			LogUtil.DefalutLog("onResult---getResultString:"+results.getResultString());
 			String text = JsonParser.parseIatResult(results.getResultString()).toLowerCase();
+			sbResult.append(text);
 			if(isLast) {
 				hideProgressbar();
 				finishRecord();
-				UserSpeakBean bean = ScoreUtil.score(getActivity(), text.toLowerCase(), 
+				UserSpeakBean bean = ScoreUtil.score(getActivity(), sbResult.toString().toLowerCase(), 
 						record_answer.getText().toString().toLowerCase());
 				mUserSpeakBeanList.add(0,bean);
 				adapter.notifyDataSetChanged();
 				animationReward(bean.getScoreInt());
 				isEnough();
+				sbResult.setLength(0);
 			}
 		}
 
@@ -426,7 +429,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 			}else{
 				playLocalPcm(filepath,animationDrawable);
 			}
-			StatService.onEvent(getActivity(), "1.8_practice_play_result", "口语练习-点击翻译结果", 1);
+			StatService.onEvent(getActivity(), "readafterme_play_result", "跟我读页播放结果", 1);
 		}
 	}
 	

@@ -80,6 +80,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		study_test.setOnClickListener(this);
 		study_to_all_user.setOnClickListener(this);
 		dailysentence_txt.setOnClickListener(this);
+		study_ad_view.setOnClickListener(this);
 		if(showNewFunction()){
 			mIFLYBannerAd = ADUtil.initBannerAD(getActivity(), study_ad_view);
 			mIFLYBannerAd.loadAd(new IFLYAdListener() {
@@ -189,6 +190,9 @@ public class StudyFragment extends Fragment implements OnClickListener{
 			toGetfansActivity();
 			StatService.onEvent(getActivity(), "19_studylist_part4", "你不是一个人在战斗", 1);
 			break;
+		case R.id.study_ad_view:
+			StatService.onEvent(getActivity(), "ad_banner", "点击banner广告", 1);
+			break;
 		default:
 			break;
 		}
@@ -198,22 +202,25 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		Intent intent = new Intent(getActivity(),DailySentenceActivity.class);
 		startActivity(intent);
 		unread_dot.setVisibility(View.GONE);
-		StatService.onEvent(getActivity(), "19_studylist_part1", "口语练习第1部分", 1);
+		StatService.onEvent(getActivity(), "tab_study_todailysentence", "首页去每日一句页面按钮", 1);
 	}
 	
 	private void toGetfansActivity(){
 		Intent intent = new Intent(getActivity(),GetFansActivity.class);
 		startActivity(intent);
+		StatService.onEvent(getActivity(), "tab_study_todeveloping", "首页去正在开发页", 1);
 	}
 	
 	private void toStudyListActivity(){
 		Intent intent = new Intent(getActivity(),StudyCategoryActivity.class);
 		startActivity(intent);
+		StatService.onEvent(getActivity(), "tab_study_tostudylist", "首页去口语练习页面", 1);
 	}
 	private void toGetContentActivity(String title){
 		Intent intent = new Intent(getActivity(),GetContentActivity.class);
 		intent.putExtra(KeyUtil.ActionbarTitle, title);
 		startActivity(intent);
+		StatService.onEvent(getActivity(), "tab_study_toalluser", "首页致所有用户按钮", 1);
 	}
 	
 }

@@ -30,7 +30,7 @@ public class AboutActivity extends BaseActivity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.email_layout:
 			Settings.contantUs(AboutActivity.this);
-			StatService.onEvent(this, "1.6_about_email", "发送email", 1);
+			StatService.onEvent(this, "about_page_email", "关于我们发送邮件", 1);
 			break;
 		default:
 			break;

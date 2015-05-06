@@ -7,7 +7,9 @@ import android.os.AsyncTask;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
+import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 
 import com.baidu.mobstat.StatService;
@@ -21,7 +23,7 @@ import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.ShortCut;
 import com.messi.languagehelper.wxapi.WXEntryActivity;
 
-public class LoadingActivity extends Activity {
+public class LoadingActivity extends Activity implements OnClickListener{
 	
 	public static final long IntervalTime = 1000 * 60 * 5;
 	// 缓存，保存当前的引擎参数到下一次启动应用程序使用.
@@ -64,6 +66,7 @@ public class LoadingActivity extends Activity {
 			ShortCut.addShortcut(this, mSharedPreferences);
 			middle_ad = (LinearLayout)findViewById(R.id.middle_ad);
 			fullScreenAd = ADUtil.initQuanPingAD(this, middle_ad);
+			middle_ad.setOnClickListener(this);
 			if(showNewFunction()){
 				fullScreenAd.loadAd(new IFLYAdListener() {
 					@Override
@@ -145,6 +148,17 @@ public class LoadingActivity extends Activity {
 		}
 		if(fullScreenAd != null){
 			fullScreenAd = null;
+		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch(v.getId()){
+		case R.id.middle_ad:
+			StatService.onEvent(LoadingActivity.this, "ad_kaiping", "点击开屏广告", 1);
+			break;
+		default:
+			break;
 		}
 	}
 }

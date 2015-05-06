@@ -94,7 +94,7 @@ public class FinishFragment extends BaseFragment implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.share_btn_cover:
 			share();
-			StatService.onEvent(getActivity(), "19_practice_finish_share", "口语练习完成分享按钮", 1);
+			StatService.onEvent(getActivity(), "finish_study_share_btn", "口语练习完成分享按钮", 1);
 			break;
 		case R.id.check_btn:
 			toNextPage();

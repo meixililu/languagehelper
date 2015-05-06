@@ -41,7 +41,6 @@ import com.messi.languagehelper.http.LanguagehelperHttpClient;
 import com.messi.languagehelper.http.RequestParams;
 import com.messi.languagehelper.http.TextHttpResponseHandler;
 import com.messi.languagehelper.impl.FragmentProgressbarListener;
-import com.messi.languagehelper.util.BaiduStatistics;
 import com.messi.languagehelper.util.JsonParser;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
@@ -219,13 +218,13 @@ public class MainFragment extends Fragment implements OnClickListener {
 		if (v.getId() == R.id.submit_btn) {
 			hideIME();
 			submit();
-			StatService.onEvent(getActivity(), "1.6_fanyibtn", "翻译按钮", 1);
+			StatService.onEvent(getActivity(), "tab_tran_submit", "首页翻译页提交按钮", 1);
 		}else if (v.getId() == R.id.speak_round_layout) {
 			showIatDialog();
-			StatService.onEvent(getActivity(), "1.6_shuohuabtn", "说话按钮", 1);
+			StatService.onEvent(getActivity(), "tab_tran_speak_voice", "首页翻译页说话按钮", 1);
 		}else if (v.getId() == R.id.clear_btn_layout) {
 			input_et.setText("");
-			StatService.onEvent(getActivity(), "1.6_clearbtn", "清空按钮", 1);
+			StatService.onEvent(getActivity(), "tab_tran_clearbtn", "首页翻译页清空按钮", 1);
 		}else if (v.getId() == R.id.baidu_translate) {
 			try {
 				Intent intent = new Intent("android.intent.action.VIEW", Uri.parse("http://fanyi.baidu.com"));
@@ -241,12 +240,12 @@ public class MainFragment extends Fragment implements OnClickListener {
 			}else{
 				ToastUtil.diaplayMesShort(getActivity(), getActivity().getResources().getString(R.string.speak_chinese));
 			}
-			StatService.onEvent(getActivity(), "1.6_putonghuabtn", "普通话按钮", 1);
+			StatService.onEvent(getActivity(), "tab_tran_putonghuabtn", "首页翻译页普通话按钮", 1);
 		}else if (v.getId() == R.id.cb_speak_language_en) {
 			cb_speak_language_ch.setChecked(false);
 			XFUtil.setSpeakLanguage(getActivity(),mSharedPreferences,XFUtil.VoiceEngineEN);
 			ToastUtil.diaplayMesShort(getActivity(), getActivity().getResources().getString(R.string.speak_english));
-			StatService.onEvent(getActivity(), "1.6_yingyubtn", "英语按钮", 1);
+			StatService.onEvent(getActivity(), "tab_tran_yingyubtn", "首页翻译页英语按钮", 1);
 		}
 	}
 	
@@ -534,7 +533,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 		Settings.q = input_et.getText().toString().trim();
 		if (!TextUtils.isEmpty(Settings.q)) {
 			RequestAsyncTask();
-			StatService.onEvent(getActivity(), BaiduStatistics.TranslateBtn, "翻译按钮", 1);
+			StatService.onEvent(getActivity(), "tab_translate_submitbtn", "首页翻译页面翻译按钮", 1);
 		} else {
 			showToast(getActivity().getResources().getString(R.string.input_et_hint));
 			finishLoadding();

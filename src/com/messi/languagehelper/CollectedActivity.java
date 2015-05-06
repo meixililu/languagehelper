@@ -35,7 +35,6 @@ public class CollectedActivity extends BaseActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.collected_main);
 		init();
-		StatService.onEvent(this, "22_viewcollectedpage", "浏览收藏页面", 1);
 	}
 	
 	private void init() {

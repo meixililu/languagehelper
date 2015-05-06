@@ -112,17 +112,17 @@ public class MenuListItemAdapter extends BaseAdapter {
 				if(!mSharedPreferences.getBoolean(KeyUtil.IsShowSettingNewAdd, false)){
 					 Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsShowSettingNewAdd, true);
 				}
-				StatService.onEvent(context, "1.6_settingbtn","应用设置按钮", 1);
+				StatService.onEvent(context, "menu_page_settingbtn","去应用设置按钮", 1);
 			} else if (position == 1) {
 				intent.setAction(Intent.ACTION_VIEW);
 				intent.setData(Uri.parse("market://details?id=com.messi.languagehelper"));
-				StatService.onEvent(context, "1.6_commend","吐槽评价按钮", 1);
+				StatService.onEvent(context, "menu_page_commend","去吐槽评价按钮", 1);
 			} else if (position == 2) {
 				intent.setClass(context, HelpActivity.class);
-				StatService.onEvent(context, "1.7_help","使用帮助按钮", 1);
+				StatService.onEvent(context, "menu_page_help","去使用帮助按钮", 1);
 			} else if (position == 3) {
 				intent.setClass(context, AboutActivity.class);
-				StatService.onEvent(context, "1.6_aboutus","关于我们按钮", 1);
+				StatService.onEvent(context, "menu_page_aboutus","去关于我们按钮", 1);
 			}
 			context.startActivity(intent);
 			closeMenu();

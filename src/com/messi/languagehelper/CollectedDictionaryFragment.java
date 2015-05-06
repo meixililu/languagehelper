@@ -42,13 +42,12 @@ public class CollectedDictionaryFragment extends Fragment implements OnClickList
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		LogUtil.DefalutLog("MainFragment-onCreate");
-		StatService.onEvent(getActivity(), "22_viewcollectedpage", "浏览收藏页面", 1);
+		LogUtil.DefalutLog("CollectedDictionaryFragment-onCreate");
 	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		LogUtil.DefalutLog("MainFragment-onCreateView");
+		LogUtil.DefalutLog("CollectedDictionaryFragment-onCreateView");
 		view = inflater.inflate(R.layout.collected_translate_fragment, null);
 		init();
 		return view;
@@ -85,7 +84,7 @@ public class CollectedDictionaryFragment extends Fragment implements OnClickList
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		LogUtil.DefalutLog("CollectedFragment-onDestroy");
+		LogUtil.DefalutLog("CollectedDictionaryFragment-onDestroy");
 	}
 
 	@Override

@@ -94,14 +94,14 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 			autoread_unread_dot.setVisibility(View.GONE);
 			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoPlayResult,auto_play_cb.isChecked());
 			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoPlayUnreadDot,true);
-			StatService.onEvent(this, "19_auto_play", "翻译完成之后自动播放", 1);
+			StatService.onEvent(this, "setting_page_auto_play", "翻译完成之后自动播放", 1);
 			break;
 		case R.id.setting_clear_all_except_favorite:
 			DataBaseUtil.getInstance().clearExceptFavorite();
 			MainFragment.isRefresh = true;
 			DictionaryFragment.isRefresh = true;
 			ToastUtil.diaplayMesShort(SettingActivity.this, this.getResources().getString(R.string.clear_success));
-			StatService.onEvent(this, "1.8_clear_all_except", "清楚收藏以外的记录", 1);
+			StatService.onEvent(this, "setting_page_clear_all_except", "清楚收藏以外的记录", 1);
 			break;
 		case R.id.setting_clear_all:
 			DataBaseUtil.getInstance().clearAll();
@@ -109,11 +109,11 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 			DictionaryFragment.isRefresh = true;
 			SDCardUtil.deleteOldFile();
 			ToastUtil.diaplayMesShort(SettingActivity.this, this.getResources().getString(R.string.clear_success));
-			StatService.onEvent(this, "1.8_clear_all", "清楚所有记录", 1);
+			StatService.onEvent(this, "setting_page_clear_all", "清楚所有记录", 1);
 			break;
 		case R.id.setting_invite_friends:
 			ShareUtil.shareLink(SettingActivity.this,SettingActivity.this.getResources().getString(R.string.invite_friends_prompt));
-			StatService.onEvent(this, "invite_friends", "邀请小伙伴", 1);
+			StatService.onEvent(this, "setting_page_invite_friends", "邀请小伙伴", 1);
 			break;
 		default:
 			break;

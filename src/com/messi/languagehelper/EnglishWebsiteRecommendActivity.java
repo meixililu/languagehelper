@@ -46,23 +46,23 @@ public class EnglishWebsiteRecommendActivity extends BaseActivity implements OnC
 			
 		}else if(v.getId() == R.id.english_website_layout2){
 			toActivity(Settings.MsnbcUrl, R.string.website_msnbc);
-			StatService.onEvent(this, "19_to_cailing_page", "去彩铃页面", 1);
+			StatService.onEvent(this, "website_msnbc", "浏览msnbc", 1);
 			
 		}else if(v.getId() == R.id.english_website_layout3){
 			toActivity(Settings.BbcNewsUrl, R.string.website_bbc_news);
-			StatService.onEvent(this, "19_to_cailing_page", "去彩铃页面", 1);
+			StatService.onEvent(this, "website_bbcnews", "浏览bbcnews", 1);
 			
 		}else if(v.getId() == R.id.english_website_layout4){
 			toActivity(Settings.BbcLearningenglishUrl, R.string.website_bbc_learning);
-			StatService.onEvent(this, "19_to_cailing_page", "去彩铃页面", 1);
+			StatService.onEvent(this, "website_bbc_learning", "浏览bbc_learning", 1);
 			
 		}else if(v.getId() == R.id.english_website_layout5){
 			toActivity(Settings.EngadgetUrl, R.string.website_engadget);
-			StatService.onEvent(this, "19_to_cailing_page", "去彩铃页面", 1);
+			StatService.onEvent(this, "website_engadget", "浏览engadget", 1);
 			
 		}else if(v.getId() == R.id.english_website_layout6){
 			toActivity(Settings.PhonedogUrl, R.string.website_phonedog);
-			StatService.onEvent(this, "19_to_cailing_page", "去彩铃页面", 1);
+			StatService.onEvent(this, "website_phonedog", "浏览phonedog", 1);
 			
 		}
 	}

@@ -26,7 +26,6 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
-import com.messi.languagehelper.DictionaryFragment;
 import com.messi.languagehelper.ImgShareActivity;
 import com.messi.languagehelper.MainFragment;
 import com.messi.languagehelper.R;
@@ -37,7 +36,6 @@ import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
 import com.messi.languagehelper.task.PublicTask;
 import com.messi.languagehelper.task.PublicTask.PublicTaskListener;
 import com.messi.languagehelper.util.AudioTrackUtil;
-import com.messi.languagehelper.util.BaiduStatistics;
 import com.messi.languagehelper.util.DictionaryUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
@@ -129,7 +127,7 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 					beans.remove(mBean);
 					notifyDataSetChanged();
 					showToast(context.getResources().getString(R.string.dele_success));
-					StatService.onEvent(context, "1.6_deletebtn", "删除按钮", 1);
+					StatService.onEvent(context, "tab_dictionary_deletebtn", "首页词典页面列表删除按钮", 1);
 				}
 			});
 			holder.copy_btn.setOnClickListener(new OnClickListener() {
@@ -142,7 +140,7 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					StatService.onEvent(context, "1.6_copybtn", "复制按钮", 1);
+					StatService.onEvent(context, "tab_dictionary_copybtn", "首页词典页面列表复制按钮", 1);
 				}
 			});
 			holder.weixi_btn.setOnClickListener(new OnClickListener() {
@@ -155,7 +153,7 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 				@Override
 				public void onClick(View v) {
 					updateCollectedStatus(mBean);
-					StatService.onEvent(context, "1.6_collectedbtn", "收藏按钮", 1);
+					StatService.onEvent(context, "tab_dictionary_collectedbtn", "首页词典页面列表收藏按钮", 1);
 				}
 			});
 		} catch (Exception e) {
@@ -198,7 +196,6 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 		ClipboardManager cmb = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
 		cmb.setText(dstString);
 		showToast(context.getResources().getString(R.string.copy_success));
-		StatService.onEvent(context, BaiduStatistics.CopyBtn, "复制按钮", 1);
 	}
 
 	/**
@@ -218,7 +215,7 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				StatService.onEvent(context, "1.8_to_share_image_btn", "去图片分享页面按钮", 1);
+				StatService.onEvent(context, "tab_dictionary_share_image_btn", "首页词典页面列表图片分享页面按钮", 1);
 			}
 
 			@Override
@@ -228,8 +225,7 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				StatService.onEvent(context, "1.8_to_share_text_btn",
-						"去文字分享页面按钮", 1);
+				StatService.onEvent(context, "tab_dictionary_share_text_btn","首页词典页面列表文字分享按钮", 1);
 			}
 		});
 		mPopDialog.show();
@@ -359,11 +355,11 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 					 playLocalPcm(filepath,animationDrawable);
 				 }
 				 if(v.getId() == R.id.record_question_cover){
-					 StatService.onEvent(context, "1.7_play_content", "点击翻译内容", 1);
+					 StatService.onEvent(context, "tab_dictionary_play_content", "首页词典页面列表播放内容", 1);
 				 }else if(v.getId() == R.id.record_answer_cover){
-					 StatService.onEvent(context, "1.7_play_result", "点击翻译结果", 1);
+					 StatService.onEvent(context, "tab_dictionary_play_result", "首页词典页面列表播放结果", 1);
 				 }else if(v.getId() == R.id.voice_play_layout){
-					 StatService.onEvent(context, "1.6_playvoicebtn", "播放按钮", 1);
+					 StatService.onEvent(context, "tab_dictionary_playvoicebtn", "首页词典页面列表播放按钮", 1);
 				 }
 			} catch (Exception e) {
 				e.printStackTrace();

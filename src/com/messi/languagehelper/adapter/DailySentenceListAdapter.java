@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.widget.RecyclerView;
-import android.text.ClipboardManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +16,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.mobstat.StatService;
 import com.messi.languagehelper.R;
 import com.messi.languagehelper.ViewImageActivity;
 import com.messi.languagehelper.dao.EveryDaySentence;
 import com.messi.languagehelper.task.PublicTask;
 import com.messi.languagehelper.task.PublicTask.PublicTaskListener;
 import com.messi.languagehelper.util.AudioTrackUtil;
-import com.messi.languagehelper.util.BaiduStatistics;
 import com.messi.languagehelper.util.KeyUtil;
 import com.squareup.picasso.Picasso;
 
@@ -134,56 +131,6 @@ public class DailySentenceListAdapter extends RecyclerView.Adapter<RecyclerView.
 		context.startActivity(intent);
 	}
 
-	/**
-	 * 复制按钮
-	 */
-	private void copy(String dstString){
-		// 得到剪贴板管理器
-		ClipboardManager cmb = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
-		cmb.setText(dstString);
-		showToast(context.getResources().getString(R.string.copy_success));
-		StatService.onEvent(context, BaiduStatistics.CopyBtn, "复制按钮", 1);
-	}
-	
-	/**
-	 * 分享
-	 */
-//	private void sendToWechat(final record mBean){
-//		String[] tempText = new String[2];
-//		tempText[0] = context.getResources().getString(R.string.share_dialog_text_1);
-//		tempText[1] = context.getResources().getString(R.string.share_dialog_text_2);
-//		PopDialog mPopDialog = new PopDialog(context,tempText);
-//		mPopDialog.setCanceledOnTouchOutside(true);
-//		mPopDialog.setListener(new PopViewItemOnclickListener() {
-//			@Override
-//			public void onSecondClick(View v) {
-//				toShareImageActivity(mBean);
-//				StatService.onEvent(context, "1.8_to_share_image_btn", "去图片分享页面按钮", 1);
-//			}
-//			@Override
-//			public void onFirstClick(View v) {
-//				toShareTextActivity(mBean.getEnglish());
-//				StatService.onEvent(context, "1.8_to_share_text_btn", "去文字分享页面按钮", 1);
-//			}
-//		});
-//		mPopDialog.show();
-//	}
-	
-//	private void toShareTextActivity(String dstString){
-//		Intent intent = new Intent(Intent.ACTION_SEND);    
-//		intent.setType("text/plain"); // 纯文本     
-//		intent.putExtra(Intent.EXTRA_SUBJECT, context.getResources().getString(R.string.share));    
-//		intent.putExtra(Intent.EXTRA_TEXT, dstString);    
-//		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);    
-//		context.startActivity(Intent.createChooser(intent, context.getResources().getString(R.string.share)));    
-//	}
-	
-//	private void toShareImageActivity(record mBean){
-//		Intent intent = new Intent(context, ImgShareActivity.class); 
-//		intent.putExtra(KeyUtil.ShareContentKey, mBean.getEnglish()+"\n"+mBean.getChinese());
-//		context.startActivity(intent); 
-//	}
-	
 	private void playLocalPcm(final String path,final AnimationDrawable animationDrawable){
 		PublicTask mPublicTask = new PublicTask(context);
 		mPublicTask.setmPublicTaskListener(new PublicTaskListener() {

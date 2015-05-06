@@ -65,6 +65,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		app_layout.setOnClickListener(this);
 		invest_layout.setOnClickListener(this);
 		game_layout.setOnClickListener(this);
+		ad_layout.setOnClickListener(this);
 		mInterstitialAd = ADUtil.initChaPingAD(getActivity(), ad_layout);
 		mHandler = new Handler();
 		showAD();
@@ -134,6 +135,8 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 			toInvestorListActivity();
 		}else if(v.getId() == R.id.game_layout){
 			toGameCenterActivity();
+		}else if(v.getId() == R.id.ad_layout){
+			StatService.onEvent(getActivity(), "ad_kapian", "点击卡片广告", 1);
 		}
 	}
 	
@@ -142,13 +145,13 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		intent.putExtra(KeyUtil.URL, Settings.InvestListUrl);
 		intent.putExtra(KeyUtil.ActionbarTitle, getActivity().getResources().getString(R.string.invest_activity_title));
 		getActivity().startActivity(intent);
-		StatService.onEvent(getActivity(), "19_to_cailing_page", "去小游戏页面", 1);
+		StatService.onEvent(getActivity(), "leisure_to_invest_list", "休闲页去投资人列表", 1);
 	}
 	
 	private void toEnglishWebsiteRecommendActivity(){
 		Intent intent = new Intent(getActivity(),EnglishWebsiteRecommendActivity.class);
 		getActivity().startActivity(intent);
-		StatService.onEvent(getActivity(), "19_to_cailing_page", "去英文网站推荐页面", 1);
+		StatService.onEvent(getActivity(), "leisure_to_english_website", "休闲页去英文网站页面", 1);
 	}
 	
 	private void toGameCenterActivity(){
@@ -156,7 +159,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		intent.putExtra(KeyUtil.URL, Settings.GameUrl);
 		intent.putExtra(KeyUtil.ActionbarTitle, getActivity().getResources().getString(R.string.leisuer_game));
 		getActivity().startActivity(intent);
-		StatService.onEvent(getActivity(), "19_to_cailing_page", "去小游戏页面", 1);
+		StatService.onEvent(getActivity(), "leisure_to_game_page", "休闲页去小游戏页面", 1);
 	}
 	
 	private void toCailingActivity(){
@@ -164,7 +167,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		intent.putExtra(KeyUtil.URL, Settings.CaiLingUrl);
 		intent.putExtra(KeyUtil.ActionbarTitle, getActivity().getResources().getString(R.string.title_cailing));
 		getActivity().startActivity(intent);
-		StatService.onEvent(getActivity(), "19_to_cailing_page", "去彩铃页面", 1);
+		StatService.onEvent(getActivity(), "leisure_to_cailing_page", "休闲页去彩铃页面", 1);
 	}
 	
 	private void toYueduActivity(){
@@ -173,7 +176,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		intent.putExtra(KeyUtil.ActionbarTitle, getActivity().getResources().getString(R.string.title_reading));
 		intent.putExtra(KeyUtil.IsReedPullDownRefresh, false);
 		getActivity().startActivity(intent);
-		StatService.onEvent(getActivity(), "20_to_yuedu_page", "去阅读页面", 1);
+		StatService.onEvent(getActivity(), "leisure_to_yuedu_page", "休闲页去阅读页面", 1);
 	}
 	
 	private void toHotelActivity(){
@@ -181,13 +184,13 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		intent.putExtra(KeyUtil.URL, Settings.HotalUrl);
 		intent.putExtra(KeyUtil.ActionbarTitle, getActivity().getResources().getString(R.string.title_hotel));
 		getActivity().startActivity(intent);
-		StatService.onEvent(getActivity(), "20_to_hotel_page", "去订酒店页面", 1);
+		StatService.onEvent(getActivity(), "leisure_to_hotel_page", "休闲页去订酒店页面", 1);
 	}
 	
 	private void toAppActivity(){
 		Intent intent = new Intent(getActivity(),RecommendActivity.class);
 		getActivity().startActivity(intent);
-		StatService.onEvent(getActivity(),"19_authors_software", "作者其他应用", 1);
+		StatService.onEvent(getActivity(),"leisure_to_authors_software", "休闲页去作者其他应用页", 1);
 	}
 	
 	@Override

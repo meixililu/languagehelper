@@ -74,7 +74,7 @@ public class StudyListItemAdapter extends BaseAdapter {
 			intent.putExtra(KeyUtil.PracticeContentKey, position);
 			intent.putExtra(KeyUtil.LevelKey, level);
 			context.startActivity(intent);
-			StatService.onEvent(context, "19_to_practice_page", "进入口语学习页面", 1);
+			StatService.onEvent(context, "study_list_to_practice_page", "学习列表进入口语学习页面", 1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

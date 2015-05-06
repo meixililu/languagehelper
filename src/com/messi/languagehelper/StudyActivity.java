@@ -124,7 +124,7 @@ public class StudyActivity extends BaseActivity implements PracticeProgressListe
 			getSupportActionBar().setTitle(getResources().getString(R.string.practice_spoken_englist_finish));
 			FinishFragment mpramf = new FinishFragment(this);
 			setFragment(mpramf);
-			StatService.onEvent(this, "19_practice_page_finish", "口语练习完成", 1);
+			StatService.onEvent(this, "study_page_finish", "口语练习完成", 1);
 		}
 	}
 	
@@ -135,27 +135,27 @@ public class StudyActivity extends BaseActivity implements PracticeProgressListe
 			mpramf = new PracticeEveryFragment(studylist_part1_content[pageIndex], this,
 					vedioPath + KeyUtil.Study_Every + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
-			StatService.onEvent(this, "19_practice_page_studyevery", "学单词", 1);
+			StatService.onEvent(this, "study_page_studyevery", "学单词", 1);
 		}else if(type.equals(KeyUtil.Practice_FourInOne.toLowerCase())){
 			mpramf = new PracticeFourChooseOneFragment(studylist_part1_content[pageIndex], this,
 					vedioPath + KeyUtil.Practice_FourInOne + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
-			StatService.onEvent(this, "19_practice_page_fourinone", "口语练习四选一", 1);
+			StatService.onEvent(this, "study_page_fourinone", "口语练习四选一", 1);
 		}else if(type.equals(KeyUtil.Practice_ReadAfterMe.toLowerCase())){
 			mpramf = new PracticeReadAfterMeFragment(studylist_part1_content[pageIndex], this, 
 					vedioPath + KeyUtil.Practice_ReadAfterMe + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
-			StatService.onEvent(this, "19_practice_page_readafterme", "口语练习跟我读", 1);
+			StatService.onEvent(this, "study_page_readafterme", "口语练习跟我读", 1);
 		}else if(type.equals(KeyUtil.Practice_Translate.toLowerCase())){
 			mpramf = new PracticeWriteFragment(studylist_part1_content[pageIndex], this, 
 					vedioPath + KeyUtil.Practice_Translate + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
-			StatService.onEvent(this, "19_practice_page_write", "口语练习书写校验", 1);
+			StatService.onEvent(this, "study_page_write", "口语练习书写校验", 1);
 		}else if(type.equals(KeyUtil.Practice_SpeakAfterMe.toLowerCase())){
 			mpramf = new PracticeReadAfterMeFragment(studylist_part1_content[pageIndex], this, 
 					vedioPath + KeyUtil.Practice_SpeakAfterMe + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
-			StatService.onEvent(this, "19_practice_page_speakafterme", "口语练习跟我说", 1);
+			StatService.onEvent(this, "study_page_speakafterme", "口语练习跟我说", 1);
 		}else{
 			mpramf = new FinishFragment(this);
 		}

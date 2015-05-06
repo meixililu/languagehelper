@@ -40,7 +40,6 @@ import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
 import com.messi.languagehelper.task.PublicTask;
 import com.messi.languagehelper.task.PublicTask.PublicTaskListener;
 import com.messi.languagehelper.util.AudioTrackUtil;
-import com.messi.languagehelper.util.BaiduStatistics;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.SDCardUtil;
@@ -140,14 +139,14 @@ public class CollectedListItemAdapter extends BaseAdapter {
 				notifyDataSetChanged();
 				showToast(context.getResources().getString(R.string.dele_success));
 				MainFragment.isRefresh = true;
-				StatService.onEvent(context, "1.6_deletebtn", "删除按钮", 1);
+				StatService.onEvent(context, "tab_translate_deletebtn", "首页翻译页面列表删除按钮", 1);
 			}
 		});
 		holder.copy_btn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				copy(mBean.getEnglish());
-				StatService.onEvent(context, "1.6_copybtn", "复制按钮", 1);
+				StatService.onEvent(context, "tab_translate_copybtn", "首页翻译页面列表复制按钮", 1);
 			}
 		});
 		holder.weixi_btn.setOnClickListener(new OnClickListener() {
@@ -160,7 +159,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				updateCollectedStatus(mBean);
-				StatService.onEvent(context, "1.6_collectedbtn", "收藏按钮", 1);
+				StatService.onEvent(context, "tab_translate_collectedbtn", "首页翻译页面列表收藏按钮", 1);
 			}
 		});
 		holder.record_to_practice.setOnClickListener(new OnClickListener() {
@@ -170,7 +169,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 				Intent intent = new Intent(context,PracticeActivity.class);
 				LanguageApplication.dataMap.put(KeyUtil.DialogBeanKey, mBean);
 				context.startActivity(intent);
-				StatService.onEvent(context, "1.8_to_practice", "去口语练页面", 1);
+				StatService.onEvent(context, "tab_translate_to_practice", "首页翻译页面列表练口语按钮", 1);
 			}
 		});
 		return convertView;
@@ -218,7 +217,6 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		ClipboardManager cmb = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
 		cmb.setText(dstString);
 		showToast(context.getResources().getString(R.string.copy_success));
-		StatService.onEvent(context, BaiduStatistics.CopyBtn, "复制按钮", 1);
 	}
 	
 	/**
@@ -234,12 +232,12 @@ public class CollectedListItemAdapter extends BaseAdapter {
 			@Override
 			public void onSecondClick(View v) {
 				toShareImageActivity(mBean);
-				StatService.onEvent(context, "1.8_to_share_image_btn", "去图片分享页面按钮", 1);
+				StatService.onEvent(context, "tab_translate_share_image_btn", "首页翻译页面列表图片分享按钮", 1);
 			}
 			@Override
 			public void onFirstClick(View v) {
 				toShareTextActivity(mBean.getEnglish());
-				StatService.onEvent(context, "1.8_to_share_text_btn", "去文字分享页面按钮", 1);
+				StatService.onEvent(context, "tab_translate_share_text_btn", "首页翻译页面列表文字分享按钮", 1);
 			}
 		});
 		mPopDialog.show();
@@ -374,11 +372,11 @@ public class CollectedListItemAdapter extends BaseAdapter {
 				playLocalPcm(filepath,animationDrawable);
 			}
 			if(v.getId() == R.id.record_question_cover){
-				StatService.onEvent(context, "1.7_play_content", "点击翻译内容", 1);
+				StatService.onEvent(context, "tab_translate_play_content", "首页翻译页面列表播放内容", 1);
 			}else if(v.getId() == R.id.record_answer_cover){
-				StatService.onEvent(context, "1.7_play_result", "点击翻译结果", 1);
+				StatService.onEvent(context, "tab_translate_play_result", "首页翻译页面列表播放结果", 1);
 			}else if(v.getId() == R.id.voice_play_layout){
-				StatService.onEvent(context, "1.6_playvoicebtn", "播放按钮", 1);
+				StatService.onEvent(context, "tab_translate_playvoicebtn", "首页翻译页面列表播放按钮", 1);
 			}
 		}
 	}
