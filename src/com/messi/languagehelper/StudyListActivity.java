@@ -22,10 +22,7 @@ public class StudyListActivity extends BaseActivity {
 	}
 
 	private void initViews(){
-		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
-		if (toolbar != null) {
-			getSupportActionBar().setTitle(getResources().getString(R.string.introduction));
-		}
+		getSupportActionBar().setTitle(getResources().getString(R.string.introduction));
 		level = getIntent().getStringExtra(KeyUtil.LevelKey);
 		studylist_part1 = getResources().getStringArray(R.array.studylist_part1);
 		studylist_lv = (ListView) findViewById(R.id.studylist_lv);

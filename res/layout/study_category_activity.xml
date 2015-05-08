@@ -14,5 +14,18 @@
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize" />
     
-
+	<ListView
+        android:id="@+id/studycategory_lv"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/none"
+        android:cacheColorHint="@color/none"
+        android:divider="@color/none"
+        android:dividerHeight="1px"
+        android:fadingEdge="none"
+        android:listSelector="@color/none"
+        android:layout_marginTop="@dimen/padding_margin"
+        android:paddingLeft="@dimen/padding_margin"
+        android:paddingRight="@dimen/padding_margin"
+        android:scrollbars="none" />
 </LinearLayout>

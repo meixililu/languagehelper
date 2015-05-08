@@ -1,5 +1,7 @@
 package com.messi.languagehelper;
 
+import java.util.HashMap;
+
 import android.app.Application;
 import android.content.Context;
 
@@ -10,6 +12,7 @@ import com.messi.languagehelper.db.LHContract;
 
 public class BaseApplication extends Application {
 
+	public static HashMap<String, Object> dataMap = new HashMap<String, Object>();
 	private static DaoMaster daoMaster;  
     private static DaoSession daoSession; 
     public static BaseApplication mInstance;

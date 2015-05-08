@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -82,7 +81,7 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 	}
 	
 	private void initData(){
-		mBean = (record)LanguageApplication.dataMap.get(KeyUtil.DialogBeanKey);
+		mBean = (record)BaseApplication.dataMap.get(KeyUtil.DialogBeanKey);
 		isEnglish = StringUtils.isEnglish(mBean.getEnglish());
 		mUserSpeakBeanList = new ArrayList<UserSpeakBean>();
 		adapter = new PracticePageListItemAdapter(this, mUserSpeakBeanList);

@@ -31,6 +31,7 @@
     <string name="input_et_hint">请输入需要翻译的中文或英文</string>
     <string name="input_translate_hint">请翻译</string>
     <string name="auto_play_after_translate">翻译完成后自动播放</string>
+    <string name="auto_clear">每次退出应用自动清除非收藏记录</string>
     <string name="translate">翻 译</string>
     <string name="finish">完毕</string>
     <string name="exit_program">再按一次退出应用</string>
@@ -135,7 +136,7 @@
 	<string name="dailysentence">每日一句</string>
 	<string name="spokenEnglishTest">口语评测</string>
 	<string name="simulation_dialogue">模拟对话</string>
-	<string name="introduction">第一部分</string>
+	<string name="introduction">基础词汇</string>
 	<string name="primary_lever">第二部分</string>
 	<string name="intermediate_lever">第三部分</string>
 	<string name="fighting">致所有用户</string>

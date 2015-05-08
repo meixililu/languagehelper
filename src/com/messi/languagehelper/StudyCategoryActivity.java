@@ -1,20 +1,18 @@
 package com.messi.languagehelper;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.FrameLayout;
+import android.widget.ListView;
 
-import com.baidu.mobstat.StatService;
-import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.adapter.StudyCategoryListItemAdapter;
 
 public class StudyCategoryActivity extends BaseActivity implements OnClickListener{
 
 	
-	public static final String PartOne = "part_one";
-	public static final String PartTwo = "part_two";
-	public static final String PartThree = "part_three";
+	private ListView category_lv;
+	private String[] study_category_list;
+	private StudyCategoryListItemAdapter mAdapter;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -24,7 +22,11 @@ public class StudyCategoryActivity extends BaseActivity implements OnClickListen
 	}
 	
 	private void initViews(){
-		
+		getSupportActionBar().setTitle(getResources().getString(R.string.title_Practice));
+		study_category_list = getResources().getStringArray(R.array.study_category);
+		category_lv = (ListView) findViewById(R.id.studycategory_lv);
+		mAdapter = new StudyCategoryListItemAdapter(this, study_category_list);
+		category_lv.setAdapter(mAdapter);
 	}
 
 	@Override
@@ -34,20 +36,6 @@ public class StudyCategoryActivity extends BaseActivity implements OnClickListen
 		default:
 			break;
 		}
-	}
-	
-	private void toGetfansActivity(){
-		Intent intent = new Intent(this,GetFansActivity.class);
-		startActivity(intent);
-	}
-	private void toStudyListActivity(String level){
-		Intent intent = new Intent(this,StudyListActivity.class);
-		intent.putExtra(KeyUtil.LevelKey, level);
-		startActivity(intent);
-	}
-	private void toGetContentActivity(){
-		Intent intent = new Intent(this,GetContentActivity.class);
-		startActivity(intent);
 	}
 	
 }

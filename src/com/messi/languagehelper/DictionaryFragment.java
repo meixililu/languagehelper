@@ -317,7 +317,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 			@Override
 			public void onSuccess(int statusCode, Header[] headers, String responseString) {
 				if (!TextUtils.isEmpty(responseString)) {
-					LogUtil.DefalutLog(responseString);
+					input_et.setText("");
 					mDictionaryBean = JsonParser.parseDictionaryJson(responseString);
 					if(mDictionaryBean != null){
 						setData();

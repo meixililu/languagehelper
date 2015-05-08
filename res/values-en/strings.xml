@@ -69,6 +69,7 @@
     <string name="auto_play_after_translate">Auto Play After Translate</string>
     <string name="clear_all_except_favorite">Clear Records Except Favorites</string>
     <string name="clear_all_record">Clear All Records</string>
+    <string name="auto_clear">Clear Records Except Favorites When Exit</string>
     <string name="invite_friends">Very good,invite some friends</string>
     <string name="clear_success">Clear Success</string>
 

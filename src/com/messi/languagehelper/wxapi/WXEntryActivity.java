@@ -36,6 +36,7 @@ import com.messi.languagehelper.SettingActivity;
 import com.messi.languagehelper.WebViewFragment;
 import com.messi.languagehelper.adapter.MainPageAdapter;
 import com.messi.languagehelper.adapter.MenuListItemAdapter;
+import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
@@ -130,7 +131,6 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         setLastTimeSelectTab();
-        showNewFunction();
 	}
 	
 	private void setLastTimeSelectTab(){
@@ -141,29 +141,6 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 	private void initLeftMenuHeader(){
 		leftMenuHeader = mInflater.inflate(R.layout.left_menu_header, null);
 		mDrawerList.addHeaderView(leftMenuHeader);
-	}
-	
-	private void showNewFunction(){
-		boolean autoplayUnreadDot = mSharedPreferences.getBoolean(KeyUtil.ShowNewFunction, true);
-        if(autoplayUnreadDot){
-        	toNewFunctionActivity();
-        	Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.ShowNewFunction,false);
-        }
-	}
-	
-	private void toNewFunctionActivity(){
-		animationCloseOrOpen(800);
-		animationCloseOrOpen(1600);
-	}
-	
-	private void animationCloseOrOpen(int mis){
-		new Handler().postDelayed(new Runnable() {
-			
-			@Override
-			public void run() {
-				menu();
-			}
-		}, mis);
 	}
 	
 	public void showProgressbar(){
@@ -263,14 +240,26 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 	
 	@Override
 	public void onBackPressed() {
-		if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-        	mDrawerLayout.closeDrawer(mDrawerList);
-        } else{
+		boolean autoplayUnreadDot = mSharedPreferences.getBoolean(KeyUtil.ShowNewFunction, true);
+        if(autoplayUnreadDot){
         	if ((System.currentTimeMillis() - exitTime) > 2000) {
-        		Toast.makeText(getApplicationContext(), this.getResources().getString(R.string.exit_program), 0).show();
-        		exitTime = System.currentTimeMillis();
-        	} else {
-        		finish();
+        		menu();
+    			Toast.makeText(getApplicationContext(), this.getResources().getString(R.string.exit_program), 0).show();
+    			exitTime = System.currentTimeMillis();
+    		} else {
+    			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.ShowNewFunction,false);
+    			finish();
+    		}
+        }else{
+        	if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+        		mDrawerLayout.closeDrawer(mDrawerList);
+        	} else{
+        		if ((System.currentTimeMillis() - exitTime) > 2000) {
+        			Toast.makeText(getApplicationContext(), this.getResources().getString(R.string.exit_program), 0).show();
+        			exitTime = System.currentTimeMillis();
+        		} else {
+        			finish();
+        		}
         	}
         }
 	}
@@ -280,6 +269,10 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 		super.onDestroy();
 		saveSelectTab();
 		WebViewFragment.mMainFragment = null;
+		boolean AutoClear = mSharedPreferences.getBoolean(KeyUtil.AutoClear, false);
+		if(AutoClear){
+			DataBaseUtil.getInstance().clearExceptFavorite();
+		}
 	}
 	
 	private void saveSelectTab(){

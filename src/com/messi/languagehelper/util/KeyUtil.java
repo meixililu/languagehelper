@@ -39,7 +39,11 @@ public class KeyUtil {
 
 	public static String AutoPlayUnreadDot = "AutoPlayUnreadDot";
 	
-	public static String ShowNewFunction = "ShowNewFunction";
+	public static String AutoClear = "AutoClear";
+	
+	public static String AutoClearUnreadDot = "AutoClearUnreadDot";
+	
+	public static String ShowNewFunction = "ShowNewFunction1";
 	
 	public static String IsHasShowBaiduMessage = "IsHasShowBaiduMessage";
 

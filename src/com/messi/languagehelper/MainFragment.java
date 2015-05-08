@@ -353,6 +353,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 			public void onSuccess(int statusCode, Header[] headers, String responseString) {
 				if (!TextUtils.isEmpty(responseString)) {
 					LogUtil.DefalutLog(responseString);
+					input_et.setText("");
 					dstString = JsonParser.getTranslateResult(responseString);
 					if (dstString.contains("error_msg:")) {
 						showToast(dstString);

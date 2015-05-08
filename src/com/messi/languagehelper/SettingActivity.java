@@ -23,10 +23,10 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 
 	private TextView seekbar_text;
 	private SeekBar seekbar;
-	private ImageView autoread_unread_dot;
-	private FrameLayout speak_yueyu,auto_play;
+	private ImageView autoread_unread_dot,unread_auto_clear_dot;
+	private FrameLayout speak_yueyu,auto_play,auto_clear;
 	private FrameLayout clear_all_except_favorite,clear_all,invite_friends;
-	private CheckBox speak_yueyu_cb,auto_play_cb;
+	private CheckBox speak_yueyu_cb,auto_play_cb,auto_clear_cb;
 	private SharedPreferences mSharedPreferences;
 	
 	@Override
@@ -43,9 +43,12 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
         seekbar_text = (TextView) findViewById(R.id.seekbar_text);
         seekbar = (SeekBar) findViewById(R.id.seekbar);
         autoread_unread_dot = (ImageView) findViewById(R.id.unread_dot);
+        unread_auto_clear_dot = (ImageView) findViewById(R.id.unread_auto_clear_dot);
         speak_yueyu = (FrameLayout) findViewById(R.id.speak_yueyu);
         auto_play = (FrameLayout) findViewById(R.id.setting_auto_play);
+        auto_clear = (FrameLayout) findViewById(R.id.setting_auto_clear);
         speak_yueyu_cb = (CheckBox) findViewById(R.id.speak_yueyu_cb);
+        auto_clear_cb = (CheckBox) findViewById(R.id.setting_auto_clear_cb);
         auto_play_cb = (CheckBox) findViewById(R.id.setting_auto_play_cb);
         clear_all_except_favorite = (FrameLayout) findViewById(R.id.setting_clear_all_except_favorite);
         clear_all = (FrameLayout) findViewById(R.id.setting_clear_all);
@@ -57,6 +60,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
         clear_all.setOnClickListener(this);
         invite_friends.setOnClickListener(this);
         auto_play.setOnClickListener(this);
+        auto_clear.setOnClickListener(this);
 	}
 	
 	private void initData(){
@@ -65,10 +69,16 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 		boolean checked = mSharedPreferences.getBoolean(KeyUtil.SpeakPutonghuaORYueyu, false);
 		boolean autoplay = mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false);
 		boolean autoplayUnreadDot = mSharedPreferences.getBoolean(KeyUtil.AutoPlayUnreadDot, false);
+		boolean AutoClear = mSharedPreferences.getBoolean(KeyUtil.AutoClear, false);
+		boolean AutoClearUnreadDot = mSharedPreferences.getBoolean(KeyUtil.AutoClearUnreadDot, false);
 		speak_yueyu_cb.setChecked(checked);
 		auto_play_cb.setChecked(autoplay);
+		auto_clear_cb.setChecked(AutoClear);
 		if(autoplayUnreadDot){
 			autoread_unread_dot.setVisibility(View.GONE);
+		}
+		if(AutoClearUnreadDot){
+			unread_auto_clear_dot.setVisibility(View.GONE);
 		}
 	}
 
@@ -82,26 +92,30 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 				speak_yueyu_cb.setChecked(true);
 			}
 			MainFragment.isSpeakYueyuNeedUpdate = true;
-			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.SpeakPutonghuaORYueyu,
-					speak_yueyu_cb.isChecked());
+			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.SpeakPutonghuaORYueyu, speak_yueyu_cb.isChecked());
 			break;
 		case R.id.setting_auto_play:
-			if(auto_play_cb.isChecked()){
-				auto_play_cb.setChecked(false);
-			}else{
-				auto_play_cb.setChecked(true);
-			}
+			auto_play_cb.setChecked(!auto_play_cb.isChecked());
 			autoread_unread_dot.setVisibility(View.GONE);
 			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoPlayResult,auto_play_cb.isChecked());
 			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoPlayUnreadDot,true);
 			StatService.onEvent(this, "setting_page_auto_play", "翻译完成之后自动播放", 1);
+			break;
+		case R.id.setting_auto_clear:
+			auto_clear_cb.setChecked(!auto_clear_cb.isChecked());
+			unread_auto_clear_dot.setVisibility(View.GONE);
+			MainFragment.isRefresh = true;
+			DictionaryFragment.isRefresh = true;
+			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoClear,auto_clear_cb.isChecked());
+			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoClearUnreadDot,true);
+			StatService.onEvent(this, "setting_page_auto_clear", "退出自动清除", 1);
 			break;
 		case R.id.setting_clear_all_except_favorite:
 			DataBaseUtil.getInstance().clearExceptFavorite();
 			MainFragment.isRefresh = true;
 			DictionaryFragment.isRefresh = true;
 			ToastUtil.diaplayMesShort(SettingActivity.this, this.getResources().getString(R.string.clear_success));
-			StatService.onEvent(this, "setting_page_clear_all_except", "清楚收藏以外的记录", 1);
+			StatService.onEvent(this, "setting_page_clear_all_except", "清除收藏以外的记录", 1);
 			break;
 		case R.id.setting_clear_all:
 			DataBaseUtil.getInstance().clearAll();
@@ -109,7 +123,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 			DictionaryFragment.isRefresh = true;
 			SDCardUtil.deleteOldFile();
 			ToastUtil.diaplayMesShort(SettingActivity.this, this.getResources().getString(R.string.clear_success));
-			StatService.onEvent(this, "setting_page_clear_all", "清楚所有记录", 1);
+			StatService.onEvent(this, "setting_page_clear_all", "清除所有记录", 1);
 			break;
 		case R.id.setting_invite_friends:
 			ShareUtil.shareLink(SettingActivity.this,SettingActivity.this.getResources().getString(R.string.invite_friends_prompt));

@@ -28,8 +28,8 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
+import com.messi.languagehelper.BaseApplication;
 import com.messi.languagehelper.ImgShareActivity;
-import com.messi.languagehelper.LanguageApplication;
 import com.messi.languagehelper.MainFragment;
 import com.messi.languagehelper.PracticeActivity;
 import com.messi.languagehelper.R;
@@ -239,7 +239,7 @@ public class ResultListHeaderAdapter extends RecyclerView.Adapter<RecyclerView.V
 				public void onClick(View v) {
 					holder.unread_dot.setVisibility(View.GONE);
 					Intent intent = new Intent(context,PracticeActivity.class);
-					LanguageApplication.dataMap.put(KeyUtil.DialogBeanKey, mBean);
+					BaseApplication.dataMap.put(KeyUtil.DialogBeanKey, mBean);
 					context.startActivity(intent);
 					StatService.onEvent(context, "favor_tran_to_practice", "收藏翻译页去口语练按钮", 1);
 				}

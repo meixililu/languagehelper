@@ -2,19 +2,26 @@
 <resources>
     
     <string-array name="studylist_part1">
-        <item>A,boy,girl,man,woman\n一个,男孩,女孩,男人,女人</item>
-        <item>white,black,red,green\n白色,黑色,红色,绿色</item>
-        <item>good morning,afternoon,evening,night\n早上好,下午好,晚上好,晚安</item>
-        <item>young,old,beautiful,handsome\n年轻的,老的,美丽的,英俊的</item>
-        <item>tall,short,thin,fat\n高的,矮的,瘦的,胖的</item>
-        <item>mother,father,brother,sister\n母亲,父亲,弟弟(或哥哥),妹妹(或姐姐)</item>
-        <item>this,that,these,those\n这个,那个,这些,那些</item>
-        <item>wife,husband,son,daughter\n妻子,丈夫,儿子,女儿</item>
-        <item>He,She,I,It\n他,她,我,它</item>
-        <item>what,who,which,whose\n什么,谁,哪一个,谁的</item>
-        <item>when,where,why,how\n什么时候,什么地方,为什么,怎么样</item>
-        <item>uncle,aunt,family,parents\n叔叔,阿姨,家庭,父母</item>
-        <item>my,your,his,her\n我的,你们的,他的,她的</item>
+        <item>A boy  girl  man  woman\n一个男孩  女孩  男人  女人</item>
+        <item>white  black  red  green\n白色  黑色  红色  绿色</item>
+        <item>good morning  afternoon  evening  night\n早上好  下午好  晚上好  晚安</item>
+        <item>young  old  beautiful  handsome\n年轻的  老的  美丽的  英俊的</item>
+        <item>tall  short  thin  fat\n高的,矮的,瘦的,胖的</item>
+        <item>mother  father  brother  sister\n母亲,父亲,弟弟(或哥哥),妹妹(或姐姐)</item>
+        <item>this  that  these  those\n这个  那个  这些  那些</item>
+        <item>wife  husband  son  daughter\n妻子  丈夫  儿子  女儿</item>
+        <item>He  She  I  It\n他  她  我  它</item>
+        <item>what  who  which  whose\n什么  谁  哪一个  谁的</item>
+        <item>when  where  why  how\n什么时候  什么地方  为什么  怎么样</item>
+        <item>uncle  aunt  family  parents\n叔叔  阿姨  家庭  父母</item>
+        <item>my  your  his  her\n我的  你们的  他的  她的</item>
+    </string-array>
+    
+    <string-array name="study_category">
+        <item>基础词汇</item>
+        <item>日常生活</item>
+        <item>商务英语</item>
+        <item>下一版更新</item>
     </string-array>
      
     <string-array name="studylist_part1_content1">
