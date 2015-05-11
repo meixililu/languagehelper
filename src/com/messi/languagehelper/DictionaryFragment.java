@@ -317,9 +317,9 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 			@Override
 			public void onSuccess(int statusCode, Header[] headers, String responseString) {
 				if (!TextUtils.isEmpty(responseString)) {
-					input_et.setText("");
 					mDictionaryBean = JsonParser.parseDictionaryJson(responseString);
 					if(mDictionaryBean != null){
+						input_et.setText("");
 						setData();
 					}else{
 						GetDictionaryFaultAsyncTask();
@@ -362,6 +362,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 					if (dstString.contains("error_msg:")) {
 						showToast(dstString);
 					} else {
+						input_et.setText("");
 						mDictionaryBean = new Dictionary();
 						mDictionaryBean.setType(KeyUtil.ResultTypeTranslate);
 						mDictionaryBean.setWord_name(Settings.q);
