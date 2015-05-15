@@ -23,6 +23,13 @@
         <item>商务英语</item>
         <item>下一版更新</item>
     </string-array>
+    
+    <string-array name="study_dialog_category">
+        <item>基础对话</item>
+        <item>日常生活</item>
+        <item>商务英语</item>
+        <item>下一版更新</item>
+    </string-array>
      
     <string-array name="studylist_part1_content1">
         <item>[bɔɪ],[ɡɜ:l],[mæn],[\'wʊmən]#男孩,女孩,男人,女人#boy,girl,man,woman#study_every</item>

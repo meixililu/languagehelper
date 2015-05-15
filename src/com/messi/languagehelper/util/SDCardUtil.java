@@ -82,6 +82,31 @@ public class SDCardUtil {
 		return filePath;
 	}
 	
+	public static String saveBitmap(Context mContext, Bitmap bitmap, String name) throws IOException {
+		String sdcardDir = isDirExits(mContext, ImgPath);
+		String filePath = "";
+		if(!TextUtils.isEmpty(sdcardDir)){
+			filePath = sdcardDir + name;
+			File file = new File(filePath);
+			file.createNewFile();
+			FileOutputStream out;
+			try {
+				out = new FileOutputStream(file);
+				if (bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)) {
+					out.flush();
+					out.close();
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}else{
+			ToastUtil.diaplayMesShort(mContext, "请插入SD卡");
+		}
+		return filePath;
+	}
+	
 	/**删除内部存储中之前下载的文件
 	 * @param mContext
 	 */

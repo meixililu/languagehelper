@@ -1,6 +1,7 @@
 package com.messi.languagehelper;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -24,7 +25,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 	private TextView seekbar_text;
 	private SeekBar seekbar;
 	private ImageView autoread_unread_dot,unread_auto_clear_dot;
-	private FrameLayout speak_yueyu,auto_play,auto_clear;
+	private FrameLayout speak_yueyu,auto_play,auto_clear,qrcode;
 	private FrameLayout clear_all_except_favorite,clear_all,invite_friends;
 	private CheckBox speak_yueyu_cb,auto_play_cb,auto_clear_cb;
 	private SharedPreferences mSharedPreferences;
@@ -47,6 +48,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
         speak_yueyu = (FrameLayout) findViewById(R.id.speak_yueyu);
         auto_play = (FrameLayout) findViewById(R.id.setting_auto_play);
         auto_clear = (FrameLayout) findViewById(R.id.setting_auto_clear);
+        qrcode = (FrameLayout) findViewById(R.id.setting_invite_friends_qrcode);
         speak_yueyu_cb = (CheckBox) findViewById(R.id.speak_yueyu_cb);
         auto_clear_cb = (CheckBox) findViewById(R.id.setting_auto_clear_cb);
         auto_play_cb = (CheckBox) findViewById(R.id.setting_auto_play_cb);
@@ -61,6 +63,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
         invite_friends.setOnClickListener(this);
         auto_play.setOnClickListener(this);
         auto_clear.setOnClickListener(this);
+        qrcode.setOnClickListener(this);
 	}
 	
 	private void initData(){
@@ -129,9 +132,18 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 			ShareUtil.shareLink(SettingActivity.this,SettingActivity.this.getResources().getString(R.string.invite_friends_prompt));
 			StatService.onEvent(this, "setting_page_invite_friends", "邀请小伙伴", 1);
 			break;
+		case R.id.setting_invite_friends_qrcode:
+			shareQrcode();
+			StatService.onEvent(this, "setting_page_qrcode", "二维码", 1);
+			break;
 		default:
 			break;
 		}
+	}
+	
+	private void shareQrcode(){
+		Intent intent = new Intent(this,QRCodeShareActivity.class);
+		startActivity(intent);
 	}
 	
 	@Override

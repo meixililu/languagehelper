@@ -83,6 +83,7 @@
     <string name="dele_success">delete success</string>
     <string name="copy_success">copy success</string>
     <string name="share">Share</string>
+    <string name="share_buddy">Share to buddy</string>
     <string name="favorite_success">collect success</string>
     <string name="favorite_cancle">collect cancle</string>
     

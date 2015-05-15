@@ -42,15 +42,12 @@
 	        android:layout_marginRight="@dimen/padding_10"
 	    	android:textSize="@dimen/bigger"
 	        />
-        
-        
     </FrameLayout>
     
-    <LinearLayout 
+    <RelativeLayout 
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical"
         >
        	<EditText 
        	    android:id="@+id/translate_input"
@@ -65,7 +62,30 @@
             android:imeOptions="actionDone"
        	    android:background="@drawable/list_item_bg_white"
        	    />
-    </LinearLayout>
+       	<LinearLayout 
+       	    android:layout_width="match_parent"
+       	    android:layout_height="wrap_content"
+       	    android:orientation="horizontal"
+       	    android:layout_margin="@dimen/padding_20"
+       	    android:layout_alignParentBottom="true"
+       	    android:gravity="center"
+       	    >
+       	    <TextView 
+       	        android:id="@+id/translate_result"
+       	        android:layout_width="0dp"
+       	        android:layout_height="wrap_content"
+       	        android:layout_weight="1"
+       	        android:textColor="@color/text_grey"
+       	        android:textSize="@dimen/big"
+       	        />
+       	    <ImageView 
+       	        android:id="@+id/translate_result_img"
+       	        android:layout_width="wrap_content"
+       	        android:layout_height="wrap_content"
+       	        android:src="@drawable/ic_visibility_grey600_36dp"
+       	        />
+       	</LinearLayout>
+    </RelativeLayout>
     
     <com.gc.materialdesign.views.ButtonRectangle 
         xmlns:materialdesign="http://schemas.android.com/apk/res-auto"

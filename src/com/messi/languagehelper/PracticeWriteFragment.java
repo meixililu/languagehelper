@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gc.materialdesign.views.ButtonRectangle;
@@ -27,7 +29,8 @@ public class PracticeWriteFragment extends BaseFragment implements OnClickListen
 
 	private View view;
 	private String content;
-	private TextView questionTv;
+	private TextView questionTv,translate_result;
+	private ImageView translate_result_img;
 	private ButtonRectangle check_btn;
 	private PracticeProgressListener mPracticeProgress;
 	private EditText translate_input;
@@ -64,11 +67,14 @@ public class PracticeWriteFragment extends BaseFragment implements OnClickListen
 	
 	private void initViews(){
 		questionTv = (TextView)view.findViewById(R.id.questiontv);
+		translate_result = (TextView)view.findViewById(R.id.translate_result);
+		translate_result_img = (ImageView)view.findViewById(R.id.translate_result_img);
 		translate_input = (EditText)view.findViewById(R.id.translate_input);
 		check_btn = (ButtonRectangle)view.findViewById(R.id.check_btn);
 		setContent();
 		check_btn.setEnabled(false);
 		check_btn.setOnClickListener(this);
+		translate_result_img.setOnClickListener(this);
 		
 		translate_input.addTextChangedListener(new TextWatcher() {
 			@Override
@@ -89,6 +95,15 @@ public class PracticeWriteFragment extends BaseFragment implements OnClickListen
 	private void setContent(){
 		questionTv.setText("\"" + cn[resultPosition] +"\"");
 	}
+	
+	private void setResult(){
+		String txt = translate_result.getText().toString();
+		if(TextUtils.isEmpty(txt)){
+			translate_result.setText("\"" + en[resultPosition] +"\"");
+		}else{
+			translate_result.setText("");
+		}
+	}
 
 	@Override
 	public void onClick(View v) {
@@ -97,8 +112,10 @@ public class PracticeWriteFragment extends BaseFragment implements OnClickListen
 			submit();
 			break;
 		case R.id.select_answer1:
-			
 			playVideo(resultPosition);
+			break;
+		case R.id.translate_result_img:
+			setResult();
 			break;
 		}
 	}

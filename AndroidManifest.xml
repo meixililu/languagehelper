@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.messi.languagehelper"
-    android:versionCode="12"
-    android:versionName="2.1" >
+    android:versionCode="13"
+    android:versionName="2.2" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -80,7 +80,16 @@
             android:name=".InvestmentActivity"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".StudyDialogActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".StudyDialogListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".StudyCategoryActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".QRCodeShareActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".StudyActivity"

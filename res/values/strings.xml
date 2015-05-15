@@ -2,7 +2,7 @@
 
     <string name="app_name">中英互译</string>
     <string name="app_des">告别说不出口的英语</string>
-    <string name="app_ad">学英语，你值得拥有</string>
+    <string name="app_ad">学英语，你值得拥有！</string>
     <string name="author">作者：黎潞</string>
     <string name="designer">设计：李茜霞,王烨</string>
     <string name="title_about">关于我们</string>
@@ -74,6 +74,7 @@
     <string name="clear_all_except_favorite">保留收藏记录，清除其他所有记录</string>
     <string name="clear_all_record">清除所有记录</string>
     <string name="invite_friends">还不错，告诉小伙伴</string>
+    <string name="invite_friends_qrcode">二维码 扫一扫</string>
     <string name="clear_success">清除成功</string>
     
     <string name="preference_key_tts_music">tts_music</string>
@@ -85,6 +86,8 @@
     <string name="dele_success">删除成功</string>
     <string name="copy_success">复制成功</string>
     <string name="share">分享</string>
+    <string name="share_buddy">分享给小伙伴</string>
+    <string name="wechat_long_click">长按有惊喜</string>
     <string name="favorite_success">收藏成功</string>
     <string name="favorite_cancle">取消收藏</string>
     
