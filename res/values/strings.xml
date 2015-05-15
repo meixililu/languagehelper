@@ -71,10 +71,10 @@
     <string name="play_speed_text">播放语速调节：</string>
     <string name="fifth_normal">50为正常速度</string>
     <string name="i_speak_cantonese">我说粤语</string>
-    <string name="clear_all_except_favorite">保留收藏记录，清除其他所有记录</string>
+    <string name="clear_all_except_favorite">清除收藏之外的所有记录</string>
     <string name="clear_all_record">清除所有记录</string>
     <string name="invite_friends">还不错，告诉小伙伴</string>
-    <string name="invite_friends_qrcode">二维码 扫一扫</string>
+    <string name="invite_friends_qrcode">二维码  扫一扫</string>
     <string name="clear_success">清除成功</string>
     
     <string name="preference_key_tts_music">tts_music</string>
@@ -87,7 +87,7 @@
     <string name="copy_success">复制成功</string>
     <string name="share">分享</string>
     <string name="share_buddy">分享给小伙伴</string>
-    <string name="wechat_long_click">长按有惊喜</string>
+    <string name="wechat_long_click">微信长按有惊喜</string>
     <string name="favorite_success">收藏成功</string>
     <string name="favorite_cancle">取消收藏</string>
     

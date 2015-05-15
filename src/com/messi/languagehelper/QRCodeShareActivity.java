@@ -43,9 +43,12 @@ public class QRCodeShareActivity extends BaseActivity implements OnClickListener
 	}
 	
 	private void shareWithImg() throws IOException{
-		Bitmap bitmap = ViewUtil.getBitmapFromViewFull(share_parent_layout);
+		wechat_long_click.setVisibility(View.VISIBLE);
+		Bitmap bitmap = ViewUtil.getBitmapFromViewSmall(share_parent_layout);
 		if(bitmap !=  null){
 			String imgPath = SDCardUtil.saveBitmap(this, bitmap, "qrcode_img.png");
+			wechat_long_click.setVisibility(View.GONE);
+			share_parent_layout.requestLayout();
 			File file = new File(imgPath);    
 			if (file != null && file.exists() && file.isFile()) {    
 				Uri uri = Uri.fromFile(file);    

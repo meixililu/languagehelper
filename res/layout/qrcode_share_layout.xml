@@ -22,7 +22,7 @@
         android:gravity="center"
         android:background="@color/white"
         android:orientation="vertical"
-        android:padding="5dp" >
+        android:padding="30dp" >
 
         <ImageView 
             android:layout_width="wrap_content"
@@ -52,10 +52,11 @@
             android:id="@+id/wechat_long_click"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_dark"
-            android:layout_marginTop="@dimen/padding_15"
-            android:textSize="@dimen/small"
+            android:textColor="@color/text_grey"
+            android:layout_marginTop="40dp"
+            android:textSize="@dimen/smaller"
             android:text="@string/wechat_long_click"
+            android:visibility="gone"
             />
     </LinearLayout>
 
