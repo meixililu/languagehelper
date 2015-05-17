@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.baidu.kirin.PostChoiceListener;
 import com.baidu.mobstat.StatService;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.iflytek.cloud.RecognizerListener;
@@ -77,7 +78,6 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 			SharedPreferences mSharedPreferences,SpeechSynthesizer mSpeechSynthesizer){
 		this.content = content;
 		this.mPracticeProgress = mPracticeProgress;
-		resultPosition = NumberUtil.getRandomNumber(4);
 		getContent();
 		this.videoPath = SDCardUtil.getDownloadPath(videoPath);
 		this.mSharedPreferences = mSharedPreferences;
@@ -131,13 +131,9 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 		recent_used_lv = (ListView) getView().findViewById(R.id.recent_used_lv);
 		recent_used_lv.setAdapter(adapter);
 		
-		record_answer.setText(en[resultPosition]);
-		record_question.setText(cn[resultPosition]);
-		repeat_time.setText("跟读 " + repeatTimes + " 次");
-		
+		setPracticeContent();
 		initSpeakLanguage();
-		mAnswerOnClickListener = new MyOnClickListener(en[resultPosition],voice_play_answer,true);
-		record_answer_cover.setOnClickListener(mAnswerOnClickListener);
+		repeat_time.setText("跟读 " + repeatTimes + " 次");
 		voice_btn.setOnClickListener(this);
 		repeat_time_minus_cover.setOnClickListener(this);
 		repeat_time_plus_cover.setOnClickListener(this);
@@ -148,6 +144,16 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 		XFUtil.setSpeakLanguage(getActivity(),mSharedPreferences,XFUtil.VoiceEngineEN);
 		practice_prompt.setText(getActivity().getResources().getString(R.string.practice_prompt_english));
 	}
+	
+	private void setPracticeContent(){
+		record_answer.setText(en[resultPosition]);
+		record_question.setText(cn[resultPosition]);
+		mAnswerOnClickListener = new MyOnClickListener(en[resultPosition],voice_play_answer,true);
+		record_answer_cover.setOnClickListener(mAnswerOnClickListener);
+		mUserSpeakBeanList.clear();
+		adapter.notifyDataSetChanged();
+	}
+	
 
 	@Override
 	public void onClick(View v) {
@@ -179,15 +185,23 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 	public void showIatDialog() {
 		if(!recognizer.isListening()){
 			if(times >= repeatTimes){
-				if(mPracticeProgress != null){
-					mPracticeProgress.toNextPage();
+				if(resultPosition < en.length-1){
+					resultPosition ++;
+					isNewIn = true;
+					times = 0;
+					voice_btn.setText(getActivity().getResources().getString(R.string.practice_start));
+					setPracticeContent();
+				}else{
+					if(mPracticeProgress != null){
+						mPracticeProgress.toNextPage();
+					}
 				}
 			}else{
 				if(isNewIn){
 					isNewIn = false;
 					isFollow = true;
 					practice_prompt.setVisibility(View.GONE);
-					mAnswerOnClickListener.onClick(voice_play_answer);
+					record_answer_cover.performClick();
 					record_animation_layout.setVisibility(View.VISIBLE);
 					record_animation_text.setText("Listen");
 				}else{
@@ -209,7 +223,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 		recognizer.stopListening();
 		record_layout.setVisibility(View.GONE);
 		record_anim_img.setBackgroundResource(R.drawable.speak_voice_1);
-		voice_btn.setText("开始");
+		voice_btn.setText(getActivity().getResources().getString(R.string.practice_start));
 	}
 	
 	private void onfinishPlay(){
@@ -285,7 +299,11 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 	
 	private void isEnough(){
 		if(times >= repeatTimes){
-			voice_btn.setText("继续，下一关");
+			if(resultPosition < en.length){
+				voice_btn.setText("继续，下一个");
+			}else{
+				voice_btn.setText("继续，下一关");
+			}
 		}
 	}
 	

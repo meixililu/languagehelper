@@ -128,8 +128,8 @@
 	
 	<string name="about_volume_title">关于音量</string>
 	<string name="about_volume_content">直接通过手机音量键来调节大小。</string>
-	<string name="practice_prompt_english">请点击Start跟读英文</string>
-	<string name="practice_prompt_chinese">请点击Start跟读中文</string>
+	<string name="practice_prompt_english">请点击开始跟读英文</string>
+	<string name="practice_prompt_chinese">请点击开始跟读中文</string>
 	<string name="cailing_ad_prompt">三块钱你买不了吃亏，买不了上当，只需三块钱，就能让电话另一头的TA拥有一次美好而有爱的等待，而不是平凡并且枯燥的嘟。。。嘟。。。嘟。。。还等什么呢，赶紧操作起来，为TA设置一段好玩又有新意的铃声吧! http://api.openspeech.cn/kyls/NTBhYTEyMTM=</string>
 	<string name="yuedu_ad_prompt">专注随身阅读30年! http://api.openspeech.cn/cmread/NTBhYTEyMTM=</string>
 	<string name="hotel_ad_prompt">专注开房30年! http://api.openspeech.cn/trip/NTBhYTEyMTM=</string>
