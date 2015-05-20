@@ -31,6 +31,7 @@ import com.messi.languagehelper.bean.UserSpeakBean;
 import com.messi.languagehelper.impl.PracticeProgressListener;
 import com.messi.languagehelper.task.PublicTask;
 import com.messi.languagehelper.task.PublicTask.PublicTaskListener;
+import com.messi.languagehelper.util.AnimationUtil;
 import com.messi.languagehelper.util.AudioTrackUtil;
 import com.messi.languagehelper.util.JsonParser;
 import com.messi.languagehelper.util.KeyUtil;
@@ -159,6 +160,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 	public void onClick(View v) {
 		switch (v.getId()) { 
 		case R.id.check_btn:
+			isNewIn = true;
 			showIatDialog();
 			StatService.onEvent(getActivity(), "readafterme_speak_btn", "跟我读页说话按钮", 1);
 			break;
@@ -187,7 +189,6 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 			if(times >= repeatTimes){
 				if(resultPosition < en.length-1){
 					resultPosition ++;
-					isNewIn = true;
 					times = 0;
 					voice_btn.setText(getActivity().getResources().getString(R.string.practice_start));
 					setPracticeContent();
@@ -198,12 +199,12 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 				}
 			}else{
 				if(isNewIn){
+					setProgressPromptText("Listen");
+					AnimationUtil.ScaleXYAndAlpha(record_animation_layout, null, 1f, 1f, 1f, 1f, 0, 800);
 					isNewIn = false;
 					isFollow = true;
 					practice_prompt.setVisibility(View.GONE);
 					record_answer_cover.performClick();
-					record_animation_layout.setVisibility(View.VISIBLE);
-					record_animation_text.setText("Listen");
 				}else{
 					record_layout.setVisibility(View.VISIBLE);
 					voice_btn.setText(getActivity().getResources().getString(R.string.finish));
@@ -226,13 +227,9 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 		voice_btn.setText(getActivity().getResources().getString(R.string.practice_start));
 	}
 	
-	private void onfinishPlay(){
-		if(isFollow){
-			isFollow = false;
-			record_animation_layout.setVisibility(View.VISIBLE);
-			record_animation_text.setText(getActivity().getResources().getString(R.string.your_turn));
-			animation();
-		}
+	private void setProgressPromptText(String text){
+		record_animation_layout.setVisibility(View.VISIBLE);
+		record_animation_text.setText(text);
 	}
 	
 	private void animationReward(int score){
@@ -246,12 +243,12 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 		}else {
 			word = "Try harder";
 		}
-		record_animation_layout.setVisibility(View.VISIBLE);
-		record_animation_text.setText(word);
-		ObjectAnimator mObjectAnimator = ObjectAnimator.ofFloat(record_animation_layout, "alpha", 1, 0f);
-		mObjectAnimator.addListener(mAnimatorListenerReward);
-		mObjectAnimator.setStartDelay(300);
-		mObjectAnimator.setDuration(1500).start();
+		setProgressPromptText(word);
+		animationAlphaReward();
+	}
+	
+	private void animationAlphaReward(){
+		AnimationUtil.Alpha(record_animation_layout, mAnimatorListenerReward, 1, 0, 300, 1800);
 	}
 	
 	private AnimatorListener mAnimatorListenerReward = new AnimatorListener() {
@@ -270,14 +267,15 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 		}
 	};
 	
-	private void animation(){
-		ObjectAnimator mObjectAnimator = ObjectAnimator.ofFloat(record_animation_layout, "scaleX", 1f, 1.3f);
-		mObjectAnimator.addListener(mAnimatorListener);
-		mObjectAnimator.setDuration(800).start();
-		ObjectAnimator mObjectAnimator1 = ObjectAnimator.ofFloat(record_animation_layout, "scaleY", 1f, 1.3f);
-		mObjectAnimator1.setDuration(800).start();
-		ObjectAnimator mObjectAnimator2 = ObjectAnimator.ofFloat(record_animation_layout, "alpha", 1, 0);
-		mObjectAnimator2.setDuration(800).start();
+	/**
+	 * on finish play 
+	 */
+	private void onfinishPlay(){
+		if(isFollow){
+			isFollow = false;
+			setProgressPromptText(getActivity().getResources().getString(R.string.your_turn));
+			AnimationUtil.ScaleXYAndAlpha(record_animation_layout, mAnimatorListener, 1.4f, 1f, 0, 800);
+		}
 	}
 	
 	private AnimatorListener mAnimatorListener = new AnimatorListener() {
@@ -297,7 +295,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 		}
 	};
 	
-	private void isEnough(){
+	private void isEnoughTimes(){
 		if(times >= repeatTimes){
 			if(resultPosition < en.length){
 				voice_btn.setText("继续，下一个");
@@ -320,7 +318,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 			LogUtil.DefalutLog("onError:"+err.getErrorDescription());
 			finishRecord();
 			hideProgressbar();
-			isEnough();
+			isEnoughTimes();
 			ToastUtil.diaplayMesShort(getActivity(), err.getErrorDescription());
 		}
 
@@ -329,7 +327,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 			LogUtil.DefalutLog("onEndOfSpeech");
 			finishRecord();
 			showProgressbar();
-			isEnough();
+			isEnoughTimes();
 		}
 
 
@@ -346,7 +344,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 				mUserSpeakBeanList.add(0,bean);
 				adapter.notifyDataSetChanged();
 				animationReward(bean.getScoreInt());
-				isEnough();
+				isEnoughTimes();
 				sbResult.setLength(0);
 			}
 		}
@@ -440,8 +438,6 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 					}
 					@Override
 					public void onEvent(int arg0, int arg1, int arg2,Bundle arg3) {
-						// TODO Auto-generated method stub
-						
 					}
 				});
 			}else{

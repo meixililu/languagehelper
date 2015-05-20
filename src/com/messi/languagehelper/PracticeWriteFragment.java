@@ -35,8 +35,10 @@ public class PracticeWriteFragment extends BaseFragment implements OnClickListen
 	private PracticeProgressListener mPracticeProgress;
 	private EditText translate_input;
 	private int resultPosition;
+	private int index;
+	private int[] orderList;
 	private String[] cn,en;
-	private boolean isNeedCheckResult;
+	private boolean isCheck;
 	private String videoPath;
 	private SpeechSynthesizer mSpeechSynthesizer;
 	private SharedPreferences mSharedPreferences;
@@ -50,6 +52,7 @@ public class PracticeWriteFragment extends BaseFragment implements OnClickListen
 		this.videoPath = SDCardUtil.getDownloadPath(videoPath);
 		this.mSpeechSynthesizer = mSpeechSynthesizer;
 		this.mSharedPreferences = mSharedPreferences;
+		orderList = NumberUtil.getNumberOrderWithoutRepeat(4, 0, 4, false);
 	}
 	
 	private void getContent(){
@@ -71,6 +74,7 @@ public class PracticeWriteFragment extends BaseFragment implements OnClickListen
 		translate_result_img = (ImageView)view.findViewById(R.id.translate_result_img);
 		translate_input = (EditText)view.findViewById(R.id.translate_input);
 		check_btn = (ButtonRectangle)view.findViewById(R.id.check_btn);
+		setIndex();
 		setContent();
 		check_btn.setEnabled(false);
 		check_btn.setOnClickListener(this);
@@ -87,24 +91,19 @@ public class PracticeWriteFragment extends BaseFragment implements OnClickListen
 			public void afterTextChanged(Editable s) {
 				check_btn.setEnabled(true);
 				check_btn.setText("检查");
-				isNeedCheckResult = true;
+				isCheck = true;
 			}
 		});
+	}
+	
+	private void setIndex(){
+		resultPosition = orderList[index];
 	}
 	
 	private void setContent(){
 		questionTv.setText("\"" + cn[resultPosition] +"\"");
 	}
 	
-	private void setResult(){
-		String txt = translate_result.getText().toString();
-		if(TextUtils.isEmpty(txt)){
-			translate_result.setText("\"" + en[resultPosition] +"\"");
-		}else{
-			translate_result.setText("");
-		}
-	}
-
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()){
@@ -121,10 +120,18 @@ public class PracticeWriteFragment extends BaseFragment implements OnClickListen
 	}
 	
 	private void submit(){
-		if(!isNeedCheckResult){
-			toNextPage();
-		}else{
+		if(isCheck){
 			checkResult();
+		}else{
+			if(index < orderList.length-1){
+				index++;
+				setIndex();
+				setContent();
+				check_btn.setEnabled(false);
+				translate_input.setText("");
+			}else{
+				toNextPage();
+			}
 		}
 	}
 	
@@ -135,7 +142,16 @@ public class PracticeWriteFragment extends BaseFragment implements OnClickListen
 		translate_input.setText(bean.getContent());
 		translate_input.setSelection(bean.getContent().length()-1);
 		setScore(bean);
-		isNeedCheckResult = false;
+		isCheck = false;
+	}
+	
+	private void setResult(){
+		String txt = translate_result.getText().toString();
+		if(TextUtils.isEmpty(txt)){
+			translate_result.setText("\"" + en[resultPosition] +"\"");
+		}else{
+			translate_result.setText("");
+		}
 	}
 	
 	private void setScore(UserSpeakBean bean){
@@ -149,7 +165,11 @@ public class PracticeWriteFragment extends BaseFragment implements OnClickListen
 		}else {
 			word = "Try harder";
 		}
-		check_btn.setText(word+",下一关");
+		if(index < orderList.length-1){
+			check_btn.setText(word+",下一个");
+		}else{
+			check_btn.setText(word+",下一关");
+		}
 	}
 	/**
 	 * 点击翻译之后隐藏输入法

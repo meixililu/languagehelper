@@ -137,6 +137,7 @@ public class PracticeEveryFragment extends BaseFragment implements OnClickListen
 		public void onPageSelected(int pos) {
 			currentIndex = pos;
 			changeState(pos);
+			setBtnText(pos);
 		}
 		@Override
 		public void onPageScrollStateChanged(int arg0) {
@@ -157,6 +158,14 @@ public class PracticeEveryFragment extends BaseFragment implements OnClickListen
 					mView.setEnabled(false);
 				}
 			}
+		}
+	}
+	
+	private void setBtnText(int pos){
+		if(pos == (pageSize-1)){
+			check_btn.setText(this.getResources().getString(R.string.practice_next_level));
+		}else{
+			check_btn.setText(this.getResources().getString(R.string.practice_next));
 		}
 	}
 	

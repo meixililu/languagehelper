@@ -150,6 +150,7 @@
 	
 	<string name="practice_check">Check</string>
 	<string name="practice_next">Next</string>
+	<string name="practice_next_level">Next Level</string>
 	<string name="practice_finish">Finish</string>
 	<string name="practice_start">Start</string>
 	<string name="practice_spoken_englist_style_studyevery">Study</string>

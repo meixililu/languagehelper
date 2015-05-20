@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.impl.PracticeProgressListener;
+import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.NumberUtil;
 import com.messi.languagehelper.util.SDCardUtil;
 import com.messi.languagehelper.util.SpannableStringUtil;
@@ -27,8 +28,10 @@ public class PracticeFourChooseOneFragment extends BaseFragment implements OnCli
 	private CheckBox select_answer1,select_answer2,select_answer3,select_answer4;
 	private int resultPosition;
 	private int userSelect;
+	private int index;
+	private int[] orderList;
 	private String[] yb,cn,en;
-	private boolean isGoNext;
+	private boolean isCheck;
 	private String videoPath;
 	private SpeechSynthesizer mSpeechSynthesizer;
 	private SharedPreferences mSharedPreferences;
@@ -37,11 +40,11 @@ public class PracticeFourChooseOneFragment extends BaseFragment implements OnCli
 			SharedPreferences mSharedPreferences,SpeechSynthesizer mSpeechSynthesizer){
 		this.content = content;
 		this.mPracticeProgress = mPracticeProgress;
-		resultPosition = NumberUtil.getRandomNumber(4);
 		getContent();
 		this.videoPath = SDCardUtil.getDownloadPath(videoPath);
 		this.mSpeechSynthesizer = mSpeechSynthesizer;
 		this.mSharedPreferences = mSharedPreferences;
+		orderList = NumberUtil.getNumberOrderWithoutRepeat(4, 0, 4, false);
 	}
 	
 	private void getContent(){
@@ -70,6 +73,7 @@ public class PracticeFourChooseOneFragment extends BaseFragment implements OnCli
 		select_answer3 = (CheckBox)view.findViewById(R.id.select_answer3);
 		select_answer4 = (CheckBox)view.findViewById(R.id.select_answer4);
 		check_btn = (ButtonRectangle)view.findViewById(R.id.check_btn);
+		setIndex();
 		setContent();
 		check_btn.setEnabled(false);
 		select_answer1.setOnClickListener(this);
@@ -77,6 +81,10 @@ public class PracticeFourChooseOneFragment extends BaseFragment implements OnCli
 		select_answer3.setOnClickListener(this);
 		select_answer4.setOnClickListener(this);
 		check_btn.setOnClickListener(this);
+	}
+	
+	private void setIndex(){
+		resultPosition = orderList[index];
 	}
 	
 	private void setContent(){
@@ -106,24 +114,28 @@ public class PracticeFourChooseOneFragment extends BaseFragment implements OnCli
 			break;
 		case R.id.select_answer1:
 			clearChecked();
+			isCheck = true;
 			select_answer1.setChecked(true);
 			userSelect = 0;
 			playVideo(userSelect);
 			break;
 		case R.id.select_answer2:
 			clearChecked();
+			isCheck = true;
 			select_answer2.setChecked(true);
 			userSelect = 1;
 			playVideo(userSelect);
 			break;
 		case R.id.select_answer3:
 			clearChecked();
+			isCheck = true;
 			select_answer3.setChecked(true);
 			userSelect = 2;
 			playVideo(userSelect);
 			break;
 		case R.id.select_answer4:
 			clearChecked();
+			isCheck = true;
 			select_answer4.setChecked(true);
 			userSelect = 3;
 			playVideo(userSelect);
@@ -132,22 +144,29 @@ public class PracticeFourChooseOneFragment extends BaseFragment implements OnCli
 	}
 	
 	private void submit(){
-		if(isGoNext){
-			if(resultPosition == userSelect){
-				toNextPage();
-				isGoNext = false;
-			}else{
-				checkResult();
-			}
-		}else{
+		if(isCheck){
 			checkResult();
+		}else{
+			if(index < orderList.length-1){
+				clearChecked();
+				index++;
+				setIndex();
+				setContent();
+				check_btn.setEnabled(false);
+			}else{
+				toNextPage();
+			}
 		}
 	}
 	
 	private void checkResult(){
 		if(resultPosition == userSelect){
-			isGoNext = true;
-			check_btn.setText("正确，下一关");
+			isCheck = false;
+			if(index < orderList.length){
+				check_btn.setText("正确，下一个");
+			}else{
+				check_btn.setText("正确，下一关");
+			}
 		}else{
 			tryAgain();
 			if(userSelect == 0){
@@ -167,7 +186,6 @@ public class PracticeFourChooseOneFragment extends BaseFragment implements OnCli
 	}
 	
 	private void tryAgain(){
-		isGoNext = false;
 		check_btn.setText("错了，再试试");
 		check_btn.setEnabled(false);
 	}

@@ -1,5 +1,9 @@
 package com.messi.languagehelper.util;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 
 public class NumberUtil {
 
@@ -57,6 +61,70 @@ public class NumberUtil {
 			outputException(e, "StringToFloat");
 		}
 		return 0;
+	}
+	
+	/**
+	 * 不可重复
+	 */
+	public static int[] getNumberOrderWithoutRepeat(int max, int init, int size, boolean isSort) {
+		int[] result = new int[size];
+		List<Integer> list = new ArrayList<Integer>();
+		Random r = new Random();
+
+		for (int i = init, temSize = max + init; i < temSize; i++) {
+			list.add(i);
+		}
+
+		for (int j = 0; j < size; j++) {
+			int index = r.nextInt(list.size());
+			result[j] = list.get(index);
+			list.remove(index);
+		}
+		if(isSort) sort(result);
+		return result;
+	}
+
+	/**
+	 * 可重复
+	 */
+	public static int[] getNumberOrderWithRepeat(int total, int number, int init, boolean isSort) {
+		int[] result = new int[number];
+		Random r = new Random();
+		for (int j = 0; j < number; j++) {
+			result[j] = r.nextInt(total + init);
+		}
+		if(isSort) sort(result);
+		return result;
+	}
+	
+	/**
+	 * 排序
+	 * @param array
+	 */
+	public static void sort(int[] array) {
+		int temp;
+		for (int i = 0; i < array.length; i++) {
+			boolean flag = false;
+			for (int j = 0; j < array.length - 1 - i; j++) {
+				if (array[j] > array[j + 1]) {
+					temp = array[j];
+					array[j] = array[j + 1];
+					array[j + 1] = temp;
+					flag = true;
+				}
+			}
+			if (!flag) {
+				break;
+			}
+		}
+	}
+	
+	/**产生一个随机数，不包括max，0到max-1
+	 * @param max
+	 * @return
+	 */
+	public static int randomNumber(int max){
+		return new Random().nextInt(max);
 	}
 	
 	/**

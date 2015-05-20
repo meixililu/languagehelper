@@ -181,6 +181,7 @@
 	
 	<string name="practice_finish">完成</string>
 	<string name="practice_next">下一个</string>
+	<string name="practice_next_level">下一关</string>
 	<string name="practice_check">检查</string>
 	<string name="practice_start">开始</string>
 	<string name="practice_spoken_englist_style_studyevery">科普</string>

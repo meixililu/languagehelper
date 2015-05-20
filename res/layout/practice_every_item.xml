@@ -6,14 +6,14 @@
     android:orientation="vertical"
     android:background="@color/app_background"
     android:padding="@dimen/padding_10"
-    android:weightSum="3"
+    android:weightSum="10"
     >
 	
     <TextView
         android:id="@+id/title_tv" 
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="7"
         android:gravity="center"
     	android:textColor="@color/text_dark"
     	android:shadowDx="0.5"
@@ -28,11 +28,11 @@
         android:id="@+id/playbtn"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="3"
         android:gravity="center"
         android:orientation="vertical"
         android:foreground="@drawable/framelayout_selector"
-        android:background="@color/light_blue"
+        android:background="@color/light_blue_apla"
         >
         <ImageView 
             android:layout_width="wrap_content"
