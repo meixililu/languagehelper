@@ -32,7 +32,6 @@ public class StudyDialogListActivity extends BaseActivity implements OnClickList
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
-		
 		default:
 			break;
 		}

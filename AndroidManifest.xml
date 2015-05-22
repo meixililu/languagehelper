@@ -80,6 +80,9 @@
             android:name=".InvestmentActivity"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".DialogPracticeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".StudyDialogActivity"
             android:screenOrientation="portrait"/>
         <activity

@@ -160,6 +160,10 @@
 	<string name="practice_spoken_englist_style_speakafterme">Speak After Me</string>
 	<string name="practice_spoken_englist_finish">Congratulation</string>
 	<string name="translate_content">Translate This Sentence</string>
+	<string name="practice_dialog_listen">Listen</string>
+	<string name="practice_dialog_readafterme">Read</string>
+	<string name="practice_dialog_rolea">Role A</string>
+	<string name="practice_dialog_roleb">Role B</string>
 	<string name="practice_congratulation">太棒了，闯关完成!\n\n妈妈再也不用担心我的学习了！</string>
 	
 	<string name="getfans_1">别人花钱学英语，咱们学英语还赚钱，就这么科学！</string>
@@ -167,7 +171,7 @@
 	    软件大家的，我只是帮助大家实现各种想法，帮助大家包括我自己提高英语水平，所以有话就要说，不管好坏，告诉作者，憋着对身体不好；
 	    诚邀请大家做软件的投资人，别害怕，不是金钱，是你的想法，你希望软件能帮你做什么，你可以做我们的产品经理，投资人，跟我们一起成长，把你的名字通过邮件发给我，
 	    就会出现在软件投资人列表里，到时你就可以自豪的说这个软件是你参与设计的，你是投资人！</string>
-	<string name="getfans_4">作者邮箱：meixililulu@163.com</string>
+	<string name="getfans_4">Send Email:meixililulu@163.com</string>
 	<string name="click_ad_prompt">如果你喜欢这个软件，喜欢在这里学习，想要支持开发者的话，目前最好的方式就是帮忙点广告，不需要每天多少次，
 	    只要你用的时候想起来了，偶尔点几次，提示下载的可以取消下载。众志成城点广告，撑起一个免费学习英语的平台。</string>
 	

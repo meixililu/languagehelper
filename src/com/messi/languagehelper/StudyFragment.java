@@ -104,14 +104,18 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	}
 	
 	private boolean showNewFunction(){
-		int IsCanShowAD_Study = mSharedPreferences.getInt(KeyUtil.IsCanShowAD_Study, 0);
-        if(IsCanShowAD_Study > 1){
-        	return true;
-        }else{
-        	IsCanShowAD_Study++;
-        	Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsCanShowAD_Study,IsCanShowAD_Study);
-        	return false;
-        }
+		if(ADUtil.IsShowAdImmediately){
+			return true;
+		}else{
+			int IsCanShowAD_Study = mSharedPreferences.getInt(KeyUtil.IsCanShowAD_Study, 0);
+			if(IsCanShowAD_Study > 0){
+				return true;
+			}else{
+				IsCanShowAD_Study++;
+				Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsCanShowAD_Study,IsCanShowAD_Study);
+				return false;
+			}
+		}
 	}
 	
 	private void getDailySentence(){
@@ -176,19 +180,19 @@ public class StudyFragment extends Fragment implements OnClickListener{
 			break;
 		case R.id.study_spoken_english:
 			toStudyListActivity();
-			StatService.onEvent(getActivity(), "19_studylist_part2", "口语练习第2部分", 1);
+			StatService.onEvent(getActivity(), "tab_study_words", "学习-口语修炼", 1);
 			break;
 		case R.id.study_dailog:
 			toStudyDialoListgActivity();
-			StatService.onEvent(getActivity(), "19_studylist_part3", "口语练习第3部分", 1);
+			StatService.onEvent(getActivity(), "tab_study_dialog", "学习-模拟对话", 1);
 			break;
 		case R.id.study_test:
 			toGetContentActivity(getResources().getString(R.string.spokenEnglishTest));
-			StatService.onEvent(getActivity(), "19_studylist_part4", "你不是一个人在战斗", 1);
+			StatService.onEvent(getActivity(), "tab_study_test", "学习-口语评测", 1);
 			break;
 		case R.id.study_to_all_user:
 			toGetfansActivity();
-			StatService.onEvent(getActivity(), "19_studylist_part4", "你不是一个人在战斗", 1);
+			StatService.onEvent(getActivity(), "tab_study_to_all_user", "致所有用户", 1);
 			break;
 		case R.id.study_ad_view:
 			StatService.onEvent(getActivity(), "ad_banner", "点击banner广告", 1);

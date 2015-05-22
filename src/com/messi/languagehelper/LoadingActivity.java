@@ -94,14 +94,18 @@ public class LoadingActivity extends Activity implements OnClickListener{
 	}
 	
 	private boolean showNewFunction(){
-		int IsCanShowAD_Loading = mSharedPreferences.getInt(KeyUtil.IsCanShowAD_Loading, 0);
-        if(IsCanShowAD_Loading > 0){
-        	return true;
-        }else{
-        	IsCanShowAD_Loading++;
-        	Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsCanShowAD_Loading,IsCanShowAD_Loading);
-        	return false;
-        }
+		if(ADUtil.IsShowAdImmediately){
+			return true;
+		}else{
+			int IsCanShowAD_Loading = mSharedPreferences.getInt(KeyUtil.IsCanShowAD_Loading, 0);
+			if(IsCanShowAD_Loading > 0){
+				return true;
+			}else{
+				IsCanShowAD_Loading++;
+				Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsCanShowAD_Loading,IsCanShowAD_Loading);
+				return false;
+			}
+		}
 	}
 	
 	private void toNextPage(){

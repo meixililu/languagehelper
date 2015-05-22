@@ -20,6 +20,8 @@ public class ADUtil {
 	public static final String ChaPingADId = "484C6E8F51357AFF26AEDB2441AB1847";
 	public static final String QuanPingADId = "72C0E6B1042EA9F06A5A9B76235626CF";
 	
+	public static final boolean IsShowAdImmediately = true;
+
 	// initQuanPingAD  initChaPingAD    initBannerAD    initKaiPingAD
 	
 	/**

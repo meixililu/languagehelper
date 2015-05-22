@@ -73,6 +73,7 @@ public class KeyUtil {
 	
 	public static String ResultTypeTranslate = "ResultTypeTranslate";
 	
+	public static String PracticeDialogAction = "PracticeDialogAction";
 
 	
 	

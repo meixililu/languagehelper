@@ -109,14 +109,18 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 	};
 	
 	private boolean showNewFunction(){
-		int IsCanShowAD_Leisure = mSharedPreferences.getInt(KeyUtil.IsCanShowAD_Leisure, 0);
-        if(IsCanShowAD_Leisure > 1){
-        	return true;
-        }else{
-        	IsCanShowAD_Leisure++;
-        	Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsCanShowAD_Leisure,IsCanShowAD_Leisure);
-        	return false;
-        }
+		if(ADUtil.IsShowAdImmediately){
+			return true;
+		}else{
+			int IsCanShowAD_Leisure = mSharedPreferences.getInt(KeyUtil.IsCanShowAD_Leisure, 0);
+			if(IsCanShowAD_Leisure > 0){
+				return true;
+			}else{
+				IsCanShowAD_Leisure++;
+				Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsCanShowAD_Leisure,IsCanShowAD_Leisure);
+				return false;
+			}
+		}
 	}
 
 	@Override
