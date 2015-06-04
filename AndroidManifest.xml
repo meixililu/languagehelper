@@ -73,6 +73,13 @@
 		</activity>
 		<!-- 友盟 -->
 		
+		<activity
+            android:name="com.lerdian.search.SearchResult"
+            android:screenOrientation="portrait" />
+        <meta-data
+            android:name="LERDIAN_CHANNEL"
+            android:value="02a82416e42d4c8c942255c7cf75aa8d" />
+		
 		<activity 
 		    android:name="com.iflytek.voiceads.request.IFLYBrowser"
 		    android:screenOrientation="portrait"/>

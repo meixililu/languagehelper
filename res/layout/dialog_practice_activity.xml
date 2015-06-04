@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/contentbg"
+        android:orientation="vertical" >
+
+    <android.support.v7.widget.Toolbar
+	    xmlns:app="http://schemas.android.com/apk/res-auto"
+	    android:id="@+id/my_awesome_toolbar"
+	    android:layout_height="wrap_content"
+	    android:layout_width="match_parent"
+	    android:minHeight="?attr/actionBarSize"
+	    android:background="?attr/colorPrimary" >
+	    <com.gc.materialdesign.views.ProgressBarCircularIndeterminate
+	                android:id="@+id/progressBarCircularIndetermininate"
+	                android:layout_width="28dp"
+	                android:layout_height="28dp"
+            		android:layout_gravity="right"
+            		android:visibility="gone"
+	                android:background="@color/white" />
+   </android.support.v7.widget.Toolbar>
+    
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/list_item_bg_white"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <FrameLayout
+                    android:id="@+id/record_answer_cover"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:foreground="@drawable/framelayout_selector" >
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:id="@+id/record_answer"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:paddingBottom="8dp"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="12dp"
+                            android:shadowColor="@color/green"
+                            android:shadowDx="0.5"
+                            android:shadowDy="0.5"
+                            android:shadowRadius="0.5"
+                            android:text=""
+                            android:textColor="@color/green"
+                            android:textSize="@dimen/bigest" />
+
+                        <ImageButton
+                            android:id="@+id/voice_play_answer"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_gravity="center_vertical|right"
+                            android:background="@drawable/voice_play"
+                            android:clickable="false" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/record_question_cover"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:foreground="@drawable/framelayout_selector" >
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:id="@+id/record_question"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:paddingBottom="10dp"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="7dp"
+                            android:text=""
+                            android:textColor="@color/text_grey"
+                            android:textSize="@dimen/bigger" />
+
+                        <ImageButton
+                            android:id="@+id/voice_play_question"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_gravity="center_vertical|right"
+                            android:background="@drawable/voice_play"
+                            android:clickable="false" />
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="1px"
+                    android:layout_height="fill_parent"
+                    android:background="@color/line_color_gray" />
+
+                <FrameLayout
+                    android:id="@+id/practice_page_exchange"
+                    android:layout_width="30dp"
+                    android:layout_height="fill_parent"
+                    android:foreground="@drawable/framelayout_selector" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/icon_exchange"
+                        />
+                </FrameLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" >
+
+                <ListView
+                    android:id="@+id/recent_used_lv"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@color/none"
+                    android:cacheColorHint="@color/none"
+                    android:divider="@color/none"
+                    android:dividerHeight="3dp"
+                    android:fadingEdge="none"
+                    android:listSelector="@color/none"
+                    android:scrollbars="none" />
+
+                <TextView
+                    android:id="@+id/practice_prompt"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:shadowColor="@color/text_grey1"
+                    android:shadowDx="0.3"
+                    android:shadowDy="0.3"
+                    android:shadowRadius="0.3"
+                    android:text=""
+                    android:textColor="@color/text_grey1"
+                    android:textSize="@dimen/bigger" />
+            </FrameLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_bottom"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@color/none"
+                android:gravity="bottom"
+                android:orientation="horizontal" >
+
+
+                <com.gc.materialdesign.views.ButtonRectangle
+                    android:id="@+id/voice_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@color/load_blue"
+                    android:clickable="false"
+                    android:gravity="center"
+                    materialdesign:rippleSpeed="90"
+                    android:text="Start"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/title" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/record_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/round_bg_record"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:visibility="gone" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/voice_pic" />
+
+        <ImageView
+            android:id="@+id/record_anim_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/speak_voice_1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/record_animation_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/round_bg_record"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/record_animation_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:shadowColor="@color/green"
+            android:shadowDx="0.5"
+            android:shadowDy="0.5"
+            android:shadowRadius="0.5"
+            android:text="Listen"
+            android:textColor="@color/green"
+            android:textSize="@dimen/action_size" />
+    </LinearLayout>
+
+</RelativeLayout>

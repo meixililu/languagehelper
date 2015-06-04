@@ -50,7 +50,6 @@ import com.nineoldandroids.animation.ObjectAnimator;
 
 public class DialogPracticeActivity extends BaseActivity implements OnClickListener {
 
-	private record mBean;
 	private FrameLayout record_question_cover,record_answer_cover,practice_page_exchange;
 	private ImageButton voice_play_answer,voice_play_question;
 	private TextView record_question,record_answer,practice_prompt,record_animation_text;
@@ -75,7 +74,7 @@ public class DialogPracticeActivity extends BaseActivity implements OnClickListe
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.practice_activity);
+		setContentView(R.layout.dialog_practice_activity);
 //		initData();
 //		initView();
 	}

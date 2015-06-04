@@ -107,7 +107,7 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 		mAdapter = new MainPageAdapter(this.getSupportFragmentManager(),bundle,this);
 		initLeftMenuHeader();
 		viewPager.setAdapter(mAdapter);
-		viewPager.setOffscreenPageLimit(3);
+		viewPager.setOffscreenPageLimit(4);
 		indicator.setViewPager(viewPager);
 		MenuListItemAdapter adapter = new MenuListItemAdapter(this,mPlanetTitles,mDrawerLayout,mDrawerList);
 		mDrawerList.setAdapter(adapter);

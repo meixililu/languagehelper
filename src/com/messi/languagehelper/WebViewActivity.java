@@ -1,5 +1,6 @@
 package com.messi.languagehelper;
 
+import android.content.res.Resources.NotFoundException;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -161,7 +162,11 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0,0,0,this.getResources().getString(R.string.menu_share)).setIcon(R.drawable.ic_share_white_36dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		try {
+			menu.add(0,0,0,this.getResources().getString(R.string.menu_share)).setIcon(R.drawable.ic_share_white_36dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return true;
 	}
 	

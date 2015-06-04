@@ -61,7 +61,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 			SpeechSynthesizer mSpeechSynthesizer,SharedPreferences mSharedPreferences, 
 			Bundle bundle) {
 		LogUtil.DefalutLog("public CollectedListItemAdapter");
-		context = mContext;
+		this.context = mContext;
 		beans = mBeans;
 		this.mInflater = mInflater;
 		this.mSharedPreferences = mSharedPreferences;

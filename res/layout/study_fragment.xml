@@ -13,10 +13,23 @@
         android:weightSum="10" >
 
         <FrameLayout
+            android:id="@+id/study_daily_baidu_search"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:foreground="@drawable/framelayout_selector"
+            android:orientation="vertical" >
+			<com.lerdian.search.SearchTitleView
+        			android:layout_width="match_parent"
+        			android:layout_height="wrap_content"/>
+        </FrameLayout>
+        
+        <FrameLayout
             android:id="@+id/study_daily_sentence"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/style5_color5"
+            android:layout_marginTop="@dimen/padding_7"
             android:foreground="@drawable/framelayout_selector"
             android:orientation="vertical" >
 

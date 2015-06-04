@@ -83,8 +83,8 @@ public class MainFragment extends Fragment implements OnClickListener {
 	private Bundle bundle;
 	public static boolean isRefresh;
 	private View view;
-	public static MainFragment mMainFragment;
 	private FragmentProgressbarListener mProgressbarListener;
+	public static MainFragment mMainFragment;
 	
 	public static MainFragment getInstance(Bundle bundle){
 		if(mMainFragment == null){

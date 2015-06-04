@@ -110,16 +110,20 @@ public class SDCardUtil {
 	/**删除内部存储中之前下载的文件
 	 * @param mContext
 	 */
-	public static void deleteOldFile(){
-		String path = getDownloadPath(SDCardUtil.sdPath);
-		File file = new File(path);
-		deleteFileInDir(file);
+	public static void deleteOldFile() {
+		try {
+			String path = getDownloadPath(SDCardUtil.sdPath);
+			File file = new File(path);
+			deleteFileInDir(file);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**删除文件夹里面的所有文件
 	 * @param cacheDir
 	 */
-	public static void deleteFileInDir(File cacheDir){
+	public static void deleteFileInDir(File cacheDir) throws Exception{
 		if(cacheDir.isDirectory()){
 			File[] files = cacheDir.listFiles();  
 			for (int i = 0; i < files.length; i++) {  
@@ -135,7 +139,7 @@ public class SDCardUtil {
 	 * @param sPath
 	 * @return
 	 */
-	public static boolean deleteFile(String sPath) {  
+	public static boolean deleteFile(String sPath) throws Exception{  
 		File file = new File(sPath);  
 	    /**路径为文件且不为空则进行删除**/  
 	    if (file.isFile() && file.exists()) {  
