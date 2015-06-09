@@ -13,14 +13,26 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-	<uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-	<uses-permission android:name="android.permission.GET_TASKS" />
 
-    <uses-sdk android:minSdkVersion="7"
-        android:targetSdkVersion="14"
-        />
+    <!-- 友盟消息推送 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- 【可选】如果需要设置前台是否显示通知，需要设置这个权限 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <!-- 可选 -->
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_ADDED" />
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_CHANGED" />
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_INSTALL" />
+    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REPLACED" />
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+
+    <uses-sdk
+        android:minSdkVersion="7"
+        android:targetSdkVersion="14" />
 
     <supports-screens
         android:anyDensity="true"
@@ -34,127 +46,237 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity
-            android:name=".LoadingActivity">
+        <activity android:name=".LoadingActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+
         <!-- 渠道商编号，其中name请不要改，将value修改为渠道商编号。渠道名称请到mtj.baidu.com的渠道管理中修改 -->
-		<meta-data android:name="BaiduMobAd_CHANNEL" android:value="messi" />
-		<!-- 您从百度网站获取的APP KEY -->
-		<meta-data android:name="BaiduMobAd_STAT_ID" android:value="ac57450c2a" />
-		<!-- 以下是可选的 -->
-		<!-- 是否开启错误日志统计，默认为false -->
-		<meta-data android:name="BaiduMobAd_EXCEPTION_LOG" android:value="true" />
-		<!-- 日志发送策略，可选值：APP_START、ONCE_A_DAY、SET_TIME_INTERVAL，默认为APP_START -->
-		<meta-data android:name="BaiduMobAd_SEND_STRATEGY" android:value="APP_START" />
-		<!-- 上面的日志发送策略 为SET_TIME_INTERVAL时，需设定时间间隔。取值为1-24（小时）的整数，默认为1 -->
-		<!-- <meta-data android:name="BaiduMobAd_TIME_INTERVAL" android:value="2" /> -->
-		<!-- 日志仅在wifi网络下发送，默认为false -->
-		<meta-data android:name="BaiduMobAd_ONLY_WIFI" android:value="false" />
-		
-		<meta-data android:name="IFLYTEK_APPKEY_AD" android:value="'5450bd92'"/> 
-		
-		<meta-data android:name="IFLYTEK_CHANNEL" android:value="messi"/>
-		
-		<!-- 友盟 -->
-		<meta-data android:value="551e3853fd98c5403800122c" android:name="UMENG_APPKEY"/>
-		<meta-data android:value="messi" android:name="UMENG_CHANNEL"/>
-		<service
-		    android:name="com.umeng.update.net.DownloadingService"
-		    android:process=":DownloadingService" >
-		</service>
-		<activity 
-		    android:name="com.umeng.update.UpdateDialogActivity"
-		    android:theme="@android:style/Theme.Translucent.NoTitleBar" >
-		</activity>
-		<!-- 友盟 -->
-		
-		<activity
+        <meta-data
+            android:name="BaiduMobAd_CHANNEL"
+            android:value="messi" />
+        <!-- 您从百度网站获取的APP KEY -->
+        <meta-data
+            android:name="BaiduMobAd_STAT_ID"
+            android:value="ac57450c2a" />
+        <!-- 以下是可选的 -->
+        <!-- 是否开启错误日志统计，默认为false -->
+        <meta-data
+            android:name="BaiduMobAd_EXCEPTION_LOG"
+            android:value="true" />
+        <!-- 日志发送策略，可选值：APP_START、ONCE_A_DAY、SET_TIME_INTERVAL，默认为APP_START -->
+        <meta-data
+            android:name="BaiduMobAd_SEND_STRATEGY"
+            android:value="APP_START" />
+        <!-- 上面的日志发送策略 为SET_TIME_INTERVAL时，需设定时间间隔。取值为1-24（小时）的整数，默认为1 -->
+        <!-- <meta-data android:name="BaiduMobAd_TIME_INTERVAL" android:value="2" /> -->
+        <!-- 日志仅在wifi网络下发送，默认为false -->
+        <meta-data
+            android:name="BaiduMobAd_ONLY_WIFI"
+            android:value="false" />
+        <meta-data
+            android:name="IFLYTEK_APPKEY_AD"
+            android:value="&apos;5450bd92&apos;" />
+        <meta-data
+            android:name="IFLYTEK_CHANNEL"
+            android:value="messi" />
+
+        <!-- 友盟 -->
+        <meta-data
+            android:name="UMENG_MESSAGE_SECRET"
+            android:value="048894bc1fc50099ced032f838dc8b68" >
+        </meta-data>
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="551e3853fd98c5403800122c" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="messi" />
+
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService" >
+        </service>
+
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <!-- 友盟 -->
+
+        <activity
             android:name="com.lerdian.search.SearchResult"
             android:screenOrientation="portrait" />
+
         <meta-data
             android:name="LERDIAN_CHANNEL"
             android:value="02a82416e42d4c8c942255c7cf75aa8d" />
-		
-		<activity 
-		    android:name="com.iflytek.voiceads.request.IFLYBrowser"
-		    android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.iflytek.voiceads.request.IFLYBrowser"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".InvestmentActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".DialogPracticeActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".StudyDialogActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".StudyDialogListActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".StudyCategoryActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".QRCodeShareActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".StudyActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".GetContentActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".RecommendActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ViewImageActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".StudyListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:uiOptions="splitActionBarWhenNarrow"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".WebViewActivity"
-            android:screenOrientation="portrait">
-            <meta-data android:name="android.support.UI_OPTIONS"
-                   android:value="splitActionBarWhenNarrow" />
+            android:screenOrientation="portrait"
+            android:uiOptions="splitActionBarWhenNarrow" >
+            <meta-data
+                android:name="android.support.UI_OPTIONS"
+                android:value="splitActionBarWhenNarrow" />
         </activity>
         <activity
             android:name=".GetFansActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".EnglishWebsiteRecommendActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".DailySentenceActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CollectedActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AboutActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SettingActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".HelpActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".PracticeActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ImgShareActivity"
-            android:screenOrientation="portrait"/>
-        <activity 
-            android:name=".wxapi.WXEntryActivity" 
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".wxapi.WXEntryActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        
+        
+        <!-- youmeng message push -->
+        <receiver
+            android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
+            android:exported="false"
+            android:process=":push" >
+        </receiver>
+        <receiver
+            android:name="com.umeng.message.SystemReceiver"
+            android:process=":push" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.umeng.message.MessageReceiver"
+            android:process=":push" >
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.RECEIVE" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.umeng.message.ElectionReceiver"
+            android:process=":push" >
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.ELECTION_RESULT_V4" />
+
+                <category android:name="umeng" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.umeng.message.RegistrationReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.messi.languagehelper.intent.action.COMMAND" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.umeng.message.BootBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.umeng.message.UmengService"
+            android:exported="true"
+            android:label="PushService"
+            android:process=":push" >
+            <intent-filter>
+                <action android:name="com.messi.languagehelper.intent.action.START" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.messi.languagehelper.intent.action.COCKROACH" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="org.agoo.android.intent.action.PING_V4" />
+
+                <category android:name="umeng" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.umeng.message.UmengIntentService"
+            android:process=":push" />
+        <service
+            android:name="com.umeng.message.UmengMessageIntentReceiverService"
+            android:exported="true"
+            android:process=":push" >
+            <intent-filter>
+                <action android:name="org.android.agoo.client.MessageReceiverService" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="org.android.agoo.client.ElectionReceiverService" />
+            </intent-filter>
+        </service>
+        <!-- V1.3.0添加的service，负责下载通知的资源 -->
+        <service android:name="com.umeng.message.UmengDownloadResourceService" />
     </application>
 
 </manifest>

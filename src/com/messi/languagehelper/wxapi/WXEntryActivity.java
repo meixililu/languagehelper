@@ -42,6 +42,7 @@ import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.views.PagerSlidingTabStrip;
+import com.umeng.message.PushAgent;
 import com.umeng.update.UmengUpdateAgent;
 
 public class WXEntryActivity extends BaseActivity implements OnClickListener,FragmentProgressbarListener {
@@ -71,6 +72,16 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 			initDatas();
 			initViews();
 			checkUpdate();
+			startPushTask();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void startPushTask(){
+		try {
+			PushAgent mPushAgent = PushAgent.getInstance(this);
+			mPushAgent.enable();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
