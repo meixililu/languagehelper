@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVObject;
 import com.baidu.mobstat.StatService;
 import com.messi.languagehelper.util.Settings;
 

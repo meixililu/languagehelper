@@ -5,6 +5,7 @@ import java.util.HashMap;
 import android.app.Application;
 import android.content.Context;
 
+import com.avos.avoscloud.AVOSCloud;
 import com.messi.languagehelper.dao.DaoMaster;
 import com.messi.languagehelper.dao.DaoMaster.OpenHelper;
 import com.messi.languagehelper.dao.DaoSession;
@@ -21,7 +22,8 @@ public class BaseApplication extends Application {
     public void onCreate() {  
         super.onCreate();  
         if(mInstance == null)  
-            mInstance = this;  
+            mInstance = this; 
+        AVOSCloud.initialize(this, "3fg5ql3r45i3apx2is4j9on5q5rf6kapxce51t5bc0ffw2y4", "twhlgs6nvdt7z7sfaw76ujbmaw7l12gb8v6sdyjw1nzk9b1a");
     }  
     
 	/** 

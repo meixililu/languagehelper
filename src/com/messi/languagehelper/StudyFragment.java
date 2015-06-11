@@ -23,9 +23,9 @@ import com.baidu.mobstat.StatService;
 import com.iflytek.voiceads.AdError;
 import com.iflytek.voiceads.IFLYAdListener;
 import com.iflytek.voiceads.IFLYBannerAd;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.messi.languagehelper.dao.EveryDaySentence;
 import com.messi.languagehelper.db.DataBaseUtil;
-import com.messi.languagehelper.http.JsonHttpResponseHandler;
 import com.messi.languagehelper.http.LanguagehelperHttpClient;
 import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.JsonParser;
@@ -34,13 +34,15 @@ import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.NumberUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.TimeUtil;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 public class StudyFragment extends Fragment implements OnClickListener{
 
 	private View view;
 	private FrameLayout study_daily_sentence,study_spoken_english,study_dailog,study_test,study_to_all_user;
 	private TextView dailysentence_txt;
-	private ImageView unread_dot;
+	private ImageView unread_dot,daily_sentence_item_img;
 	private LinearLayout study_ad_view;
 	public static StudyFragment mMainFragment;
 	private SharedPreferences mSharedPreferences;
@@ -73,6 +75,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		study_ad_view = (LinearLayout)view.findViewById(R.id.study_ad_view);
 		dailysentence_txt = (TextView)view.findViewById(R.id.dailysentence_txt);
 		unread_dot = (ImageView)view.findViewById(R.id.unread_dot);
+		daily_sentence_item_img = (ImageView)view.findViewById(R.id.daily_sentence_item_img);
 		
 		study_daily_sentence.setOnClickListener(this);
 		study_spoken_english.setOnClickListener(this);
@@ -166,6 +169,10 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		LogUtil.DefalutLog("StudyFragment-setSentence()");
 		if(mEveryDaySentence != null){
 			dailysentence_txt.setText(mEveryDaySentence.getContent());
+			Picasso.with(getActivity())
+			.load(mEveryDaySentence.getPicture2())
+			.tag(getActivity())
+			.into(daily_sentence_item_img);
 		}
 	}
 

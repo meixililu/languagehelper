@@ -3,6 +3,8 @@ package com.messi.languagehelper;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -14,6 +16,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 
 import com.baidu.mobstat.StatService;
+import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
 import com.messi.languagehelper.util.AudioTrackUtil;
 import com.messi.languagehelper.util.ScreenUtil;
 import com.nineoldandroids.animation.ObjectAnimator;
@@ -24,6 +27,8 @@ public class BaseActivity extends ActionBarActivity {
 
 	public Toolbar toolbar;
 	private View mScrollable;
+	public ProgressBarCircularIndeterminate mProgressbar;
+	public SwipeRefreshLayout mSwipeRefreshLayout;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -44,9 +49,10 @@ public class BaseActivity extends ActionBarActivity {
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
         getActionBarToolbar();
+        initProgressbar();
     }
 	
-	protected Toolbar getActionBarToolbar() {
+	protected void getActionBarToolbar() {
         if (toolbar == null) {
         	toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
             if (toolbar != null) {
@@ -57,8 +63,53 @@ public class BaseActivity extends ActionBarActivity {
                 }
             }
         }
-        return toolbar;
     }
+	
+	protected void initProgressbar(){
+		if(mProgressbar == null){
+			mProgressbar = (ProgressBarCircularIndeterminate) findViewById(R.id.progressBarCircularIndetermininate);
+		}
+	}
+	
+	/**
+	 * need init beford use
+	 */
+	protected void initSwipeRefresh(){
+		if(mSwipeRefreshLayout == null){
+			mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.mswiperefreshlayout);
+			mSwipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright, 
+		            R.color.holo_green_light, 
+		            R.color.holo_orange_light, 
+		            R.color.holo_red_light);
+			mSwipeRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+				@Override
+				public void onRefresh() {
+					onSwipeRefreshLayoutRefresh();
+				}
+			});
+		}
+	}
+	
+	public void onSwipeRefreshLayoutFinish(){
+		if(mSwipeRefreshLayout != null){
+			mSwipeRefreshLayout.setRefreshing(false);
+		}
+	}
+	
+	public void onSwipeRefreshLayoutRefresh(){
+	}
+	
+	public void showProgressbar(){
+		if(mProgressbar != null){
+			mProgressbar.setVisibility(View.VISIBLE);
+		}
+	}
+	
+	public void hideProgressbar(){
+		if(mProgressbar != null){
+			mProgressbar.setVisibility(View.GONE);
+		}
+	}
 	
 	protected int getScreenHeight() {
         return findViewById(android.R.id.content).getHeight();

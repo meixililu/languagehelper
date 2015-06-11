@@ -27,7 +27,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 	
 	private View view;
 	private FrameLayout cailing_layout,app_layout,yuedu_layout,hotal_layout;
-	private FrameLayout instagram_layout, invest_layout, game_layout;
+	private FrameLayout instagram_layout, invest_layout, game_layout,baidu_layout;
 	private RelativeLayout ad_layout;
 	private IFLYInterstitialAd mInterstitialAd;
 	public static LeisureFragment mMainFragment;
@@ -52,6 +52,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		mSharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);
 		instagram_layout = (FrameLayout)view.findViewById(R.id.instagram_layout);
 		cailing_layout = (FrameLayout)view.findViewById(R.id.cailing_layout);
+		baidu_layout = (FrameLayout)view.findViewById(R.id.baidu_layout);
 		game_layout = (FrameLayout)view.findViewById(R.id.game_layout);
 		yuedu_layout = (FrameLayout)view.findViewById(R.id.yuedu_layout);
 		hotal_layout = (FrameLayout)view.findViewById(R.id.hotal_layout);
@@ -64,6 +65,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		hotal_layout.setOnClickListener(this);
 		app_layout.setOnClickListener(this);
 		invest_layout.setOnClickListener(this);
+		baidu_layout.setOnClickListener(this);
 		game_layout.setOnClickListener(this);
 		ad_layout.setOnClickListener(this);
 		mInterstitialAd = ADUtil.initChaPingAD(getActivity(), ad_layout);
@@ -139,9 +141,16 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 			toInvestorListActivity();
 		}else if(v.getId() == R.id.game_layout){
 			toGameCenterActivity();
+		}else if(v.getId() == R.id.baidu_layout){
+			toBaiduActivity();
 		}else if(v.getId() == R.id.ad_layout){
 			StatService.onEvent(getActivity(), "ad_kapian", "点击卡片广告", 1);
 		}
+	}
+	
+	private void toBaiduActivity(){
+		Intent intent = new Intent(getActivity(),com.lerdian.search.SearchResult.class);
+		startActivity(intent);
 	}
 	
 	private void toInvestorListActivity(){

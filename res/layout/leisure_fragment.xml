@@ -109,7 +109,7 @@
         android:layout_marginTop="@dimen/padding_7"
         android:layout_marginLeft="@dimen/padding_7"
         android:layout_marginRight="@dimen/padding_7"
-        android:background="@color/style5_color2"
+        android:background="#CE93D8"
         android:foreground="@drawable/framelayout_selector"
         android:orientation="vertical" >
 
@@ -142,13 +142,52 @@
     </FrameLayout>
     
     <FrameLayout
+        android:id="@+id/baidu_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="75dp"
+        android:layout_marginTop="@dimen/padding_7"
+        android:layout_marginLeft="@dimen/padding_7"
+        android:layout_marginRight="@dimen/padding_7"
+        android:background="#7986CB"
+        android:foreground="@drawable/framelayout_selector"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:shadowColor="@color/white"
+                android:shadowDx="0.3"
+                android:shadowDy="0.3"
+                android:shadowRadius="0.3"
+                android:text="@string/leisuer_baidu"
+                android:textColor="@color/white"
+                android:textSize="@dimen/bigger" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/leisuer_baidu_subtitle"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small" />
+        </LinearLayout>
+    </FrameLayout>
+    
+    <FrameLayout
         android:id="@+id/game_layout"
         android:layout_width="fill_parent"
         android:layout_height="75dp"
         android:layout_marginTop="@dimen/padding_7"
         android:layout_marginLeft="@dimen/padding_7"
         android:layout_marginRight="@dimen/padding_7"
-        android:background="@color/style6_color2"
+        android:background="#81C784"
         android:foreground="@drawable/framelayout_selector"
         android:orientation="vertical" >
 
@@ -226,7 +265,7 @@
         android:layout_marginTop="@dimen/padding_7"
         android:layout_marginLeft="@dimen/padding_7"
         android:layout_marginRight="@dimen/padding_7"
-        android:background="@color/style6_color3"
+        android:background="#4FC3F7"
         android:foreground="@drawable/framelayout_selector"
         android:orientation="vertical" >
 
@@ -266,7 +305,7 @@
         android:layout_marginLeft="@dimen/padding_7"
         android:layout_marginBottom="@dimen/padding_7"
         android:layout_marginRight="@dimen/padding_7"
-        android:background="@color/style5_color7"
+        android:background="#EF9A9A"
         android:foreground="@drawable/framelayout_selector"
         android:orientation="vertical" >
 

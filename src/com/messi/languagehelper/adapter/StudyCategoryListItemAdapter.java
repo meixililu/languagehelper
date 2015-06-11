@@ -1,5 +1,7 @@
 package com.messi.languagehelper.adapter;
 
+import java.util.List;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -9,8 +11,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVObject;
 import com.messi.languagehelper.R;
 import com.messi.languagehelper.StudyListActivity;
+import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.ToastUtil;
 
@@ -18,20 +22,20 @@ public class StudyCategoryListItemAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	private Context context;
-	private String[] studyCategoryList;
-
-	public StudyCategoryListItemAdapter(Context mContext, String[] mPlanetTitles) {
+	private List<AVObject> avObjects;
+	
+	public StudyCategoryListItemAdapter(Context mContext, List<AVObject> avObjects) {
 		context = mContext;
 		this.mInflater = LayoutInflater.from(mContext);
-		this.studyCategoryList = mPlanetTitles;
+		this.avObjects = avObjects;
 	}
 
 	public int getCount() {
-		return studyCategoryList.length;
+		return avObjects.size();
 	}
 
 	public Object getItem(int position) {
-		return studyCategoryList[position];
+		return avObjects.get(position);
 	}
 
 	public long getItemId(int position) {
@@ -50,11 +54,12 @@ public class StudyCategoryListItemAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		holder.name.setText(studyCategoryList[position]);
+		final AVObject mAVObject = avObjects.get(position);
+		holder.name.setText( mAVObject.getString(AVOUtil.PracticeCategory.PCName) );
 		holder.cover.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				onItemClick(position);
+				onItemClick(mAVObject);
 			}
 		});
 		return convertView;
@@ -65,14 +70,10 @@ public class StudyCategoryListItemAdapter extends BaseAdapter {
 		TextView name;
 	}
 
-	private void onItemClick(int position){
-		if(position == 0){
-			Intent intent = new Intent(context,StudyListActivity.class);
-			intent.putExtra(KeyUtil.LevelKey, "jichu1");
-			context.startActivity(intent);
-		}else{
-			ToastUtil.diaplayMesLong(context, "开发中，敬请期待！");
-		}
+	private void onItemClick(AVObject mAVObject){
+		Intent intent = new Intent(context,StudyListActivity.class);
+		intent.putExtra(AVOUtil.PracticeCategory.PCCode, mAVObject.getString(AVOUtil.PracticeCategory.PCCode));
+		context.startActivity(intent);
 	}
 	
 

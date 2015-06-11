@@ -58,7 +58,6 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 	private ImageView record_anim_img;
 	private LinearLayout record_layout,record_animation_layout;
 	private ButtonRectangle voice_btn;
-	private ProgressBarCircularIndeterminate mProgressbar;
 	
 	private MyOnClickListener mAnswerOnClickListener,mQuestionOnClickListener;
 	private SpeechSynthesizer mSpeechSynthesizer;
@@ -95,7 +94,6 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 		record_answer_cover = (FrameLayout) findViewById(R.id.record_answer_cover);
 		record_question_cover = (FrameLayout) findViewById(R.id.record_question_cover);
 		practice_page_exchange = (FrameLayout) findViewById(R.id.practice_page_exchange);
-		mProgressbar = (ProgressBarCircularIndeterminate) findViewById(R.id.progressBarCircularIndetermininate);
 		practice_prompt = (TextView) findViewById(R.id.practice_prompt);
 		record_answer = (TextView) findViewById(R.id.record_answer);
 		record_question = (TextView) findViewById(R.id.record_question);
@@ -479,14 +477,6 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 	private void toSettingActivity(){
 		Intent intent = new Intent(this, SettingActivity.class); 
 		startActivity(intent); 
-	}
-	
-	private void showProgressbar(){
-		mProgressbar.setVisibility(View.VISIBLE);
-	}
-	
-	private void hideProgressbar(){
-		mProgressbar.setVisibility(View.GONE);
 	}
 	
 	private void resetVoicePlayButton(){

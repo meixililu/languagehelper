@@ -51,7 +51,6 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 	private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
 	private ViewPager viewPager;
-	private ProgressBarCircularIndeterminate mProgressbar;
 	private PagerSlidingTabStrip indicator;
 	private MainPageAdapter mAdapter;
 	private View leftMenuHeader;
@@ -110,7 +109,6 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 		}
 	    // Inflate a menu to be displayed in the toolbar
 		// toolbar.inflateMenu(R.menu.your_toolbar_menu);
-		mProgressbar = (ProgressBarCircularIndeterminate) findViewById(R.id.progressBarCircularIndetermininate);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 		viewPager = (ViewPager) findViewById(R.id.pager);
@@ -152,14 +150,6 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 	private void initLeftMenuHeader(){
 		leftMenuHeader = mInflater.inflate(R.layout.left_menu_header, null);
 		mDrawerList.addHeaderView(leftMenuHeader);
-	}
-	
-	public void showProgressbar(){
-		mProgressbar.setVisibility(View.VISIBLE);
-	}
-	
-	public void hideProgressbar(){
-		mProgressbar.setVisibility(View.GONE);
 	}
 	
 	@Override

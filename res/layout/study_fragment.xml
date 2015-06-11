@@ -13,53 +13,53 @@
         android:weightSum="10" >
 
         <FrameLayout
-            android:id="@+id/study_daily_baidu_search"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/black"
-            android:foreground="@drawable/framelayout_selector"
-            android:orientation="vertical" >
-			<com.lerdian.search.SearchTitleView
-        			android:layout_width="match_parent"
-        			android:layout_height="wrap_content"/>
-        </FrameLayout>
-        
-        <FrameLayout
             android:id="@+id/study_daily_sentence"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/style5_color5"
-            android:layout_marginTop="@dimen/padding_7"
             android:foreground="@drawable/framelayout_selector"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/dailysentence_txt"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_marginBottom="@dimen/padding_20"
-                android:layout_marginLeft="@dimen/padding_10"
-                android:layout_marginRight="@dimen/padding_10"
-                android:layout_marginTop="@dimen/padding_20"
-                android:gravity="left|center_vertical"
-                android:shadowColor="@color/white"
-                android:shadowDx="0.4"
-                android:shadowDy="0.4"
-                android:shadowRadius="0.4"
-                android:text="@string/dailysentence"
-                android:textColor="@color/white"
-                android:textSize="@dimen/biggerx" />
+            <ImageView
+                android:id="@+id/daily_sentence_item_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop" />
+
+            <LinearLayout
+                android:id="@+id/daily_sentence_list_item_middle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/none_alpha"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/dailysentence_txt"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginBottom="@dimen/padding_10"
+                    android:layout_marginLeft="@dimen/padding_7"
+                    android:layout_marginRight="@dimen/padding_7"
+                    android:gravity="left|bottom"
+                    android:shadowColor="@color/white"
+                    android:shadowDx="0.4"
+                    android:shadowDy="0.4"
+                    android:shadowRadius="0.4"
+                    android:text="@string/dailysentence"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/biggerx" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
+                android:layout_gravity="top|left"
                 android:layout_margin="@dimen/padding_5"
-                android:gravity="right"
+                android:gravity="left"
                 android:text="@string/dailysentence"
                 android:textColor="@color/white"
                 android:textSize="@dimen/small" />
-
             <ImageView
                 android:id="@+id/unread_dot"
                 android:layout_width="wrap_content"
@@ -67,8 +67,9 @@
                 android:layout_gravity="right|top"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
-                android:src="@drawable/unread_dot"
-                android:visibility="gone" />
+                android:src="@drawable/unread_dot" 
+                android:visibility="gone"
+                />
         </FrameLayout>
 
         <FrameLayout
@@ -137,6 +138,7 @@
                 android:textSize="@dimen/bigger" />
         </FrameLayout>
 
+        
         <FrameLayout
             android:id="@+id/study_to_all_user"
             android:layout_width="fill_parent"
@@ -158,7 +160,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/bigger" />
         </FrameLayout>
-        
+
         <LinearLayout
             android:id="@+id/study_ad_view"
             android:layout_width="fill_parent"
@@ -166,8 +168,8 @@
             android:layout_marginTop="@dimen/padding_7"
             android:background="@color/none"
             android:orientation="vertical" >
-
         </LinearLayout>
+        
     </LinearLayout>
 
 </ScrollView>

@@ -1,15 +1,26 @@
 package com.messi.languagehelper;
 
+import java.util.List;
+
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
 import com.baidu.mobstat.StatService;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.impl.PracticeProgressListener;
+import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.SDCardUtil;
@@ -21,64 +32,92 @@ public class StudyActivity extends BaseActivity implements PracticeProgressListe
 	public static String vedioPath = "";
 
 	private LinearLayout page_navigation, page_content;
+	private TextView error_txt;
 	private String[] studylist_part1_content;
 	private FragmentManager fragmentManager;
-	private int studylist_position;// second level
 	public int pageIndex;// third level
-	private String level;
+	private String PCCode;
+	private String PCLCode;
 	private SharedPreferences mSharedPreferences;
 	private Fragment mContent;
 	private SpeechSynthesizer mSpeechSynthesizer;
+	private AVObject avObject;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.study_activity);
+		initData();
 		initViews();
+		new QueryTask().execute();
 	}
-
-	private void initViews() {
+	
+	private void initData(){
 		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this,null);
 		mSharedPreferences = Settings.getSharedPreferences(this);
 		fragmentManager = getSupportFragmentManager();
-		studylist_position = getIntent().getIntExtra(KeyUtil.PracticeContentKey, 0);
-		level = getIntent().getStringExtra(KeyUtil.LevelKey);
-		vedioPath = SDCardUtil.PracticePath + level + SDCardUtil.Delimiter + studylist_position + SDCardUtil.Delimiter;
-		getStudyContent();
+		PCLCode = getIntent().getStringExtra(AVOUtil.PracticeCategoryList.PCLCode);
+		PCCode = getIntent().getStringExtra(AVOUtil.PracticeCategory.PCCode);
+		vedioPath = SDCardUtil.PracticePath + PCCode + SDCardUtil.Delimiter + PCLCode + SDCardUtil.Delimiter;
+	}
 
+	private void initViews() {
 		page_navigation = (LinearLayout) findViewById(R.id.page_navigation);
 		page_content = (LinearLayout) findViewById(R.id.page_content);
+		error_txt = (TextView) findViewById(R.id.error_txt);
+		error_txt.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				new QueryTask().execute();
+			}
+		});
+	}
+	
+	private void setData(){
 		addIndicator();
 		addFragment();
 	}
 
-	private void getStudyContent() {
-		if (studylist_position == 0) {
-			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content1);
-		} else if(studylist_position == 1){
-			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content2);
-		} else if(studylist_position == 2){
-			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content3);
-		} else if(studylist_position == 3){
-			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content4);
-		} else if(studylist_position == 4){
-			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content5);
-		} else if(studylist_position == 5){
-			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content6);
-		} else if(studylist_position == 6){
-			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content7);
-		} else if(studylist_position == 7){
-			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content8);
-		} else if(studylist_position == 8){
-			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content9);
-		} else if(studylist_position == 9){
-			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content10);
-		} else if(studylist_position == 10){
-			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content11);
-		} else if(studylist_position == 11){
-			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content12);
-		} else if(studylist_position == 12){
-			studylist_part1_content = getResources().getStringArray(R.array.studylist_part1_content13);
+	private class QueryTask extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			showProgressbar();
+			error_txt.setVisibility(View.GONE);
+		}
+		
+		@Override
+		protected Void doInBackground(Void... params) {
+			AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.PracticeDetail.PracticeDetail);
+			query.whereEqualTo(AVOUtil.PracticeDetail.PCCode, PCCode);
+			query.whereEqualTo(AVOUtil.PracticeDetail.PCLCode, PCLCode);
+			try {
+				List<AVObject> avObjects  = query.find();
+				if(avObjects != null && avObjects.size() > 0){
+					avObject = avObjects.get(0);
+				}
+			} catch (AVException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			hideProgressbar();
+			if(avObject != null){
+				String content = avObject.getString(AVOUtil.PracticeDetail.PDContent);
+				if(!TextUtils.isEmpty(content)){
+					studylist_part1_content = content.split("@");
+					setData();
+				}else{
+					error_txt.setVisibility(View.VISIBLE);
+				}
+			}else{
+				error_txt.setVisibility(View.VISIBLE);
+			}
 		}
 	}
 
@@ -199,16 +238,6 @@ public class StudyActivity extends BaseActivity implements PracticeProgressListe
 	@Override
 	public void onCompleteLoading() {
 		hideProgressbar();
-	}
-
-	private void showProgressbar() {
-		setSupportProgressBarIndeterminateVisibility(true);
-		setSupportProgressBarVisibility(true);
-	}
-
-	private void hideProgressbar() {
-		setSupportProgressBarIndeterminateVisibility(false);
-		setSupportProgressBarVisibility(false);
 	}
 
 	@Override

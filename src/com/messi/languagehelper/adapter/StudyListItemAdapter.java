@@ -1,5 +1,7 @@
 package com.messi.languagehelper.adapter;
 
+import java.util.List;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -9,9 +11,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVObject;
 import com.baidu.mobstat.StatService;
 import com.messi.languagehelper.R;
 import com.messi.languagehelper.StudyActivity;
+import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.ColorUtil;
 import com.messi.languagehelper.util.KeyUtil;
 
@@ -19,22 +23,22 @@ public class StudyListItemAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	private Context context;
-	private String[] studylist_part;
-	private String level;
+	private List<AVObject> avObjects;
+	private String PCCode;
 
-	public StudyListItemAdapter(Context mContext, String[] mPlanetTitles, String level) {
+	public StudyListItemAdapter(Context mContext, List<AVObject> avObjects, String level) {
 		context = mContext;
-		this.level = level;
+		this.PCCode = level;
 		this.mInflater = LayoutInflater.from(mContext);
-		this.studylist_part = mPlanetTitles;
+		this.avObjects = avObjects;
 	}
 
 	public int getCount() {
-		return studylist_part.length;
+		return avObjects.size();
 	}
 
 	public Object getItem(int position) {
-		return studylist_part[position];
+		return avObjects.get(position);
 	}
 
 	public long getItemId(int position) {
@@ -53,11 +57,12 @@ public class StudyListItemAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		holder.name.setText(studylist_part[position]);
+		final AVObject mAVObject = avObjects.get(position);
+		holder.name.setText( mAVObject.getString(AVOUtil.PracticeCategoryList.PCLName) );
 		holder.cover.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				onItemClick(position);
+				onItemClick(mAVObject);
 			}
 		});
 		return convertView;
@@ -68,11 +73,11 @@ public class StudyListItemAdapter extends BaseAdapter {
 		TextView name;
 	}
 
-	public void onItemClick(int position) {
+	public void onItemClick(AVObject mAVObject) {
 		try {
 			Intent intent = new Intent(context,StudyActivity.class);
-			intent.putExtra(KeyUtil.PracticeContentKey, position);
-			intent.putExtra(KeyUtil.LevelKey, level);
+			intent.putExtra(AVOUtil.PracticeCategoryList.PCLCode, mAVObject.getString(AVOUtil.PracticeCategoryList.PCLCode));
+			intent.putExtra(AVOUtil.PracticeCategory.PCCode, PCCode);
 			context.startActivity(intent);
 			StatService.onEvent(context, "study_list_to_practice_page", "学习列表进入口语学习页面", 1);
 		} catch (Exception e) {
