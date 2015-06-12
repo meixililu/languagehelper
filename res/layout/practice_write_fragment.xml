@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" 
-    android:orientation="vertical"
     android:background="@color/app_background"
     >
 	
@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:gravity="left"
     	android:textColor="@color/text_dark"
+    	android:layout_alignParentTop="true"
     	android:shadowDx="0.3"
         android:shadowDy="0.3"
         android:shadowRadius="0.3"
@@ -24,8 +25,10 @@
     	android:text="@string/translate_content"
         />
     <FrameLayout 
+        android:id="@+id/tranlate_content" 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tranlate_title"
         >
 	    <TextView
 	        android:id="@+id/questiontv" 
@@ -44,10 +47,28 @@
 	        />
     </FrameLayout>
     
-    <RelativeLayout 
+    <com.gc.materialdesign.views.ButtonRectangle 
+        xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/check_btn"
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="52dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+    	android:text="@string/practice_check"
+    	android:textColor="@color/white"
+        android:textSize="@dimen/bigest"
+        android:background="@color/green"
+        android:layout_marginLeft="@dimen/padding_5"
+        android:layout_marginRight="@dimen/padding_5"
+        materialdesign:rippleSpeed="90"
+        />
+    
+    <RelativeLayout 
+        android:id="@+id/tranlate_input" 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/tranlate_content"
+        android:layout_above="@id/check_btn"
         >
        	<EditText 
        	    android:id="@+id/translate_input"
@@ -63,6 +84,7 @@
        	    android:background="@drawable/list_item_bg_white"
        	    />
        	<LinearLayout 
+       	    android:id="@+id/translate_result_layout"
        	    android:layout_width="match_parent"
        	    android:layout_height="wrap_content"
        	    android:orientation="horizontal"
@@ -82,23 +104,20 @@
        	        android:id="@+id/translate_result_img"
        	        android:layout_width="wrap_content"
        	        android:layout_height="wrap_content"
+       	        android:layout_marginRight="2dp"
        	        android:src="@drawable/ic_visibility_grey600_36dp"
        	        />
        	</LinearLayout>
+       	<com.gc.materialdesign.views.ButtonFloatSmall
+                android:id="@+id/buttonFloat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_above="@id/translate_result_layout"
+                android:layout_alignParentRight="true"
+                android:background="#1E88E5"
+                materialdesign:animate="true"
+                materialdesign:rippleSpeed="98"
+                materialdesign:iconDrawable="@drawable/ic_volume_up_white_36dp" />
     </RelativeLayout>
-    
-    <com.gc.materialdesign.views.ButtonRectangle 
-        xmlns:materialdesign="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/check_btn"
-        android:layout_width="fill_parent"
-        android:layout_height="52dp"
-        android:gravity="center"
-    	android:text="@string/practice_check"
-    	android:textColor="@color/white"
-        android:textSize="@dimen/bigest"
-        android:background="@color/green"
-        android:layout_marginLeft="@dimen/padding_5"
-        android:layout_marginRight="@dimen/padding_5"
-        materialdesign:rippleSpeed="90"
-        />
-</LinearLayout>
+</RelativeLayout>

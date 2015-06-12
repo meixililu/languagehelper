@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gc.materialdesign.views.ButtonFloatSmall;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.bean.UserSpeakBean;
@@ -32,6 +33,7 @@ public class PracticeWriteFragment extends BaseFragment implements OnClickListen
 	private TextView questionTv,translate_result;
 	private ImageView translate_result_img;
 	private ButtonRectangle check_btn;
+	private ButtonFloatSmall mButtonFloatSmall;
 	private PracticeProgressListener mPracticeProgress;
 	private EditText translate_input;
 	private int resultPosition;
@@ -74,11 +76,13 @@ public class PracticeWriteFragment extends BaseFragment implements OnClickListen
 		translate_result_img = (ImageView)view.findViewById(R.id.translate_result_img);
 		translate_input = (EditText)view.findViewById(R.id.translate_input);
 		check_btn = (ButtonRectangle)view.findViewById(R.id.check_btn);
+		mButtonFloatSmall = (ButtonFloatSmall)view.findViewById(R.id.buttonFloat);
+		check_btn.setEnabled(false);
 		setIndex();
 		setContent();
-		check_btn.setEnabled(false);
 		check_btn.setOnClickListener(this);
 		translate_result_img.setOnClickListener(this);
+		mButtonFloatSmall.setOnClickListener(this);
 		
 		translate_input.addTextChangedListener(new TextWatcher() {
 			@Override
@@ -116,6 +120,9 @@ public class PracticeWriteFragment extends BaseFragment implements OnClickListen
 		case R.id.translate_result_img:
 			setResult();
 			break;
+		case R.id.buttonFloat:
+			playVideo(resultPosition);
+			break;
 		}
 	}
 	
@@ -129,6 +136,7 @@ public class PracticeWriteFragment extends BaseFragment implements OnClickListen
 				setContent();
 				check_btn.setEnabled(false);
 				translate_input.setText("");
+				translate_result.setText("");
 			}else{
 				toNextPage();
 			}

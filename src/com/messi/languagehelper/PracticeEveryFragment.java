@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gc.materialdesign.views.ButtonFloat;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.adapter.ViewPagerAdapter;
@@ -101,8 +102,8 @@ public class PracticeEveryFragment extends BaseFragment implements OnClickListen
 				title.append(SpannableStringUtil.setTextSize(getActivity(), cn[i], R.dimen.bigest));
 			}
 			titleTv.setText(title);
-			FrameLayout playBtn = (FrameLayout)itemView.findViewById(R.id.playbtn);
-			playBtn.setOnClickListener(new OnClickListener() {
+			ButtonFloat buttonFloat = (ButtonFloat)itemView.findViewById(R.id.buttonFloat);
+			buttonFloat.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					playVideo(currentIndex);

@@ -33,7 +33,7 @@ public class StudyActivity extends BaseActivity implements PracticeProgressListe
 
 	private LinearLayout page_navigation, page_content;
 	private TextView error_txt;
-	private String[] studylist_part1_content;
+	private String[] studyContent;
 	private FragmentManager fragmentManager;
 	public int pageIndex;// third level
 	private String PCCode;
@@ -110,7 +110,7 @@ public class StudyActivity extends BaseActivity implements PracticeProgressListe
 			if(avObject != null){
 				String content = avObject.getString(AVOUtil.PracticeDetail.PDContent);
 				if(!TextUtils.isEmpty(content)){
-					studylist_part1_content = content.split("@");
+					studyContent = content.split("@");
 					setData();
 				}else{
 					error_txt.setVisibility(View.VISIBLE);
@@ -122,11 +122,11 @@ public class StudyActivity extends BaseActivity implements PracticeProgressListe
 	}
 
 	private void addIndicator() {
-		ViewUtil.addIndicator(studylist_part1_content.length, page_navigation,this);
+		ViewUtil.addIndicator(studyContent.length, page_navigation,this);
 	}
 
 	private void addFragment() {
-		String[]contents = studylist_part1_content[pageIndex].split("#");
+		String[]contents = studyContent[pageIndex].split("#");
 		String type = contents[contents.length-1];
 		getSupportActionBar().setTitle( getActionbarTitle(type) );
 		Fragment mpramf = getStudyType(type);
@@ -153,12 +153,18 @@ public class StudyActivity extends BaseActivity implements PracticeProgressListe
 		LogUtil.DefalutLog("toNextPage");
 		ViewUtil.setPracticeIndicator(this, page_navigation, pageIndex);
 		pageIndex++;
-		if (pageIndex < studylist_part1_content.length) {
-			String[]contents = studylist_part1_content[pageIndex].split("#");
+		if (pageIndex < studyContent.length) {
+			String[]contents = studyContent[pageIndex].split("#");
 			String type = contents[contents.length-1];
-			getSupportActionBar().setTitle( getActionbarTitle(type) );
-			Fragment mpramf = getStudyType(type);
-			setFragment(mpramf);
+			String mTitle = getActionbarTitle(type);
+			/** 根据标题来判断这个版本是否有该功能，没有就跳过 **/
+			if(!TextUtils.isEmpty(mTitle)){
+				getSupportActionBar().setTitle( mTitle );
+				Fragment mpramf = getStudyType(type);
+				setFragment(mpramf);
+			}else{
+				toNextPage();
+			}
 		}else {
 			getSupportActionBar().setTitle(getResources().getString(R.string.practice_spoken_englist_finish));
 			FinishFragment mpramf = new FinishFragment(this);
@@ -171,27 +177,27 @@ public class StudyActivity extends BaseActivity implements PracticeProgressListe
 		Fragment mpramf = new Fragment();
 		type = type.toLowerCase();
 		if(type.equals(KeyUtil.Study_Every.toLowerCase())){
-			mpramf = new PracticeEveryFragment(studylist_part1_content[pageIndex], this,
+			mpramf = new PracticeEveryFragment(studyContent[pageIndex], this,
 					vedioPath + KeyUtil.Study_Every + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
 			StatService.onEvent(this, "study_page_studyevery", "学单词", 1);
 		}else if(type.equals(KeyUtil.Practice_FourInOne.toLowerCase())){
-			mpramf = new PracticeFourChooseOneFragment(studylist_part1_content[pageIndex], this,
+			mpramf = new PracticeFourChooseOneFragment(studyContent[pageIndex], this,
 					vedioPath + KeyUtil.Practice_FourInOne + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
 			StatService.onEvent(this, "study_page_fourinone", "口语练习四选一", 1);
 		}else if(type.equals(KeyUtil.Practice_ReadAfterMe.toLowerCase())){
-			mpramf = new PracticeReadAfterMeFragment(studylist_part1_content[pageIndex], this, 
+			mpramf = new PracticeReadAfterMeFragment(studyContent[pageIndex], this, 
 					vedioPath + KeyUtil.Practice_ReadAfterMe + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
 			StatService.onEvent(this, "study_page_readafterme", "口语练习跟我读", 1);
 		}else if(type.equals(KeyUtil.Practice_Translate.toLowerCase())){
-			mpramf = new PracticeWriteFragment(studylist_part1_content[pageIndex], this, 
+			mpramf = new PracticeWriteFragment(studyContent[pageIndex], this, 
 					vedioPath + KeyUtil.Practice_Translate + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
 			StatService.onEvent(this, "study_page_write", "口语练习书写校验", 1);
 		}else if(type.equals(KeyUtil.Practice_SpeakAfterMe.toLowerCase())){
-			mpramf = new PracticeReadAfterMeFragment(studylist_part1_content[pageIndex], this, 
+			mpramf = new PracticeReadAfterMeFragment(studyContent[pageIndex], this, 
 					vedioPath + KeyUtil.Practice_SpeakAfterMe + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
 			StatService.onEvent(this, "study_page_speakafterme", "口语练习跟我说", 1);
@@ -214,7 +220,7 @@ public class StudyActivity extends BaseActivity implements PracticeProgressListe
 		}else if(type.equals(KeyUtil.Practice_SpeakAfterMe)){
 			mpramf = getResources().getString(R.string.practice_spoken_englist_style_speakafterme);
 		}else{
-			mpramf = getResources().getString(R.string.practice_spoken_englist_finish);
+			mpramf = "";
 		}
 		return mpramf;
 	}
