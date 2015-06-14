@@ -223,13 +223,13 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	}
 	
 	private void toStudyListActivity(){
-		Intent intent = new Intent(getActivity(),StudyCategoryActivity.class);
+		Intent intent = new Intent(getActivity(),PracticeCategoryActivity.class);
 		startActivity(intent);
 		StatService.onEvent(getActivity(), "tab_study_tostudylist", "首页去口语练习页面", 1);
 	}
 	
 	private void toStudyDialoListgActivity(){
-		Intent intent = new Intent(getActivity(),StudyDialogListActivity.class);
+		Intent intent = new Intent(getActivity(),StudyDialogCategoryActivity.class);
 		startActivity(intent);
 		StatService.onEvent(getActivity(), "tab_study_tostudylist", "首页去口语练习页面", 1);
 	}

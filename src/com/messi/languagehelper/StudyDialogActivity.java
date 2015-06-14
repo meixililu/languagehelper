@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.gc.materialdesign.views.ButtonRectangle;
+import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.ScreenUtil;
 
@@ -15,12 +16,20 @@ public class StudyDialogActivity extends BaseActivity implements OnClickListener
 	public static String vedioPath = "";
 	private ButtonRectangle study_dialog_rolea, study_dialog_roleb;
 	private ButtonRectangle study_dialog_listen,study_dialog_read;
+	private String SDCode;
+	private String SDLCode;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.study_dialog_activity);
+		initData();
 		initViews();
+	}
+	
+	private void initData(){
+		SDCode = getIntent().getStringExtra(AVOUtil.StudyDialogListCategory.SDCode);
+		SDLCode = getIntent().getStringExtra(AVOUtil.StudyDialogListCategory.SDLCode);
 	}
 
 	private void initViews() {
@@ -33,10 +42,10 @@ public class StudyDialogActivity extends BaseActivity implements OnClickListener
 //		study_dialog_read.setTextColor(getResources().getColor(R.color.text_black));
 //		study_dialog_rolea.setTextColor(getResources().getColor(R.color.text_black));
 //		study_dialog_roleb.setTextColor(getResources().getColor(R.color.text_black));
-		study_dialog_listen.setTextSize(18);
-		study_dialog_read.setTextSize(18);
-		study_dialog_rolea.setTextSize(18);
-		study_dialog_roleb.setTextSize(18);
+//		study_dialog_listen.setTextSize(18);
+//		study_dialog_read.setTextSize(18);
+//		study_dialog_rolea.setTextSize(18);
+//		study_dialog_roleb.setTextSize(18);
 		study_dialog_listen.setOnClickListener(this);
 		study_dialog_read.setOnClickListener(this);
 		study_dialog_rolea.setOnClickListener(this);

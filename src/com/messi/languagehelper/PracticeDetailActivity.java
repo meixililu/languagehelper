@@ -27,7 +27,7 @@ import com.messi.languagehelper.util.SDCardUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.ViewUtil;
 
-public class StudyActivity extends BaseActivity implements PracticeProgressListener {
+public class PracticeDetailActivity extends BaseActivity implements PracticeProgressListener {
 
 	public static String vedioPath = "";
 

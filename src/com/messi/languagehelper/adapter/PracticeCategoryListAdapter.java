@@ -12,20 +12,23 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVObject;
+import com.baidu.mobstat.StatService;
 import com.messi.languagehelper.R;
-import com.messi.languagehelper.StudyListActivity;
+import com.messi.languagehelper.PracticeDetailActivity;
 import com.messi.languagehelper.util.AVOUtil;
+import com.messi.languagehelper.util.ColorUtil;
 import com.messi.languagehelper.util.KeyUtil;
-import com.messi.languagehelper.util.ToastUtil;
 
-public class StudyCategoryListItemAdapter extends BaseAdapter {
+public class PracticeCategoryListAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	private Context context;
 	private List<AVObject> avObjects;
-	
-	public StudyCategoryListItemAdapter(Context mContext, List<AVObject> avObjects) {
+	private String PCCode;
+
+	public PracticeCategoryListAdapter(Context mContext, List<AVObject> avObjects, String level) {
 		context = mContext;
+		this.PCCode = level;
 		this.mInflater = LayoutInflater.from(mContext);
 		this.avObjects = avObjects;
 	}
@@ -55,7 +58,7 @@ public class StudyCategoryListItemAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		final AVObject mAVObject = avObjects.get(position);
-		holder.name.setText( mAVObject.getString(AVOUtil.PracticeCategory.PCName) );
+		holder.name.setText( mAVObject.getString(AVOUtil.PracticeCategoryList.PCLName) );
 		holder.cover.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -70,10 +73,16 @@ public class StudyCategoryListItemAdapter extends BaseAdapter {
 		TextView name;
 	}
 
-	private void onItemClick(AVObject mAVObject){
-		Intent intent = new Intent(context,StudyListActivity.class);
-		intent.putExtra(AVOUtil.PracticeCategory.PCCode, mAVObject.getString(AVOUtil.PracticeCategory.PCCode));
-		context.startActivity(intent);
+	public void onItemClick(AVObject mAVObject) {
+		try {
+			Intent intent = new Intent(context,PracticeDetailActivity.class);
+			intent.putExtra(AVOUtil.PracticeCategoryList.PCLCode, mAVObject.getString(AVOUtil.PracticeCategoryList.PCLCode));
+			intent.putExtra(AVOUtil.PracticeCategory.PCCode, PCCode);
+			context.startActivity(intent);
+			StatService.onEvent(context, "study_list_to_practice_page", "学习列表进入口语学习页面", 1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 

@@ -24,8 +24,6 @@ public class AVOUtil {
 		
 		public final static String PCSign = "PCSign";
 		
-		public final static String PCIsNew = "PCIsNew";
-		
 		public final static String PCImgUrl = "PCImgUrl";
 		
 		public final static String PCOrder = "PCOrder";
@@ -47,8 +45,6 @@ public class AVOUtil {
 		public final static String PCLIsValid = "PCLIsValid";
 		
 		public final static String PCLSign = "PCLSign";
-		
-		public final static String PCLIsNew = "PCLIsNew";
 		
 		public final static String PCLImgUrl = "PCLImgUrl";
 		
@@ -73,6 +69,46 @@ public class AVOUtil {
 		public final static String PDIsValid = "PDIsValid";
 		
 		
+	}
+	
+	public static class StudyDialogCategory {
+		
+		public final static String StudyDialogCategory = "StudyDialogCategory";
+		
+		public final static String SDCode = "SDCode";
+		
+		public final static String SDName = "SDName";
+		
+		public final static String SDType = "SDType";
+		
+		public final static String SDIsValid = "SDIsValid";
+		
+		public final static String SDSign = "SDSign";
+		
+		public final static String SDImgUrl = "SDImgUrl";
+		
+		public final static String SDOrder = "SDOrder";
+	}
+	
+	public static class StudyDialogListCategory {
+		
+		public final static String StudyDialogListCategory = "StudyDialogListCategory";
+		
+		public final static String SDLCode = "SDLCode";
+		
+		public final static String SDLName = "SDLName";
+		
+		public final static String SDCode = "SDCode";
+		
+		public final static String SDLType = "SDLType";
+		
+		public final static String SDLIsValid = "SDLIsValid";
+		
+		public final static String SDLSign = "SDLSign";
+		
+		public final static String SDLImgUrl = "SDLImgUrl";
+		
+		public final static String SDLOrder = "SDLOrder";
 	}
 	
 }

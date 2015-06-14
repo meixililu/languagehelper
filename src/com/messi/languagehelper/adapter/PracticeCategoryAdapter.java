@@ -13,21 +13,21 @@ import android.widget.TextView;
 
 import com.avos.avoscloud.AVObject;
 import com.messi.languagehelper.R;
-import com.messi.languagehelper.StudyDialogActivity;
+import com.messi.languagehelper.PracticeCategoryListActivity;
 import com.messi.languagehelper.util.AVOUtil;
+import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.ToastUtil;
 
-public class StudyDialogCategoryListAdapter extends BaseAdapter {
+public class PracticeCategoryAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	private Context context;
 	private List<AVObject> avObjects;
-	private String SDCode;
-
-	public StudyDialogCategoryListAdapter(Context mContext, List<AVObject> avObjects, String SDCode) {
+	
+	public PracticeCategoryAdapter(Context mContext, List<AVObject> avObjects) {
 		context = mContext;
 		this.mInflater = LayoutInflater.from(mContext);
 		this.avObjects = avObjects;
-		this.SDCode = SDCode;
 	}
 
 	public int getCount() {
@@ -55,7 +55,7 @@ public class StudyDialogCategoryListAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		final AVObject mAVObject = avObjects.get(position);
-		holder.name.setText( mAVObject.getString(AVOUtil.StudyDialogListCategory.SDLName) );
+		holder.name.setText( mAVObject.getString(AVOUtil.PracticeCategory.PCName) );
 		holder.cover.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -71,9 +71,9 @@ public class StudyDialogCategoryListAdapter extends BaseAdapter {
 	}
 
 	private void onItemClick(AVObject mAVObject){
-		Intent intent = new Intent(context,StudyDialogActivity.class);
-		intent.putExtra(AVOUtil.StudyDialogListCategory.SDCode, mAVObject.getString(AVOUtil.StudyDialogListCategory.SDCode));
-		intent.putExtra(AVOUtil.StudyDialogListCategory.SDLCode, mAVObject.getString(AVOUtil.StudyDialogListCategory.SDLCode));
+		Intent intent = new Intent(context,PracticeCategoryListActivity.class);
+		intent.putExtra(KeyUtil.ActionbarTitle, mAVObject.getString(AVOUtil.PracticeCategory.PCName));
+		intent.putExtra(AVOUtil.PracticeCategory.PCCode, mAVObject.getString(AVOUtil.PracticeCategory.PCCode));
 		context.startActivity(intent);
 	}
 	

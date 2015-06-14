@@ -5,39 +5,41 @@ import java.util.List;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ListView;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
-import com.messi.languagehelper.adapter.StudyDialogCategoryListAdapter;
+import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
+import com.messi.languagehelper.adapter.PracticeCategoryAdapter;
 import com.messi.languagehelper.util.AVOUtil;
-import com.messi.languagehelper.util.KeyUtil;
 
-public class StudyDialogListActivity extends BaseActivity {
+public class PracticeCategoryActivity extends BaseActivity implements OnClickListener{
 
-	private ListView studylist_lv;
-	private StudyDialogCategoryListAdapter mAdapter;
+	
+	private ListView category_lv;
+	private PracticeCategoryAdapter mAdapter;
 	private List<AVObject> avObjects;
-	private String SDCode;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.study_list_fragment);
+		setContentView(R.layout.study_category_activity);
 		initSwipeRefresh();
 		initViews();
 		new QueryTask().execute();
 	}
-
+	
 	private void initViews(){
-		SDCode = getIntent().getStringExtra(AVOUtil.StudyDialogCategory.SDCode);
+		getSupportActionBar().setTitle(getResources().getString(R.string.title_Practice));
 		avObjects = new ArrayList<AVObject>();
-		studylist_lv = (ListView) findViewById(R.id.studylist_lv);
-		mAdapter = new StudyDialogCategoryListAdapter(this, avObjects, SDCode);
-		studylist_lv.setAdapter(mAdapter);
+		category_lv = (ListView) findViewById(R.id.studycategory_lv);
+		mAdapter = new PracticeCategoryAdapter(this, avObjects);
+		category_lv.setAdapter(mAdapter);
 	}
-
+	
 	@Override
 	public void onSwipeRefreshLayoutRefresh() {
 		super.onSwipeRefreshLayoutRefresh();
@@ -54,10 +56,9 @@ public class StudyDialogListActivity extends BaseActivity {
 		
 		@Override
 		protected Void doInBackground(Void... params) {
-			AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.StudyDialogListCategory.StudyDialogListCategory);
-			query.whereEqualTo(AVOUtil.StudyDialogListCategory.SDCode, SDCode);
-			query.whereEqualTo(AVOUtil.StudyDialogListCategory.SDLIsValid, "1");
-			query.orderByDescending(AVOUtil.StudyDialogListCategory.SDLOrder);
+			AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.PracticeCategory.PracticeCategory);
+			query.whereEqualTo(AVOUtil.PracticeCategory.PCIsValid, "1");
+			query.orderByDescending(AVOUtil.PracticeCategory.PCOrder);
 			try {
 				List<AVObject> avObject  = query.find();
 				if(avObject != null){
@@ -77,5 +78,15 @@ public class StudyDialogListActivity extends BaseActivity {
 			onSwipeRefreshLayoutFinish();
 			mAdapter.notifyDataSetChanged();
 		}
+		
 	}
+
+	@Override
+	public void onClick(View v) {
+		switch(v.getId()){
+		default:
+			break;
+		}
+	}
+	
 }

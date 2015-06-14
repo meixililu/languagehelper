@@ -5,41 +5,39 @@ import java.util.List;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ListView;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
-import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
-import com.messi.languagehelper.adapter.StudyCategoryListItemAdapter;
+import com.messi.languagehelper.adapter.PracticeCategoryListAdapter;
 import com.messi.languagehelper.util.AVOUtil;
+import com.messi.languagehelper.util.KeyUtil;
 
-public class StudyCategoryActivity extends BaseActivity implements OnClickListener{
+public class PracticeCategoryListActivity extends BaseActivity {
 
-	
-	private ListView category_lv;
-	private StudyCategoryListItemAdapter mAdapter;
+	private ListView studylist_lv;
+	private PracticeCategoryListAdapter mAdapter;
 	private List<AVObject> avObjects;
+	private String PCCode;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.study_category_activity);
+		setContentView(R.layout.study_list_fragment);
 		initSwipeRefresh();
 		initViews();
 		new QueryTask().execute();
 	}
-	
+
 	private void initViews(){
-		getSupportActionBar().setTitle(getResources().getString(R.string.title_Practice));
 		avObjects = new ArrayList<AVObject>();
-		category_lv = (ListView) findViewById(R.id.studycategory_lv);
-		mAdapter = new StudyCategoryListItemAdapter(this, avObjects);
-		category_lv.setAdapter(mAdapter);
+		PCCode = getIntent().getStringExtra(AVOUtil.PracticeCategory.PCCode);
+		studylist_lv = (ListView) findViewById(R.id.studylist_lv);
+		mAdapter = new PracticeCategoryListAdapter(this, avObjects, PCCode);
+		studylist_lv.setAdapter(mAdapter);
 	}
-	
+
 	@Override
 	public void onSwipeRefreshLayoutRefresh() {
 		super.onSwipeRefreshLayoutRefresh();
@@ -56,9 +54,10 @@ public class StudyCategoryActivity extends BaseActivity implements OnClickListen
 		
 		@Override
 		protected Void doInBackground(Void... params) {
-			AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.PracticeCategory.PracticeCategory);
-			query.whereEqualTo(AVOUtil.PracticeCategory.PCIsValid, "1");
-			query.orderByDescending(AVOUtil.PracticeCategory.PCOrder);
+			AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.PracticeCategoryList.PracticeCategoryList);
+			query.whereEqualTo(AVOUtil.PracticeCategoryList.PCCode, PCCode);
+			query.whereEqualTo(AVOUtil.PracticeCategoryList.PCLIsValid, "1");
+			query.orderByDescending(AVOUtil.PracticeCategoryList.PCLOrder);
 			try {
 				List<AVObject> avObject  = query.find();
 				if(avObject != null){
@@ -78,15 +77,5 @@ public class StudyCategoryActivity extends BaseActivity implements OnClickListen
 			onSwipeRefreshLayoutFinish();
 			mAdapter.notifyDataSetChanged();
 		}
-		
 	}
-
-	@Override
-	public void onClick(View v) {
-		switch(v.getId()){
-		default:
-			break;
-		}
-	}
-	
 }

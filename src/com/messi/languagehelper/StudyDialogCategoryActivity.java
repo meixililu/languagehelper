@@ -5,38 +5,38 @@ import java.util.List;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ListView;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
-import com.messi.languagehelper.adapter.StudyListItemAdapter;
+import com.messi.languagehelper.adapter.StudyDialogCategoryAdapter;
 import com.messi.languagehelper.util.AVOUtil;
-import com.messi.languagehelper.util.KeyUtil;
 
-public class StudyListActivity extends BaseActivity {
+public class StudyDialogCategoryActivity extends BaseActivity implements OnClickListener{
 
-	private ListView studylist_lv;
-	private StudyListItemAdapter mAdapter;
+	
+	private ListView category_lv;
 	private List<AVObject> avObjects;
-	private String PCCode;
+	private StudyDialogCategoryAdapter mAdapter;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.study_list_fragment);
+		setContentView(R.layout.study_category_activity);
 		initSwipeRefresh();
 		initViews();
 		new QueryTask().execute();
 	}
-
+	
 	private void initViews(){
-		getSupportActionBar().setTitle(getResources().getString(R.string.introduction));
+		getSupportActionBar().setTitle(getResources().getString(R.string.simulation_dialogue));
 		avObjects = new ArrayList<AVObject>();
-		PCCode = getIntent().getStringExtra(AVOUtil.PracticeCategory.PCCode);
-		studylist_lv = (ListView) findViewById(R.id.studylist_lv);
-		mAdapter = new StudyListItemAdapter(this, avObjects, PCCode);
-		studylist_lv.setAdapter(mAdapter);
+		category_lv = (ListView) findViewById(R.id.studycategory_lv);
+		mAdapter = new StudyDialogCategoryAdapter(this, avObjects);
+		category_lv.setAdapter(mAdapter);
 	}
 
 	@Override
@@ -55,10 +55,9 @@ public class StudyListActivity extends BaseActivity {
 		
 		@Override
 		protected Void doInBackground(Void... params) {
-			AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.PracticeCategoryList.PracticeCategoryList);
-			query.whereEqualTo(AVOUtil.PracticeCategoryList.PCCode, PCCode);
-			query.whereEqualTo(AVOUtil.PracticeCategoryList.PCLIsValid, "1");
-			query.orderByDescending(AVOUtil.PracticeCategoryList.PCLOrder);
+			AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.StudyDialogCategory.StudyDialogCategory);
+			query.whereEqualTo(AVOUtil.StudyDialogCategory.SDIsValid, "1");
+			query.orderByDescending(AVOUtil.StudyDialogCategory.SDOrder);
 			try {
 				List<AVObject> avObject  = query.find();
 				if(avObject != null){
@@ -78,5 +77,15 @@ public class StudyListActivity extends BaseActivity {
 			onSwipeRefreshLayoutFinish();
 			mAdapter.notifyDataSetChanged();
 		}
+		
 	}
+	
+	@Override
+	public void onClick(View v) {
+		switch(v.getId()){
+		default:
+			break;
+		}
+	}
+	
 }

@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.FrameLayout;
 import com.baidu.mobstat.StatService;
 import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
 import com.messi.languagehelper.util.AudioTrackUtil;
+import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.ScreenUtil;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.animation.ValueAnimator;
@@ -59,8 +61,12 @@ public class BaseActivity extends ActionBarActivity {
                 setSupportActionBar(toolbar);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 if(VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
-                	toolbar.setPadding(0, ScreenUtil.dip2px(this, 5), 0, 0);
+                	toolbar.setPadding(0, ScreenUtil.dip2px(this, 6), 0, 0);
                 }
+            }
+            String title = getIntent().getStringExtra(KeyUtil.ActionbarTitle);
+            if(!TextUtils.isEmpty(title)){
+            	getSupportActionBar().setTitle(title);
             }
         }
     }

@@ -12,23 +12,19 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVObject;
-import com.baidu.mobstat.StatService;
 import com.messi.languagehelper.R;
-import com.messi.languagehelper.StudyActivity;
+import com.messi.languagehelper.StudyDialogListActivity;
 import com.messi.languagehelper.util.AVOUtil;
-import com.messi.languagehelper.util.ColorUtil;
 import com.messi.languagehelper.util.KeyUtil;
 
-public class StudyListItemAdapter extends BaseAdapter {
+public class StudyDialogCategoryAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	private Context context;
 	private List<AVObject> avObjects;
-	private String PCCode;
 
-	public StudyListItemAdapter(Context mContext, List<AVObject> avObjects, String level) {
+	public StudyDialogCategoryAdapter(Context mContext, List<AVObject> avObjects) {
 		context = mContext;
-		this.PCCode = level;
 		this.mInflater = LayoutInflater.from(mContext);
 		this.avObjects = avObjects;
 	}
@@ -58,7 +54,7 @@ public class StudyListItemAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		final AVObject mAVObject = avObjects.get(position);
-		holder.name.setText( mAVObject.getString(AVOUtil.PracticeCategoryList.PCLName) );
+		holder.name.setText( mAVObject.getString(AVOUtil.StudyDialogCategory.SDName) );
 		holder.cover.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -73,16 +69,11 @@ public class StudyListItemAdapter extends BaseAdapter {
 		TextView name;
 	}
 
-	public void onItemClick(AVObject mAVObject) {
-		try {
-			Intent intent = new Intent(context,StudyActivity.class);
-			intent.putExtra(AVOUtil.PracticeCategoryList.PCLCode, mAVObject.getString(AVOUtil.PracticeCategoryList.PCLCode));
-			intent.putExtra(AVOUtil.PracticeCategory.PCCode, PCCode);
-			context.startActivity(intent);
-			StatService.onEvent(context, "study_list_to_practice_page", "学习列表进入口语学习页面", 1);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	private void onItemClick(AVObject mAVObject){
+		Intent intent = new Intent(context,StudyDialogListActivity.class);
+		intent.putExtra(KeyUtil.ActionbarTitle, mAVObject.getString(AVOUtil.StudyDialogCategory.SDName));
+		intent.putExtra(AVOUtil.StudyDialogCategory.SDCode, mAVObject.getString(AVOUtil.StudyDialogCategory.SDCode));
+		context.startActivity(intent);
 	}
 	
 

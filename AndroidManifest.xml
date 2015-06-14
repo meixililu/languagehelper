@@ -128,16 +128,19 @@
             android:name=".StudyDialogActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".StudyDialogCategoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".StudyDialogListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StudyCategoryActivity"
+            android:name=".PracticeCategoryActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".QRCodeShareActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StudyActivity"
+            android:name=".PracticeDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"
             />
@@ -151,7 +154,7 @@
             android:name=".ViewImageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StudyListActivity"
+            android:name=".PracticeCategoryListActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".WebViewActivity"
