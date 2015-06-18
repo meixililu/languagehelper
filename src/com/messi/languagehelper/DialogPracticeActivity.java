@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
+import com.messi.languagehelper.util.AVOUtil;
+import com.messi.languagehelper.util.KeyUtil;
 
 public class DialogPracticeActivity extends BaseActivity implements OnClickListener {
 
@@ -17,6 +19,10 @@ public class DialogPracticeActivity extends BaseActivity implements OnClickListe
 	private ProgressBarCircularIndeterminate mProgressbar;
 	private ButtonRectangle voice_btn;
 	private ListView dialog_lv;
+	
+	private String vedioPath;
+	private String content;
+	private String type;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -27,7 +33,9 @@ public class DialogPracticeActivity extends BaseActivity implements OnClickListe
 	}
 
 	private void initData(){
-		
+		vedioPath = getIntent().getStringExtra(KeyUtil.SDcardPathKey);
+		content = getIntent().getStringExtra(KeyUtil.ContextKey);
+		type = getIntent().getStringExtra(KeyUtil.StudyDialogAction);
 	}
 	
 	private void initView(){

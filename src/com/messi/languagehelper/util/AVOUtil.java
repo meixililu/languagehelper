@@ -68,7 +68,6 @@ public class AVOUtil {
 		
 		public final static String PDIsValid = "PDIsValid";
 		
-		
 	}
 	
 	public static class StudyDialogCategory {
@@ -111,4 +110,22 @@ public class AVOUtil {
 		public final static String SDLOrder = "SDLOrder";
 	}
 	
+	public static class StudyDialogDetail {
+		
+		public final static String StudyDialogDetail = "StudyDialogDetail";
+		
+		public final static String SDDCode = "SDDCode";
+		
+		public final static String SDDContent = "SDDContent";
+		
+		public final static String SDCode = "SDCode";
+		
+		public final static String SDLCode = "SDLCode";
+		
+		public final static String SDDType = "SDDType";
+		
+		public final static String SDDIsValid = "SDDIsValid";
+		
+	}
+
 }

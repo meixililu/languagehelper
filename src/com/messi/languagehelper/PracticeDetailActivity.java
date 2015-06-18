@@ -175,28 +175,27 @@ public class PracticeDetailActivity extends BaseActivity implements PracticeProg
 	
 	private Fragment getStudyType(String type){
 		Fragment mpramf = new Fragment();
-		type = type.toLowerCase();
-		if(type.equals(KeyUtil.Study_Every.toLowerCase())){
+		if(type.equalsIgnoreCase(KeyUtil.Study_Every)){
 			mpramf = new PracticeEveryFragment(studyContent[pageIndex], this,
 					vedioPath + KeyUtil.Study_Every + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
 			StatService.onEvent(this, "study_page_studyevery", "学单词", 1);
-		}else if(type.equals(KeyUtil.Practice_FourInOne.toLowerCase())){
+		}else if(type.equalsIgnoreCase(KeyUtil.Practice_FourInOne)){
 			mpramf = new PracticeFourChooseOneFragment(studyContent[pageIndex], this,
 					vedioPath + KeyUtil.Practice_FourInOne + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
 			StatService.onEvent(this, "study_page_fourinone", "口语练习四选一", 1);
-		}else if(type.equals(KeyUtil.Practice_ReadAfterMe.toLowerCase())){
+		}else if(type.equalsIgnoreCase(KeyUtil.Practice_ReadAfterMe)){
 			mpramf = new PracticeReadAfterMeFragment(studyContent[pageIndex], this, 
 					vedioPath + KeyUtil.Practice_ReadAfterMe + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
 			StatService.onEvent(this, "study_page_readafterme", "口语练习跟我读", 1);
-		}else if(type.equals(KeyUtil.Practice_Translate.toLowerCase())){
+		}else if(type.equalsIgnoreCase(KeyUtil.Practice_Translate)){
 			mpramf = new PracticeWriteFragment(studyContent[pageIndex], this, 
 					vedioPath + KeyUtil.Practice_Translate + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
 			StatService.onEvent(this, "study_page_write", "口语练习书写校验", 1);
-		}else if(type.equals(KeyUtil.Practice_SpeakAfterMe.toLowerCase())){
+		}else if(type.equalsIgnoreCase(KeyUtil.Practice_SpeakAfterMe)){
 			mpramf = new PracticeReadAfterMeFragment(studyContent[pageIndex], this, 
 					vedioPath + KeyUtil.Practice_SpeakAfterMe + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
@@ -209,22 +208,22 @@ public class PracticeDetailActivity extends BaseActivity implements PracticeProg
 	
 	private String getActionbarTitle(String type){
 		String mpramf = "";
-		if(type.equals(KeyUtil.Study_Every)){
+		if(type.equalsIgnoreCase(KeyUtil.Study_Every)){
 			mpramf = getResources().getString(R.string.practice_spoken_englist_style_fourinone);
-		}else if(type.equals(KeyUtil.Practice_FourInOne)){
+		}else if(type.equalsIgnoreCase(KeyUtil.Practice_FourInOne)){
 			mpramf = getResources().getString(R.string.practice_spoken_englist_style_fourinone);
-		}else if(type.equals(KeyUtil.Practice_ReadAfterMe)){
+		}else if(type.equalsIgnoreCase(KeyUtil.Practice_ReadAfterMe)){
 			mpramf = getResources().getString(R.string.practice_spoken_englist_style_readafterme);
-		}else if(type.equals(KeyUtil.Practice_Translate)){
+		}else if(type.equalsIgnoreCase(KeyUtil.Practice_Translate)){
 			mpramf = getResources().getString(R.string.practice_spoken_englist_style_write);
-		}else if(type.equals(KeyUtil.Practice_SpeakAfterMe)){
+		}else if(type.equalsIgnoreCase(KeyUtil.Practice_SpeakAfterMe)){
 			mpramf = getResources().getString(R.string.practice_spoken_englist_style_speakafterme);
 		}else{
 			mpramf = "";
 		}
 		return mpramf;
 	}
-
+	
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();

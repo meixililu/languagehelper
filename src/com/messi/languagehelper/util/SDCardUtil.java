@@ -16,6 +16,7 @@ public class SDCardUtil {
 	public static final String sdPath = "/zyhy/audio/";
 	public static final String ImgPath = "/DCIM/zyhy/";
 	public static final String PracticePath = "/zyhy/audio/practice/en/";
+	public static final String StudyDialogPath = "/zyhy/audio/study/dialog/";
 	public static final String Delimiter = "/";
 	
 	/**sdcard路径

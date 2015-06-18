@@ -14,7 +14,6 @@ public class KeyUtil {
 	
 	public static final String Practice_Finish = "Practice_Finish";
 	
-	
 	public static final String ShareContentKey = "ShareContentKey";
 	
 	public static final String DialogBeanKey = "DialogBeanKey";
@@ -35,45 +34,49 @@ public class KeyUtil {
 	
 	public static final String ReadRepeatTime = "ReadRepeatTime";
 	
-	public static String AutoPlayResult = "AutoPlayResult";
+	public static final String AutoPlayResult = "AutoPlayResult";
 
-	public static String AutoPlayUnreadDot = "AutoPlayUnreadDot";
+	public static final String AutoPlayUnreadDot = "AutoPlayUnreadDot";
 	
-	public static String AutoClear = "AutoClear";
+	public static final String AutoClear = "AutoClear";
 	
-	public static String AutoClearUnreadDot = "AutoClearUnreadDot";
+	public static final String AutoClearUnreadDot = "AutoClearUnreadDot";
 	
-	public static String ShowNewFunction = "ShowNewFunction1";
+	public static final String ShowNewFunction = "ShowNewFunction1";
 	
-	public static String IsHasShowBaiduMessage = "IsHasShowBaiduMessage";
+	public static final String IsHasShowBaiduMessage = "IsHasShowBaiduMessage";
 
-	public static String IsHasShowClickText = "IsHasShowClickText";
+	public static final String IsHasShowClickText = "IsHasShowClickText";
 
-	public static String SpeakPutonghuaORYueyu = "SpeakPutonghuaORYueyu";
+	public static final String SpeakPutonghuaORYueyu = "SpeakPutonghuaORYueyu";
 	
-	public static String PracticeContentKey = "PracticeContentKey";
+	public static final String PracticeContentKey = "PracticeContentKey";
 	
-	public static String LevelKey = "LevelKey";
+	public static final String LevelKey = "LevelKey";
 	
-	public static String UserSelectLanguage = "UserSelectLanguage";
+	public static final String UserSelectLanguage = "UserSelectLanguage";
 	
-	public static String IsReedPullDownRefresh = "IsReedPullDownRefresh";
+	public static final String IsReedPullDownRefresh = "IsReedPullDownRefresh";
 	
-	public static String IsCanShowAD_Loading = "IsCanShowAD_Loading";
+	public static final String IsCanShowAD_Loading = "IsCanShowAD_Loading";
 	
-	public static String IsCanShowAD_Leisure = "IsCanShowAD_Leisure";
+	public static final String IsCanShowAD_Leisure = "IsCanShowAD_Leisure";
 
-	public static String IsCanShowAD_Study = "IsCanShowAD_Study";
+	public static final String IsCanShowAD_Study = "IsCanShowAD_Study";
 	
-	public static String LastTimeSelectTab = "LastTimeSelectTab";
+	public static final String LastTimeSelectTab = "LastTimeSelectTab";
 	
-	public static String DailySentenceBigImgUrl = "DailySentenceBigImgUrl";
+	public static final String DailySentenceBigImgUrl = "DailySentenceBigImgUrl";
 	
-	public static String ResultTypeDictionary = "ResultTypeDictionary";
+	public static final String ResultTypeDictionary = "ResultTypeDictionary";
 	
-	public static String ResultTypeTranslate = "ResultTypeTranslate";
+	public static final String ResultTypeTranslate = "ResultTypeTranslate";
 	
-	public static String PracticeDialogAction = "PracticeDialogAction";
+	public static final String StudyDialogAction = "StudyDialogAction";
+	
+	public static final String ContextKey = "ContextKey";
+	
+	public static final String SDcardPathKey = "SDcardPathKey";
 
 	
 	
