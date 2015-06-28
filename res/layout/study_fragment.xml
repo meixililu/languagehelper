@@ -45,7 +45,6 @@
                     android:shadowDx="0.4"
                     android:shadowDy="0.4"
                     android:shadowRadius="0.4"
-                    android:text="@string/dailysentence"
                     android:textColor="@color/white"
                     android:textSize="@dimen/biggerx" />
 

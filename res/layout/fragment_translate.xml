@@ -36,7 +36,7 @@
 	                android:minLines="3"
 	                android:focusable="true"
 	                android:focusableInTouchMode="true"
-	                android:textCursorDrawable="@color/text_grey"
+	                android:textCursorDrawable="@null"
 	                android:textColor="@color/text_black"
 	                android:textColorHint="@color/text_grey"
 	                android:textSize="@dimen/bigger" />
@@ -71,7 +71,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/big"
                 android:gravity="center" 
-                materialdesign:rippleSpeed="95"
+                materialdesign:rippleSpeed="90"
                 />
         </LinearLayout>
 

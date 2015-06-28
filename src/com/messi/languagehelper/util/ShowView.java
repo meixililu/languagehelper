@@ -15,6 +15,7 @@ public class ShowView {
 			String title = mContext.getResources().getString(R.string.textclickguidedialog_title);
 			String content = mContext.getResources().getString(R.string.textclickguidedialog_content);
 			Dialog dialog = new Dialog(mContext, title, content);
+			dialog.addAcceptButton("确定");
 			dialog.setCancelable(true);
 			dialog.show();
 			Editor editor = sharedPrefs.edit();

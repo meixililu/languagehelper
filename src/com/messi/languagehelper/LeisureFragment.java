@@ -144,6 +144,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		}else if(v.getId() == R.id.baidu_layout){
 			toBaiduActivity();
 		}else if(v.getId() == R.id.ad_layout){
+			LogUtil.DefalutLog("---ad_layout.performClick---");
 			StatService.onEvent(getActivity(), "ad_kapian", "点击卡片广告", 1);
 		}
 	}

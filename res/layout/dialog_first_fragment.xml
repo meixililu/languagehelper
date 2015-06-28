@@ -115,8 +115,6 @@
 		        android:layout_height="52dp"
 		        android:gravity="center"
 		    	android:text="@string/practice_start"
-		    	android:textColor="@color/white"
-		        android:textSize="@dimen/bigest"
 		        android:background="@color/green"
 		        android:layout_marginLeft="@dimen/padding_5"
 		        android:layout_marginRight="@dimen/padding_5"
