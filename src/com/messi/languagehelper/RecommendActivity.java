@@ -23,12 +23,7 @@ public class RecommendActivity extends BaseActivity implements OnClickListener {
 	}
 	
 	private void init() {
-		toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
-		if (toolbar != null) {
-			setSupportActionBar(toolbar);
-			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-			getSupportActionBar().setTitle(this.getResources().getString(R.string.title_apps));
-		}
+		getSupportActionBar().setTitle(this.getResources().getString(R.string.title_apps));
         
         recommend_yyzs = (FrameLayout) findViewById(R.id.recommend_yyzs);
         recommend_zrzs = (FrameLayout) findViewById(R.id.recommend_zrzs);

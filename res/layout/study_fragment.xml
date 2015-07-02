@@ -99,6 +99,7 @@
             android:layout_height="90dp"
             android:layout_marginTop="@dimen/padding_7"
             android:foreground="@drawable/framelayout_selector"
+            android:visibility="gone"
             android:orientation="vertical" >
 
             <TextView

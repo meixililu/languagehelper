@@ -1,5 +1,7 @@
 package com.messi.languagehelper;
 
+import java.util.List;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,8 +11,10 @@ import android.widget.TextView;
 
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
+import com.messi.languagehelper.bean.DialogBean;
 import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.LogUtil;
 
 public class DialogPracticeActivity extends BaseActivity implements OnClickListener {
 
@@ -19,6 +23,7 @@ public class DialogPracticeActivity extends BaseActivity implements OnClickListe
 	private ProgressBarCircularIndeterminate mProgressbar;
 	private ButtonRectangle voice_btn;
 	private ListView dialog_lv;
+	private List<DialogBean> beans;
 	
 	private String vedioPath;
 	private String content;
@@ -36,6 +41,7 @@ public class DialogPracticeActivity extends BaseActivity implements OnClickListe
 		vedioPath = getIntent().getStringExtra(KeyUtil.SDcardPathKey);
 		content = getIntent().getStringExtra(KeyUtil.ContextKey);
 		type = getIntent().getStringExtra(KeyUtil.StudyDialogAction);
+		LogUtil.DefalutLog("content---:"+content);
 	}
 	
 	private void initView(){

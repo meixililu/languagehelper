@@ -228,7 +228,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 			StatService.onEvent(getActivity(), "tab_tran_submit", "首页翻译页提交按钮", 1);
 		}else if (v.getId() == R.id.baidu_btn) {
 			toBaiduActivity();
-			StatService.onEvent(getActivity(), "ask_baidu", "首页问百度", 1);
+			StatService.onEvent(getActivity(), "tab_tran_ask_baidu", "首页问百度", 1);
 		}else if (v.getId() == R.id.speak_round_layout) {
 			showIatDialog();
 			StatService.onEvent(getActivity(), "tab_tran_speak_voice", "首页翻译页说话按钮", 1);

@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.http.Header;
 
 import android.app.Activity;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -28,12 +30,14 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 
 import com.baidu.mobstat.StatService;
+import com.gc.materialdesign.views.ButtonFlat;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
+import com.lerdian.search.SearchManger;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 import com.messi.languagehelper.adapter.DictionaryListViewAdapter;
@@ -53,6 +57,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 
 	private EditText input_et;
 	private ButtonRectangle submit_btn;
+	private ButtonFlat baidu_btn;
 	private FrameLayout clear_btn_layout;
 	private Button voice_btn;
 	private LinearLayout speak_round_layout;
@@ -130,6 +135,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		recent_used_lv = (ListView) view.findViewById(R.id.recent_used_lv);
 		input_et = (EditText) view.findViewById(R.id.input_et);
 		submit_btn = (ButtonRectangle) view.findViewById(R.id.submit_btn);
+		baidu_btn = (ButtonFlat) view.findViewById(R.id.baidu_btn);
 		cb_speak_language_ch = (RadioButton) view.findViewById(R.id.cb_speak_language_ch);
 		cb_speak_language_en = (RadioButton) view.findViewById(R.id.cb_speak_language_en);
 		speak_round_layout = (LinearLayout) view.findViewById(R.id.speak_round_layout);
@@ -141,6 +147,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		voice_btn = (Button) view.findViewById(R.id.voice_btn);
 		
 		initLanguage();
+		baidu_btn.setOnClickListener(this);
 		submit_btn.setOnClickListener(this);
 		cb_speak_language_ch.setOnClickListener(this);
 		cb_speak_language_en.setOnClickListener(this);
@@ -184,6 +191,9 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 			hideIME();
 			submit();
 			StatService.onEvent(getActivity(), "1.6_fanyibtn", "翻译按钮", 1);
+		}else if (v.getId() == R.id.baidu_btn) {
+			toBaiduActivity();
+			StatService.onEvent(getActivity(), "ask_baidu", "首页问百度", 1);
 		}else if (v.getId() == R.id.speak_round_layout) {
 			showIatDialog();
 			StatService.onEvent(getActivity(), "1.6_shuohuabtn", "说话按钮", 1);
@@ -211,6 +221,18 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 			XFUtil.setSpeakLanguage(getActivity(),mSharedPreferences,XFUtil.VoiceEngineEN);
 			ToastUtil.diaplayMesShort(getActivity(), getActivity().getResources().getString(R.string.speak_english));
 			StatService.onEvent(getActivity(), "1.6_yingyubtn", "英语按钮", 1);
+		}
+	}
+	
+	private void toBaiduActivity(){
+		String data = input_et.getText().toString();
+		if(TextUtils.isEmpty(data)){
+			Intent intent = new Intent(getActivity(),com.lerdian.search.SearchResult.class);
+			startActivity(intent);
+		}else{
+			ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+			cm.setText(data);//string为你要传入的值
+			SearchManger.openDetail(getActivity());
 		}
 	}
 	

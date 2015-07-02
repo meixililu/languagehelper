@@ -17,10 +17,16 @@ import com.avos.avoscloud.AVQuery;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.SDCardUtil;
 
 public class StudyDialogActivity extends BaseActivity implements OnClickListener{
 
+	public static final String TypeListen = "TypeListen";
+	public static final String TypeRead = "TypeRead";
+	public static final String TypeA = "TypeA";
+	public static final String TypeB = "TypeB";
+	
 	private String vedioPath;
 	private TextView error_txt;
 	private LinearLayout study_dialog_type;
@@ -116,16 +122,16 @@ public class StudyDialogActivity extends BaseActivity implements OnClickListener
 	public void onClick(View v) {
 		switch(v.getId()){
 		case R.id.study_dialog_listen:
-			toDialogStudyActivity("");
+			toDialogStudyActivity(StudyDialogActivity.TypeListen);
 			break;
 		case R.id.study_dialog_read:
-			toDialogStudyActivity("");
+			toDialogStudyActivity(StudyDialogActivity.TypeRead);
 			break;
 		case R.id.study_dialog_rolea:
-			toDialogStudyActivity("");
+			toDialogStudyActivity(StudyDialogActivity.TypeA);
 			break;
 		case R.id.study_dialog_roleb:
-			toDialogStudyActivity("");
+			toDialogStudyActivity(StudyDialogActivity.TypeB);
 			break;
 		case R.id.error_txt:
 			new QueryTask().execute();
@@ -137,7 +143,7 @@ public class StudyDialogActivity extends BaseActivity implements OnClickListener
 	
 	private void toDialogStudyActivity(String type){
 		Intent intent = new Intent(this, DialogPracticeActivity.class);
-		intent.putExtra(KeyUtil.SDcardPathKey, vedioPath);
+		intent.putExtra(KeyUtil.SDcardPathKey, vedioPath + type + SDCardUtil.Delimiter);
 		intent.putExtra(KeyUtil.ContextKey, content);
 		intent.putExtra(KeyUtil.StudyDialogAction, type);
 		startActivity(intent);

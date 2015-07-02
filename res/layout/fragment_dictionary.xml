@@ -12,68 +12,70 @@
         android:focusableInTouchMode="true"
         android:orientation="vertical" >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/padding_margin"
             android:background="@drawable/list_item_bg_white"
             android:orientation="vertical"
             >
-
-            <RelativeLayout 
-                android:layout_width="fill_parent"
-	            android:layout_height="wrap_content"
-                >
 	            <EditText
 	                android:id="@+id/input_et"
 	                android:layout_width="fill_parent"
 	                android:layout_height="wrap_content"
 	                android:background="@color/none"
 	                android:gravity="left"
-	                android:hint="@string/input_et_hint"
+	                android:hint="@string/input_et_hint_dictionary"
 	                android:imeOptions="actionDone"
-	                android:layout_margin="5dp"
-	                android:minLines="3"
+	                android:layout_marginLeft="3dp"
+	                android:layout_marginTop="3dp"
+	                android:layout_marginRight="3dp"
+	                android:minLines="4"
 	                android:focusable="true"
 	                android:focusableInTouchMode="true"
 	                android:textCursorDrawable="@null"
 	                android:textColor="@color/text_black"
 	                android:textColorHint="@color/text_grey"
 	                android:textSize="@dimen/bigger" />
-	            <FrameLayout 
+            <com.gc.materialdesign.views.ButtonRectangle
+                android:id="@+id/submit_btn"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:background="@color/load_blue"
+                android:layout_below="@id/input_et"
+                android:text="@string/translate"
+                android:textColor="@color/white"
+                android:textSize="@dimen/big"
+                android:gravity="center" 
+                materialdesign:rippleSpeed="95"
+                />
+            <FrameLayout 
 	                android:id="@+id/clear_btn_layout"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                android:layout_alignParentRight="true"
-	                android:layout_marginTop="1px"
-	                android:layout_marginRight="1px"
-	                android:paddingLeft="3dp"
-	                android:paddingBottom="3dp"
+	                android:layout_above="@id/submit_btn"
+	                android:layout_marginRight="3px"
+	                android:padding="3dp"
 	                android:clickable="true"
-	                android:layout_alignParentTop="true"
             		android:foreground="@drawable/framelayout_selector"
 	                >
 		            <ImageView
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
 	                	android:clickable="false"
-		                android:background="@drawable/clear_btn"
+		                android:background="@drawable/delete"
 		                />
 	            </FrameLayout>
-            </RelativeLayout>
-
-            <com.gc.materialdesign.views.ButtonRectangle
-                android:id="@+id/submit_btn"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:background="@color/load_blue"
-                android:text="@string/translate"
-                android:textColor="@color/white"
-                android:textSize="@dimen/big"
-                android:gravity="center" 
-                materialdesign:rippleSpeed="90"
-                />
-        </LinearLayout>
+             <com.gc.materialdesign.views.ButtonFlat
+	                android:id="@+id/baidu_btn"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_alignParentRight="true"
+	                android:layout_alignParentTop="true"
+	                android:background="@color/app_lightblue"
+	                android:text="@string/ask_baidu" />
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="fill_parent"
