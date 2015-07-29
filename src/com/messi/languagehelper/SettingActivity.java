@@ -24,10 +24,12 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 
 	private TextView seekbar_text;
 	private SeekBar seekbar;
-	private ImageView autoread_unread_dot,unread_auto_clear_dot;
+	private ImageView unread_auto_clear_dot_after_finish;
 	private FrameLayout speak_yueyu,auto_play,auto_clear,qrcode;
 	private FrameLayout clear_all_except_favorite,clear_all,invite_friends;
+	private FrameLayout auto_clear_after_finish;
 	private CheckBox speak_yueyu_cb,auto_play_cb,auto_clear_cb;
+	private CheckBox auto_clear_cb_after_finish;
 	private SharedPreferences mSharedPreferences;
 	
 	@Override
@@ -43,15 +45,16 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 		getSupportActionBar().setTitle(this.getResources().getString(R.string.title_settings));
         seekbar_text = (TextView) findViewById(R.id.seekbar_text);
         seekbar = (SeekBar) findViewById(R.id.seekbar);
-        autoread_unread_dot = (ImageView) findViewById(R.id.unread_dot);
-        unread_auto_clear_dot = (ImageView) findViewById(R.id.unread_auto_clear_dot);
+        unread_auto_clear_dot_after_finish = (ImageView) findViewById(R.id.unread_auto_clear_dot_after_finish);
         speak_yueyu = (FrameLayout) findViewById(R.id.speak_yueyu);
         auto_play = (FrameLayout) findViewById(R.id.setting_auto_play);
         auto_clear = (FrameLayout) findViewById(R.id.setting_auto_clear);
         qrcode = (FrameLayout) findViewById(R.id.setting_invite_friends_qrcode);
+        auto_clear_after_finish = (FrameLayout) findViewById(R.id.setting_auto_clear_after_finish);
         speak_yueyu_cb = (CheckBox) findViewById(R.id.speak_yueyu_cb);
         auto_clear_cb = (CheckBox) findViewById(R.id.setting_auto_clear_cb);
         auto_play_cb = (CheckBox) findViewById(R.id.setting_auto_play_cb);
+        auto_clear_cb_after_finish = (CheckBox) findViewById(R.id.setting_auto_clear_cb_after_finish);
         clear_all_except_favorite = (FrameLayout) findViewById(R.id.setting_clear_all_except_favorite);
         clear_all = (FrameLayout) findViewById(R.id.setting_clear_all);
         invite_friends = (FrameLayout) findViewById(R.id.setting_invite_friends);
@@ -64,6 +67,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
         auto_play.setOnClickListener(this);
         auto_clear.setOnClickListener(this);
         qrcode.setOnClickListener(this);
+        auto_clear_after_finish.setOnClickListener(this);
 	}
 	
 	private void initData(){
@@ -71,17 +75,15 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 		seekbar.setProgress(MainFragment.speed);
 		boolean checked = mSharedPreferences.getBoolean(KeyUtil.SpeakPutonghuaORYueyu, false);
 		boolean autoplay = mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false);
-		boolean autoplayUnreadDot = mSharedPreferences.getBoolean(KeyUtil.AutoPlayUnreadDot, false);
+		boolean AutoClearInputAfterFinish = mSharedPreferences.getBoolean(KeyUtil.AutoClearInputAfterFinish, true);
+		boolean AutoClearAfterFinishUnreadDot = mSharedPreferences.getBoolean(KeyUtil.AutoClearAfterFinishUnreadDot, false);
 		boolean AutoClear = mSharedPreferences.getBoolean(KeyUtil.AutoClear, false);
-		boolean AutoClearUnreadDot = mSharedPreferences.getBoolean(KeyUtil.AutoClearUnreadDot, false);
 		speak_yueyu_cb.setChecked(checked);
 		auto_play_cb.setChecked(autoplay);
 		auto_clear_cb.setChecked(AutoClear);
-		if(autoplayUnreadDot){
-			autoread_unread_dot.setVisibility(View.GONE);
-		}
-		if(AutoClearUnreadDot){
-			unread_auto_clear_dot.setVisibility(View.GONE);
+		auto_clear_cb_after_finish.setChecked(AutoClearInputAfterFinish);
+		if(AutoClearAfterFinishUnreadDot){
+			unread_auto_clear_dot_after_finish.setVisibility(View.GONE);
 		}
 	}
 
@@ -99,18 +101,21 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 			break;
 		case R.id.setting_auto_play:
 			auto_play_cb.setChecked(!auto_play_cb.isChecked());
-			autoread_unread_dot.setVisibility(View.GONE);
 			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoPlayResult,auto_play_cb.isChecked());
-			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoPlayUnreadDot,true);
 			StatService.onEvent(this, "setting_page_auto_play", "翻译完成之后自动播放", 1);
+			break;
+		case R.id.setting_auto_clear_after_finish:
+			auto_clear_cb_after_finish.setChecked(!auto_clear_cb_after_finish.isChecked());
+			unread_auto_clear_dot_after_finish.setVisibility(View.GONE);
+			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoClearInputAfterFinish,auto_clear_cb_after_finish.isChecked());
+			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoClearAfterFinishUnreadDot,true);
+			StatService.onEvent(this, "setting_page_auto_clear_input", "翻译完成之后自动清空输入框", 1);
 			break;
 		case R.id.setting_auto_clear:
 			auto_clear_cb.setChecked(!auto_clear_cb.isChecked());
-			unread_auto_clear_dot.setVisibility(View.GONE);
 			MainFragment.isRefresh = true;
 			DictionaryFragment.isRefresh = true;
 			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoClear,auto_clear_cb.isChecked());
-			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoClearUnreadDot,true);
 			StatService.onEvent(this, "setting_page_auto_clear", "退出自动清除", 1);
 			break;
 		case R.id.setting_clear_all_except_favorite:

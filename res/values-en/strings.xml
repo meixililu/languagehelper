@@ -21,6 +21,7 @@
     <string name="title_favorite">Favorite</string>
     <string name="title_settings">Settings</string>
     <string name="title_apps">Apps</string>
+    <string name="evaluation_prompt">About Evaluation</string>
     
     <string name="menu_share">DIY Share</string>
     <string name="menu_settings">Play Speed</string>
@@ -71,6 +72,7 @@
     <string name="clear_all_record">Clear All Records</string>
     <string name="auto_clear">Clear Records Except Favorites When Exit</string>
     <string name="invite_friends">Very good,invite some friends</string>
+    <string name="auto_clear_after_translate">Auto Clear After Translate</string>
     <string name="clear_success">Clear Success</string>
     <string name="ask_baidu">Baidu</string>
 

@@ -35,12 +35,12 @@ public class KeyUtil {
 	public static final String ReadRepeatTime = "ReadRepeatTime";
 	
 	public static final String AutoPlayResult = "AutoPlayResult";
+	
+	public static final String AutoClearInputAfterFinish = "AutoClearInputAfterFinish";
 
-	public static final String AutoPlayUnreadDot = "AutoPlayUnreadDot";
+	public static final String AutoClearAfterFinishUnreadDot = "AutoClearAfterFinishUnreadDot";
 	
 	public static final String AutoClear = "AutoClear";
-	
-	public static final String AutoClearUnreadDot = "AutoClearUnreadDot";
 	
 	public static final String ShowNewFunction = "ShowNewFunction1";
 	

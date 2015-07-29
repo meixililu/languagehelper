@@ -23,6 +23,7 @@
     <string name="title_dialog_select">选择场景</string>
     <string name="title_settings">应用设置</string>
     <string name="title_apps">五个APP</string>
+    <string name="evaluation_prompt">关于口语评测</string>
     
     <string name="menu_share">DIY分享</string>
     <string name="menu_settings">语速调节</string>
@@ -32,6 +33,7 @@
     <string name="input_et_hint">请输入需要翻译的中文或英文</string>
     <string name="input_translate_hint">请翻译</string>
     <string name="auto_play_after_translate">翻译完成后自动播放</string>
+    <string name="auto_clear_after_translate">翻译完成后自动清空输入框内容</string>
     <string name="auto_clear">每次退出应用自动清除非收藏记录</string>
     <string name="translate">翻 译</string>
     <string name="finish">完毕</string>
@@ -156,7 +158,7 @@
 	<string name="leisuer_hotel">订酒店</string>
 	<string name="leisuer_hotel_subtitle">房还是要开的</string>
 	<string name="leisuer_invest">投资人列表</string>
-	<string name="leisuer_invest_subtitle">提意见点广告都是对软件投资</string>
+	<string name="leisuer_invest_subtitle">提意见就是对软件投资</string>
 	
 	<string name="website_attention">提示：国外网站的打开速度稍微慢点</string>
 	<string name="instagram_pinsta">Instagram（网页版）</string>

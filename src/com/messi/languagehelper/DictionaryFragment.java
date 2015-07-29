@@ -89,6 +89,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 	private View view;
 	public static DictionaryFragment mMainFragment;
 	private FragmentProgressbarListener mProgressbarListener;
+	private boolean AutoClearInputAfterFinish;
 	
 	public static DictionaryFragment getInstance(Bundle bundle){
 		if(mMainFragment == null){
@@ -146,6 +147,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		fade_out = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
 		voice_btn = (Button) view.findViewById(R.id.voice_btn);
 		
+		AutoClearInputAfterFinish = mSharedPreferences.getBoolean(KeyUtil.AutoClearInputAfterFinish, true);
 		initLanguage();
 		baidu_btn.setOnClickListener(this);
 		submit_btn.setOnClickListener(this);
@@ -182,6 +184,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 			}else{
 				XFUtil.setSpeakLanguage(getActivity(),mSharedPreferences,XFUtil.VoiceEngineEN);
 			}
+			AutoClearInputAfterFinish = mSharedPreferences.getBoolean(KeyUtil.AutoClearInputAfterFinish, true);
 		}
 	}
 	
@@ -341,7 +344,9 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 				if (!TextUtils.isEmpty(responseString)) {
 					mDictionaryBean = JsonParser.parseDictionaryJson(responseString);
 					if(mDictionaryBean != null){
-						input_et.setText("");
+						if(AutoClearInputAfterFinish){
+							input_et.setText("");
+						}
 						setData();
 					}else{
 						GetDictionaryFaultAsyncTask();
@@ -384,7 +389,9 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 					if (dstString.contains("error_msg:")) {
 						showToast(dstString);
 					} else {
-						input_et.setText("");
+						if(AutoClearInputAfterFinish){
+							input_et.setText("");
+						}
 						mDictionaryBean = new Dictionary();
 						mDictionaryBean.setType(KeyUtil.ResultTypeTranslate);
 						mDictionaryBean.setWord_name(Settings.q);

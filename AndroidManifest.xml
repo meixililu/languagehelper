@@ -123,6 +123,15 @@
             android:name=".InvestmentActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".EvaluationDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".EvaluationCategoryListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".EvaluationCategoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".DialogPracticeActivity"
             android:screenOrientation="portrait" />
         <activity

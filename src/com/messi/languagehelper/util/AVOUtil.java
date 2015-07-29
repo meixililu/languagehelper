@@ -127,5 +127,63 @@ public class AVOUtil {
 		public final static String SDDIsValid = "SDDIsValid";
 		
 	}
+	
+	public static class EvaluationCategory {
+		
+		public final static String EvaluationCategory = "EvaluationCategory";
+		
+		public final static String ECCode = "ECCode";
+		
+		public final static String ECName = "ECName";
+		
+		public final static String ECType = "ECType";
+		
+		public final static String ECIsValid = "ECIsValid";
+		
+		public final static String ECSign = "ECSign";
+		
+		public final static String ECImgUrl = "ECImgUrl";
+		
+		public final static String ECOrder = "ECOrder";
+	}
+	
+	public static class EvaluationCategoryList {
+		
+		public final static String EvaluationCategoryList = "EvaluationCategoryList";
+		
+		public final static String ECLCode = "ECLCode";
+		
+		public final static String ECLName = "ECLName";
+		
+		public final static String ECCode = "ECCode";
+		
+		public final static String ECLType = "ECLType";
+		
+		public final static String ECLIsValid = "ECLIsValid";
+		
+		public final static String ECLSign = "ECLSign";
+		
+		public final static String ECLImgUrl = "ECLImgUrl";
+		
+		public final static String ECLOrder = "ECLOrder";
+	}
+	
+	public static class EvaluationDetail {
+		
+		public final static String EvaluationDetail = "EvaluationDetail";
+		
+		public final static String EDCode = "EDCode";
+		
+		public final static String EDContent = "EDContent";
+		
+		public final static String ECCode = "ECCode";
+		
+		public final static String ECLCode = "ECLCode";
+		
+		public final static String EDType = "EDType";
+		
+		public final static String EDIsValid = "EDIsValid";
+		
+	}
 
 }

@@ -194,7 +194,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 			StatService.onEvent(getActivity(), "tab_study_dialog", "学习-模拟对话", 1);
 			break;
 		case R.id.study_test:
-			toGetContentActivity(getResources().getString(R.string.spokenEnglishTest));
+			toEvaluationActivity();
 			StatService.onEvent(getActivity(), "tab_study_test", "学习-口语评测", 1);
 			break;
 		case R.id.study_to_all_user:
@@ -231,7 +231,12 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	private void toStudyDialoListgActivity(){
 		Intent intent = new Intent(getActivity(),StudyDialogCategoryActivity.class);
 		startActivity(intent);
-		StatService.onEvent(getActivity(), "tab_study_tostudylist", "首页去口语练习页面", 1);
+		StatService.onEvent(getActivity(), "tab_study_tostudylist", "首页去模拟对话页面", 1);
+	}
+	private void toEvaluationActivity(){
+		Intent intent = new Intent(getActivity(),EvaluationCategoryActivity.class);
+		startActivity(intent);
+		StatService.onEvent(getActivity(), "tab_study_tostudylist", "首页去口语评测页面", 1);
 	}
 	private void toGetContentActivity(String title){
 		Intent intent = new Intent(getActivity(),GetContentActivity.class);

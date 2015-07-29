@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/contentbg"
     android:orientation="vertical" >
 
     <android.support.v7.widget.Toolbar
@@ -15,6 +16,7 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="@color/contentbg"
         android:fillViewport="true" >
 
         <LinearLayout
@@ -28,7 +30,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="vertical"
-                android:padding="@dimen/padding_7" >
+                android:padding="@dimen/padding_7"
+                android:visibility="gone" >
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -159,7 +162,8 @@
                 android:layout_marginTop="@dimen/padding_7"
                 android:background="@color/white"
                 android:orientation="vertical"
-                android:padding="@dimen/padding_7" >
+                android:padding="@dimen/padding_7"
+                android:visibility="gone" >
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -258,7 +262,6 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/padding_7"
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:padding="@dimen/padding_7" >
@@ -352,7 +355,8 @@
                 android:paddingTop="@dimen/padding_7"
                 android:text="@string/getfans_1"
                 android:textColor="@color/text_grey"
-                android:textSize="@dimen/middle" />
+                android:textSize="@dimen/middle"
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -365,7 +369,8 @@
                 android:paddingTop="@dimen/padding_7"
                 android:text="@string/click_ad_prompt"
                 android:textColor="@color/text_grey"
-                android:textSize="@dimen/middle" />
+                android:textSize="@dimen/middle"
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -379,18 +384,18 @@
                 android:text="@string/getfans_3"
                 android:textColor="@color/text_grey"
                 android:textSize="@dimen/middle" />
-            
+
             <TextView
                 android:id="@+id/mail_txt"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/padding_10"
                 android:background="@color/white"
+                android:gravity="center"
                 android:paddingBottom="@dimen/padding_15"
                 android:paddingLeft="@dimen/padding_15"
                 android:paddingRight="@dimen/padding_7"
                 android:paddingTop="@dimen/padding_15"
-                android:gravity="center"
                 android:text="@string/getfans_4"
                 android:textColor="@color/text_grey"
                 android:textSize="@dimen/middle" />

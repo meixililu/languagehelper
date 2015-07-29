@@ -90,6 +90,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 	private View view;
 	private FragmentProgressbarListener mProgressbarListener;
 	public static MainFragment mMainFragment;
+	private boolean AutoClearInputAfterFinish;
 	
 	public static MainFragment getInstance(Bundle bundle){
 		if(mMainFragment == null){
@@ -123,20 +124,6 @@ public class MainFragment extends Fragment implements OnClickListener {
 		return view;
 	}
 
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		if(mSpeechSynthesizer != null){
-			mSpeechSynthesizer.destroy();
-			mSpeechSynthesizer = null;
-		}
-		if(recognizer != null){
-			recognizer.destroy();
-			recognizer = null;
-		}
-		LogUtil.DefalutLog("MainFragment-onDestroy");
-	}
-
 	private void init() {
 		mInflater = LayoutInflater.from(getActivity());
 		mSharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Activity.MODE_PRIVATE);
@@ -161,6 +148,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 		fade_out = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
 		voice_btn = (Button) view.findViewById(R.id.voice_btn);
 		
+		AutoClearInputAfterFinish = mSharedPreferences.getBoolean(KeyUtil.AutoClearInputAfterFinish, true);
 		boolean IsHasShowBaiduMessage = mSharedPreferences.getBoolean(KeyUtil.IsHasShowBaiduMessage, false);
 		View listviewFooter = mInflater.inflate(R.layout.listview_item_recent_used_footer, null);
 		baidu_tranlate_prompt = (LinearLayout) listviewFooter.findViewById(R.id.baidu_tranlate_prompt);
@@ -217,6 +205,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 			}else{
 				XFUtil.setSpeakLanguage(getActivity(),mSharedPreferences,XFUtil.VoiceEngineEN);
 			}
+			AutoClearInputAfterFinish = mSharedPreferences.getBoolean(KeyUtil.AutoClearInputAfterFinish, true);
 		}
 	}
 	
@@ -375,7 +364,9 @@ public class MainFragment extends Fragment implements OnClickListener {
 			public void onSuccess(int statusCode, Header[] headers, String responseString) {
 				if (!TextUtils.isEmpty(responseString)) {
 					LogUtil.DefalutLog(responseString);
-					input_et.setText("");
+					if(AutoClearInputAfterFinish){
+						input_et.setText("");
+					}
 					dstString = JsonParser.getTranslateResult(responseString);
 					if (dstString.contains("error_msg:")) {
 						showToast(dstString);
@@ -563,4 +554,17 @@ public class MainFragment extends Fragment implements OnClickListener {
 		}
 	}
 	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		if(mSpeechSynthesizer != null){
+			mSpeechSynthesizer.destroy();
+			mSpeechSynthesizer = null;
+		}
+		if(recognizer != null){
+			recognizer.destroy();
+			recognizer = null;
+		}
+		LogUtil.DefalutLog("MainFragment-onDestroy");
+	}
 }
