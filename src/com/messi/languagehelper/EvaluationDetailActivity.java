@@ -199,7 +199,6 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 			if(isNewIn){
 				isNewIn = false;
 				isFollow = true;
-				practice_prompt.setVisibility(View.GONE);
 				mEvaluationOnClickListener.onClick(voice_play_answer);
 				record_animation_layout.setVisibility(View.VISIBLE);
 				record_animation_text.setText("Listen");
