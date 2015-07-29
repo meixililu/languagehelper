@@ -76,27 +76,19 @@
                     </LinearLayout>
                 </FrameLayout>
 
-                <FrameLayout
-                    android:id="@+id/record_question_cover"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:foreground="@drawable/framelayout_selector" >
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal" >
-
+                        >
                         <TextView
                             android:id="@+id/record_question"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
                             android:paddingBottom="10dp"
                             android:paddingLeft="15dp"
                             android:paddingTop="7dp"
-                            android:text=""
                             android:textColor="@color/text_grey"
                             android:textSize="@dimen/big" />
 
@@ -104,12 +96,12 @@
                             android:id="@+id/show_zh_img"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
+                            android:layout_alignParentRight="true"
                             android:layout_marginRight="@dimen/padding_5"
-                            android:layout_gravity="center_vertical|right"
+                            android:layout_centerVertical="true"
                             android:background="@drawable/ic_visibility_grey600_36dp"
-                            android:clickable="false" />
-                    </LinearLayout>
-                </FrameLayout>
+                            />
+                    </RelativeLayout>
         </LinearLayout>
 
         <RelativeLayout
@@ -145,7 +137,6 @@
                 android:background="@color/none"
                 android:gravity="bottom"
                 android:orientation="horizontal" >
-
 
                 <com.gc.materialdesign.views.ButtonRectangle
                     android:id="@+id/voice_btn"

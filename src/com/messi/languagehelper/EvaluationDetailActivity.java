@@ -1,9 +1,7 @@
 package com.messi.languagehelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
@@ -25,35 +23,32 @@ import com.avos.avoscloud.AVQuery;
 import com.baidu.mobstat.StatService;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.gc.materialdesign.widgets.Dialog;
-import com.iflytek.cloud.RecognizerListener;
-import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.EvaluatorListener;
+import com.iflytek.cloud.EvaluatorResult;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.SpeechRecognizer;
+import com.iflytek.cloud.SpeechEvaluator;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
-import com.messi.languagehelper.bean.UserSpeakBean;
-import com.messi.languagehelper.dao.record;
-import com.messi.languagehelper.db.DataBaseUtil;
+import com.messi.languagehelper.result.Result;
 import com.messi.languagehelper.task.PublicTask;
 import com.messi.languagehelper.task.PublicTask.PublicTaskListener;
 import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.AudioTrackUtil;
-import com.messi.languagehelper.util.JsonParser;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.SDCardUtil;
-import com.messi.languagehelper.util.ScoreUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.ToastUtil;
 import com.messi.languagehelper.util.XFUtil;
+import com.messi.languagehelper.util.XmlResultParser;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.Animator.AnimatorListener;
 import com.nineoldandroids.animation.ObjectAnimator;
 
 public class EvaluationDetailActivity extends BaseActivity implements OnClickListener {
 
-	private FrameLayout record_question_cover,evaluation_en_cover;
-	private ImageButton voice_play_answer;
+	private FrameLayout evaluation_en_cover;
+	private ImageButton voice_play_answer,show_zh_img;
 	private TextView evaluation_zh_tv,evaluation_en_tv,practice_prompt,record_animation_text;
 	private ImageView record_anim_img;
 	private LinearLayout record_layout,record_animation_layout;
@@ -61,9 +56,7 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 	
 	private MyOnClickListener mEvaluationOnClickListener;
 	private SpeechSynthesizer mSpeechSynthesizer;
-	private SpeechRecognizer recognizer;
 	private SharedPreferences mSharedPreferences;
-	private ArrayList<UserSpeakBean> mUserSpeakBeanList;
 	private boolean isNewIn = true;
 	private boolean isFollow;
 	private StringBuilder sbResult = new StringBuilder();
@@ -71,6 +64,8 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 	private String ECCode,ECLCode;
 	private String content,EDCode;
 	private String[] studyContent;
+	private String mLastResult;
+	private SpeechEvaluator mSpeechEvaluator;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -85,19 +80,18 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 		getSupportActionBar().setTitle(getResources().getString(R.string.spokenEnglishTest));
 		ECCode = getIntent().getStringExtra(AVOUtil.EvaluationDetail.ECLCode);
 		ECLCode = getIntent().getStringExtra(AVOUtil.EvaluationDetail.ECCode);
-		mUserSpeakBeanList = new ArrayList<UserSpeakBean>();
+		mSharedPreferences = Settings.getSharedPreferences(this);
+		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this,null);
+		mSpeechEvaluator = SpeechEvaluator.createEvaluator(this, null);
 	}
 
 	private void initView() {
-        mSharedPreferences = Settings.getSharedPreferences(this);
-        mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this,null);
-        recognizer = SpeechRecognizer.createRecognizer(this,null);
 		evaluation_en_cover = (FrameLayout) findViewById(R.id.record_answer_cover);
-		record_question_cover = (FrameLayout) findViewById(R.id.record_question_cover);
 		practice_prompt = (TextView) findViewById(R.id.practice_prompt);
 		evaluation_en_tv = (TextView) findViewById(R.id.record_answer);
 		evaluation_zh_tv = (TextView) findViewById(R.id.record_question);
 		voice_play_answer = (ImageButton) findViewById(R.id.voice_play_answer);
+		show_zh_img = (ImageButton) findViewById(R.id.show_zh_img);
 		voice_btn = (ButtonRectangle) findViewById(R.id.voice_btn);
 		record_anim_img = (ImageView) findViewById(R.id.record_anim_img);
 		record_layout = (LinearLayout) findViewById(R.id.record_layout);
@@ -105,6 +99,7 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 		record_animation_text = (TextView) findViewById(R.id.record_animation_text);
 		
 		voice_btn.setOnClickListener(this);
+		show_zh_img.setOnClickListener(this);
 		practice_prompt.setText(this.getResources().getString(R.string.practice_prompt_english));
 		
 	}
@@ -158,9 +153,8 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 		if(studyContent != null){
 			if(studyContent.length > 1){
 				evaluation_en_tv.setText(studyContent[0]);
-				evaluation_zh_tv.setText(studyContent[1]);
-				evaluation_en_cover.setOnClickListener(mEvaluationOnClickListener);
 				mEvaluationOnClickListener = new MyOnClickListener(studyContent[0],voice_play_answer);
+				evaluation_en_cover.setOnClickListener(mEvaluationOnClickListener);
 			}
 		}
 	}
@@ -172,14 +166,36 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 			showIatDialog();
 			StatService.onEvent(EvaluationDetailActivity.this, "practice_page_speak_btn", "口语练习页说话按钮", 1);
 			break;
+		case R.id.show_zh_img:
+			if( TextUtils.isEmpty(evaluation_zh_tv.getText().toString()) ){
+				evaluation_zh_tv.setText(studyContent[1]);
+			}else{
+				evaluation_zh_tv.setText("");
+			}
+			break;
 		}
 	}
+	
+	private void startEvaluation() {
+		mSpeechEvaluator.setParameter(SpeechConstant.LANGUAGE, "en_us");//zh_cn
+		mSpeechEvaluator.setParameter(SpeechConstant.ISE_CATEGORY, "read_sentence");
+		mSpeechEvaluator.setParameter(SpeechConstant.TEXT_ENCODING, "utf-8");
+		mSpeechEvaluator.setParameter(SpeechConstant.VAD_BOS, "5000");
+		mSpeechEvaluator.setParameter(SpeechConstant.VAD_EOS, "1800");
+		mSpeechEvaluator.setParameter(SpeechConstant.KEY_SPEECH_TIMEOUT, "-1");
+		mSpeechEvaluator.setParameter(SpeechConstant.RESULT_LEVEL, "complete");
+		// 设置音频保存路径，保存音频格式仅为pcm，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
+		String path = SDCardUtil.getDownloadPath(SDCardUtil.EvaluationUserPath);
+		mSpeechEvaluator.setParameter(SpeechConstant.ISE_AUDIO_PATH,path + EDCode + ".pcm");
+		mSpeechEvaluator.startEvaluating(studyContent[0], null, mEvaluatorListener);
+	}
+
 	
 	/**
 	 * 显示转写对话框.
 	 */
 	public void showIatDialog() {
-		if(!recognizer.isListening()){
+		if(!mSpeechEvaluator.isEvaluating()){
 			if(isNewIn){
 				isNewIn = false;
 				isFollow = true;
@@ -190,7 +206,7 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 			}else{
 				record_layout.setVisibility(View.VISIBLE);
 				voice_btn.setText(this.getResources().getString(R.string.finish));
-				XFUtil.showSpeechRecognizer(this,mSharedPreferences,recognizer,recognizerListener);
+				startEvaluation();
 			}
 		}else{
 			showProgressbar();
@@ -202,7 +218,7 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 	 * finish record
 	 */
 	private void finishRecord(){
-		recognizer.stopListening();
+		mSpeechEvaluator.stopEvaluating();
 		record_layout.setVisibility(View.GONE);
 		record_anim_img.setBackgroundResource(R.drawable.speak_voice_1);
 		voice_btn.setText("Start");
@@ -216,41 +232,6 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 			animation();
 		}
 	}
-	
-	private void animationReward(int score){
-		String word = "Nice";
-		if(score > 90){
-			word = "Perfect";
-		}else if(score > 70){
-			word = "Great";
-		}else if(score > 59){
-			word = "Not bad";
-		}else {
-			word = "Try harder";
-		}
-		record_animation_layout.setVisibility(View.VISIBLE);
-		record_animation_text.setText(word);
-		ObjectAnimator mObjectAnimator = ObjectAnimator.ofFloat(record_animation_layout, "alpha", 1, 0f);
-		mObjectAnimator.addListener(mAnimatorListenerReward);
-		mObjectAnimator.setStartDelay(300);
-		mObjectAnimator.setDuration(1500).start();
-	}
-	
-	private AnimatorListener mAnimatorListenerReward = new AnimatorListener() {
-		@Override
-		public void onAnimationStart(Animator animation) {
-		}
-		@Override
-		public void onAnimationRepeat(Animator animation) {
-		}
-		@Override
-		public void onAnimationEnd(Animator animation) {
-			record_animation_layout.setVisibility(View.GONE);
-		}
-		@Override
-		public void onAnimationCancel(Animator animation) {
-		}
-	};
 	
 	private void animation(){
 		ObjectAnimator mObjectAnimator = ObjectAnimator.ofFloat(record_animation_layout, "scaleX", 1f, 1.3f);
@@ -279,42 +260,40 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 		}
 	};
 	
-	RecognizerListener recognizerListener = new RecognizerListener() {
-
+	// 评测监听接口
+	private EvaluatorListener mEvaluatorListener = new EvaluatorListener() {
+		
 		@Override
-		public void onBeginOfSpeech() {
-			LogUtil.DefalutLog("onBeginOfSpeech");
+		public void onResult(EvaluatorResult result, boolean isLast) {
+			if (isLast) {
+				StringBuilder builder = new StringBuilder();
+				builder.append(result.getResultString());
+				mLastResult = builder.toString();
+				hideProgressbar();
+				finishRecord();
+				parseEvaluationResult();
+				LogUtil.DefalutLog("isLast-------mLastResult:"+mLastResult);
+			}
 		}
 
 		@Override
-		public void onError(SpeechError err) {
-			LogUtil.DefalutLog("onError:"+err.getErrorDescription());
+		public void onError(SpeechError error) {
+			LogUtil.DefalutLog("onError:"+error.getErrorDescription());
 			finishRecord();
 			hideProgressbar();
-			ToastUtil.diaplayMesShort(EvaluationDetailActivity.this, err.getErrorDescription());
+			ToastUtil.diaplayMesShort(EvaluationDetailActivity.this, error.getErrorDescription());
+		}
+
+		@Override
+		public void onBeginOfSpeech() {
+			LogUtil.DefalutLog("evaluator begin");
 		}
 
 		@Override
 		public void onEndOfSpeech() {
-			LogUtil.DefalutLog("onEndOfSpeech");
+			LogUtil.DefalutLog("evaluator end");
 			finishRecord();
 			showProgressbar();
-		}
-
-		@Override
-		public void onResult(RecognizerResult results, boolean isLast) {
-			LogUtil.DefalutLog("onResult---getResultString:"+results.getResultString());
-			String text = JsonParser.parseIatResult(results.getResultString());
-			sbResult.append(text);
-			if(isLast) {
-				LogUtil.DefalutLog("isLast-------onResult:"+sbResult.toString());
-				hideProgressbar();
-				finishRecord();
-				UserSpeakBean bean = ScoreUtil.score(EvaluationDetailActivity.this, sbResult.toString(), evaluation_en_tv.getText().toString());
-				mUserSpeakBeanList.add(0,bean);
-				animationReward(bean.getScoreInt());
-				sbResult.setLength(0);
-			}
 		}
 
 		@Override
@@ -337,9 +316,22 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 		}
 
 		@Override
-		public void onEvent(int arg0, int arg1, int arg2, Bundle arg3) {
+		public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
 		}
 	};
+	
+	private void parseEvaluationResult(){
+		if (!TextUtils.isEmpty(mLastResult)) {
+			XmlResultParser resultParser = new XmlResultParser();
+			Result result = resultParser.parse(mLastResult);
+			
+			if (null != result) {
+				practice_prompt.setText(result.toString());
+			} else {
+				practice_prompt.setText("结析结果为空");
+			}
+		}
+	}
 	
 	public class MyOnClickListener implements OnClickListener {
 		
@@ -404,9 +396,7 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 			}else{
 				playLocalPcm(filepath,animationDrawable);
 			}
-			if(v.getId() == R.id.record_question_cover){
-				StatService.onEvent(EvaluationDetailActivity.this, "practice_page_play_content", "口语练习页播放内容", 1);
-			}else if(v.getId() == R.id.record_answer_cover){
+			if(v.getId() == R.id.record_answer_cover){
 				StatService.onEvent(EvaluationDetailActivity.this, "practice_page_play_result", "口语练习页播放结果", 1);
 			}
 		}
@@ -467,7 +457,7 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 	}
 	
 	private void showXunFeiDialog(){
-		Dialog dialog = new Dialog(this, "温馨提示", "科大讯飞语音评测技术是业界唯一通过国家语委鉴定并达到实用水平的成果，自动评分效果已经达到甚至超过人工专家的打分水平，并且在国家普通话等级考试、英语四六级考试中的成功运用，请放心使用！");
+		Dialog dialog = new Dialog(this, "关于评测", "科大讯飞语音评测技术是业界唯一通过国家语委鉴定并达到实用水平的成果，自动评分效果已经达到甚至超过人工专家的打分水平，并且在国家普通话等级考试、英语四六级考试中的成功运用，请放心使用！");
 		dialog.addAcceptButton("确定");
 		dialog.show();
 	}
@@ -479,9 +469,9 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 			mSpeechSynthesizer.destroy();
 			mSpeechSynthesizer = null;
 		}
-		if(recognizer != null){
-			recognizer.destroy();
-			recognizer = null;
+		if(mSpeechEvaluator != null){
+			mSpeechEvaluator.cancel(true);
+			mSpeechEvaluator = null;
 		}
 	}
 }
