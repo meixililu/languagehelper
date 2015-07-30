@@ -82,8 +82,8 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 	
 	private void initData(){
 		getSupportActionBar().setTitle(getResources().getString(R.string.spokenEnglishTest));
-		ECCode = getIntent().getStringExtra(AVOUtil.EvaluationDetail.ECLCode);
-		ECLCode = getIntent().getStringExtra(AVOUtil.EvaluationDetail.ECCode);
+		ECCode = getIntent().getStringExtra(AVOUtil.EvaluationDetail.ECCode);
+		ECLCode = getIntent().getStringExtra(AVOUtil.EvaluationDetail.ECLCode);
 		mSharedPreferences = Settings.getSharedPreferences(this);
 		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this,null);
 		mSpeechEvaluator = SpeechEvaluator.createEvaluator(this, null);
