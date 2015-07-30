@@ -14,6 +14,7 @@
     <color name="orange">#FFEF6800</color>
     <color name="green">#77c924</color>
     <color name="green_500">#4CAF50</color>
+    <color name="green_200">#A5D6A7</color>
     <color name="green_light">#d3e8be</color>
     <color name="green_dark">#6cb51f</color>
 	<color name="blue">#ff0000ff</color>
@@ -42,6 +43,7 @@
 	<color name="bottom_button_bg">#ececec</color>
 	<color name="text_view_border">#D6D6D6</color>
 	<color name="app_background">#fffafafa</color>
+	<color name="yellow_400">#FFEE58</color>
 	
 	<color name="white_thin">#bbFFFFFF</color>
 	<color name="orange_thin">#bbff3226</color>

@@ -60,14 +60,13 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/small" />
             <ImageView
-                android:id="@+id/unread_dot"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/play_img"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_gravity="right|top"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
-                android:src="@drawable/unread_dot" 
-                android:visibility="gone"
+                android:background="@drawable/ic_play_circle_outline_white_48dp" 
                 />
         </FrameLayout>
 

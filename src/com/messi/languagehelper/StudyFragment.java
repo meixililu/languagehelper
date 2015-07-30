@@ -5,9 +5,15 @@ import java.util.List;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnBufferingUpdateListener;
+import android.media.MediaPlayer.OnCompletionListener;
+import android.media.MediaPlayer.OnPreparedListener;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -27,6 +33,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.messi.languagehelper.dao.EveryDaySentence;
 import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.http.LanguagehelperHttpClient;
+import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.JsonParser;
 import com.messi.languagehelper.util.KeyUtil;
@@ -35,25 +42,37 @@ import com.messi.languagehelper.util.NumberUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.TimeUtil;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 public class StudyFragment extends Fragment implements OnClickListener{
 
 	private View view;
 	private FrameLayout study_daily_sentence,study_spoken_english,study_dailog,study_test,study_to_all_user;
 	private TextView dailysentence_txt;
-	private ImageView unread_dot,daily_sentence_item_img;
+	private ImageView daily_sentence_item_img;
+	private ImageView play_img;
 	private LinearLayout study_ad_view;
 	public static StudyFragment mMainFragment;
 	private SharedPreferences mSharedPreferences;
 	private EveryDaySentence mEveryDaySentence;
 	private IFLYBannerAd mIFLYBannerAd;
+	private FragmentProgressbarListener mProgressbarListener;
+	private MediaPlayer mPlayer;
 	
 	public static StudyFragment getInstance(){
 		if(mMainFragment == null){
 			mMainFragment = new StudyFragment();
 		}
 		return mMainFragment;
+	}
+	
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		try {
+			mProgressbarListener = (FragmentProgressbarListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement FragmentProgressbarListener");
+        }
 	}
 	
 	@Override
@@ -74,8 +93,8 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		study_to_all_user = (FrameLayout)view.findViewById(R.id.study_to_all_user);
 		study_ad_view = (LinearLayout)view.findViewById(R.id.study_ad_view);
 		dailysentence_txt = (TextView)view.findViewById(R.id.dailysentence_txt);
-		unread_dot = (ImageView)view.findViewById(R.id.unread_dot);
 		daily_sentence_item_img = (ImageView)view.findViewById(R.id.daily_sentence_item_img);
+		play_img = (ImageView)view.findViewById(R.id.play_img);
 		
 		study_daily_sentence.setOnClickListener(this);
 		study_spoken_english.setOnClickListener(this);
@@ -84,6 +103,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		study_to_all_user.setOnClickListener(this);
 		dailysentence_txt.setOnClickListener(this);
 		study_ad_view.setOnClickListener(this);
+		play_img.setOnClickListener(this);
 		if(showNewFunction()){
 			mIFLYBannerAd = ADUtil.initBannerAD(getActivity(), study_ad_view);
 			mIFLYBannerAd.loadAd(new IFLYAdListener() {
@@ -150,7 +170,6 @@ public class StudyFragment extends Fragment implements OnClickListener{
 				super.onSuccess(statusCode, headers, response);
 				mEveryDaySentence = JsonParser.parseEveryDaySentence(response);
 				setSentence();
-				unread_dot.setVisibility(View.VISIBLE);
 			}
 
 			@Override
@@ -204,6 +223,41 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		case R.id.study_ad_view:
 			StatService.onEvent(getActivity(), "ad_banner", "点击banner广告", 1);
 			break;
+		case R.id.play_img:
+			try {
+				if(mPlayer == null && mEveryDaySentence != null){
+					play_img.setBackgroundResource(R.drawable.ic_pause_circle_outline_white_48dp);
+					mPlayer = new MediaPlayer();
+					Uri uri = Uri.parse(mEveryDaySentence.getTts());
+					mPlayer.setDataSource(getActivity(), uri);
+					mPlayer.setOnCompletionListener(new OnCompletionListener() {
+						@Override
+						public void onCompletion(MediaPlayer mp) {
+							play_img.setBackgroundResource(R.drawable.ic_play_circle_outline_white_48dp);
+						}
+					});
+					mPlayer.setOnPreparedListener(new OnPreparedListener() {
+						@Override
+						public void onPrepared(MediaPlayer mp) {
+							LogUtil.DefalutLog("MediaPlayer-onPrepared:");
+						}
+					});
+					mPlayer.prepare();
+					mPlayer.start();
+				}else{
+					if(mPlayer.isPlaying()){
+						play_img.setBackgroundResource(R.drawable.ic_play_circle_outline_white_48dp);
+						mPlayer.pause();
+					}else{
+						play_img.setBackgroundResource(R.drawable.ic_pause_circle_outline_white_48dp);
+						mPlayer.start();
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+			StatService.onEvent(getActivity(), "play_daily_sentence", "播放每日一句", 1);
+			break;
 		default:
 			break;
 		}
@@ -212,7 +266,6 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	private void toDailySentenceActivity(){
 		Intent intent = new Intent(getActivity(),DailySentenceActivity.class);
 		startActivity(intent);
-		unread_dot.setVisibility(View.GONE);
 		StatService.onEvent(getActivity(), "tab_study_todailysentence", "首页去每日一句页面按钮", 1);
 	}
 	
@@ -233,16 +286,46 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		startActivity(intent);
 		StatService.onEvent(getActivity(), "tab_study_tostudylist", "首页去模拟对话页面", 1);
 	}
+	
 	private void toEvaluationActivity(){
 		Intent intent = new Intent(getActivity(),EvaluationCategoryActivity.class);
 		startActivity(intent);
 		StatService.onEvent(getActivity(), "tab_study_tostudylist", "首页去口语评测页面", 1);
 	}
+	
 	private void toGetContentActivity(String title){
 		Intent intent = new Intent(getActivity(),GetContentActivity.class);
 		intent.putExtra(KeyUtil.ActionbarTitle, title);
 		startActivity(intent);
 		StatService.onEvent(getActivity(), "tab_study_toalluser", "首页致所有用户按钮", 1);
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		if (mPlayer != null) {   
+			mPlayer.stop();  
+			mPlayer.release();   
+			mPlayer = null;   
+        }   
+	}
+	
+	/**
+	 * 通过接口回调activity执行进度条显示控制
+	 */
+	private void loadding(){
+		if(mProgressbarListener != null){
+			mProgressbarListener.showProgressbar();
+		}
+	}
+	
+	/**
+	 * 通过接口回调activity执行进度条显示控制
+	 */
+	private void finishLoadding(){
+		if(mProgressbarListener != null){
+			mProgressbarListener.hideProgressbar();
+		}
 	}
 	
 }

@@ -1,10 +1,14 @@
 package com.messi.languagehelper.adapter;
 
+import java.io.IOException;
 import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -44,12 +48,14 @@ public class DailySentenceListAdapter extends RecyclerView.Adapter<RecyclerView.
 		public TextView english_txt;
 		public TextView chinese_txt;
 		public ImageView daily_sentence_list_item_img;
+		public ImageView play_img;
 		public FrameLayout daily_sentence_list_item_cover;
 		
         public ItemViewHolder(View convertView) {
             super(convertView);
             daily_sentence_list_item_cover = (FrameLayout) convertView.findViewById(R.id.daily_sentence_list_item_cover);
             daily_sentence_list_item_img = (ImageView) convertView.findViewById(R.id.daily_sentence_list_item_img);
+            play_img = (ImageView) convertView.findViewById(R.id.play_img);
 			english_txt = (TextView) convertView.findViewById(R.id.english_txt);
 			chinese_txt = (TextView) convertView.findViewById(R.id.chinese_txt);
         }
@@ -120,6 +126,32 @@ public class DailySentenceListAdapter extends RecyclerView.Adapter<RecyclerView.
 				@Override
 				public void onClick(View v) {
 					toViewImgActivity(mBean.getFenxiang_img());
+				}
+			});
+			final MediaPlayer mPlayer = new MediaPlayer();
+			try {
+				Uri uri = Uri.parse(mBean.getTts());
+				mPlayer.setDataSource(context, uri);
+				mPlayer.setOnCompletionListener(new OnCompletionListener() {
+					@Override
+					public void onCompletion(MediaPlayer mp) {
+						holder.play_img.setBackgroundResource(R.drawable.ic_play_circle_outline_white_48dp);
+					}
+				});
+				mPlayer.prepare();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+			holder.play_img.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if(mPlayer.isPlaying()){
+						mPlayer.pause();
+						holder.play_img.setBackgroundResource(R.drawable.ic_play_circle_outline_white_48dp);
+					}else{
+						mPlayer.start();
+						holder.play_img.setBackgroundResource(R.drawable.ic_pause_circle_outline_white_48dp);
+					}
 				}
 			});
 		}

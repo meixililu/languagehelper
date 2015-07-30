@@ -7,6 +7,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
@@ -50,6 +52,8 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 	private FrameLayout evaluation_en_cover;
 	private ImageButton voice_play_answer,show_zh_img;
 	private TextView evaluation_zh_tv,evaluation_en_tv,practice_prompt,record_animation_text;
+	private TextView practice_prompt_detail,practice_prompt_show;
+	private ScrollView practice_prompt_scrollview;
 	private ImageView record_anim_img;
 	private LinearLayout record_layout,record_animation_layout;
 	private ButtonRectangle voice_btn;
@@ -88,6 +92,9 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 	private void initView() {
 		evaluation_en_cover = (FrameLayout) findViewById(R.id.record_answer_cover);
 		practice_prompt = (TextView) findViewById(R.id.practice_prompt);
+		practice_prompt_scrollview = (ScrollView) findViewById(R.id.practice_prompt_scrollview);
+		practice_prompt_detail = (TextView) findViewById(R.id.practice_prompt_detail);
+		practice_prompt_show = (TextView) findViewById(R.id.practice_prompt_show);
 		evaluation_en_tv = (TextView) findViewById(R.id.record_answer);
 		evaluation_zh_tv = (TextView) findViewById(R.id.record_question);
 		voice_play_answer = (ImageButton) findViewById(R.id.voice_play_answer);
@@ -100,6 +107,7 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 		
 		voice_btn.setOnClickListener(this);
 		show_zh_img.setOnClickListener(this);
+		practice_prompt_show.setOnClickListener(this);
 		practice_prompt.setText(this.getResources().getString(R.string.practice_prompt_english));
 		
 	}
@@ -171,6 +179,15 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 				evaluation_zh_tv.setText(studyContent[1]);
 			}else{
 				evaluation_zh_tv.setText("");
+			}
+			break;
+		case R.id.practice_prompt_show:
+			if(!practice_prompt_scrollview.isShown()){
+				practice_prompt_scrollview.setVisibility(View.VISIBLE);
+				practice_prompt_show.setText(EvaluationDetailActivity.this.getResources().getString(R.string.detail_total));
+			}else{
+				practice_prompt_scrollview.setVisibility(View.GONE);
+				practice_prompt_show.setText(EvaluationDetailActivity.this.getResources().getString(R.string.detail));
 			}
 			break;
 		}
@@ -323,9 +340,17 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 		if (!TextUtils.isEmpty(mLastResult)) {
 			XmlResultParser resultParser = new XmlResultParser();
 			Result result = resultParser.parse(mLastResult);
-			
+			practice_prompt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);
 			if (null != result) {
-				practice_prompt.setText(result.toString());
+				if(result.total_score > 4.2){
+					practice_prompt.setTextColor(getResources().getColor(R.color.green_500));
+				}else if(result.total_score > 2.5){
+					practice_prompt.setTextColor(getResources().getColor(R.color.yellow_400));
+				}else {
+					practice_prompt.setTextColor(getResources().getColor(R.color.red));
+				}
+				practice_prompt.setText("总分："+ result.total_score);
+				practice_prompt_detail.setText(result.toString());
 			} else {
 				practice_prompt.setText("结析结果为空");
 			}

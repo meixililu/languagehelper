@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.messi.languagehelper"
-    android:versionCode="13"
-    android:versionName="2.2" >
+    android:versionCode="14"
+    android:versionName="2.3" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -16,20 +16,10 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
-
-    <!-- 友盟消息推送 -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <!-- 【可选】如果需要设置前台是否显示通知，需要设置这个权限 -->
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <!-- 可选 -->
-    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_ADDED" />
-    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_CHANGED" />
-    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_INSTALL" />
-    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REPLACED" />
-    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+	<uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -80,16 +70,12 @@
             android:value="false" />
         <meta-data
             android:name="IFLYTEK_APPKEY_AD"
-            android:value="&apos;5450bd92&apos;" />
+            android:value="5450bd92" />
         <meta-data
             android:name="IFLYTEK_CHANNEL"
             android:value="messi" />
 
-        <!-- 友盟 -->
-        <meta-data
-            android:name="UMENG_MESSAGE_SECRET"
-            android:value="048894bc1fc50099ced032f838dc8b68" >
-        </meta-data>
+        <!-- 友盟自动更新 -->
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="551e3853fd98c5403800122c" />
@@ -107,7 +93,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
         <!-- 友盟 -->
-
+		<!-- 乐点百度搜索sdk -->
         <activity
             android:name="com.lerdian.search.SearchResult"
             android:screenOrientation="portrait" />
@@ -115,6 +101,8 @@
         <meta-data
             android:name="LERDIAN_CHANNEL"
             android:value="02a82416e42d4c8c942255c7cf75aa8d" />
+        <!-- 乐点百度搜索sdk -->
+        
 
         <activity
             android:name="com.iflytek.voiceads.request.IFLYBrowser"
@@ -206,91 +194,6 @@
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        
-        
-        <!-- youmeng message push -->
-        <receiver
-            android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
-            android:exported="false"
-            android:process=":push" >
-        </receiver>
-        <receiver
-            android:name="com.umeng.message.SystemReceiver"
-            android:process=":push" >
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
-
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="com.umeng.message.MessageReceiver"
-            android:process=":push" >
-            <intent-filter>
-                <action android:name="org.agoo.android.intent.action.RECEIVE" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="com.umeng.message.ElectionReceiver"
-            android:process=":push" >
-            <intent-filter>
-                <action android:name="org.agoo.android.intent.action.ELECTION_RESULT_V4" />
-
-                <category android:name="umeng" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="com.umeng.message.RegistrationReceiver"
-            android:exported="false" >
-            <intent-filter>
-                <action android:name="com.messi.languagehelper.intent.action.COMMAND" />
-            </intent-filter>
-        </receiver>
-        <receiver android:name="com.umeng.message.BootBroadcastReceiver" >
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
-        <service
-            android:name="com.umeng.message.UmengService"
-            android:exported="true"
-            android:label="PushService"
-            android:process=":push" >
-            <intent-filter>
-                <action android:name="com.messi.languagehelper.intent.action.START" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.messi.languagehelper.intent.action.COCKROACH" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="org.agoo.android.intent.action.PING_V4" />
-
-                <category android:name="umeng" />
-            </intent-filter>
-        </service>
-        <service
-            android:name="com.umeng.message.UmengIntentService"
-            android:process=":push" />
-        <service
-            android:name="com.umeng.message.UmengMessageIntentReceiverService"
-            android:exported="true"
-            android:process=":push" >
-            <intent-filter>
-                <action android:name="org.android.agoo.client.MessageReceiverService" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="org.android.agoo.client.ElectionReceiverService" />
-            </intent-filter>
-        </service>
-        <!-- V1.3.0添加的service，负责下载通知的资源 -->
-        <service android:name="com.umeng.message.UmengDownloadResourceService" />
     </application>
 
 </manifest>

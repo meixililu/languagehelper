@@ -8,31 +8,26 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
-import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.messi.languagehelper.BaseActivity;
 import com.messi.languagehelper.CollectedActivity;
 import com.messi.languagehelper.ImgShareActivity;
 import com.messi.languagehelper.R;
-import com.messi.languagehelper.SettingActivity;
 import com.messi.languagehelper.WebViewFragment;
 import com.messi.languagehelper.adapter.MainPageAdapter;
 import com.messi.languagehelper.adapter.MenuListItemAdapter;
@@ -42,7 +37,6 @@ import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.views.PagerSlidingTabStrip;
-import com.umeng.message.PushAgent;
 import com.umeng.update.UmengUpdateAgent;
 
 public class WXEntryActivity extends BaseActivity implements OnClickListener,FragmentProgressbarListener {
@@ -71,16 +65,6 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 			initDatas();
 			initViews();
 			checkUpdate();
-			startPushTask();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private void startPushTask(){
-		try {
-			PushAgent mPushAgent = PushAgent.getInstance(this);
-			mPushAgent.enable();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

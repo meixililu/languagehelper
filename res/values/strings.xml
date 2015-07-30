@@ -132,8 +132,8 @@
 	
 	<string name="about_volume_title">关于音量</string>
 	<string name="about_volume_content">直接通过手机音量键来调节大小。</string>
-	<string name="practice_prompt_english">请点击开始跟读英文</string>
-	<string name="practice_prompt_chinese">请点击开始跟读中文</string>
+	<string name="practice_prompt_english">点击Start跟读英文</string>
+	<string name="practice_prompt_chinese">点击Start跟读中文</string>
 	<string name="cailing_ad_prompt">三块钱你买不了吃亏，买不了上当，只需三块钱，就能让电话另一头的TA拥有一次美好而有爱的等待，而不是平凡并且枯燥的嘟。。。嘟。。。嘟。。。还等什么呢，赶紧操作起来，为TA设置一段好玩又有新意的铃声吧! http://api.openspeech.cn/kyls/NTBhYTEyMTM=</string>
 	<string name="yuedu_ad_prompt">专注随身阅读30年! http://api.openspeech.cn/cmread/NTBhYTEyMTM=</string>
 	<string name="hotel_ad_prompt">专注开房30年! http://api.openspeech.cn/trip/NTBhYTEyMTM=</string>
@@ -141,13 +141,16 @@
 	<string name="invest_list_prompt">小伙伴快到碗里来，这个软件是我投资的！ http://lilu168.sinaapp.com/list.html</string>
 	
 	<string name="dailysentence">每日一句</string>
-	<string name="spokenEnglishTest">口语评测</string>
+	<string name="spokenEnglishTest">口语练习与评测</string>
 	<string name="simulation_dialogue">模拟对话</string>
 	<string name="introduction">基础词汇</string>
 	<string name="primary_lever">第二部分</string>
 	<string name="intermediate_lever">第三部分</string>
 	<string name="fighting">致所有用户</string>
 	<string name="sorry">很抱歉，我们的速度不够快</string>
+	<string name="total_score">满分5分，作者亲测4.2分以上及格</string>
+	<string name="detail">详情</string>
+	<string name="detail_total">总分</string>
 	
 	<string name="foreign_website">发现美好的世界</string>
 	<string name="foreign_website_subtitle">外国的月亮比较圆有木有</string>
