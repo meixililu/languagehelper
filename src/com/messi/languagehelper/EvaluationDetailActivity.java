@@ -70,6 +70,7 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 	private String[] studyContent;
 	private String mLastResult;
 	private SpeechEvaluator mSpeechEvaluator;
+	private boolean isEvaluating;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -204,6 +205,7 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 		// 设置音频保存路径，保存音频格式仅为pcm，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
 		String path = SDCardUtil.getDownloadPath(SDCardUtil.EvaluationUserPath);
 		mSpeechEvaluator.setParameter(SpeechConstant.ISE_AUDIO_PATH,path + EDCode + ".pcm");
+		isEvaluating = true;
 		mSpeechEvaluator.startEvaluating(studyContent[0], null, mEvaluatorListener);
 	}
 
@@ -212,7 +214,7 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 	 * 显示转写对话框.
 	 */
 	public void showIatDialog() {
-		if(!mSpeechEvaluator.isEvaluating()){
+		if(!isEvaluating){
 			if(isNewIn){
 				isNewIn = false;
 				isFollow = true;
@@ -234,6 +236,7 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 	 * finish record
 	 */
 	private void finishRecord(){
+		isEvaluating = false;
 		mSpeechEvaluator.stopEvaluating();
 		record_layout.setVisibility(View.GONE);
 		record_anim_img.setBackgroundResource(R.drawable.speak_voice_1);
@@ -489,13 +492,14 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		LogUtil.DefalutLog("EvaluationDetailActivity onDestroy");
 		if(mSpeechSynthesizer != null){
+			mSpeechSynthesizer.stopSpeaking();
 			mSpeechSynthesizer.destroy();
-			mSpeechSynthesizer = null;
 		}
 		if(mSpeechEvaluator != null){
+			mSpeechEvaluator.stopEvaluating();
 			mSpeechEvaluator.cancel(true);
-			mSpeechEvaluator = null;
 		}
 	}
 }

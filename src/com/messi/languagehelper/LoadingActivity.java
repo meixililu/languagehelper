@@ -3,14 +3,16 @@ package com.messi.languagehelper;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.baidu.mobstat.StatService;
 import com.iflytek.voiceads.AdError;
@@ -25,28 +27,22 @@ import com.messi.languagehelper.wxapi.WXEntryActivity;
 
 public class LoadingActivity extends Activity implements OnClickListener{
 	
-	public static final long IntervalTime = 1000 * 60 * 5;
-	// 缓存，保存当前的引擎参数到下一次启动应用程序使用.
 	private SharedPreferences mSharedPreferences;
 	private LinearLayout middle_ad;
+	private RelativeLayout parent_layout;
+	private ImageView forward_img;
 	private IFLYFullScreenAd fullScreenAd;
+	private boolean isStopToGoNext;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		TransparentStatusbar();
-		setContentView(R.layout.loading_activity);
 		try {
-			mSharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
-			boolean isShowLoading = Settings.isEnoughTime(mSharedPreferences,IntervalTime);
-			if(isShowLoading){
-				init();
-				new WaitTask().execute();
-			}else{
-				toNextPage();
-			}
+			TransparentStatusbar();
+			setContentView(R.layout.loading_activity);
+			init();
 		} catch (Exception e) {
-			toNextPage();
+			onError();
 			e.printStackTrace();
 		}
 	}
@@ -62,38 +58,66 @@ public class LoadingActivity extends Activity implements OnClickListener{
 	}
 	
 	private void init(){
-		try {
-			ShortCut.addShortcut(this, mSharedPreferences);
-			middle_ad = (LinearLayout)findViewById(R.id.middle_ad);
+		mSharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
+		parent_layout = (RelativeLayout) findViewById(R.id.parent_layout);
+		forward_img = (ImageView) findViewById(R.id.forward_img);
+		middle_ad = (LinearLayout)findViewById(R.id.middle_ad);
+		forward_img.setOnClickListener(this);
+		ShortCut.addShortcut(this, mSharedPreferences);
+		if(isEnoughTimeToShowAd()){
 			fullScreenAd = ADUtil.initQuanPingAD(this, middle_ad);
-			middle_ad.setOnClickListener(this);
-			if(showNewFunction()){
-				fullScreenAd.loadAd(new IFLYAdListener() {
-					@Override
-					public void onAdReceive() {
-						if(fullScreenAd != null){
-							fullScreenAd.showAd();
-						}
+			fullScreenAd.loadAd(new IFLYAdListener() {
+				@Override
+				public void onAdReceive() {
+					if(fullScreenAd != null){
+						fullScreenAd.showAd();
 						LogUtil.DefalutLog("LoadingActivity---fullScreenAd---onAdReceive");
 					}
-					@Override
-					public void onAdClose() {
-					}
-					@Override
-					public void onAdClick() {
-					}
-					@Override
-					public void onAdFailed(AdError arg0) {
-						LogUtil.DefalutLog("LoadingActivity---onAdFailed:"+arg0.getErrorCode()+"---"+arg0.getErrorDescription());
-					}
-				});
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+				}
+				@Override
+				public void onAdClose() {
+					toNextPage();
+					LogUtil.DefalutLog("LoadingActivity---fullScreenAd---onAdClose");
+				}
+				@Override
+				public void onAdClick() {
+					onClickAd();
+					LogUtil.DefalutLog("LoadingActivity---fullScreenAd---onAdClick");
+				}
+				@Override
+				public void onAdFailed(AdError arg0) {
+					onError();
+					LogUtil.DefalutLog("LoadingActivity---fullScreenAd---onAdFailed:"+arg0.getErrorCode()+"---"+arg0.getErrorDescription());
+				}
+			});
+		}else{
+			onError();
 		}
 	}
 	
-	private boolean showNewFunction(){
+	private void onClickAd(){
+		isStopToGoNext = true;
+		forward_img.setVisibility(View.VISIBLE);
+		parent_layout.setOnClickListener(this);
+		StatService.onEvent(LoadingActivity.this, "ad_kaiping", "点击开屏广告", 1);
+	}
+	
+	private void onError(){
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				toNextPage();
+			}
+		}, 800);
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		LogUtil.DefalutLog("LoadingActivity---onActivityResult");
+	}
+	
+	private boolean isEnoughTimeToShowAd(){
 		if(ADUtil.IsShowAdImmediately){
 			return true;
 		}else{
@@ -109,26 +133,14 @@ public class LoadingActivity extends Activity implements OnClickListener{
 	}
 	
 	private void toNextPage(){
-		Intent intent = new Intent(LoadingActivity.this, WXEntryActivity.class);
-		startActivity(intent);
-		finish();
-	}
-
-	class WaitTask extends AsyncTask<Void, Void, Void>{
-
-		@Override
-		protected Void doInBackground(Void... params) {
-			try {
-				Thread.sleep(3500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+		try {
+			if(!isStopToGoNext){
+				Intent intent = new Intent(LoadingActivity.this, WXEntryActivity.class);
+				startActivity(intent);
+				finish();
 			}
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(Void result) {
-			toNextPage();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -158,10 +170,13 @@ public class LoadingActivity extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
-		case R.id.middle_ad:
-			StatService.onEvent(LoadingActivity.this, "ad_kaiping", "点击开屏广告", 1);
+		case R.id.parent_layout:
+			isStopToGoNext = false;
+			toNextPage();
 			break;
-		default:
+		case R.id.forward_img:
+			isStopToGoNext = false;
+			toNextPage();
 			break;
 		}
 	}
