@@ -37,6 +37,7 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 	private TextView tap_to_reload;
     private String Url;
     private String title;
+    private String ShareUrlMsg;
     private boolean isReedPullDownRefresh;
     private float mActionBarHeight;
     private long lastClick;
@@ -52,6 +53,7 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 	private void initData(){
 		Url = getIntent().getStringExtra(KeyUtil.URL);
 		title = getIntent().getStringExtra(KeyUtil.ActionbarTitle);
+		ShareUrlMsg = getIntent().getStringExtra(KeyUtil.ShareUrlMsg);
 		isReedPullDownRefresh = getIntent().getBooleanExtra(KeyUtil.IsReedPullDownRefresh, true);
 		if(TextUtils.isEmpty(title)){
 			title = getResources().getString(R.string.app_name);
@@ -180,20 +182,10 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.yuedu_ad_prompt));
 			}else if(Url.equals(Settings.HotalUrl)){
 				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.hotel_ad_prompt));
-			}else if(Url.equals(Settings.InstagramUrl)){
-				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.instagram_subtitle)+" "+Settings.InstagramUrl);
-			}else if(Url.equals(Settings.MsnbcUrl)){
-				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.website_msnbc_subtitle)+" "+Settings.MsnbcUrl);
-			}else if(Url.equals(Settings.BbcNewsUrl)){
-				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.website_bbc_news_subtitle)+" "+Settings.BbcNewsUrl);
-			}else if(Url.equals(Settings.BbcLearningenglishUrl)){
-				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.website_bbc_learning_subtitle)+" "+Settings.BbcLearningenglishUrl);
-			}else if(Url.equals(Settings.EngadgetUrl)){
-				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.website_engadget_subtitle)+" "+Settings.EngadgetUrl);
-			}else if(Url.equals(Settings.PhonedogUrl)){
-				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.website_phonedog_subtitle)+" "+Settings.PhonedogUrl);
-			}else if(Url.equals(Settings.InvestListUrl)){
-				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.invest_list_prompt));
+			}else{
+				if(!TextUtils.isEmpty(ShareUrlMsg)){
+					ShareUtil.shareLink(WebViewActivity.this, ShareUrlMsg);
+				}
 			}
 			StatService.onEvent(this, "webview_share_link", "分享链接", 1);
 			break;

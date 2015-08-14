@@ -185,5 +185,63 @@ public class AVOUtil {
 		public final static String EDIsValid = "EDIsValid";
 		
 	}
+	
+	public static class EnglishWebsite {
+		
+		public final static String EnglishWebsite = "EnglishWebsite";
+		
+		public final static String Title = "Title";
+		
+		public final static String Describe = "Describe";
+		
+		public final static String ImgUrl = "ImgUrl";
+		
+		public final static String ShareMsg = "ShareMsg";
+		
+		public final static String Url = "Url";
+		
+		public final static String Order = "Order";
+		
+		public final static String IsValid = "IsValid";
+		
+	}
+	
+	public static class AppRecommendList {
+		
+		public final static String AppRecommendList = "AppRecommendList";
+		
+		public final static String AppTypeName = "AppTypeName";
+		
+		public final static String AppTypeCode = "AppTypeCode";
+		
+		public final static String AppTypeDescribe = "AppTypeDescribe";
+		
+		public final static String AppTypeIcon = "AppTypeIcon";
+		
+		public final static String Order = "Order";
+		
+		public final static String IsValid = "IsValid";
+		
+	}
+	
+	public static class AppRecommendDetail {
+		
+		public final static String AppRecommendDetail = "AppRecommendDetail";
+		
+		public final static String AppName = "AppName";
+		
+		public final static String AppTypeCode = "AppTypeCode";
+		
+		public final static String AppDescribe = "AppDescribe";
+		
+		public final static String APPIcon = "APPIcon";
+		
+		public final static String APPUrl = "APPUrl";
+		
+		public final static String Order = "Order";
+		
+		public final static String IsValid = "IsValid";
+		
+	}
 
 }

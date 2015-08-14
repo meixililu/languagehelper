@@ -1,43 +1,34 @@
 package com.messi.languagehelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
-import android.content.SharedPreferences;
+import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ListView;
 
-import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
-import com.iflytek.cloud.SpeechRecognizer;
-import com.iflytek.cloud.SpeechSynthesizer;
-import com.messi.languagehelper.adapter.DailySentenceListAdapter;
-import com.messi.languagehelper.dao.Dictionary;
+import com.baidu.mobstat.StatService;
+import com.iflytek.voiceads.AdError;
+import com.iflytek.voiceads.IFLYAdListener;
+import com.iflytek.voiceads.IFLYBannerAd;
+import com.messi.languagehelper.adapter.DailySentenceListsAdapter;
 import com.messi.languagehelper.dao.EveryDaySentence;
 import com.messi.languagehelper.db.DataBaseUtil;
-import com.messi.languagehelper.listener.HidingScrollListener;
+import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
-import com.messi.languagehelper.views.DividerItemDecoration;
 
 public class DailySentenceActivity extends BaseActivity implements OnClickListener {
 
-	private RecyclerView recent_used_lv;
+	private ListView recent_used_lv;
 	private LayoutInflater mInflater;
-	private DailySentenceListAdapter mAdapter;
+	private DailySentenceListsAdapter mAdapter;
 	private List<EveryDaySentence> beans;
-	private ProgressBarCircularIndeterminate progressbar;
-
-	// 识别对象
-//	private SpeechRecognizer recognizer;
-	// 缓存，保存当前的引擎参数到下一次启动应用程序使用.
-//	private SharedPreferences mSharedPreferences;
-	//合成对象.
-//	private SpeechSynthesizer mSpeechSynthesizer;
-
+	private MediaPlayer mPlayer;
 	private Bundle bundle;
 	private int maxNumber = 0;
 	
@@ -46,40 +37,50 @@ public class DailySentenceActivity extends BaseActivity implements OnClickListen
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.daily_sentence_activity);
 		init();
+		new GetDataTask().execute();
 	}
 	
 	private void init() {
 		getSupportActionBar().setTitle(getResources().getString(R.string.dailysentence));
+		mPlayer = new MediaPlayer();
 		mInflater = LayoutInflater.from(this);
-		recent_used_lv = (RecyclerView) findViewById(R.id.collected_listview);
-		progressbar = (ProgressBarCircularIndeterminate) findViewById(R.id.lottery_result_hall_progressbar_m);
-//		mSharedPreferences = this.getSharedPreferences(this.getPackageName(), Activity.MODE_PRIVATE);
-//		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this, null);
-//		recognizer = SpeechRecognizer.createRecognizer(this, null);
-		
-		recent_used_lv.setHasFixedSize(true);
-		LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
-	    mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-		recent_used_lv.setLayoutManager(mLayoutManager);
-		recent_used_lv.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.abc_list_divider_mtrl_alpha)));
-		beans = DataBaseUtil.getInstance().getDailySentenceList(Settings.offset);
-		mAdapter = new DailySentenceListAdapter(this, mInflater, beans);
+		recent_used_lv = (ListView) findViewById(R.id.studycategory_lv);
+		beans = new ArrayList<EveryDaySentence>();
+		mAdapter = new DailySentenceListsAdapter(this, mInflater, beans, mPlayer, mProgressbar);
 		recent_used_lv.setAdapter(mAdapter);
-		recent_used_lv.setOnScrollListener(new HidingScrollListener() {
-			@Override
-			public void onShow() {
-				showViews();
-			}
-			@Override
-			public void onHide() {
-				hideViews();
-			}
-		});
+	}
+	
+	class GetDataTask extends AsyncTask<Void, Void, Void>{
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			showProgressbar();
+		}
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			List<EveryDaySentence> list = DataBaseUtil.getInstance().getDailySentenceList(Settings.offset);
+			beans.clear();
+			beans.addAll(list);
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			hideProgressbar();
+			mAdapter.notifyDataSetChanged();
+		}
 	}
 	
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		if (mPlayer != null) {   
+			mPlayer.stop();  
+			mPlayer.release();   
+			mPlayer = null;   
+        }   
 		LogUtil.DefalutLog("CollectedFragment-onDestroy");
 	}
 

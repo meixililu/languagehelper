@@ -26,6 +26,8 @@ public class KeyUtil {
 	
 	public static final String URL = "urlkey";
 	
+	public static final String ShareUrlMsg = "ShareUrlMsg";
+	
 	public static final String ActionbarTitle = "ActionbarTitle";
 	
 	public static final String IsLoadingShowToday = "IsLoadingShowToday";
@@ -58,11 +60,7 @@ public class KeyUtil {
 	
 	public static final String IsReedPullDownRefresh = "IsReedPullDownRefresh";
 	
-	public static final String IsCanShowAD_Loading = "IsCanShowAD_Loading";
-	
-	public static final String IsCanShowAD_Leisure = "IsCanShowAD_Leisure";
-
-	public static final String IsCanShowAD_Study = "IsCanShowAD_Study";
+	public static final String IsCanShowAD = "IsCanShowAD";
 	
 	public static final String LastTimeSelectTab = "LastTimeSelectTab";
 	

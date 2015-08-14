@@ -7,12 +7,18 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
+import com.baidu.mobstat.StatService;
+import com.iflytek.voiceads.AdError;
+import com.iflytek.voiceads.IFLYAdListener;
+import com.iflytek.voiceads.IFLYBannerAd;
 import com.messi.languagehelper.adapter.EvaluationCategoryAdapter;
+import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.AVOUtil;
 
 public class EvaluationCategoryActivity extends BaseActivity implements OnClickListener{
@@ -20,6 +26,8 @@ public class EvaluationCategoryActivity extends BaseActivity implements OnClickL
 	private ListView category_lv;
 	private EvaluationCategoryAdapter mAdapter;
 	private List<AVObject> avObjects;
+	private IFLYBannerAd mIFLYBannerAd;
+	private LinearLayout ad_view;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -34,8 +42,34 @@ public class EvaluationCategoryActivity extends BaseActivity implements OnClickL
 		getSupportActionBar().setTitle(getResources().getString(R.string.spokenEnglishTest));
 		avObjects = new ArrayList<AVObject>();
 		category_lv = (ListView) findViewById(R.id.studycategory_lv);
+		ad_view = (LinearLayout) findViewById(R.id.ad_view);
 		mAdapter = new EvaluationCategoryAdapter(this, avObjects);
 		category_lv.setAdapter(mAdapter);
+		addAD();
+	}
+	
+	private void addAD(){
+		if(ADUtil.isShowAd(this)){
+			mIFLYBannerAd = ADUtil.initBannerAD(EvaluationCategoryActivity.this, ad_view, ADUtil.ListADId);
+			mIFLYBannerAd.loadAd(new IFLYAdListener() {
+				@Override
+				public void onAdReceive() {
+					if(mIFLYBannerAd != null){
+						mIFLYBannerAd.showAd();
+					}
+				}
+				@Override
+				public void onAdFailed(AdError arg0) {
+				}
+				@Override
+				public void onAdClose() {
+				}
+				@Override
+				public void onAdClick() {
+					StatService.onEvent(EvaluationCategoryActivity.this, "ad_banner", "点击banner广告", 1);
+				}
+			});
+		}
 	}
 	
 	@Override
@@ -79,6 +113,15 @@ public class EvaluationCategoryActivity extends BaseActivity implements OnClickL
 		
 	}
 
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if(mIFLYBannerAd != null){
+			mIFLYBannerAd.destroy();
+			mIFLYBannerAd = null;
+		}
+	}
+	
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){

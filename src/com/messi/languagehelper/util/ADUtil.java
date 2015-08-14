@@ -2,7 +2,8 @@ package com.messi.languagehelper.util;
 
 
 import android.app.Activity;
-import android.view.View;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
@@ -19,10 +20,41 @@ public class ADUtil {
 	public static final String BannerADId = "A16A4713FB525DECF20126886F957534";
 	public static final String ChaPingADId = "484C6E8F51357AFF26AEDB2441AB1847";
 	public static final String QuanPingADId = "72C0E6B1042EA9F06A5A9B76235626CF";
+	public static final String ListADId = "8FCA7E5106A3DB7DBC97B3B357E8A57F";
 	
-	public static final boolean IsShowAdImmediately = false;
+	public static final boolean IsShowAdImmediately = true;
 
 	// initQuanPingAD  initChaPingAD    initBannerAD    initKaiPingAD
+	
+	/**
+	 * 添加banner广告条
+	 * @param mActivity
+	 * @param view
+	 */
+	public static IFLYBannerAd initBannerAD(Activity mActivity,String adId){
+		//创建IFLYBannerAdView对象 
+		final IFLYBannerAd bannerAd = IFLYBannerAd.createBannerAd(mActivity,adId); 
+		bannerAd.setAdSize(IFLYAdSize.BANNER); 
+		return bannerAd;
+	}
+	
+	/**
+	 * 添加banner广告条
+	 * @param mActivity
+	 * @param view
+	 */
+	public static IFLYBannerAd initBannerAD(Activity mActivity,LinearLayout view,String adId){
+		//创建IFLYBannerAdView对象 
+		final IFLYBannerAd bannerAd = IFLYBannerAd.createBannerAd(mActivity,adId); 
+		bannerAd.setAdSize(IFLYAdSize.BANNER); 
+		try {
+			view.removeAllViews();
+			view.addView(bannerAd);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return bannerAd;
+	}
 	
 	/**
 	 * 添加banner广告条
@@ -39,7 +71,6 @@ public class ADUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
-		//添加监听器 
 		return bannerAd;
 	}
 	
@@ -79,6 +110,16 @@ public class ADUtil {
 			e.printStackTrace();
 		} 
 		return fullScreenAd;
+	}
+	
+	public static boolean isShowAd(Context mContext){
+		if(IsShowAdImmediately){
+			return true;
+		}else{
+			SharedPreferences mSharedPreferences = Settings.getSharedPreferences(mContext);
+			int times = mSharedPreferences.getInt(KeyUtil.IsCanShowAD, 0);
+			return times > 3;
+		}
 	}
 
 }

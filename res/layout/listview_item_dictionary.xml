@@ -60,9 +60,11 @@
         android:orientation="horizontal" >
 
         <FrameLayout
-            android:id="@+id/delete_btn"
+            android:id="@+id/weixi_btn"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
+            android:paddingTop="@dimen/padding_margin"
+            android:paddingBottom="@dimen/padding_margin"
             android:layout_weight="1"
             android:foreground="@drawable/framelayout_selector" >
 
@@ -70,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@drawable/delete"
+                android:background="@drawable/icon_weixin"
                 android:clickable="false" />
         </FrameLayout>
 
@@ -130,7 +132,7 @@
             android:background="@color/line_color_blue" />
 
         <FrameLayout
-            android:id="@+id/weixi_btn"
+            android:id="@+id/delete_btn"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -140,7 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@drawable/icon_weixin"
+                android:background="@drawable/delete"
                 android:clickable="false" />
         </FrameLayout>
 

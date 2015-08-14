@@ -30,8 +30,17 @@ public class EveryDaySentence {
     private String backup1;
     private String backup2;
     private String backup3;
+    private boolean isPlaying;
 
-    /** Used to resolve relations */
+    public boolean isPlaying() {
+		return isPlaying;
+	}
+
+	public void setPlaying(boolean isPlaying) {
+		this.isPlaying = isPlaying;
+	}
+
+	/** Used to resolve relations */
     private transient DaoSession daoSession;
 
     /** Used for active entity operations. */

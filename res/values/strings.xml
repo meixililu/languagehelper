@@ -17,12 +17,12 @@
     <string name="title_instagram">图片分享社区</string>
     <string name="title_cailing">酷炫彩铃</string>
     <string name="title_reading">阅读基地</string>
-    <string name="title_website">英文网站推荐</string>
+    <string name="title_website">一些不错的英文网站</string>
     <string name="title_favorite">我的收藏</string>
     <string name="title_hotel">订酒店</string>
     <string name="title_dialog_select">选择场景</string>
     <string name="title_settings">应用设置</string>
-    <string name="title_apps">五个APP</string>
+    <string name="title_apps">发现APP</string>
     <string name="evaluation_prompt">关于口语评测</string>
     
     <string name="menu_share">DIY分享</string>
@@ -152,7 +152,7 @@
 	<string name="detail">详情</string>
 	<string name="detail_total">总分</string>
 	
-	<string name="foreign_website">发现美好的世界</string>
+	<string name="foreign_website">一些不错的英文网站</string>
 	<string name="foreign_website_subtitle">外国的月亮比较圆有木有</string>
 	<string name="leisuer_one">酷炫彩铃</string>
 	<string name="leisuer_one_subtitle">听听音乐放松一下</string>
@@ -164,22 +164,10 @@
 	<string name="leisuer_invest_subtitle">提意见就是对软件投资</string>
 	
 	<string name="website_attention">提示：国外网站的打开速度稍微慢点</string>
-	<string name="instagram_pinsta">Instagram（网页版）</string>
-	<string name="instagram_subtitle">世界各地的网友都在这里分享图片交友</string>
-	<string name="website_msnbc">MSNBC</string>
-	<string name="website_msnbc_subtitle">美国的一个全国性广播电视网</string>
-	<string name="website_bbc_news">BBC News</string>
-	<string name="website_bbc_news_subtitle">英国最大的新闻广播机构网站</string>
-	<string name="website_bbc_learning">BBC Learning English</string>
-	<string name="website_bbc_learning_subtitle">BBC英语教学频道</string>
-	<string name="website_engadget">Engadget</string>
-	<string name="website_engadget_subtitle">全球最新消费性电子产品消息</string>
-	<string name="website_phonedog">Phonedog</string>
-	<string name="website_phonedog_subtitle">国外手机新闻报道网站</string>
-	<string name="website_tobecontinue">未完待续</string>
-	<string name="website_tobecontinue_subtitle">To be continue</string>
 	<string name="leisuer_game">轻游戏中心</string>
 	<string name="leisuer_game_subtitle">大家都爱玩的小游戏</string>
+	<string name="leisuer_news">新闻资讯</string>
+	<string name="leisuer_news_subtitle">累了就看看新闻放松下</string>
 	<string name="leisuer_baidu">百度一下</string>
 	<string name="leisuer_baidu_subtitle">有神马不知道的就问度娘</string>
 	

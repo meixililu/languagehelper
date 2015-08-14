@@ -20,22 +20,6 @@ public class Settings {
 	/**jinshan daily sentence api**/
 	public static String DailySentenceUrl = "http://open.iciba.com/dsapi/";
 	
-	/**foreign website url**/
-	public static final String InstagramUrl = "http://pinsta.me/";
-	
-	public static final String MsnbcUrl = "http://www.msnbc.com/";
-	
-	public static final String BbcNewsUrl = "http://www.bbc.com/news";
-	
-	public static final String BbcLearningenglishUrl = "http://www.bbc.co.uk/learningenglish/";
-	
-	public static final String EngadgetUrl = "http://www.engadget.com/";
-	
-	public static final String PhonedogUrl = "http://www.phonedog.com/";
-	
-	public static final String PinterestUrl = "https://www.pinterest.com/";
-	/**foreign website url**/
-	
 	public static final String CaiLingUrl = "http://api.openspeech.cn/kyls/NTBhYTEyMTM=";
 	
 	public static final String YueduUrl = "http://api.openspeech.cn/cmread/NTBhYTEyMTM=";
@@ -46,6 +30,10 @@ public class Settings {
 	
 	/**invest list**/
 	public static final String InvestListUrl = "http://lilu168.sinaapp.com/list.html";
+	
+	/**广阅通**/
+	public static final String GuangyuetongUrl = "http://p.contx.cn/v1/access?id=f9136944-bc17-4cb1-9b14-ece9de91b39d&uid=#uid#&ud=#ud#";
+	
 
 	public static final String Email = "meixililulu@163.com";
 	

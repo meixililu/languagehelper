@@ -7,70 +7,36 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
-import com.baidu.mobstat.StatService;
-import com.iflytek.voiceads.AdError;
-import com.iflytek.voiceads.IFLYAdListener;
-import com.iflytek.voiceads.IFLYBannerAd;
-import com.messi.languagehelper.adapter.PracticeCategoryAdapter;
-import com.messi.languagehelper.util.ADUtil;
+import com.messi.languagehelper.adapter.AppRecommendListAdapter;
 import com.messi.languagehelper.util.AVOUtil;
 
-public class PracticeCategoryActivity extends BaseActivity implements OnClickListener{
+public class AppRecommendListActivity extends BaseActivity implements OnClickListener{
 
 	
 	private ListView category_lv;
-	private PracticeCategoryAdapter mAdapter;
+	private AppRecommendListAdapter mAdapter;
 	private List<AVObject> avObjects;
-	private IFLYBannerAd mIFLYBannerAd;
-	private LinearLayout ad_view;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.study_category_activity);
+		setContentView(R.layout.app_recommend_list_activity);
 		initSwipeRefresh();
 		initViews();
 		new QueryTask().execute();
 	}
 	
 	private void initViews(){
-		getSupportActionBar().setTitle(getResources().getString(R.string.title_Practice));
+		getSupportActionBar().setTitle(getResources().getString(R.string.title_apps));
 		avObjects = new ArrayList<AVObject>();
 		category_lv = (ListView) findViewById(R.id.studycategory_lv);
-		ad_view = (LinearLayout) findViewById(R.id.ad_view);
-		mAdapter = new PracticeCategoryAdapter(this, avObjects);
+		mAdapter = new AppRecommendListAdapter(this, avObjects);
 		category_lv.setAdapter(mAdapter);
-		addAD();
-	}
-	
-	private void addAD(){
-		if(ADUtil.isShowAd(this)){
-			mIFLYBannerAd = ADUtil.initBannerAD(PracticeCategoryActivity.this, ad_view, ADUtil.ListADId);
-			mIFLYBannerAd.loadAd(new IFLYAdListener() {
-				@Override
-				public void onAdReceive() {
-					if(mIFLYBannerAd != null){
-						mIFLYBannerAd.showAd();
-					}
-				}
-				@Override
-				public void onAdFailed(AdError arg0) {
-				}
-				@Override
-				public void onAdClose() {
-				}
-				@Override
-				public void onAdClick() {
-					StatService.onEvent(PracticeCategoryActivity.this, "ad_banner", "点击banner广告", 1);
-				}
-			});
-		}
 	}
 	
 	@Override
@@ -89,9 +55,9 @@ public class PracticeCategoryActivity extends BaseActivity implements OnClickLis
 		
 		@Override
 		protected Void doInBackground(Void... params) {
-			AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.PracticeCategory.PracticeCategory);
-			query.whereEqualTo(AVOUtil.PracticeCategory.PCIsValid, "1");
-			query.orderByDescending(AVOUtil.PracticeCategory.PCOrder);
+			AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.AppRecommendList.AppRecommendList);
+			query.whereEqualTo(AVOUtil.AppRecommendList.IsValid, "1");
+			query.orderByAscending(AVOUtil.AppRecommendList.Order);
 			try {
 				List<AVObject> avObject  = query.find();
 				if(avObject != null){
@@ -116,10 +82,6 @@ public class PracticeCategoryActivity extends BaseActivity implements OnClickLis
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		if(mIFLYBannerAd != null){
-			mIFLYBannerAd.destroy();
-			mIFLYBannerAd = null;
-		}
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import cn.contentx.ContExManager;
 
 import com.baidu.mobstat.StatService;
 import com.iflytek.voiceads.AdError;
@@ -27,7 +28,8 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 	
 	private View view;
 	private FrameLayout cailing_layout,app_layout,yuedu_layout,hotal_layout;
-	private FrameLayout instagram_layout, invest_layout, game_layout,baidu_layout;
+	private FrameLayout invest_layout, game_layout,baidu_layout;
+	private FrameLayout news_layout;
 	private RelativeLayout ad_layout;
 	private IFLYInterstitialAd mInterstitialAd;
 	public static LeisureFragment mMainFragment;
@@ -50,7 +52,6 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 	
 	private void initViews(){
 		mSharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);
-		instagram_layout = (FrameLayout)view.findViewById(R.id.instagram_layout);
 		cailing_layout = (FrameLayout)view.findViewById(R.id.cailing_layout);
 		baidu_layout = (FrameLayout)view.findViewById(R.id.baidu_layout);
 		game_layout = (FrameLayout)view.findViewById(R.id.game_layout);
@@ -58,8 +59,9 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		hotal_layout = (FrameLayout)view.findViewById(R.id.hotal_layout);
 		app_layout = (FrameLayout)view.findViewById(R.id.app_layout);
 		invest_layout = (FrameLayout)view.findViewById(R.id.invest_layout);
+		news_layout = (FrameLayout)view.findViewById(R.id.news_layout);
 		ad_layout = (RelativeLayout)view.findViewById(R.id.ad_layout);
-		instagram_layout.setOnClickListener(this);
+		
 		cailing_layout.setOnClickListener(this);
 		yuedu_layout.setOnClickListener(this);
 		hotal_layout.setOnClickListener(this);
@@ -68,13 +70,14 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		baidu_layout.setOnClickListener(this);
 		game_layout.setOnClickListener(this);
 		ad_layout.setOnClickListener(this);
+		news_layout.setOnClickListener(this);
 		mInterstitialAd = ADUtil.initChaPingAD(getActivity(), ad_layout);
 		mHandler = new Handler();
 		showAD();
 	}
 	
 	private void showAD(){
-		if(showNewFunction()){
+		if(ADUtil.isShowAd(getActivity())){
 			mInterstitialAd.loadAd(mIFLYAdListener);
 		}else{
 			ad_layout.setVisibility(View.GONE);
@@ -103,6 +106,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		}
 		@Override
 		public void onAdClick() {
+			StatService.onEvent(getActivity(), "ad_kapian", "点击卡片广告", 1);
 		}
 		@Override
 		public void onAdFailed(AdError arg0) {
@@ -110,21 +114,6 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		}
 	};
 	
-	private boolean showNewFunction(){
-		if(ADUtil.IsShowAdImmediately){
-			return true;
-		}else{
-			int IsCanShowAD_Leisure = mSharedPreferences.getInt(KeyUtil.IsCanShowAD_Leisure, 0);
-			if(IsCanShowAD_Leisure > 0){
-				return true;
-			}else{
-				IsCanShowAD_Leisure++;
-				Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsCanShowAD_Leisure,IsCanShowAD_Leisure);
-				return false;
-			}
-		}
-	}
-
 	@Override
 	public void onClick(View v) {
 		if(v.getId() == R.id.cailing_layout){
@@ -135,18 +124,19 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 			toHotelActivity();
 		}else if(v.getId() == R.id.app_layout){
 			toAppActivity();
-		}else if(v.getId() == R.id.instagram_layout){
-			toEnglishWebsiteRecommendActivity();
 		}else if(v.getId() == R.id.invest_layout){
 			toInvestorListActivity();
 		}else if(v.getId() == R.id.game_layout){
 			toGameCenterActivity();
 		}else if(v.getId() == R.id.baidu_layout){
 			toBaiduActivity();
-		}else if(v.getId() == R.id.ad_layout){
-			LogUtil.DefalutLog("---ad_layout.performClick---");
-			StatService.onEvent(getActivity(), "ad_kapian", "点击卡片广告", 1);
+		}else if(v.getId() == R.id.news_layout){
+			ContExManager.show(getActivity());//直接显示，使用默认值
 		}
+	}
+	
+	private void toNewsActivity(){
+		
 	}
 	
 	private void toBaiduActivity(){
@@ -160,12 +150,6 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		intent.putExtra(KeyUtil.ActionbarTitle, getActivity().getResources().getString(R.string.invest_activity_title));
 		getActivity().startActivity(intent);
 		StatService.onEvent(getActivity(), "leisure_to_invest_list", "休闲页去投资人列表", 1);
-	}
-	
-	private void toEnglishWebsiteRecommendActivity(){
-		Intent intent = new Intent(getActivity(),EnglishWebsiteRecommendActivity.class);
-		getActivity().startActivity(intent);
-		StatService.onEvent(getActivity(), "leisure_to_english_website", "休闲页去英文网站页面", 1);
 	}
 	
 	private void toGameCenterActivity(){
@@ -202,7 +186,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 	}
 	
 	private void toAppActivity(){
-		Intent intent = new Intent(getActivity(),RecommendActivity.class);
+		Intent intent = new Intent(getActivity(),AppRecommendListActivity.class);
 		getActivity().startActivity(intent);
 		StatService.onEvent(getActivity(),"leisure_to_authors_software", "休闲页去作者其他应用页", 1);
 	}

@@ -33,6 +33,22 @@ public class LoadingActivity extends Activity implements OnClickListener{
 	private ImageView forward_img;
 	private IFLYFullScreenAd fullScreenAd;
 	private boolean isStopToGoNext;
+	private Handler mHandler;
+	
+	private Runnable mRunnable = new Runnable() {
+		@Override
+		public void run() {
+			toNextPage();
+			mHandler.removeCallbacks(m3Runnable);
+		}
+	};
+	
+	private Runnable m3Runnable = new Runnable() {
+		@Override
+		public void run() {
+			toNextPage();
+		}
+	};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +75,14 @@ public class LoadingActivity extends Activity implements OnClickListener{
 	
 	private void init(){
 		mSharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
+		mHandler = new Handler();
 		parent_layout = (RelativeLayout) findViewById(R.id.parent_layout);
 		forward_img = (ImageView) findViewById(R.id.forward_img);
 		middle_ad = (LinearLayout)findViewById(R.id.middle_ad);
 		forward_img.setOnClickListener(this);
 		ShortCut.addShortcut(this, mSharedPreferences);
-		if(isEnoughTimeToShowAd()){
+		addToShowAdTimes();
+		if(ADUtil.isShowAd(this)){
 			fullScreenAd = ADUtil.initQuanPingAD(this, middle_ad);
 			fullScreenAd.loadAd(new IFLYAdListener() {
 				@Override
@@ -93,9 +111,11 @@ public class LoadingActivity extends Activity implements OnClickListener{
 		}else{
 			onError();
 		}
+		onTimeToLong();
 	}
 	
 	private void onClickAd(){
+		cancleRunable();
 		isStopToGoNext = true;
 		forward_img.setVisibility(View.VISIBLE);
 		parent_layout.setOnClickListener(this);
@@ -103,12 +123,11 @@ public class LoadingActivity extends Activity implements OnClickListener{
 	}
 	
 	private void onError(){
-		new Handler().postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				toNextPage();
-			}
-		}, 800);
+		mHandler.postDelayed(mRunnable, 800);
+	}
+	
+	private void onTimeToLong(){
+		mHandler.postDelayed(m3Runnable, 3500);
 	}
 	
 	@Override
@@ -117,19 +136,10 @@ public class LoadingActivity extends Activity implements OnClickListener{
 		LogUtil.DefalutLog("LoadingActivity---onActivityResult");
 	}
 	
-	private boolean isEnoughTimeToShowAd(){
-		if(ADUtil.IsShowAdImmediately){
-			return true;
-		}else{
-			int IsCanShowAD_Loading = mSharedPreferences.getInt(KeyUtil.IsCanShowAD_Loading, 0);
-			if(IsCanShowAD_Loading > 0){
-				return true;
-			}else{
-				IsCanShowAD_Loading++;
-				Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsCanShowAD_Loading,IsCanShowAD_Loading);
-				return false;
-			}
-		}
+	private void addToShowAdTimes(){
+		int IsCanShowAD = mSharedPreferences.getInt(KeyUtil.IsCanShowAD, 0);
+		IsCanShowAD++;
+		Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsCanShowAD, IsCanShowAD);
 	}
 	
 	private void toNextPage(){
@@ -141,6 +151,13 @@ public class LoadingActivity extends Activity implements OnClickListener{
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	private void cancleRunable(){
+		if(m3Runnable != null){
+			mHandler.removeCallbacks(m3Runnable);
+			mHandler.removeCallbacks(mRunnable);
 		}
 	}
 	

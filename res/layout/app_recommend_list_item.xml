@@ -1,42 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/daily_sentence_list_item_cover"
-    android:layout_width="match_parent"
+    android:id="@+id/layout_cover"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/padding_margin"
+    android:layout_marginRight="@dimen/padding_margin"
+    android:layout_marginTop="@dimen/padding_margin"
     android:background="@color/white"
-    android:paddingLeft="@dimen/padding_margin"
-    android:paddingRight="@dimen/padding_margin"
-    android:paddingTop="@dimen/padding_margin"
     android:foreground="@drawable/framelayout_selector" >
 
     <ImageView
-        android:id="@+id/daily_sentence_list_item_img"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        />
-
-    <LinearLayout
-        android:id="@+id/daily_sentence_list_item_middle"
+        android:id="@+id/list_item_img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        />
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         android:background="@color/none_alpha"
-        android:orientation="vertical" >
-
+        android:padding="@dimen/padding_7" >
+        
         <TextView
-            android:id="@+id/english_txt"
+            android:id="@+id/item_name"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:layout_marginTop="@dimen/padding_7"
             android:layout_marginLeft="@dimen/padding_10"
             android:layout_marginRight="@dimen/padding_10"
+             android:shadowColor="@color/white_alph_dark"
+            android:shadowDx="0.3"
+            android:shadowDy="0.3"
             android:gravity="left|bottom"
             android:textColor="@color/white_alph_dark"
             android:textSize="@dimen/biggerx" />
 
         <TextView
-            android:id="@+id/chinese_txt"
+            android:id="@+id/item_msg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_margin"
@@ -46,14 +49,7 @@
             android:gravity="left"
             android:textColor="@color/white_alph"
             android:textSize="@dimen/middle" />
+
     </LinearLayout>
-	<ImageView
-                android:id="@+id/play_img"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_gravity="right|top"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/ic_play_circle_outline_white_48dp" 
-                />
+
 </FrameLayout>

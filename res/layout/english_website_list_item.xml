@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/contentbg"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/english_website_layout2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_7"
+        android:layout_marginLeft="@dimen/padding_7"
+        android:layout_marginRight="@dimen/padding_7"
+        android:background="@color/white"
+        android:foreground="@drawable/framelayout_selector"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_10" 
+        >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:shadowColor="@color/text_black"
+                android:shadowDx="0.3"
+                android:shadowDy="0.3"
+                android:shadowRadius="0.3"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/bigger" />
+
+            <TextView
+                android:id="@+id/describe"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_5"
+                android:gravity="center"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/small" />
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

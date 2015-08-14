@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="fill_parent" 
+    android:orientation="vertical"
     android:background="@color/contentbg"
-    android:orientation="vertical" >
-
-    <android.support.v7.widget.Toolbar
+    >
+	<android.support.v7.widget.Toolbar
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/my_awesome_toolbar"
         android:layout_width="match_parent"
@@ -22,7 +22,12 @@
 	                android:background="@color/white" />
 	    
 	    </android.support.v7.widget.Toolbar>
-
+	    
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/mswiperefreshlayout"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        >
 	<ListView
         android:id="@+id/studycategory_lv"
         android:layout_width="fill_parent"
@@ -33,6 +38,9 @@
         android:dividerHeight="1px"
         android:fadingEdge="none"
         android:listSelector="@color/none"
+        android:layout_marginTop="@dimen/padding_margin"
+        android:paddingLeft="@dimen/padding_margin"
+        android:paddingRight="@dimen/padding_margin"
         android:scrollbars="none" />
-
+	</android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

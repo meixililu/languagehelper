@@ -19,6 +19,7 @@ public class SDCardUtil {
 	public static final String StudyDialogPath = "/zyhy/audio/study/dialog/";
 	public static final String EvaluationPath = "/zyhy/audio/study/evaluation/tts";
 	public static final String EvaluationUserPath = "/zyhy/audio/study/evaluation/user/";
+	public static final String DailySentencePath = "/zyhy/audio/study/dailysentence/mp3/";
 	public static final String Delimiter = "/";
 	
 	/**sdcard路径
@@ -136,6 +137,11 @@ public class SDCardUtil {
 				} 
 			}
 		}
+	}
+	
+	public static boolean isFileExist(String filePath) {
+		File file = new File(filePath);
+		return file.exists();
 	}
 	
 	/**删除文件夹里面的单个文件

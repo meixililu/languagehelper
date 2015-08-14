@@ -22,10 +22,12 @@
 	                android:background="@color/white" />
 	    
 	    </android.support.v7.widget.Toolbar>
+	    
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/mswiperefreshlayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" 
+        android:layout_height="0dp"
+        android:layout_weight="1" 
         >
 	<ListView
         android:id="@+id/studycategory_lv"
@@ -42,4 +44,11 @@
         android:paddingRight="@dimen/padding_margin"
         android:scrollbars="none" />
 	</android.support.v4.widget.SwipeRefreshLayout>
+	<LinearLayout
+            android:id="@+id/ad_view"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/none"
+            android:orientation="vertical" >
+        </LinearLayout>
 </LinearLayout>
