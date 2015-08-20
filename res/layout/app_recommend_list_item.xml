@@ -3,9 +3,6 @@
     android:id="@+id/layout_cover"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/padding_margin"
-    android:layout_marginRight="@dimen/padding_margin"
-    android:layout_marginTop="@dimen/padding_margin"
     android:background="@color/white"
     android:foreground="@drawable/framelayout_selector" >
 
@@ -28,14 +25,12 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginTop="@dimen/padding_7"
-            android:layout_marginLeft="@dimen/padding_10"
-            android:layout_marginRight="@dimen/padding_10"
-             android:shadowColor="@color/white_alph_dark"
+             android:shadowColor="@color/white"
             android:shadowDx="0.3"
             android:shadowDy="0.3"
             android:gravity="left|bottom"
-            android:textColor="@color/white_alph_dark"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:textSize="@dimen/biggerx" />
 
         <TextView
@@ -43,11 +38,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_margin"
-            android:layout_marginLeft="@dimen/padding_10"
-            android:layout_marginRight="@dimen/padding_10"
-            android:layout_marginBottom="@dimen/padding_10"
             android:gravity="left"
-            android:textColor="@color/white_alph"
+            android:textColor="@color/white"
             android:textSize="@dimen/middle" />
 
     </LinearLayout>

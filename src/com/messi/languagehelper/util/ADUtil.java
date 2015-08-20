@@ -22,7 +22,7 @@ public class ADUtil {
 	public static final String QuanPingADId = "72C0E6B1042EA9F06A5A9B76235626CF";
 	public static final String ListADId = "8FCA7E5106A3DB7DBC97B3B357E8A57F";
 	
-	public static final boolean IsShowAdImmediately = true;
+	public static final boolean IsShowAdImmediately = false;
 
 	// initQuanPingAD  initChaPingAD    initBannerAD    initKaiPingAD
 	
@@ -117,8 +117,8 @@ public class ADUtil {
 			return true;
 		}else{
 			SharedPreferences mSharedPreferences = Settings.getSharedPreferences(mContext);
-			int times = mSharedPreferences.getInt(KeyUtil.IsCanShowAD, 0);
-			return times > 3;
+			int times = mSharedPreferences.getInt(KeyUtil.IsCanShowAD_Loading, 0);
+			return times > 1;
 		}
 	}
 

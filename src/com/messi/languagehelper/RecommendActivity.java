@@ -1,83 +1,87 @@
 package com.messi.languagehelper;
 
-import android.content.Intent;
-import android.net.Uri;
+import java.util.ArrayList;
+import java.util.List;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.FrameLayout;
+import android.widget.ListView;
 
-import com.baidu.mobstat.StatService;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.messi.languagehelper.adapter.AppRecommendDetailAdapter;
+import com.messi.languagehelper.util.AVOUtil;
 
 public class RecommendActivity extends BaseActivity implements OnClickListener {
 
-	private FrameLayout recommend_yyzs,recommend_zrzs;
+	private ListView category_lv;
+	private AppRecommendDetailAdapter mAdapter;
+	private List<AVObject> avObjects;
+	private String mAppTypeCode;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.recommend_activity);
-		init();
+		initSwipeRefresh();
+		initViews();
+		new QueryTask().execute();
 	}
 	
-	private void init() {
-		getSupportActionBar().setTitle(this.getResources().getString(R.string.title_apps));
-        
-        recommend_yyzs = (FrameLayout) findViewById(R.id.recommend_yyzs);
-        recommend_zrzs = (FrameLayout) findViewById(R.id.recommend_zrzs);
-        recommend_yyzs.setOnClickListener(this);
-        recommend_zrzs.setOnClickListener(this);
+	private void initViews(){
+		mAppTypeCode = getIntent().getStringExtra(AVOUtil.AppRecommendList.AppTypeCode);
+		avObjects = new ArrayList<AVObject>();
+		category_lv = (ListView) findViewById(R.id.studycategory_lv);
+		mAdapter = new AppRecommendDetailAdapter(this, avObjects);
+		category_lv.setAdapter(mAdapter);
 	}
 	
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:  
-			finish();
-		}
-       return super.onOptionsItemSelected(item);
+	public void onSwipeRefreshLayoutRefresh() {
+		super.onSwipeRefreshLayoutRefresh();
+		new QueryTask().execute();
 	}
+	
+	private class QueryTask extends AsyncTask<Void, Void, Void> {
 
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			showProgressbar();
+		}
+		
+		@Override
+		protected Void doInBackground(Void... params) {
+			AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.AppRecommendDetail.AppRecommendDetail);
+			query.whereEqualTo(AVOUtil.AppRecommendDetail.AppTypeCode, mAppTypeCode);
+			query.whereEqualTo(AVOUtil.AppRecommendDetail.IsValid, "1");
+			query.orderByAscending(AVOUtil.AppRecommendDetail.Order);
+			try {
+				List<AVObject> avObject  = query.find();
+				if(avObject != null){
+					avObjects.clear();
+					avObjects.addAll(avObject);
+				}
+			} catch (AVException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			hideProgressbar();
+			onSwipeRefreshLayoutFinish();
+			mAdapter.notifyDataSetChanged();
+		}
+	}
+	
 	@Override
 	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.recommend_zrzs:
-			try {
-				Intent intent = new Intent(Intent.ACTION_VIEW);
-				intent.setData(Uri.parse("market://details?id=com.messi.languagehelper_ja"));
-				startActivity(intent);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			StatService.onEvent(RecommendActivity.this, "recommend_page_zrzsbtn", "推荐页点击中日助手按钮", 1);
-			break;
-		case R.id.recommend_yyzs:
-			try {
-				Intent intent = new Intent(Intent.ACTION_VIEW);
-				intent.setData(Uri.parse("market://details?id=com.messi.cantonese.study"));
-				startActivity(intent);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			StatService.onEvent(RecommendActivity.this, "recommend_page_yyzsbtn", "推荐页点击粤语助手按钮", 1);
-			break;
-		default:
-			break;
-		}
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		StatService.onResume(this);
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		StatService.onPause(this);
-	}
-	
 }

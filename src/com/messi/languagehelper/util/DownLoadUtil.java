@@ -41,19 +41,6 @@ public class DownLoadUtil {
 		});
 	}
 	
-	/**安装apk**/
-	public static void installApk(Context mContext,String filePath){
-		mContext.startActivity(getInstallApkIntent(filePath));
-	}
-	
-	public static Intent getInstallApkIntent(String filePath){
-		LogUtil.DefalutLog("---filePath:"+filePath);
-		Intent i = new Intent(Intent.ACTION_VIEW);
-		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		i.setDataAndType(Uri.parse("file://" + filePath), "application/vnd.android.package-archive");
-		return i;
-	}
-	
 	public static void saveFile(Context mContext, String path, String suffix, byte[] binaryData){
 		try {
 			FileOutputStream mFileOutputStream = getFile(mContext,path,suffix);

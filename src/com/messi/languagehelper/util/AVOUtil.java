@@ -230,9 +230,17 @@ public class AVOUtil {
 		
 		public final static String AppName = "AppName";
 		
+		public final static String AppCode = "AppCode";
+		
+		public final static String Apk = "Apk";
+		
+		public final static String DownloadType = "DownloadType";//apk  url
+		
 		public final static String AppTypeCode = "AppTypeCode";
 		
 		public final static String AppDescribe = "AppDescribe";
+		
+		public final static String AppSize = "AppSize";
 		
 		public final static String APPIcon = "APPIcon";
 		

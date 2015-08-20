@@ -60,7 +60,7 @@ public class KeyUtil {
 	
 	public static final String IsReedPullDownRefresh = "IsReedPullDownRefresh";
 	
-	public static final String IsCanShowAD = "IsCanShowAD";
+	public static final String IsCanShowAD_Loading = "IsCanShowAD_Loading";
 	
 	public static final String LastTimeSelectTab = "LastTimeSelectTab";
 	

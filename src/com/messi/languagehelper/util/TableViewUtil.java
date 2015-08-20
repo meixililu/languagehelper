@@ -55,25 +55,4 @@ public class TableViewUtil {
 		return mLayout;
 	}
 	
-	public static View getTableChargeItem(final Context mContext,LayoutInflater mInflater) {
-		View convertView = mInflater.inflate(R.layout.recommend_activity, null);
-		try{
-			ImageView item_icon = (ImageView) convertView.findViewById(R.id.item_icon);
-			TextView item_name = (TextView) convertView.findViewById(R.id.item_name);
-			TextView item_msg = (TextView) convertView.findViewById(R.id.item_msg);
-			
-			item_name.setText("充值中心");
-			item_msg.setText("方便快捷");
-			convertView.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					
-				}
-			});
-		}catch (Exception e) {
-			LogUtil.ExceptionLog("getLotteryItemView");
-			e.printStackTrace();
-		}
-		return convertView;
-	}
 }

@@ -16,7 +16,6 @@ import com.messi.languagehelper.adapter.AppRecommendListAdapter;
 import com.messi.languagehelper.util.AVOUtil;
 
 public class AppRecommendListActivity extends BaseActivity implements OnClickListener{
-
 	
 	private ListView category_lv;
 	private AppRecommendListAdapter mAdapter;

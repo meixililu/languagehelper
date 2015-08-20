@@ -137,9 +137,9 @@ public class LoadingActivity extends Activity implements OnClickListener{
 	}
 	
 	private void addToShowAdTimes(){
-		int IsCanShowAD = mSharedPreferences.getInt(KeyUtil.IsCanShowAD, 0);
+		int IsCanShowAD = mSharedPreferences.getInt(KeyUtil.IsCanShowAD_Loading, 0);
 		IsCanShowAD++;
-		Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsCanShowAD, IsCanShowAD);
+		Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsCanShowAD_Loading, IsCanShowAD);
 	}
 	
 	private void toNextPage(){

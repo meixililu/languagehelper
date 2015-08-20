@@ -34,13 +34,10 @@
         android:layout_height="fill_parent"
         android:background="@color/none"
         android:cacheColorHint="@color/none"
-        android:divider="@color/none"
-        android:dividerHeight="1px"
+        android:divider="@color/contentbg"
+        android:dividerHeight="5dp"
         android:fadingEdge="none"
         android:listSelector="@color/none"
-        android:layout_marginTop="@dimen/padding_margin"
-        android:paddingLeft="@dimen/padding_margin"
-        android:paddingRight="@dimen/padding_margin"
         android:scrollbars="none" />
 	</android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

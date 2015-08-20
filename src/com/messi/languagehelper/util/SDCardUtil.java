@@ -20,6 +20,7 @@ public class SDCardUtil {
 	public static final String EvaluationPath = "/zyhy/audio/study/evaluation/tts";
 	public static final String EvaluationUserPath = "/zyhy/audio/study/evaluation/user/";
 	public static final String DailySentencePath = "/zyhy/audio/study/dailysentence/mp3/";
+	public static final String apkPath = "/zyhy/apps/download/";
 	public static final String Delimiter = "/";
 	
 	/**sdcard路径
