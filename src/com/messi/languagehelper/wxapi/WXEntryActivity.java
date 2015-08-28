@@ -1,6 +1,8 @@
 package com.messi.languagehelper.wxapi;
 
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +23,10 @@ import android.view.View.OnClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.FindCallback;
 import com.baidu.mobstat.StatService;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
@@ -33,11 +39,11 @@ import com.messi.languagehelper.adapter.MainPageAdapter;
 import com.messi.languagehelper.adapter.MenuListItemAdapter;
 import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.impl.FragmentProgressbarListener;
+import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.views.PagerSlidingTabStrip;
-import com.umeng.update.UmengUpdateAgent;
 
 public class WXEntryActivity extends BaseActivity implements OnClickListener,FragmentProgressbarListener {
 	
@@ -71,10 +77,18 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 	}
 	
 	private void checkUpdate(){
-		UmengUpdateAgent.setUpdateOnlyWifi(false);
-//		UmengUpdateAgent.setSlotId("");
-		UmengUpdateAgent.setUpdateCheckConfig(false);
-		UmengUpdateAgent.update(this);
+		AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.UpdateInfo.UpdateInfo);
+		query.whereEqualTo(AVOUtil.UpdateInfo.AppName, "zyhy");
+		query.whereEqualTo(AVOUtil.UpdateInfo.IsValid, "1");
+		query.findInBackground(new FindCallback<AVObject>() {
+		    public void done(List<AVObject> avObjects, AVException e) {
+		        if (e == null) {
+		           
+		        } else {
+		            
+		        }
+		    }
+		});
 	}
 	
 	private void initDatas(){

@@ -16,7 +16,7 @@
             android:id="@+id/study_daily_sentence"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@color/style5_color5"
+            android:background="@color/none_alpha"
             android:foreground="@drawable/framelayout_selector"
             android:orientation="vertical" >
 
@@ -30,6 +30,7 @@
                 android:id="@+id/daily_sentence_list_item_middle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="40dp"
                 android:background="@color/none_alpha"
                 android:orientation="vertical" >
 

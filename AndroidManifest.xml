@@ -75,24 +75,6 @@
             android:name="IFLYTEK_CHANNEL"
             android:value="messi" />
 
-        <!-- 友盟自动更新 -->
-        <meta-data
-            android:name="UMENG_APPKEY"
-            android:value="551e3853fd98c5403800122c" />
-        <meta-data
-            android:name="UMENG_CHANNEL"
-            android:value="messi" />
-
-        <service
-            android:name="com.umeng.update.net.DownloadingService"
-            android:process=":DownloadingService" >
-        </service>
-
-        <activity
-            android:name="com.umeng.update.UpdateDialogActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
-        </activity>
-        <!-- 友盟 -->
 		<!-- 乐点百度搜索sdk -->
         <activity
             android:name="com.lerdian.search.SearchResult"
@@ -103,7 +85,6 @@
             android:value="02a82416e42d4c8c942255c7cf75aa8d" />
         <!-- 乐点百度搜索sdk -->
         
-
         <activity
             android:name="com.iflytek.voiceads.request.IFLYBrowser"
             android:screenOrientation="portrait" />

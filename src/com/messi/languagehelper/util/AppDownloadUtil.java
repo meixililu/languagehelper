@@ -1,5 +1,7 @@
 package com.messi.languagehelper.util;
 
+import java.io.File;
+
 import org.apache.http.Header;
 
 import android.app.NotificationManager;
@@ -11,10 +13,10 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.Builder;
 import android.text.TextUtils;
 
+import com.avos.avoscloud.AVObject;
 import com.lerdian.wall.MainActivity;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.messi.languagehelper.LoadingActivity;
 import com.messi.languagehelper.R;
 import com.messi.languagehelper.http.LanguagehelperHttpClient;
 
@@ -25,18 +27,26 @@ public class AppDownloadUtil {
 	private String url;
 	private String ContentTitle;
 	private String Ticker;
-	private String appCode;
+	private String appFileName;
+	private String appLocalFullName;
+	private String AVObjectId;
+	private String path;
 	
-	public AppDownloadUtil(Context mContext,String url,String appName,String appCode){
+	public AppDownloadUtil(Context mContext, String url, String appName, String AVObjectId, String path){
 		this.mContext = mContext;
 		this.url = url;
 		this.ContentTitle = appName + "下载通知";
 		this.Ticker = appName + "开始下载";
-		this.appCode = appCode + ".apk";
+		this.appFileName = getFileName(url);
+		this.AVObjectId = AVObjectId;
+		this.path = path;
+		this.appLocalFullName = getLocalFile(appFileName);
 	}
 	
 	public void DownloadFile(){
-		if(!TextUtils.isEmpty(url)){
+		if(isFileExist()){
+			installApk(mContext,appLocalFullName);
+		}else if(!TextUtils.isEmpty(url)){
 			final NotificationManager mNotifyManager  = (NotificationManager)mContext.getSystemService(Context.NOTIFICATION_SERVICE);
 			final Builder mBuilder = new NotificationCompat.Builder(mContext); 
 			mBuilder.setContentTitle(ContentTitle).setContentText("开始下载").setSmallIcon(R.drawable.ic_get_app_white_36dp).setTicker(Ticker).setAutoCancel(true);
@@ -49,14 +59,13 @@ public class AppDownloadUtil {
 				@Override
 				public void onSuccess(int statusCode, Header[] headers, byte[] binaryData) {
 					LogUtil.DefalutLog("---DownloadFile success");
-					DownLoadUtil.saveFile(mContext,SDCardUtil.apkPath,appCode,binaryData);
-					String path = SDCardUtil.getDownloadPath(SDCardUtil.apkPath);
-					String filePath = path + appCode;
-					PendingIntent pend = PendingIntent.getActivity(mContext, 0, getInstallApkIntent(filePath), 
+					DownLoadUtil.saveFile(mContext,SDCardUtil.apkPath,appFileName,binaryData);
+					PendingIntent pend = PendingIntent.getActivity(mContext, 0, getInstallApkIntent(appLocalFullName), 
 							PendingIntent.FLAG_UPDATE_CURRENT);
 					mBuilder.setContentIntent (pend);
 		            mNotifyManager.notify(0, mBuilder.build());
-		            installApk(mContext,filePath);
+		            installApk(mContext,appLocalFullName);
+		            updateDownloadTime();
 				}
 				@Override
 				public void onFailure(int statusCode, Header[] headers, byte[] binaryData, Throwable error) {
@@ -85,6 +94,12 @@ public class AppDownloadUtil {
 		}
 	}
 	
+	private void updateDownloadTime(){
+		AVObject post = AVObject.createWithoutData(AVOUtil.AppRecommendDetail.AppRecommendDetail, AVObjectId);
+		post.increment(AVOUtil.AppRecommendDetail.DownloadTimes);
+		post.saveInBackground();
+	} 
+	
 	/**安装apk**/
 	public void installApk(Context mContext,String filePath){
 		mContext.startActivity(getInstallApkIntent(filePath));
@@ -96,6 +111,23 @@ public class AppDownloadUtil {
 		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		i.setDataAndType(Uri.parse("file://" + filePath), "application/vnd.android.package-archive");
 		return i;
+	}
+	
+	public String getFileName(String url){
+		String name = url.substring(url.lastIndexOf("/")+1);
+		LogUtil.DefalutLog("FileName:"+name);
+		return name;
+	}
+	
+	public String getLocalFile(String fileName){
+		String tPath = SDCardUtil.getDownloadPath(path);
+		return tPath + fileName;
+	}
+	
+	public boolean isFileExist(){
+		String filePath = getLocalFile(appFileName);
+		File file = new File(filePath);
+		return file.exists();
 	}
 	
 }

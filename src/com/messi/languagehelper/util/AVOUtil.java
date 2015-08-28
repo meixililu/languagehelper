@@ -250,6 +250,32 @@ public class AVOUtil {
 		
 		public final static String IsValid = "IsValid";
 		
+		public final static String DownloadTimes = "DownloadTimes";
+		
+	}
+	
+	public static class UpdateInfo {
+		
+		public final static String UpdateInfo = "UpdateInfo";
+		
+		public final static String AppName = "AppName";
+		
+		public final static String VersionCode = "VersionCode";
+		
+		public final static String Apk = "Apk";
+		
+		public final static String DownloadType = "DownloadType";//apk  url
+		
+		public final static String AppUpdateInfo = "AppUpdateInfo";
+		
+		public final static String AppSize = "AppSize";
+		
+		public final static String APPUrl = "APPUrl";
+		
+		public final static String IsValid = "IsValid";
+		
+		public final static String DownloadTimes = "DownloadTimes";
+		
 	}
 
 }

@@ -19,6 +19,7 @@ import com.messi.languagehelper.R;
 import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.AppDownloadUtil;
 import com.messi.languagehelper.util.LogUtil;
+import com.messi.languagehelper.util.SDCardUtil;
 import com.squareup.picasso.Picasso;
 
 public class AppRecommendDetailAdapter extends BaseAdapter {
@@ -104,7 +105,8 @@ public class AppRecommendDetailAdapter extends BaseAdapter {
 		LogUtil.DefalutLog("apkUrl:"+apkUrl);
 		new AppDownloadUtil(context,apkUrl,
 				mAVObject.getString(AVOUtil.AppRecommendDetail.AppName),
-				mAVObject.getString(AVOUtil.AppRecommendDetail.AppCode)
+				mAVObject.getObjectId(),
+				SDCardUtil.apkPath
 				).DownloadFile();
 	}
 	
