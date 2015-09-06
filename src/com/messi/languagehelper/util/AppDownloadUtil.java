@@ -59,7 +59,7 @@ public class AppDownloadUtil {
 				@Override
 				public void onSuccess(int statusCode, Header[] headers, byte[] binaryData) {
 					LogUtil.DefalutLog("---DownloadFile success");
-					DownLoadUtil.saveFile(mContext,SDCardUtil.apkPath,appFileName,binaryData);
+					DownLoadUtil.saveFile(mContext,path,appFileName,binaryData);
 					PendingIntent pend = PendingIntent.getActivity(mContext, 0, getInstallApkIntent(appLocalFullName), 
 							PendingIntent.FLAG_UPDATE_CURRENT);
 					mBuilder.setContentIntent (pend);
@@ -95,9 +95,15 @@ public class AppDownloadUtil {
 	}
 	
 	private void updateDownloadTime(){
-		AVObject post = AVObject.createWithoutData(AVOUtil.AppRecommendDetail.AppRecommendDetail, AVObjectId);
-		post.increment(AVOUtil.AppRecommendDetail.DownloadTimes);
-		post.saveInBackground();
+		if(path.equals(SDCardUtil.apkPath)){
+			AVObject post = AVObject.createWithoutData(AVOUtil.AppRecommendDetail.AppRecommendDetail, AVObjectId);
+			post.increment(AVOUtil.AppRecommendDetail.DownloadTimes);
+			post.saveInBackground();
+		}else if(path.equals(SDCardUtil.apkUpdatePath)){
+			AVObject post = AVObject.createWithoutData(AVOUtil.UpdateInfo.UpdateInfo, AVObjectId);
+			post.increment(AVOUtil.UpdateInfo.DownloadTimes);
+			post.saveInBackground();
+		}
 	} 
 	
 	/**安装apk**/

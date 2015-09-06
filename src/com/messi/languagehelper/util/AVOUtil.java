@@ -260,6 +260,8 @@ public class AVOUtil {
 		
 		public final static String AppName = "AppName";
 		
+		public final static String AppCode = "AppCode";
+		
 		public final static String VersionCode = "VersionCode";
 		
 		public final static String Apk = "Apk";

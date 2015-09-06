@@ -24,10 +24,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.baidu.mobstat.StatService;
+import com.gc.materialdesign.widgets.Dialog;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.messi.languagehelper.BaseActivity;
@@ -40,8 +42,10 @@ import com.messi.languagehelper.adapter.MenuListItemAdapter;
 import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.util.AVOUtil;
+import com.messi.languagehelper.util.AppDownloadUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
+import com.messi.languagehelper.util.SDCardUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.views.PagerSlidingTabStrip;
 
@@ -78,17 +82,49 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 	
 	private void checkUpdate(){
 		AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.UpdateInfo.UpdateInfo);
-		query.whereEqualTo(AVOUtil.UpdateInfo.AppName, "zyhy");
+		query.whereEqualTo(AVOUtil.UpdateInfo.AppCode, "zyhy");
 		query.whereEqualTo(AVOUtil.UpdateInfo.IsValid, "1");
 		query.findInBackground(new FindCallback<AVObject>() {
 		    public void done(List<AVObject> avObjects, AVException e) {
-		        if (e == null) {
-		           
-		        } else {
-		            
-		        }
+		    	if (avObjects != null && avObjects.size() > 0) {
+		    		AVObject mAVObject = avObjects.get(0);
+		    		showUpdateDialog(mAVObject);
+		    	}
 		    }
 		});
+	}
+	
+	private void showUpdateDialog(final AVObject mAVObject){
+        	int newVersionCode = mAVObject.getInt(AVOUtil.UpdateInfo.VersionCode);
+        	int oldVersionCode = Settings.getVersion(WXEntryActivity.this);
+        	if(newVersionCode > oldVersionCode){
+        		String updateInfo = mAVObject.getString(AVOUtil.UpdateInfo.AppUpdateInfo);
+        		String downloadType = mAVObject.getString(AVOUtil.UpdateInfo.DownloadType);
+        		String apkUrl = "";
+        		if(downloadType.equals("apk")){
+        			AVFile avFile = mAVObject.getAVFile(AVOUtil.UpdateInfo.Apk);
+        			apkUrl = avFile.getUrl();
+        		}else{
+        			apkUrl = mAVObject.getString(AVOUtil.UpdateInfo.APPUrl);
+        		}
+        		final String downloadUrl = apkUrl;
+        		LogUtil.DefalutLog("apkUrl:"+apkUrl);
+    			Dialog dialog = new Dialog(WXEntryActivity.this, "更新啦,更新啦!", updateInfo);
+    			dialog.addAcceptButton("好的");
+    			dialog.addCancelButton("稍后");
+    			dialog.setOnAcceptButtonClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						new AppDownloadUtil(WXEntryActivity.this,
+								downloadUrl,
+								mAVObject.getString(AVOUtil.UpdateInfo.AppName),
+								mAVObject.getObjectId(),
+								SDCardUtil.apkUpdatePath
+								).DownloadFile();
+					}
+				});
+    			dialog.show();
+        	}
 	}
 	
 	private void initDatas(){

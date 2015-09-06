@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.text.ClipboardManager;
 
 import com.messi.languagehelper.R;
@@ -162,5 +164,15 @@ public class Settings {
 		ToastUtil.diaplayMesShort(mContext, mContext.getResources().getString(R.string.copy_success));
 	}
 	
+	public static int getVersion(Context mContext) {
+		try {
+			PackageManager manager = mContext.getPackageManager();
+			PackageInfo info = manager.getPackageInfo(mContext.getPackageName(), 0);
+			return info.versionCode;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 1;
+		}
+	}
 	
 }

@@ -218,9 +218,8 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 			if(isNewIn){
 				isNewIn = false;
 				isFollow = true;
+				showListen();
 				mEvaluationOnClickListener.onClick(voice_play_answer);
-				record_animation_layout.setVisibility(View.VISIBLE);
-				record_animation_text.setText("Listen");
 			}else{
 				record_layout.setVisibility(View.VISIBLE);
 				voice_btn.setText(this.getResources().getString(R.string.finish));
@@ -237,6 +236,7 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 	 */
 	private void finishRecord(){
 		isEvaluating = false;
+		isNewIn = true;
 		mSpeechEvaluator.stopEvaluating();
 		record_layout.setVisibility(View.GONE);
 		record_anim_img.setBackgroundResource(R.drawable.speak_voice_1);
@@ -250,6 +250,17 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 			record_animation_text.setText(this.getResources().getString(R.string.your_turn));
 			animation();
 		}
+	}
+	
+	private void showListen(){
+		record_animation_layout.setVisibility(View.VISIBLE);
+		record_animation_text.setText("Listen");
+		ObjectAnimator mObjectAnimator = ObjectAnimator.ofFloat(record_animation_layout, "scaleX", 1f, 1f);
+		mObjectAnimator.setDuration(800).start();
+		ObjectAnimator mObjectAnimator1 = ObjectAnimator.ofFloat(record_animation_layout, "scaleY", 1f, 1f);
+		mObjectAnimator1.setDuration(800).start();
+		ObjectAnimator mObjectAnimator2 = ObjectAnimator.ofFloat(record_animation_layout, "alpha", 1, 1);
+		mObjectAnimator2.start();
 	}
 	
 	private void animation(){
