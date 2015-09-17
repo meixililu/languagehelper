@@ -20,7 +20,7 @@ import com.messi.languagehelper.http.LanguagehelperHttpClient;
 
 public class DownLoadUtil {
 	
-	public static void downloadFile(final Context mContext,String url, final String path, final String suffix, final Handler mHandler){
+	public static void downloadFile(final Context mContext,String url, final String path, final String fileName, final Handler mHandler){
 		LogUtil.DefalutLog("---url:"+url);
 		String[] allowedContentTypes = new String[] {".*"};  
 		LanguagehelperHttpClient.get(url, new RequestParams(), new BinaryHttpResponseHandler(allowedContentTypes){
@@ -33,10 +33,12 @@ public class DownLoadUtil {
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
 				LogUtil.DefalutLog("---onSuccess");
-				saveFile(mContext, path, suffix, arg2);
-				Message msg = new Message();
-				msg.what = 1;
-				mHandler.sendMessage(msg);
+				saveFile(mContext, path, fileName, arg2);
+				if(mHandler != null){
+					Message msg = new Message();
+					msg.what = 1;
+					mHandler.sendMessage(msg);
+				}
 			}
 		});
 	}

@@ -13,33 +13,63 @@ import android.widget.LinearLayout;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
-import com.messi.languagehelper.adapter.EvaluationCategoryAdapter;
+import com.baidu.mobstat.StatService;
+import com.iflytek.voiceads.AdError;
+import com.iflytek.voiceads.IFLYAdListener;
+import com.iflytek.voiceads.IFLYBannerAd;
+import com.messi.languagehelper.adapter.SymbolListAdapter;
+import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.AVOUtil;
 
-public class EvaluationCategoryActivity extends BaseActivity implements OnClickListener{
+public class SymbolListActivity extends BaseActivity implements OnClickListener{
 
 	private GridView category_lv;
-	private EvaluationCategoryAdapter mAdapter;
+	private SymbolListAdapter mAdapter;
 	private List<AVObject> avObjects;
+	private IFLYBannerAd mIFLYBannerAd;
 	private LinearLayout ad_view;
-	private String code;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.evaluation_category_activity);
+		setContentView(R.layout.symbol_list_activity);
 		initSwipeRefresh();
 		initViews();
 		new QueryTask().execute();
 	}
 	
 	private void initViews(){
-		code = getIntent().getStringExtra(AVOUtil.EvaluationType.ETCode);
+		getSupportActionBar().setTitle(getResources().getString(R.string.symbolStudy));
 		avObjects = new ArrayList<AVObject>();
 		category_lv = (GridView) findViewById(R.id.studycategory_lv);
 		ad_view = (LinearLayout) findViewById(R.id.ad_view);
-		mAdapter = new EvaluationCategoryAdapter(this, avObjects);
+		mAdapter = new SymbolListAdapter(this, avObjects);
 		category_lv.setAdapter(mAdapter);
+		addAD();
+	}
+	
+	private void addAD(){
+		if(ADUtil.isShowAd(this)){
+			mIFLYBannerAd = ADUtil.initBannerAD(SymbolListActivity.this, ad_view, ADUtil.ListADId);
+			mIFLYBannerAd.loadAd(new IFLYAdListener() {
+				@Override
+				public void onAdReceive() {
+					if(mIFLYBannerAd != null){
+						mIFLYBannerAd.showAd();
+					}
+				}
+				@Override
+				public void onAdFailed(AdError arg0) {
+				}
+				@Override
+				public void onAdClose() {
+				}
+				@Override
+				public void onAdClick() {
+					StatService.onEvent(SymbolListActivity.this, "ad_banner", "点击banner广告", 1);
+				}
+			});
+		}
 	}
 	
 	@Override
@@ -58,10 +88,9 @@ public class EvaluationCategoryActivity extends BaseActivity implements OnClickL
 		
 		@Override
 		protected Void doInBackground(Void... params) {
-			AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.EvaluationCategory.EvaluationCategory);
-			query.whereEqualTo(AVOUtil.EvaluationCategory.ECIsValid, "1");
-			query.whereEqualTo(AVOUtil.EvaluationCategory.ETCode, code);
-			query.orderByDescending(AVOUtil.EvaluationCategory.ECOrder);
+			AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.SymbolList.SymbolList);
+			query.whereEqualTo(AVOUtil.SymbolList.SLIsValid, "1");
+			query.orderByAscending(AVOUtil.SymbolList.SLOrder);
 			try {
 				List<AVObject> avObject  = query.find();
 				if(avObject != null){
@@ -87,6 +116,10 @@ public class EvaluationCategoryActivity extends BaseActivity implements OnClickL
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+		if(mIFLYBannerAd != null){
+			mIFLYBannerAd.destroy();
+			mIFLYBannerAd = null;
+		}
 	}
 	
 	@Override

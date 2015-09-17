@@ -128,11 +128,30 @@ public class AVOUtil {
 		
 	}
 	
+	public static class EvaluationType {
+		
+		public final static String EvaluationType = "EvaluationType";
+		
+		public final static String ETCode = "ETCode";
+		
+		public final static String ETName = "ETName";
+		
+		public final static String ETType = "ETType";
+		
+		public final static String ETIsValid = "ETIsValid";
+		
+		public final static String ECImgUrl = "ECImgUrl";
+		
+		public final static String ETOrder = "ETOrder";
+	}
+	
 	public static class EvaluationCategory {
 		
 		public final static String EvaluationCategory = "EvaluationCategory";
 		
 		public final static String ECCode = "ECCode";
+		
+		public final static String ETCode = "ETCode";
 		
 		public final static String ECName = "ECName";
 		
@@ -277,6 +296,47 @@ public class AVOUtil {
 		public final static String IsValid = "IsValid";
 		
 		public final static String DownloadTimes = "DownloadTimes";
+		
+	}
+	
+	public static class SymbolList {
+		
+		public final static String SymbolList = "SymbolList";
+		
+		public final static String SLCode = "SLCode";
+		
+		public final static String SLName = "SLName";
+		
+		public final static String SLDes = "SLDes";
+		
+		public final static String SLType = "SLType";
+		
+		public final static String SLIsValid = "SLIsValid";
+		
+		public final static String SLImgUrl = "SLImgUrl";
+		
+		public final static String SLOrder = "SLOrder";
+	}
+	
+	public static class SymbolDetail {
+		
+		public final static String SymbolDetail = "SymbolDetail";
+		
+		public final static String SDCode = "SDCode";
+		
+		public final static String SLCode = "SLCode";
+		
+		public final static String SDName = "SDName";
+		
+		public final static String SDDes = "SDDes";
+		
+		public final static String SDInfo = "SDInfo";
+		
+		public final static String SDAudioMp3 = "SDAudioMp3";
+		
+		public final static String SDTeacherMp3 = "SDTeacherMp3";
+		
+		public final static String SDIsValid = "SDIsValid";
 		
 	}
 

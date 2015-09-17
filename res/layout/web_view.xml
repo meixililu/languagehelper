@@ -27,7 +27,7 @@
 	             />
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <com.gc.materialdesign.views.ProgressBarDeterminate
+    <com.gc.materialdesign.views.ProgressBarDetermininate
         android:id="@+id/progressdeterminate"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

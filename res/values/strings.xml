@@ -8,6 +8,7 @@
     <string name="title_about">关于我们</string>
     <string name="title_share_preview">分享预览</string>
     <string name="title_Practice">口语修炼</string>
+    <string name="title_symbol">音标学习</string>
     <string name="title_help">使用帮助</string>
     <string name="title_more">更多</string>
     <string name="title_translate">翻译</string>
@@ -138,7 +139,9 @@
 	<string name="invest_list_prompt">小伙伴快到碗里来，这个软件是我投资的！ http://lilu168.sinaapp.com/list.html</string>
 	
 	<string name="dailysentence">每日一句</string>
+	<string name="symbolStudy">48个音标快速学</string>
 	<string name="spokenEnglishTest">口语练习与评测</string>
+	<string name="reading">双语阅读</string>
 	<string name="simulation_dialogue">模拟对话</string>
 	<string name="introduction">基础词汇</string>
 	<string name="primary_lever">第二部分</string>
@@ -164,8 +167,8 @@
 	<string name="website_attention">提示：国外网站的打开速度稍微慢点</string>
 	<string name="leisuer_game">轻游戏中心</string>
 	<string name="leisuer_game_subtitle">大家都爱玩的小游戏</string>
-	<string name="leisuer_news">新闻资讯</string>
-	<string name="leisuer_news_subtitle">累了就看看新闻放松下</string>
+	<string name="leisuer_news">轻松一刻</string>
+	<string name="leisuer_news_subtitle">累了就到这里放松一下</string>
 	<string name="leisuer_baidu">百度一下</string>
 	<string name="leisuer_baidu_subtitle">有神马不知道的就问度娘</string>
 	
@@ -206,4 +209,7 @@
 	<string name="getcontent_2">帮助开发者，请猛戳！</string>
 	
 	<string name="learn_english">学英语\n重在坚持</string>
+	
+	<string name="follow_teacher">外教跟读</string>
+	
 </resources>

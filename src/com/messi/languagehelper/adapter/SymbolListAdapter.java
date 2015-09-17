@@ -12,18 +12,18 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVObject;
-import com.messi.languagehelper.EvaluationCategoryListActivity;
 import com.messi.languagehelper.R;
+import com.messi.languagehelper.SymbolDetailActivity;
 import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.KeyUtil;
 
-public class EvaluationCategoryAdapter extends BaseAdapter {
+public class SymbolListAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	private Context context;
 	private List<AVObject> avObjects;
 	
-	public EvaluationCategoryAdapter(Context mContext, List<AVObject> avObjects) {
+	public SymbolListAdapter(Context mContext, List<AVObject> avObjects) {
 		context = mContext;
 		this.mInflater = LayoutInflater.from(mContext);
 		this.avObjects = avObjects;
@@ -45,23 +45,18 @@ public class EvaluationCategoryAdapter extends BaseAdapter {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		final ViewHolder holder;
 		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.studylist_gridview_item, null);
+			convertView = mInflater.inflate(R.layout.symbol_list_item, null);
 			holder = new ViewHolder();
 			holder.cover = (View) convertView.findViewById(R.id.layout_cover);
 			holder.name = (TextView) convertView.findViewById(R.id.name);
+			holder.des = (TextView) convertView.findViewById(R.id.des);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		final AVObject mAVObject = avObjects.get(position);
-		String itemName = "";
-		String itemNameOld = mAVObject.getString(AVOUtil.EvaluationCategory.ECName);
-		if(itemNameOld.contains("-")){
-			itemName = itemNameOld.split("-")[1];
-		}else{
-			itemName = itemNameOld;
-		}
-		holder.name.setText( itemName );
+		holder.name.setText( mAVObject.getString(AVOUtil.SymbolList.SLName) );
+		holder.des.setText( mAVObject.getString(AVOUtil.SymbolList.SLDes) );
 		holder.cover.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -74,12 +69,14 @@ public class EvaluationCategoryAdapter extends BaseAdapter {
 	static class ViewHolder {
 		View cover;
 		TextView name;
+		TextView des;
 	}
 
 	private void onItemClick(AVObject mAVObject){
-		Intent intent = new Intent(context,EvaluationCategoryListActivity.class);
-		intent.putExtra(KeyUtil.ActionbarTitle, mAVObject.getString(AVOUtil.EvaluationCategory.ECName));
-		intent.putExtra(AVOUtil.EvaluationCategory.ECCode, mAVObject.getString(AVOUtil.EvaluationCategory.ECCode));
+		Intent intent = new Intent(context,SymbolDetailActivity.class);
+		intent.putExtra(KeyUtil.ActionbarTitle, 
+				mAVObject.getString(AVOUtil.SymbolList.SLDes)+mAVObject.getString(AVOUtil.SymbolList.SLName));
+		intent.putExtra(AVOUtil.SymbolList.SLCode, mAVObject.getString(AVOUtil.SymbolList.SLCode));
 		context.startActivity(intent);
 	}
 	

@@ -26,6 +26,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import cn.contentx.ContExManager;
 
 import com.baidu.mobstat.StatService;
 import com.iflytek.voiceads.AdError;
@@ -51,11 +52,12 @@ public class StudyFragment extends Fragment implements OnClickListener{
 
 	private View view;
 	private FrameLayout study_daily_sentence,study_spoken_english,study_dailog,study_test,study_to_all_user;
+	private FrameLayout symbol_study_cover;
 	private TextView dailysentence_txt;
 	private ImageView daily_sentence_item_img;
 	private ImageView play_img;
 	private LinearLayout study_ad_view;
-	private FrameLayout instagram_layout;
+	private FrameLayout instagram_layout,news_layout;
 	public static StudyFragment mMainFragment;
 	private SharedPreferences mSharedPreferences;
 	private EveryDaySentence mEveryDaySentence;
@@ -97,9 +99,11 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		study_daily_sentence = (FrameLayout)view.findViewById(R.id.study_daily_sentence);
 		study_spoken_english = (FrameLayout)view.findViewById(R.id.study_spoken_english);
 		instagram_layout = (FrameLayout)view.findViewById(R.id.instagram_layout);
+		news_layout = (FrameLayout)view.findViewById(R.id.news_layout);
 		study_dailog = (FrameLayout)view.findViewById(R.id.study_dailog);
 		study_test = (FrameLayout)view.findViewById(R.id.study_test);
 		study_to_all_user = (FrameLayout)view.findViewById(R.id.study_to_all_user);
+		symbol_study_cover = (FrameLayout)view.findViewById(R.id.symbol_study_cover);
 		study_ad_view = (LinearLayout)view.findViewById(R.id.study_ad_view);
 		dailysentence_txt = (TextView)view.findViewById(R.id.dailysentence_txt);
 		daily_sentence_item_img = (ImageView)view.findViewById(R.id.daily_sentence_item_img);
@@ -110,8 +114,10 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		instagram_layout.setOnClickListener(this);
 		study_dailog.setOnClickListener(this);
 		study_test.setOnClickListener(this);
+		symbol_study_cover.setOnClickListener(this);
 		study_to_all_user.setOnClickListener(this);
 		dailysentence_txt.setOnClickListener(this);
+		news_layout.setOnClickListener(this);
 		study_ad_view.setOnClickListener(this);
 		play_img.setOnClickListener(this);
 		addAd();
@@ -202,6 +208,9 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		case R.id.dailysentence_txt:
 			toDailySentenceActivity();
 			break;
+		case R.id.symbol_study_cover:
+			toSymbolListActivity();
+			break;
 		case R.id.study_daily_sentence:
 			toDailySentenceActivity();
 			break;
@@ -223,6 +232,10 @@ public class StudyFragment extends Fragment implements OnClickListener{
 			break;
 		case R.id.instagram_layout:
 			toEnglishWebsiteRecommendActivity();
+			break;
+		case R.id.news_layout:
+			ContExManager.initWithAPPId(getActivity(),"61181d6c-9093-4735-93d1-9b07d50e5ab2", "w1461Eub");
+			ContExManager.show(getActivity());//直接显示，使用默认值
 			break;
 		case R.id.play_img:
 			if(mEveryDaySentence != null){
@@ -291,6 +304,12 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		StatService.onEvent(getActivity(), "leisure_to_english_website", "休闲页去英文网站页面", 1);
 	}
 	
+	private void toSymbolListActivity(){
+		Intent intent = new Intent(getActivity(),SymbolListActivity.class);
+		startActivity(intent);
+		StatService.onEvent(getActivity(), "tab_symbol_study", "去音标学习页面", 1);
+	}
+	
 	private void toDailySentenceActivity(){
 		Intent intent = new Intent(getActivity(),DailySentenceActivity.class);
 		startActivity(intent);
@@ -316,7 +335,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	}
 	
 	private void toEvaluationActivity(){
-		Intent intent = new Intent(getActivity(),EvaluationCategoryActivity.class);
+		Intent intent = new Intent(getActivity(),EvaluationTypeActivity.class);
 		startActivity(intent);
 		StatService.onEvent(getActivity(), "tab_study_tostudylist", "首页去口语评测页面", 1);
 	}

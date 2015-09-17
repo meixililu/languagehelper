@@ -8,6 +8,7 @@
     <string name="title_about">About</string>
     <string name="title_share_preview">Preview</string>
     <string name="title_Practice">Practice</string>
+    <string name="title_symbol">Symbol Study</string>
     <string name="title_help">Help</string>
     <string name="title_more">More</string>
     <string name="title_translate">Translate</string>
@@ -130,6 +131,7 @@
 	
 	<string name="dailysentence">Daily Sentence</string>
 	<string name="spokenEnglishTest">Test</string>
+	<string name="symbolStudy">Symbol Study</string>
 	<string name="simulation_dialogue">Dialogue</string>
 	<string name="introduction">Part One</string>
 	<string name="primary_lever">Part Two</string>
@@ -182,4 +184,6 @@
 	<string name="getcontent_2">To Help Developer,Check Here!</string>
 	
 	<string name="learn_english">Learn Chinese\nPerseverance\nAccumulation </string>
+	
+	<string name="follow_teacher">Follow Teacher</string>
 </resources>

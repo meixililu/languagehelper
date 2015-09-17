@@ -131,12 +131,9 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		}else if(v.getId() == R.id.baidu_layout){
 			toBaiduActivity();
 		}else if(v.getId() == R.id.news_layout){
+			ContExManager.initWithAPPId(getActivity(),"f9136944-bc17-4cb1-9b14-ece9de91b39d", "w1461Eub");
 			ContExManager.show(getActivity());//直接显示，使用默认值
 		}
-	}
-	
-	private void toNewsActivity(){
-		
 	}
 	
 	private void toBaiduActivity(){

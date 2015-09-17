@@ -148,7 +148,9 @@ public class PracticeWriteFragment extends BaseFragment implements OnClickListen
 		String userInput = translate_input.getText().toString().toLowerCase();
 		UserSpeakBean bean = ScoreUtil.score(getActivity(), userInput, en[resultPosition].toLowerCase());
 		translate_input.setText(bean.getContent());
-		translate_input.setSelection(bean.getContent().length()-1);
+		if(bean.getContent().length() > 0){
+			translate_input.setSelection(bean.getContent().length()-1);
+		}
 		setScore(bean);
 		isCheck = false;
 	}

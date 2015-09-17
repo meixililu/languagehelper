@@ -15,6 +15,7 @@ public class SDCardUtil {
 	/**sd卡保存文件夹名称**/
 	public static final String sdPath = "/zyhy/audio/";
 	public static final String ImgPath = "/DCIM/zyhy/";
+	public static final String SymbolPath = "/zyhy/audio/symbol/";
 	public static final String PracticePath = "/zyhy/audio/practice/en/";
 	public static final String StudyDialogPath = "/zyhy/audio/study/dialog/";
 	public static final String EvaluationPath = "/zyhy/audio/study/evaluation/tts";

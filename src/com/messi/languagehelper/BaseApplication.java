@@ -31,7 +31,6 @@ public class BaseApplication extends Application {
 			@Override
 			public void run() {
 				AVOSCloud.initialize(mInstance, "3fg5ql3r45i3apx2is4j9on5q5rf6kapxce51t5bc0ffw2y4", "twhlgs6nvdt7z7sfaw76ujbmaw7l12gb8v6sdyjw1nzk9b1a");
-				ContExManager.initWithAPPId(getApplicationContext(),"f9136944-bc17-4cb1-9b14-ece9de91b39d", "w1461Eub");
 			}
 		}).run();
     }

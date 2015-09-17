@@ -204,6 +204,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 					isNewIn = false;
 					isFollow = true;
 					practice_prompt.setVisibility(View.GONE);
+					voice_btn.setEnabled(false);
 					record_answer_cover.performClick();
 				}else{
 					record_layout.setVisibility(View.VISIBLE);
@@ -271,6 +272,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 	 * on finish play 
 	 */
 	private void onfinishPlay(){
+		voice_btn.setEnabled(true);
 		if(isFollow){
 			isFollow = false;
 			setProgressPromptText(getActivity().getResources().getString(R.string.your_turn));

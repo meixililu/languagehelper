@@ -28,19 +28,20 @@
         android:layout_height="0dp"
         android:layout_weight="1" 
         >
-        <GridView 
-	        android:id="@+id/studycategory_lv"
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:background="@color/none"
-	        android:verticalSpacing="2px"
-	        android:horizontalSpacing="2px"
-	        android:cacheColorHint="@color/none"
-	        android:numColumns="2"
-	        android:scrollbars="none"
-	        android:stretchMode="columnWidth"  
-	    	android:gravity="center"  
-	        />
+	<ListView
+        android:id="@+id/studycategory_lv"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/none"
+        android:cacheColorHint="@color/none"
+        android:divider="@color/none"
+        android:dividerHeight="1px"
+        android:fadingEdge="none"
+        android:listSelector="@color/none"
+        android:layout_marginTop="@dimen/padding_margin"
+        android:paddingLeft="@dimen/padding_margin"
+        android:paddingRight="@dimen/padding_margin"
+        android:scrollbars="none" />
 	</android.support.v4.widget.SwipeRefreshLayout>
 	<LinearLayout
             android:id="@+id/ad_view"

@@ -72,9 +72,9 @@
         </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/study_spoken_english"
+            android:id="@+id/symbol_study_cover"
             android:layout_width="fill_parent"
-            android:layout_height="90dp"
+            android:layout_height="80dp"
             android:layout_marginTop="@dimen/padding_7"
             android:foreground="@drawable/framelayout_selector"
             android:orientation="vertical" >
@@ -82,7 +82,29 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@color/style5_color2"
+                android:background="@color/style5_color4"
+                android:gravity="center"
+                android:shadowColor="@color/white"
+                android:shadowDx="0.4"
+                android:shadowDy="0.4"
+                android:shadowRadius="0.4"
+                android:text="@string/title_symbol"
+                android:textColor="@color/white"
+                android:textSize="@dimen/bigger" />
+        </FrameLayout>
+        
+        <FrameLayout
+            android:id="@+id/study_spoken_english"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="@dimen/padding_7"
+            android:foreground="@drawable/framelayout_selector"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="#81C784"
                 android:gravity="center"
                 android:shadowColor="@color/white"
                 android:shadowDx="0.4"
@@ -96,7 +118,7 @@
         <FrameLayout
             android:id="@+id/study_dailog"
             android:layout_width="fill_parent"
-            android:layout_height="90dp"
+            android:layout_height="80dp"
             android:layout_marginTop="@dimen/padding_7"
             android:foreground="@drawable/framelayout_selector"
             android:visibility="gone"
@@ -119,15 +141,15 @@
         <FrameLayout
             android:id="@+id/study_test"
             android:layout_width="fill_parent"
-            android:layout_height="90dp"
+            android:layout_height="80dp"
             android:layout_marginTop="@dimen/padding_7"
+            android:background="#CE93D8"
             android:foreground="@drawable/framelayout_selector"
             android:orientation="vertical" >
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@color/style5_color3"
                 android:gravity="center"
                 android:shadowColor="@color/white"
                 android:shadowDx="0.4"
@@ -139,11 +161,44 @@
         </FrameLayout>
 
         <FrameLayout
-        android:id="@+id/instagram_layout"
+        android:id="@+id/news_layout"
         android:layout_width="fill_parent"
         android:layout_height="80dp"
         android:layout_marginTop="@dimen/padding_7"
         android:background="@color/style5_color6"
+        android:foreground="@drawable/framelayout_selector"
+        android:orientation="vertical" >
+
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:shadowColor="@color/white"
+                android:shadowDx="0.4"
+                android:shadowDy="0.4"
+                android:shadowRadius="0.4"
+                android:text="@string/reading"
+                android:textColor="@color/white"
+                android:textSize="@dimen/bigger" />
+    </FrameLayout>
+    
+        
+
+        <LinearLayout
+            android:id="@+id/study_ad_view"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_7"
+            android:background="@color/none"
+            android:orientation="vertical" >
+        </LinearLayout>
+        
+        <FrameLayout
+        android:id="@+id/instagram_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:background="@color/style6_color1"
+        android:layout_marginTop="@dimen/padding_7"
         android:foreground="@drawable/framelayout_selector"
         android:orientation="vertical" >
 
@@ -174,20 +229,12 @@
                 android:textSize="@dimen/small" />
         </LinearLayout>
     </FrameLayout>
-
-        <LinearLayout
-            android:id="@+id/study_ad_view"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_7"
-            android:background="@color/none"
-            android:orientation="vertical" >
-        </LinearLayout>
         
         <FrameLayout
             android:id="@+id/study_to_all_user"
             android:layout_width="fill_parent"
             android:layout_height="80dp"
+	        android:background="@color/style5_color2"
             android:layout_marginTop="@dimen/padding_7"
             android:foreground="@drawable/framelayout_selector"
             android:orientation="vertical" >
@@ -195,7 +242,6 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@color/style5_color4"
                 android:gravity="center"
                 android:shadowColor="@color/white"
                 android:shadowDx="0.4"
