@@ -1,0 +1,32 @@
+﻿animal people sheep pioneer
+
+['æniməl],['pi:pl],[ʃi:p],[paɪə'nɪə]#动物,人,绵羊,先锋#animal,people,sheep,pioneer#study_every@
+['æniməl],['pi:pl],[ʃi:p],[paɪə'nɪə]#动物,人,绵羊,先锋#animal,people,sheep,pioneer#Practice_FourInOne@
+动物,人,绵羊,先锋#animal,people,sheep,pioneer#Practice_SpeakAfterMe@
+动物世界,许多人,牧羊犬,少先队员#animal world,many people,sheep dog,young pioneer#Practice_ReadAfterMe@
+动物世界,许多人,牧羊犬,少先队员#animal world,many people,sheep dog,young pioneer#Practice_Translate
+
+
+[taɪm],[jɪə(r)],[mʌnθ],[wi:k]#时间,年,月,周#time,year,month,week#study_every@[taɪm],[jɪə(r)],[mʌnθ],[wi:k]#时间,年,月,周#time,year,month,week#Practice_FourInOne@几点,一年,一个月,一星期#what time,a year,a month,a week#Practice_SpeakAfterMe@几点,一年,一个月,一星期#what time,a year,a month,a week#Practice_Translate@现在几点了,今年是哪一年？,这个月是几月？,下星期#what time is it now,what year is this?,what month is this?,next week#Practice_ReadAfterMe
+
+
+[tə'dei],[təˈmɒrəʊ], [ˈjestədeɪ],[naʊ]#今天,明天,昨天,现在#today,tomorrow,yesterday,now#study_every@[tə'dei],[təˈmɒrəʊ], [ˈjestədeɪ],[naʊ]#今天,明天,昨天,现在#today,tomorrow,yesterday,now#Practice_FourInOne@今天,明天,昨天,现在#today,tomorrow,yesterday,now#Practice_SpeakAfterMe@今天星期几?,明天见,昨天早上,立刻马上#What day is today?,see you tomorrow,yesterday morning,right now#Practice_ReadAfterMe@今天星期几?,明天见,昨天早上,立刻马上#What day is today?,see you tomorrow,yesterday morning,right now#Practice_Translate
+
+
+day hour minute second
+[deɪ],[ˈaʊə(r)],['mɪnɪt],[ˈsekənd]#天,小时,分钟,秒(第二的)#day,hour,minute,second#study_every@[deɪ],[ˈaʊə(r)],['mɪnɪt],[ˈsekənd]#天,小时,分钟,秒(第二的)#day,hour,minute,second#Practice_FourInOne@一天，一小时，一分钟，一秒钟#a day,an hour,a minute,a second#Practice_SpeakAfterMe@一天，一小时，一分钟，一秒钟#a day,an hour,a minute,a second#Practice_Translate@今天星期几?,半小时,等一下,立刻#what day is today?,half an hour,wait a minute,in a second#Practice_ReadAfterMe
+
+
+September  October  November  December
+
+[sepˈtembə(r)],[ɒkˈtəʊbə(r)],[nəʊˈvembə(r)],[dɪˈsembə(r)]#九月,十月,十一月,十二月#September,October,November,December#study_every@
+[sepˈtembə(r)],[ɒkˈtəʊbə(r)],[nəʊˈvembə(r)],[dɪˈsembə(r)]#九月,十月,十一月,十二月#September,October,November,December#Practice_FourInOne@
+九月,十月,十一月,十二月#September,October,November,December#Practice_SpeakAfterMe@
+九月,十月,十一月,十二月#September,October,November,December#Practice_Translate@
+九月八号我在干什么?,十月22日你在哪里？,等等！我11月份已经不在这里了.,已经是12月22日了.#What did I do on september 8th?,Where were you on october 22?,But wait! I won't be here in November.,It was already December 22nd.#Practice_ReadAfterMe
+
+
+
+
+[sepˈtembə(r)],[ɒkˈtəʊbə(r)],[nəʊˈvembə(r)],[dɪˈsembə(r)]#九月,十月,十一月,十二月#September,October,November,December#study_every@[sepˈtembə(r)],[ɒkˈtəʊbə(r)],[nəʊˈvembə(r)],[dɪˈsembə(r)]#九月,十月,十一月,十二月#September,October,November,December#Practice_FourInOne@九月,十月,十一月,十二月#September,October,November,December#Practice_SpeakAfterMe@九月,十月,十一月,十二月#September,October,November,December#Practice_Translate@九月八号我在干什么?,十月22日你在哪里？,等等！我11月份已经不在这里了.,已经是12月22日了.#What did I do on september 8th?,Where were you on october 22?,But wait! I won't be here in November.,It was already December 22nd.#Practice_ReadAfterMe
+
