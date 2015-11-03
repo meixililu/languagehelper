@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/contentbg"
+    android:orientation="vertical" >
+
+    <android.support.v7.widget.Toolbar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/my_awesome_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/app_background"
+        android:fillViewport="true"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="110dp"
+                android:background="@color/cyan"
+                android:gravity="center"
+                android:shadowColor="@color/white"
+                android:shadowDx="0.5"
+                android:shadowDy="0.5"
+                android:shadowRadius="0.5"
+                android:text="@string/learn_english"
+                android:textColor="@color/white"
+                android:textSize="@dimen/biggerx" />
+
+            <FrameLayout
+                android:id="@+id/setting_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:foreground="@drawable/framelayout_selector" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:background="@color/none"
+                        android:gravity="center_vertical"
+                        android:text="@string/title_settings"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/big" />
+                    <ImageView 
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/expend_right"
+                        />
+
+                </LinearLayout>
+                <ImageView
+                    android:id="@+id/unread_dot_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_margin"
+                    android:layout_marginRight="@dimen/padding_margin"
+                    android:layout_gravity="top|right"
+                    android:src="@drawable/unread_dot"
+                    android:visibility="gone" 
+                    />
+            </FrameLayout>
+            <ImageView 
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/contentbg"
+                />
+            <FrameLayout
+                android:id="@+id/costom_share_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:foreground="@drawable/framelayout_selector" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:background="@color/none"
+                        android:gravity="center_vertical"
+                        android:text="@string/menu_share"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/big" />
+                    <ImageView 
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/expend_right"
+                        />
+
+                </LinearLayout>
+            </FrameLayout>
+            <FrameLayout
+                android:id="@+id/comments_layout"
+                android:layout_marginTop="@dimen/padding_10"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:foreground="@drawable/framelayout_selector" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:background="@color/none"
+                        android:gravity="center_vertical"
+                        android:text="@string/title_comments"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/big" />
+                    <ImageView 
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/expend_right"
+                        />
+                </LinearLayout>
+            </FrameLayout>
+            <ImageView 
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/contentbg"
+                />
+            <FrameLayout
+                android:id="@+id/help_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:foreground="@drawable/framelayout_selector" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:background="@color/none"
+                        android:gravity="center_vertical"
+                        android:text="@string/title_help"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/big" />
+                    <ImageView 
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/expend_right"
+                        />
+                </LinearLayout>
+            </FrameLayout>
+            <ImageView 
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/contentbg"
+                />
+            <FrameLayout
+                android:id="@+id/about_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:foreground="@drawable/framelayout_selector" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:background="@color/none"
+                        android:gravity="center_vertical"
+                        android:text="@string/title_about"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/big" />
+                    <ImageView 
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/expend_right"
+                        />
+                </LinearLayout>
+            </FrameLayout>
+            
+            <FrameLayout
+                android:id="@+id/invite_layout"
+                android:layout_marginTop="@dimen/padding_10"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:foreground="@drawable/framelayout_selector" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:background="@color/none"
+                        android:gravity="center_vertical"
+                        android:text="@string/invite_friends"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/big" />
+                    <ImageView 
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/expend_right"
+                        />
+                </LinearLayout>
+            </FrameLayout>
+            <ImageView 
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/contentbg"
+                />
+            <FrameLayout
+                android:id="@+id/qrcode_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:foreground="@drawable/framelayout_selector" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:background="@color/none"
+                        android:gravity="center_vertical"
+                        android:text="@string/invite_friends_qrcode"
+                        android:textColor="@color/text_black"
+                        android:textSize="@dimen/big" />
+                    <ImageView 
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/expend_right"
+                        />
+                </LinearLayout>
+            </FrameLayout>
+            
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

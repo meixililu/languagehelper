@@ -4,7 +4,7 @@
     <string name="app_des">告别说不出口的英语</string>
     <string name="app_ad">学英语，你值得拥有！</string>
     <string name="author">作者：黎潞</string>
-    <string name="designer">设计：李茜霞,王烨</string>
+    <string name="designer">设计：李茜霞</string>
     <string name="title_about">关于我们</string>
     <string name="title_share_preview">分享预览</string>
     <string name="title_Practice">口语修炼</string>
@@ -23,6 +23,7 @@
     <string name="title_hotel">订酒店</string>
     <string name="title_dialog_select">选择场景</string>
     <string name="title_settings">应用设置</string>
+    <string name="title_comments">吐槽评价</string>
     <string name="title_apps">发现APP</string>
     <string name="evaluation_prompt">关于口语评测</string>
     
@@ -62,16 +63,8 @@
     
     <string name="preference_key_accent">accent</string>
     <string name="preference_default_accent">mandarin</string>
-    
     <string name="preference_key_tts_speed">tts_speed</string>
     
-    <string-array name="planets_array">
-        <item>应用设置</item>
-        <item>吐槽评价</item>
-        <item>使用帮助</item>
-        <item>关于我们</item>
-    </string-array>
-
     <string name="play_speed_text">播放语速调节：</string>
     <string name="fifth_normal">50为正常速度</string>
     <string name="i_speak_cantonese">我说粤语</string>
@@ -140,7 +133,7 @@
 	
 	<string name="dailysentence">每日一句</string>
 	<string name="symbolStudy">48个音标快速学</string>
-	<string name="spokenEnglishTest">口语练习与评测</string>
+	<string name="spokenEnglishTest">口语练习</string>
 	<string name="reading">双语阅读</string>
 	<string name="simulation_dialogue">模拟对话</string>
 	<string name="introduction">基础词汇</string>

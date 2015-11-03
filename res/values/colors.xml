@@ -7,7 +7,7 @@
 	<color name="none_alpha">#77000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="white_alph_dark">#ddFFFFFF</color>
-    <color name="white_alph">#99FFFFFF</color>
+    <color name="white_alph">#ddFFFFFF</color>
     <color name="black">#FF000000</color>
     <color name="red">#FFDE0000</color>
     <color name="dullred">#bc4c4c</color>
@@ -32,7 +32,7 @@
     <color name="text_grey2">#a9a9a9</color>
 	<color name="text_black1">#888888</color>
 	<color name="text_black">#666666</color>
-	<color name="text_black_alph">#aa666666</color>
+	<color name="text_black_alph">#ee666666</color>
 	<color name="text_dark">#333333</color>
 	<color name="text_blue">#6992cc</color>
 	<color name="text_red">#de0000</color>
@@ -91,9 +91,9 @@
 	<color name="app_lightblue">#4ea7e6</color>
 	<color name="list_menu_bg_color">#ebf7fc</color>
 	<color name="light_blue">#03A9F4</color>
-	<color name="light_blue_apla">#bb03A9F4</color>
+	<color name="light_blue_apla">#cc03A9F4</color>
 	<color name="btn_grey">#f1f1f1</color>
-	<color name="btn_grey_apla">#bbf1f1f1</color>
+	<color name="btn_grey_apla">#ccf1f1f1</color>
 	<color name="btn_light_blue">#4ea7e6</color>
 	
 	<color name="holo_blue_bright">#ff00ddff</color>

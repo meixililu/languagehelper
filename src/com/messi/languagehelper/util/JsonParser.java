@@ -1,8 +1,5 @@
 package com.messi.languagehelper.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,11 +11,92 @@ import com.messi.languagehelper.dao.Dictionary;
 import com.messi.languagehelper.dao.EveryDaySentence;
 import com.messi.languagehelper.dao.Means;
 import com.messi.languagehelper.dao.Parts;
+import com.messi.languagehelper.dao.Root;
+import com.messi.languagehelper.dao.Showapi_res_body;
 import com.messi.languagehelper.dao.Tag;
+import com.messi.languagehelper.dao.Web;
 import com.messi.languagehelper.db.DataBaseUtil;
 
 
 public class JsonParser {
+	
+	public static Dictionary changeShowapiResultToDicBean(Root mRoot, String query){
+		StringBuilder sb = new StringBuilder();
+		StringBuilder sb_play = new StringBuilder();
+		Dictionary mDictionary = new Dictionary();
+		Showapi_res_body mShowapi_res_body = mRoot.getShowapi_res_body();
+		mDictionary.setType(KeyUtil.ResultTypeShowapi);
+		boolean isEnglish = StringUtils.isEnglish(query);
+		mDictionary.setWord_name(query);
+		if(isEnglish){
+			mDictionary.setFrom("en");
+			mDictionary.setTo("zh");
+		}else{
+			mDictionary.setFrom("zh");
+			mDictionary.setTo("en");
+		}
+		if(mShowapi_res_body.getBasic() != null){
+			if(isEnglish){
+				mDictionary.setPh_en(mShowapi_res_body.getBasic().getUk_phonetic());
+				mDictionary.setPh_am(mShowapi_res_body.getBasic().getUs_phonetic());
+				if(TextUtils.isEmpty(mDictionary.getPh_en())){
+					mDictionary.setPh_en(mShowapi_res_body.getBasic().getPhonetic());
+				}
+				if(!TextUtils.isEmpty(mDictionary.getPh_am())){
+					sb.append("美 /" + mDictionary.getPh_am() + "/      英 /" + mDictionary.getPh_en() + "/");
+					sb.append("\n");
+				}
+			}else{
+				mDictionary.setPh_zh(mShowapi_res_body.getBasic().getPhonetic());
+				if(!TextUtils.isEmpty(mDictionary.getPh_zh())){
+					sb.append("拼 /" + mDictionary.getPh_zh() + "/");
+					sb.append("\n");
+				}
+			}
+			if(mShowapi_res_body.getBasic().getExplains() != null){
+				for(String item : mShowapi_res_body.getBasic().getExplains()){
+					sb.append(item);
+					sb.append("\n");
+					sb_play.append(item);
+					sb_play.append("\n");
+				}
+			}
+		}
+		if(mShowapi_res_body.getTranslations() != null){
+			for(String item : mShowapi_res_body.getTranslations()){
+				if(!sb.toString().contains(item)){
+					sb.append(item);
+					sb.append("\n");
+					sb_play.append(item);
+					sb_play.append("\n");
+				}
+			}
+		}
+		if(mShowapi_res_body.getWebs() != null){
+			sb.append("网络例句：");
+			sb.append("\n");
+			for(Web mWeb : mShowapi_res_body.getWebs()){
+				if(!TextUtils.isEmpty(mWeb.getKey())){
+					sb.append(mWeb.getKey());
+					sb.append("\n");
+					sb_play.append(mWeb.getKey());
+					sb_play.append("\n");
+				}
+				if(mWeb.getValues() != null){
+					for(String value : mWeb.getValues()){
+						sb.append(value);
+						sb.append("\n");
+						sb_play.append(value);
+						sb_play.append("\n");
+					}
+				}
+			}
+		}
+		mDictionary.setResult(sb.substring(0, sb.lastIndexOf("\n")));
+		mDictionary.setBackup1(sb_play.substring(0, sb_play.lastIndexOf("\n")));
+		DataBaseUtil.getInstance().insert(mDictionary);
+		return mDictionary;
+	}
 
 	//{"from":"en","to":"zh","trans_result":[{"src":"cold","dst":"\u51b7"}]}
 	public static String getTranslateResult(String jsonString){

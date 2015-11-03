@@ -26,8 +26,8 @@ public class Dictionary {
     private String iscollected;
     private Integer visit_times;
     private Integer speak_speed;
-    private String backup1;
-    private String backup2;
+    private String backup1;/**baidu dictionary play result**/
+    private String backup2;/**playing pause stop sign  XFUtil PlayOnline PlayOffline**/
     private String backup3;
     private String backup4;
     private String backup5;

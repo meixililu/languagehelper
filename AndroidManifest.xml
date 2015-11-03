@@ -89,6 +89,9 @@
             android:name="com.iflytek.voiceads.request.IFLYBrowser"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".MoreActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".SymbolListActivity"
             android:screenOrientation="portrait" />
         <activity

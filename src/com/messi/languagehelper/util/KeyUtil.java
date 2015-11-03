@@ -44,8 +44,6 @@ public class KeyUtil {
 	
 	public static final String AutoClear = "AutoClear";
 	
-	public static final String ShowNewFunction = "ShowNewFunction1";
-	
 	public static final String IsHasShowBaiduMessage = "IsHasShowBaiduMessage";
 
 	public static final String IsHasShowClickText = "IsHasShowClickText";
@@ -68,6 +66,8 @@ public class KeyUtil {
 	
 	public static final String ResultTypeDictionary = "ResultTypeDictionary";
 	
+	public static final String ResultTypeShowapi = "ResultTypeShowapi";
+	
 	public static final String ResultTypeTranslate = "ResultTypeTranslate";
 	
 	public static final String StudyDialogAction = "StudyDialogAction";
@@ -75,6 +75,8 @@ public class KeyUtil {
 	public static final String ContextKey = "ContextKey";
 	
 	public static final String SDcardPathKey = "SDcardPathKey";
+
+	public static final String BundleKey = "BundleKey";
 
 	
 	

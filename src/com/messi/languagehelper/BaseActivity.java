@@ -1,5 +1,6 @@
 package com.messi.languagehelper;
 
+import android.content.Intent;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
@@ -70,6 +71,14 @@ public class BaseActivity extends ActionBarActivity {
             }
         }
     }
+	
+	protected void toActivity(Class mClass,Bundle bundle){
+		Intent intent = new Intent(this,mClass);
+		if(bundle != null){
+			intent.putExtra(KeyUtil.BundleKey, bundle);
+		}
+		startActivity(intent);
+	}
 	
 	protected void initProgressbar(){
 		if(mProgressbar == null){

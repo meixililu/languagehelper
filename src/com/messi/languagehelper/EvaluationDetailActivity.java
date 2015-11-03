@@ -327,7 +327,12 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 		}
 
 		@Override
-		public void onVolumeChanged(int volume) {
+		public void onEvent(int arg0, int arg1, int arg2, Bundle arg3) {
+			
+		}
+
+		@Override
+		public void onVolumeChanged(int volume, byte[] arg1) {
 			if(volume < 4){
 				record_anim_img.setBackgroundResource(R.drawable.speak_voice_1);
 			}else if(volume < 8){
@@ -343,10 +348,6 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 			}else if(volume < 31){
 				record_anim_img.setBackgroundResource(R.drawable.speak_voice_7);
 			}
-		}
-
-		@Override
-		public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
 		}
 	};
 	

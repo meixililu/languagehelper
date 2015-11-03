@@ -169,22 +169,24 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 	 * 显示转写对话框.
 	 */
 	public void showIatDialog() {
-		if(!recognizer.isListening()){
-			if(isNewIn){
-				isNewIn = false;
-				isFollow = true;
-				practice_prompt.setVisibility(View.GONE);
-				mAnswerOnClickListener.onClick(voice_play_answer);
-				record_animation_layout.setVisibility(View.VISIBLE);
-				record_animation_text.setText("Listen");
+		if(recognizer != null){
+			if(!recognizer.isListening()){
+				if(isNewIn){
+					isNewIn = false;
+					isFollow = true;
+					practice_prompt.setVisibility(View.GONE);
+					mAnswerOnClickListener.onClick(voice_play_answer);
+					record_animation_layout.setVisibility(View.VISIBLE);
+					record_animation_text.setText("Listen");
+				}else{
+					record_layout.setVisibility(View.VISIBLE);
+					voice_btn.setText(this.getResources().getString(R.string.finish));
+					XFUtil.showSpeechRecognizer(this,mSharedPreferences,recognizer,recognizerListener);
+				}
 			}else{
-				record_layout.setVisibility(View.VISIBLE);
-				voice_btn.setText(this.getResources().getString(R.string.finish));
-				XFUtil.showSpeechRecognizer(this,mSharedPreferences,recognizer,recognizerListener);
+				showProgressbar();
+				finishRecord();
 			}
-		}else{
-			showProgressbar();
-			finishRecord();
 		}
 	}
 	
@@ -309,7 +311,12 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 		}
 
 		@Override
-		public void onVolumeChanged(int volume) {
+		public void onEvent(int arg0, int arg1, int arg2, Bundle arg3) {
+			
+		}
+
+		@Override
+		public void onVolumeChanged(int volume, byte[] arg1) {
 			if(volume < 4){
 				record_anim_img.setBackgroundResource(R.drawable.speak_voice_1);
 			}else if(volume < 8){
@@ -325,10 +332,6 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 			}else if(volume < 31){
 				record_anim_img.setBackgroundResource(R.drawable.speak_voice_7);
 			}
-		}
-
-		@Override
-		public void onEvent(int arg0, int arg1, int arg2, Bundle arg3) {
 		}
 	};
 	

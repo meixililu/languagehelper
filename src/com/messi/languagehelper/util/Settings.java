@@ -19,6 +19,9 @@ public class Settings {
 	/**baidu dictionary api**/
 	public static String baiduDictionaryUrl = "http://openapi.baidu.com/public/2.0/translate/dict/simple";
 	
+	/**showapi dictionary api**/
+	public static String ShowApiUrl = "http://route.showapi.com/32-9";
+	
 	/**jinshan daily sentence api**/
 	public static String DailySentenceUrl = "http://open.iciba.com/dsapi/";
 	
@@ -35,9 +38,11 @@ public class Settings {
 	
 	/**广阅通**/
 	public static final String GuangyuetongUrl = "http://p.contx.cn/v1/access?id=f9136944-bc17-4cb1-9b14-ece9de91b39d&uid=#uid#&ud=#ud#";
-	
 
 	public static final String Email = "meixililulu@163.com";
+	
+	public static final String showapi_appid = "11619";	
+	public static final String showapi_secret = "f27574671ec14eb4a97faacb2eee3ef2";	
 	
 	public static final String client_id = "vCV6TTGRTI5QrckdYSKHQIhq";	
 	public static String from = "auto";	

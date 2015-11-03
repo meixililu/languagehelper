@@ -25,6 +25,9 @@ public class XFUtil {
 	public static final String VoiceEngineEN = "en_us";
 	public static final String VoiceEngineHK = "cantonese";
 	
+	public static final String PlayOnline = "PlayOnline";
+	public static final String PlayOffline = "PlayOffline";
+	
 //	中文：
 //	domain=iat,language=zh_cn,accent=mandarin
 //	英文:
@@ -73,8 +76,22 @@ public class XFUtil {
 		if (null == mSpeechSynthesizer) {
 			mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(mContext,null);
 		}
-		StringUtils.isChOrEn(source);
+		StringUtils.setSpeaker(source);
 		mSpeechSynthesizer.setParameter(SpeechConstant.VOICE_NAME, Settings.role);
+		mSpeechSynthesizer.setParameter(SpeechConstant.SPEED, String.valueOf(MainFragment.speed));
+		mSpeechSynthesizer.setParameter(SpeechConstant.VOLUME, "100");
+		mSpeechSynthesizer.setParameter(SpeechConstant.ENGINE_TYPE, "cloud");//离线 local
+		mSpeechSynthesizer.startSpeaking(source, mSynthesizerListener);
+	}
+	
+	/**合成语音**/
+	public static void showSpeechSynthesizer(Context mContext,SharedPreferences mSharedPreferences,
+			SpeechSynthesizer mSpeechSynthesizer, String source, String speaker,
+			SynthesizerListener mSynthesizerListener) {
+		if (null == mSpeechSynthesizer) {
+			mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(mContext,null);
+		}
+		mSpeechSynthesizer.setParameter(SpeechConstant.VOICE_NAME, speaker);
 		mSpeechSynthesizer.setParameter(SpeechConstant.SPEED, String.valueOf(MainFragment.speed));
 		mSpeechSynthesizer.setParameter(SpeechConstant.VOLUME, "100");
 		mSpeechSynthesizer.setParameter(SpeechConstant.ENGINE_TYPE, "cloud");//离线 local

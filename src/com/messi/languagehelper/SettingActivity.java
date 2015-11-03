@@ -25,8 +25,8 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 	private TextView seekbar_text;
 	private SeekBar seekbar;
 	private ImageView unread_auto_clear_dot_after_finish;
-	private FrameLayout speak_yueyu,auto_play,auto_clear,qrcode;
-	private FrameLayout clear_all_except_favorite,clear_all,invite_friends;
+	private FrameLayout speak_yueyu,auto_play,auto_clear;
+	private FrameLayout clear_all_except_favorite,clear_all;
 	private FrameLayout auto_clear_after_finish;
 	private CheckBox speak_yueyu_cb,auto_play_cb,auto_clear_cb;
 	private CheckBox auto_clear_cb_after_finish;
@@ -49,7 +49,6 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
         speak_yueyu = (FrameLayout) findViewById(R.id.speak_yueyu);
         auto_play = (FrameLayout) findViewById(R.id.setting_auto_play);
         auto_clear = (FrameLayout) findViewById(R.id.setting_auto_clear);
-        qrcode = (FrameLayout) findViewById(R.id.setting_invite_friends_qrcode);
         auto_clear_after_finish = (FrameLayout) findViewById(R.id.setting_auto_clear_after_finish);
         speak_yueyu_cb = (CheckBox) findViewById(R.id.speak_yueyu_cb);
         auto_clear_cb = (CheckBox) findViewById(R.id.setting_auto_clear_cb);
@@ -57,16 +56,13 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
         auto_clear_cb_after_finish = (CheckBox) findViewById(R.id.setting_auto_clear_cb_after_finish);
         clear_all_except_favorite = (FrameLayout) findViewById(R.id.setting_clear_all_except_favorite);
         clear_all = (FrameLayout) findViewById(R.id.setting_clear_all);
-        invite_friends = (FrameLayout) findViewById(R.id.setting_invite_friends);
         
         seekbar.setOnSeekBarChangeListener(this);
         speak_yueyu.setOnClickListener(this);
         clear_all_except_favorite.setOnClickListener(this);
         clear_all.setOnClickListener(this);
-        invite_friends.setOnClickListener(this);
         auto_play.setOnClickListener(this);
         auto_clear.setOnClickListener(this);
-        qrcode.setOnClickListener(this);
         auto_clear_after_finish.setOnClickListener(this);
 	}
 	
@@ -133,23 +129,11 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 			ToastUtil.diaplayMesShort(SettingActivity.this, this.getResources().getString(R.string.clear_success));
 			StatService.onEvent(this, "setting_page_clear_all", "清除所有记录", 1);
 			break;
-		case R.id.setting_invite_friends:
-			ShareUtil.shareLink(SettingActivity.this,SettingActivity.this.getResources().getString(R.string.invite_friends_prompt));
-			StatService.onEvent(this, "setting_page_invite_friends", "邀请小伙伴", 1);
-			break;
-		case R.id.setting_invite_friends_qrcode:
-			shareQrcode();
-			StatService.onEvent(this, "setting_page_qrcode", "二维码", 1);
-			break;
 		default:
 			break;
 		}
 	}
 	
-	private void shareQrcode(){
-		Intent intent = new Intent(this,QRCodeShareActivity.class);
-		startActivity(intent);
-	}
 	
 	@Override
 	protected void onDestroy() {

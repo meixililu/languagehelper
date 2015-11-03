@@ -32,6 +32,7 @@ import android.widget.RadioButton;
 import com.baidu.mobstat.StatService;
 import com.gc.materialdesign.views.ButtonFlat;
 import com.gc.materialdesign.views.ButtonRectangle;
+import com.google.gson.Gson;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
@@ -42,6 +43,7 @@ import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 import com.messi.languagehelper.adapter.DictionaryListViewAdapter;
 import com.messi.languagehelper.dao.Dictionary;
+import com.messi.languagehelper.dao.Root;
 import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.http.LanguagehelperHttpClient;
 import com.messi.languagehelper.impl.FragmentProgressbarListener;
@@ -319,8 +321,53 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 	
 	/**
 	 * send translate request
+	 * showapi dictionary api
 	 */
-	private void RequestAsyncTask(){
+	private void RequestShowapiAsyncTask(){
+		loadding();
+		submit_btn.setEnabled(false);
+		RequestParams mRequestParams = new RequestParams();
+		mRequestParams.put("showapi_appid", Settings.showapi_appid);
+		mRequestParams.put("showapi_sign", Settings.showapi_secret);
+		mRequestParams.put("showapi_timestamp", String.valueOf(System.currentTimeMillis()) );
+		mRequestParams.put("q", Settings.q);
+		LanguagehelperHttpClient.get(Settings.ShowApiUrl, mRequestParams, new TextHttpResponseHandler() {
+			@Override
+			public void onFinish() {
+				super.onFinish();
+				finishLoadding();
+				submit_btn.setEnabled(true);
+			}
+			@Override
+			public void onFailure(int statusCode, Header[] headers,String responseString, Throwable throwable) {
+				showToast("Error("+statusCode+")");
+			}
+			@Override
+			public void onSuccess(int statusCode, Header[] headers, String responseString) {
+				if (!TextUtils.isEmpty(responseString)) {
+					LogUtil.DefalutLog("Result---showapi:"+responseString);
+					Root mRoot = new Gson().fromJson(responseString, Root.class);
+					if(mRoot != null && mRoot.getShowapi_res_code() == 0 && mRoot.getShowapi_res_body() != null){
+						mDictionaryBean = JsonParser.changeShowapiResultToDicBean(mRoot,Settings.q);
+						setData();
+					}else{
+						RequestBaiduDictionaryAsyncTask();
+					}
+					if(mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false)){
+						new AutoPlayWaitTask().execute();
+					}
+				} else {
+					showToast(getActivity().getResources().getString(R.string.network_error));
+				}
+			}
+		});
+	}
+	
+	/**
+	 * send translate request
+	 * baidu dictionary api
+	 */
+	private void RequestBaiduDictionaryAsyncTask(){
 		loadding();
 		submit_btn.setEnabled(false);
 		RequestParams mRequestParams = new RequestParams();
@@ -342,11 +389,9 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 			@Override
 			public void onSuccess(int statusCode, Header[] headers, String responseString) {
 				if (!TextUtils.isEmpty(responseString)) {
+					LogUtil.DefalutLog("Result---baidu dic:"+responseString);
 					mDictionaryBean = JsonParser.parseDictionaryJson(responseString);
 					if(mDictionaryBean != null){
-						if(AutoClearInputAfterFinish){
-							input_et.setText("");
-						}
 						setData();
 					}else{
 						GetDictionaryFaultAsyncTask();
@@ -361,10 +406,13 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		});
 	}
 	
+	/**
+	 * if dictionary api fail
+	 * baidu translate api
+	 */
 	private void GetDictionaryFaultAsyncTask(){
 		loadding();
 		submit_btn.setEnabled(false);
-		Settings.q = input_et.getText().toString().trim();
 		RequestParams mRequestParams = new RequestParams();
 		mRequestParams.put("client_id", Settings.client_id);
 		mRequestParams.put("q", Settings.q);
@@ -384,14 +432,11 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 			@Override
 			public void onSuccess(int statusCode, Header[] headers, String responseString) {
 				if (!TextUtils.isEmpty(responseString)) {
-					LogUtil.DefalutLog(responseString);
+					LogUtil.DefalutLog("Result---baidu tran:"+responseString);
 					String dstString = JsonParser.getTranslateResult(responseString);
 					if (dstString.contains("error_msg:")) {
 						showToast(dstString);
 					} else {
-						if(AutoClearInputAfterFinish){
-							input_et.setText("");
-						}
 						mDictionaryBean = new Dictionary();
 						mDictionaryBean.setType(KeyUtil.ResultTypeTranslate);
 						mDictionaryBean.setWord_name(Settings.q);
@@ -407,6 +452,9 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 	}
 	
 	private void setData(){
+		if(AutoClearInputAfterFinish){
+			input_et.setText("");
+		}
 		beans.add(0,mDictionaryBean);
 		mAdapter.notifyDataSetChanged();
 		recent_used_lv.setSelection(0);
@@ -506,7 +554,12 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		}
 
 		@Override
-		public void onVolumeChanged(int volume) {
+		public void onEvent(int arg0, int arg1, int arg2, Bundle arg3) {
+			
+		}
+
+		@Override
+		public void onVolumeChanged(int volume, byte[] arg1) {
 			if(volume < 4){
 				record_anim_img.setBackgroundResource(R.drawable.speak_voice_1);
 			}else if(volume < 8){
@@ -522,10 +575,6 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 			}else if(volume < 31){
 				record_anim_img.setBackgroundResource(R.drawable.speak_voice_7);
 			}
-		}
-
-		@Override
-		public void onEvent(int arg0, int arg1, int arg2, Bundle arg3) {
 		}
 
 	};
@@ -569,9 +618,12 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 	 */
 	private void submit(){
 		Settings.q = input_et.getText().toString().trim();
-		Settings.q =  Settings.q.replaceAll("[\\p{P}]", "");
+		String last = Settings.q.substring(Settings.q.length()-1);
+		if(",.?!;:'，。？！‘；：".contains(last)){
+			Settings.q = Settings.q.substring(0,Settings.q.length()-1);
+		}
 		if (!TextUtils.isEmpty(Settings.q)) {
-			RequestAsyncTask();
+			RequestShowapiAsyncTask();
 			StatService.onEvent(getActivity(), "tab_dic_submit_btn", "首页词典页面翻译提交按钮", 1);
 		} else {
 			showToast(getActivity().getResources().getString(R.string.input_et_hint));
@@ -583,10 +635,12 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 	public void onDestroy() {
 		super.onDestroy();
 		if(mSpeechSynthesizer != null){
+			mSpeechSynthesizer.stopSpeaking();
 			mSpeechSynthesizer.destroy();
 			mSpeechSynthesizer = null;
 		}
 		if(recognizer != null){
+			recognizer.stopListening();
 			recognizer.destroy();
 			recognizer = null;
 		}

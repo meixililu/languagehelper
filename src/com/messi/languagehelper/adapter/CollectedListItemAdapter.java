@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.AudioTrack;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.ClipboardManager;
@@ -28,6 +29,7 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
+import com.lerdian.search.SearchManger;
 import com.messi.languagehelper.BaseApplication;
 import com.messi.languagehelper.ImgShareActivity;
 import com.messi.languagehelper.MainFragment;
@@ -54,6 +56,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 	private List<record> beans;
 	private Context context;
 	private SpeechSynthesizer mSpeechSynthesizer;
+	private AudioTrack audioTrack;
 	private SharedPreferences mSharedPreferences;
 	private Bundle bundle;
 
@@ -101,6 +104,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 			holder.copy_btn = (FrameLayout) convertView.findViewById(R.id.copy_btn);
 			holder.collected_btn = (FrameLayout) convertView.findViewById(R.id.collected_btn);
 			holder.weixi_btn = (FrameLayout) convertView.findViewById(R.id.weixi_btn);
+			holder.baidu_btn = (FrameLayout) convertView.findViewById(R.id.baidu_btn);
 			holder.play_content_btn_progressbar = (ProgressBar) convertView.findViewById(R.id.play_content_btn_progressbar);
 			convertView.setTag(holder);
 		} else {
@@ -172,7 +176,20 @@ public class CollectedListItemAdapter extends BaseAdapter {
 				StatService.onEvent(context, "tab_translate_to_practice", "首页翻译页面列表练口语按钮", 1);
 			}
 		});
+		holder.baidu_btn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				toBaiduActivity(mBean.getChinese());
+				StatService.onEvent(context, "dic_item_bdsearch", "首页词典页面列表收藏按钮", 1);
+			}
+		});
 		return convertView;
+	}
+	
+	private void toBaiduActivity(String query){
+		ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+		cm.setText(query);//string为你要传入的值
+		SearchManger.openDetail(context);
 	}
 	
 	private boolean isFirstLoaded(){
@@ -193,6 +210,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		FrameLayout copy_btn;
 		FrameLayout collected_btn;
 		FrameLayout weixi_btn;
+		FrameLayout baidu_btn;
 		ImageButton voice_play;
 		ImageView unread_dot;
 		CheckBox collected_cb;
@@ -393,7 +411,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 			}
 			@Override
 			public Object doInBackground() {
-				AudioTrackUtil.createAudioTrack(path);
+				audioTrack = AudioTrackUtil.createAudioTrack(path);
 				return null;
 			}
 			@Override

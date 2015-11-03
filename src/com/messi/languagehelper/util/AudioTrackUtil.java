@@ -16,43 +16,8 @@ import android.view.KeyEvent;
 
 public class AudioTrackUtil {
 
-	public static void createAudioTrack(String path) {
-		Test(path);
-//		try {
-//			byte[] audioData = getBytes(path);
-//			if (audioData != null) {
-//				AudioTrack audioTrack = new AudioTrack(
-//						AudioManager.STREAM_MUSIC, 
-//						8000,
-//						AudioFormat.CHANNEL_OUT_STEREO,
-//						AudioFormat.ENCODING_PCM_16BIT, 
-//						audioData.length,
-//						AudioTrack.MODE_STATIC);
-//				audioTrack.write(audioData, 0, audioData.length);
-//				audioTrack.setPositionNotificationPeriod(audioData.length -2);
-//				audioTrack.setNotificationMarkerPosition(audioData.length/2);
-//				int position = audioTrack.getNotificationMarkerPosition();
-//				LogUtil.DefalutLog("---getNotificationMarkerPosition:"+position);
-//				audioTrack.setPlaybackPositionUpdateListener(new OnPlaybackPositionUpdateListener() {
-//							@Override
-//							public void onPeriodicNotification(AudioTrack arg0) {
-//								LogUtil.DefalutLog("---onPeriodicNotification");
-//							}
-//
-//							@Override
-//							public void onMarkerReached(AudioTrack arg0) {
-//								LogUtil.DefalutLog("---onMarkerReached");
-//							}
-//						});
-//				audioTrack.play();
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-	}
-	
-	public static void Test(String path){
-	    try {
+	public static AudioTrack createAudioTrack(String path) {
+		try {
 	    	byte[] audioData = getBytes(path);
 	        int minBufferSize = AudioTrack.getMinBufferSize(8000, 
 	        		AudioFormat.CHANNEL_OUT_STEREO,
@@ -65,11 +30,13 @@ public class AudioTrackUtil {
 	        audioTrack.write(audioData, 0, audioData.length);
 	        audioTrack.stop();
 	        audioTrack.release();
+	        return audioTrack;
 	    } catch (Exception e) {
 	       e.printStackTrace();
+	       return null;
 	    } 
 	}
-
+	
 	public static boolean isFileExists(String filePath) {
 		File file = new File(filePath);
 		return file.exists();
