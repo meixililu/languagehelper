@@ -28,25 +28,37 @@ import com.messi.languagehelper.wxapi.WXEntryActivity;
 public class LoadingActivity extends Activity implements OnClickListener{
 	
 	private SharedPreferences mSharedPreferences;
-	private LinearLayout middle_ad;
-	private RelativeLayout parent_layout;
 	private ImageView forward_img;
 	private IFLYFullScreenAd fullScreenAd;
-	private boolean isStopToGoNext;
 	private Handler mHandler;
+	private boolean isAdExposure;
+	private boolean isAdClicked;
 	
 	private Runnable mRunnable = new Runnable() {
 		@Override
 		public void run() {
-			toNextPage();
 			mHandler.removeCallbacks(m3Runnable);
+			mHandler.removeCallbacks(mRunnableFinal);
+			toNextPage();
+		}
+	};
+	
+	private Runnable mRunnableFinal = new Runnable() {
+		@Override
+		public void run() {
+			LogUtil.DefalutLog("LoadingActivity---mRunnableFinal");
+			toNextPage();
 		}
 	};
 	
 	private Runnable m3Runnable = new Runnable() {
 		@Override
 		public void run() {
-			toNextPage();
+			LogUtil.DefalutLog("LoadingActivity---m3Runnable---isAdExposure:"+isAdExposure);
+			if(!isAdExposure){
+				mHandler.removeCallbacks(mRunnableFinal);
+				toNextPage();
+			}
 		}
 	};
 	
@@ -76,14 +88,12 @@ public class LoadingActivity extends Activity implements OnClickListener{
 	private void init(){
 		mSharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
 		mHandler = new Handler();
-		parent_layout = (RelativeLayout) findViewById(R.id.parent_layout);
 		forward_img = (ImageView) findViewById(R.id.forward_img);
-		middle_ad = (LinearLayout)findViewById(R.id.middle_ad);
 		forward_img.setOnClickListener(this);
 		ShortCut.addShortcut(this, mSharedPreferences);
 		addToShowAdTimes();
 		if(ADUtil.isShowAd(this)){
-			fullScreenAd = ADUtil.initQuanPingAD(this, middle_ad);
+			fullScreenAd = ADUtil.initQuanPingAD(this);
 			fullScreenAd.loadAd(new IFLYAdListener() {
 				@Override
 				public void onAdReceive() {
@@ -94,7 +104,9 @@ public class LoadingActivity extends Activity implements OnClickListener{
 				}
 				@Override
 				public void onAdClose() {
-					toNextPage();
+					if(!isAdClicked){
+						toNextPage();
+					}
 					LogUtil.DefalutLog("LoadingActivity---fullScreenAd---onAdClose");
 				}
 				@Override
@@ -107,18 +119,23 @@ public class LoadingActivity extends Activity implements OnClickListener{
 					onError();
 					LogUtil.DefalutLog("LoadingActivity---fullScreenAd---onAdFailed:"+arg0.getErrorCode()+"---"+arg0.getErrorDescription());
 				}
+				@Override
+				public void onAdExposure() {
+					isAdExposure = true;
+					mHandler.postDelayed(mRunnableFinal, 3500);
+					LogUtil.DefalutLog("LoadingActivity---fullScreenAd---onAdExposure");
+				}
 			});
 		}else{
 			onError();
 		}
-		onTimeToLong();
+		startTask();
 	}
 	
 	private void onClickAd(){
+		isAdClicked = true;
 		cancleRunable();
-		isStopToGoNext = true;
 		forward_img.setVisibility(View.VISIBLE);
-		parent_layout.setOnClickListener(this);
 		StatService.onEvent(LoadingActivity.this, "ad_kaiping", "点击开屏广告", 1);
 	}
 	
@@ -126,8 +143,8 @@ public class LoadingActivity extends Activity implements OnClickListener{
 		mHandler.postDelayed(mRunnable, 800);
 	}
 	
-	private void onTimeToLong(){
-		mHandler.postDelayed(m3Runnable, 3500);
+	private void startTask(){
+		mHandler.postDelayed(m3Runnable, 2700);
 	}
 	
 	@Override
@@ -144,11 +161,9 @@ public class LoadingActivity extends Activity implements OnClickListener{
 	
 	private void toNextPage(){
 		try {
-			if(!isStopToGoNext){
-				Intent intent = new Intent(LoadingActivity.this, WXEntryActivity.class);
-				startActivity(intent);
-				finish();
-			}
+			Intent intent = new Intent(LoadingActivity.this, WXEntryActivity.class);
+			startActivity(intent);
+			finish();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -156,6 +171,7 @@ public class LoadingActivity extends Activity implements OnClickListener{
 	
 	private void cancleRunable(){
 		if(m3Runnable != null){
+			mHandler.removeCallbacks(mRunnableFinal);
 			mHandler.removeCallbacks(m3Runnable);
 			mHandler.removeCallbacks(mRunnable);
 		}
@@ -172,14 +188,25 @@ public class LoadingActivity extends Activity implements OnClickListener{
 		super.onPause();
 		StatService.onPause(this);
 	}
+	@Override
+	protected void onStop() {
+		super.onStop();
+		
+	}
+	@Override
+	protected void onStart() {
+		super.onStart();
+		if(isAdClicked){
+			toNextPage();
+		}
+	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		if(middle_ad != null){
-			middle_ad.removeAllViews();
-		}
+		LogUtil.DefalutLog("LoadingActivity---onDestroy---destroyAd");
 		if(fullScreenAd != null){
+			fullScreenAd.destroyAd();
 			fullScreenAd = null;
 		}
 	}
@@ -187,12 +214,7 @@ public class LoadingActivity extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
-		case R.id.parent_layout:
-			isStopToGoNext = false;
-			toNextPage();
-			break;
 		case R.id.forward_img:
-			isStopToGoNext = false;
 			toNextPage();
 			break;
 		}

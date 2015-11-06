@@ -10,12 +10,19 @@ import android.view.View;
 import android.view.View.MeasureSpec;
 import android.widget.AbsListView.LayoutParams;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.messi.languagehelper.R;
 
 public class ViewUtil {
+	
+	public static ImageView initImageView(Context context){
+		ImageView mImageView = new ImageView(context);
+		mImageView.setScaleType(ScaleType.CENTER_CROP);
+		return mImageView;
+	}
 
 	public static int getToolbarHeight(Context context) {
         final TypedArray styledAttributes = context.getTheme().obtainStyledAttributes(
@@ -76,9 +83,10 @@ public class ViewUtil {
 	 */
 	public static ImageView getDot(Context mContext,int index){
 		ImageView img = new ImageView(mContext);
-		LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(ScreenUtil.dip2px(mContext, 7),ScreenUtil.dip2px(mContext, 7));
-		mParams.leftMargin = ScreenUtil.dip2px(mContext, 3);
-		mParams.rightMargin = ScreenUtil.dip2px(mContext, 3);
+		LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(
+				ScreenUtil.dip2px(mContext, 7),ScreenUtil.dip2px(mContext, 7));
+		mParams.leftMargin = ScreenUtil.dip2px(mContext, 2);
+		mParams.rightMargin = ScreenUtil.dip2px(mContext, 2);
 		img.setLayoutParams(mParams);
 		img.setBackgroundResource(R.drawable.dot_selector);
 		if(index == 0){
@@ -87,6 +95,18 @@ public class ViewUtil {
 			img.setEnabled(false);
 		}
 		return img;
+	}
+	
+	public static void changeState(LinearLayout viewpager_dot_layout, int pos) {
+		int size = viewpager_dot_layout.getChildCount();
+		for (int i = 0; i < size; i++) {
+			View mView = viewpager_dot_layout.getChildAt(i);
+			if (i == pos) {
+				mView.setEnabled(true);
+			} else {
+				mView.setEnabled(false);
+			}
+		}
 	}
 	
 	public static View getListFooterView(Context mContext){

@@ -68,6 +68,11 @@ public class EnglishWebsiteRecommendActivity extends BaseActivity implements OnC
 				public void onAdClick() {
 					StatService.onEvent(EnglishWebsiteRecommendActivity.this, "ad_banner", "点击banner广告", 1);
 				}
+				@Override
+				public void onAdExposure() {
+					// TODO Auto-generated method stub
+					
+				}
 			});
 		}
 	}

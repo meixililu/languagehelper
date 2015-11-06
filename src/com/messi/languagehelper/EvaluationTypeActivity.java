@@ -5,8 +5,11 @@ import java.util.List;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -17,17 +20,27 @@ import com.baidu.mobstat.StatService;
 import com.iflytek.voiceads.AdError;
 import com.iflytek.voiceads.IFLYAdListener;
 import com.iflytek.voiceads.IFLYBannerAd;
+import com.iflytek.voiceads.IFLYNativeAd;
+import com.iflytek.voiceads.IFLYNativeListener;
+import com.iflytek.voiceads.NativeADDataRef;
 import com.messi.languagehelper.adapter.EvaluationTypeAdapter;
 import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.AVOUtil;
+import com.messi.languagehelper.util.LogUtil;
+import com.squareup.picasso.Picasso;
 
 public class EvaluationTypeActivity extends BaseActivity implements OnClickListener{
 
 	private ListView category_lv;
 	private EvaluationTypeAdapter mAdapter;
 	private List<AVObject> avObjects;
-	private IFLYBannerAd mIFLYBannerAd;
-	private LinearLayout ad_view;
+	
+	private IFLYNativeAd nativeAd;
+	private FrameLayout ad_layout;
+	private ImageView ad_img;
+	private List<NativeADDataRef> adList;
+	private int index;
+	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,35 +55,48 @@ public class EvaluationTypeActivity extends BaseActivity implements OnClickListe
 		getSupportActionBar().setTitle(getResources().getString(R.string.spokenEnglishTest));
 		avObjects = new ArrayList<AVObject>();
 		category_lv = (ListView) findViewById(R.id.studycategory_lv);
-		ad_view = (LinearLayout) findViewById(R.id.ad_view);
+		View headerView =  LayoutInflater.from(this).inflate(R.layout.xunfei_ysad_item, null);
+		ad_layout = (FrameLayout) headerView.findViewById(R.id.ad_layout);
+		ad_img = (ImageView) headerView.findViewById(R.id.ad_img);
+		category_lv.addHeaderView(headerView);
 		mAdapter = new EvaluationTypeAdapter(this, avObjects);
 		category_lv.setAdapter(mAdapter);
-		addAD();
+		showAD();
 	}
 	
-	private void addAD(){
+	private void showAD(){
 		if(ADUtil.isShowAd(this)){
-			mIFLYBannerAd = ADUtil.initBannerAD(EvaluationTypeActivity.this, ad_view, ADUtil.ListADId);
-			mIFLYBannerAd.loadAd(new IFLYAdListener() {
-				@Override
-				public void onAdReceive() {
-					if(mIFLYBannerAd != null){
-						mIFLYBannerAd.showAd();
-					}
-				}
+			nativeAd = new IFLYNativeAd(this, ADUtil.MRYJYSNRLAd,
+					new IFLYNativeListener() {
 				@Override
 				public void onAdFailed(AdError arg0) {
+					LogUtil.DefalutLog("onAdFailed---"+arg0.getErrorCode()+"---"+arg0.getErrorDescription());
 				}
 				@Override
-				public void onAdClose() {
-				}
-				@Override
-				public void onAdClick() {
-					StatService.onEvent(EvaluationTypeActivity.this, "ad_banner", "点击banner广告", 1);
+				public void onADLoaded(List<NativeADDataRef> arg0) {
+					if(arg0 != null && arg0.size() > 0){
+						adList = arg0;
+						setAdData();
+					}
 				}
 			});
+			nativeAd.loadAd(1);
 		}
 	}
+	
+	private void setAdData(){
+		Picasso.with(this)
+		.load(adList.get(index).getImage())
+		.tag(this)
+		.into(ad_img);
+		adList.get(index).onExposured(ad_layout);
+		ad_layout.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				adList.get(index).onClicked(v);
+			}
+		});
+}
 	
 	@Override
 	public void onSwipeRefreshLayoutRefresh() {
@@ -116,10 +142,6 @@ public class EvaluationTypeActivity extends BaseActivity implements OnClickListe
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		if(mIFLYBannerAd != null){
-			mIFLYBannerAd.destroy();
-			mIFLYBannerAd = null;
-		}
 	}
 	
 	@Override

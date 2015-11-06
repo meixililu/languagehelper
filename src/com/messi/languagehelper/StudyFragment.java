@@ -144,6 +144,11 @@ public class StudyFragment extends Fragment implements OnClickListener{
 				public void onAdClick() {
 					StatService.onEvent(getActivity(), "ad_banner", "点击banner广告", 1);
 				}
+				@Override
+				public void onAdExposure() {
+					// TODO Auto-generated method stub
+					
+				}
 			});
 		}
 	}

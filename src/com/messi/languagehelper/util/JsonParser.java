@@ -92,9 +92,11 @@ public class JsonParser {
 				}
 			}
 		}
-		mDictionary.setResult(sb.substring(0, sb.lastIndexOf("\n")));
-		mDictionary.setBackup1(sb_play.substring(0, sb_play.lastIndexOf("\n")));
-		DataBaseUtil.getInstance().insert(mDictionary);
+		if(sb_play.length() > 1){
+			mDictionary.setResult(sb.substring(0, sb.lastIndexOf("\n")));
+			mDictionary.setBackup1(sb_play.substring(0, sb_play.lastIndexOf("\n")));
+			DataBaseUtil.getInstance().insert(mDictionary);
+		}
 		return mDictionary;
 	}
 

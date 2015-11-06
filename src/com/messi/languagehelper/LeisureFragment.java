@@ -1,5 +1,7 @@
 package com.messi.languagehelper;
 
+import java.util.List;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,13 +12,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import cn.contentx.ContExManager;
 
+import com.androidquery.AQuery;
 import com.baidu.mobstat.StatService;
 import com.iflytek.voiceads.AdError;
-import com.iflytek.voiceads.IFLYAdListener;
-import com.iflytek.voiceads.IFLYInterstitialAd;
+import com.iflytek.voiceads.IFLYNativeAd;
+import com.iflytek.voiceads.IFLYNativeListener;
+import com.iflytek.voiceads.NativeADDataRef;
 import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
@@ -30,11 +33,13 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 	private FrameLayout cailing_layout,app_layout,yuedu_layout,hotal_layout;
 	private FrameLayout invest_layout, game_layout,baidu_layout;
 	private FrameLayout news_layout;
-	private RelativeLayout ad_layout;
-	private IFLYInterstitialAd mInterstitialAd;
+	private IFLYNativeAd nativeAd;
+	private List<NativeADDataRef> adList;
+	protected AQuery $;
+	private int index;
+	private Handler mHandler;
 	public static LeisureFragment mMainFragment;
 	private SharedPreferences mSharedPreferences;
-	private Handler mHandler;
 	
 	public static LeisureFragment getInstance(){
 		if(mMainFragment == null){
@@ -51,6 +56,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 	}
 	
 	private void initViews(){
+		mHandler = new Handler();
 		mSharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);
 		cailing_layout = (FrameLayout)view.findViewById(R.id.cailing_layout);
 		baidu_layout = (FrameLayout)view.findViewById(R.id.baidu_layout);
@@ -60,8 +66,8 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		app_layout = (FrameLayout)view.findViewById(R.id.app_layout);
 		invest_layout = (FrameLayout)view.findViewById(R.id.invest_layout);
 		news_layout = (FrameLayout)view.findViewById(R.id.news_layout);
-		ad_layout = (RelativeLayout)view.findViewById(R.id.ad_layout);
 		
+		$ = new AQuery(getActivity());
 		cailing_layout.setOnClickListener(this);
 		yuedu_layout.setOnClickListener(this);
 		hotal_layout.setOnClickListener(this);
@@ -69,48 +75,57 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		invest_layout.setOnClickListener(this);
 		baidu_layout.setOnClickListener(this);
 		game_layout.setOnClickListener(this);
-		ad_layout.setOnClickListener(this);
 		news_layout.setOnClickListener(this);
-		mInterstitialAd = ADUtil.initChaPingAD(getActivity(), ad_layout);
-		mHandler = new Handler();
 		showAD();
 	}
 	
 	private void showAD(){
 		if(ADUtil.isShowAd(getActivity())){
-			mInterstitialAd.loadAd(mIFLYAdListener);
+			nativeAd = new IFLYNativeAd(getActivity(), ADUtil.XiuxianYSNRLAd,
+					new IFLYNativeListener() {
+				@Override
+				public void onAdFailed(AdError arg0) {
+					$.id(R.id.ad_layout).visibility(View.GONE);
+					LogUtil.DefalutLog("onAdFailed---"+arg0.getErrorCode()+"---"+arg0.getErrorDescription());
+				}
+				@Override
+				public void onADLoaded(List<NativeADDataRef> arg0) {
+					if(arg0 != null && arg0.size() > 0){
+						adList = arg0;
+						setAdData();
+						for(NativeADDataRef bean : arg0){
+							LogUtil.DefalutLog("onADLoaded---"+bean.getTitle());
+						}
+					}
+				}
+			});
+			nativeAd.loadAd(ADUtil.adCount);
 		}else{
-			ad_layout.setVisibility(View.GONE);
+			$.id(R.id.ad_layout).visibility(View.GONE);
 		}
+	}
+	
+	private void setAdData(){
+		$.id(R.id.ad_img).image(adList.get(index).getImage(),false,true);
+		adList.get(index).onExposured(getActivity().findViewById(R.id.ad_layout));
+		$.id(R.id.ad_layout).clicked(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				adList.get(index).onClicked(v);
+			}
+		});
+		mHandler.postDelayed(mRunnable, ADUtil.adInterval);
 	}
 	
 	private Runnable mRunnable = new Runnable() {
 		@Override
 		public void run() {
-			showAD();
-		}
-	};
-	
-	private IFLYAdListener mIFLYAdListener = new IFLYAdListener() {
-		@Override
-		public void onAdReceive() {
-			LogUtil.DefalutLog("LeisureFragment---InterstitialAd---onAdReceive");
-			if(mInterstitialAd != null){
-				mInterstitialAd.showAd();
-				mHandler.postDelayed(mRunnable,IntervalTime);
+			index++;
+			if(index >= ADUtil.adCount){
+				index = 0;	
 			}
-		}
-		@Override
-		public void onAdClose() {
-			ad_layout.removeAllViews();
-		}
-		@Override
-		public void onAdClick() {
-			StatService.onEvent(getActivity(), "ad_kapian", "点击卡片广告", 1);
-		}
-		@Override
-		public void onAdFailed(AdError arg0) {
-			LogUtil.DefalutLog("LeisureFragment---onAdFailed:"+arg0.getErrorCode()+"---"+arg0.getErrorDescription());
+			LogUtil.DefalutLog("resetAd---"+index);
+			setAdData();
 		}
 	};
 	
@@ -191,14 +206,11 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		if(ad_layout != null){
-			ad_layout.removeAllViews();
+		if(nativeAd != null){
+			nativeAd = null;
 		}
 		if(mHandler != null){
 			mHandler.removeCallbacks(mRunnable);
-		}
-		if(mInterstitialAd != null){
-			mInterstitialAd = null;
 		}
 	}
 }

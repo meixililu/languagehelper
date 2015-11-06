@@ -21,22 +21,15 @@ public class ADUtil {
 	public static final String ChaPingADId = "484C6E8F51357AFF26AEDB2441AB1847";
 	public static final String QuanPingADId = "72C0E6B1042EA9F06A5A9B76235626CF";
 	public static final String ListADId = "8FCA7E5106A3DB7DBC97B3B357E8A57F";
+	public static final String XiuxianBanner = "8067D0538A5CC32E32550CCC816A23D2";
+	public static final String XiuxianYSNRLAd = "A6505AA06C919195709A1194CB632879";
+	public static final String MRYJYSNRLAd = "ED72385915DAC4C681891487523EBE87";
 	
 	public static final boolean IsShowAdImmediately = false;
+	public static final int adCount = 3;
+	public static final int adInterval = 8000;
 
 	// initQuanPingAD  initChaPingAD    initBannerAD    initKaiPingAD
-	
-	/**
-	 * 添加banner广告条
-	 * @param mActivity
-	 * @param view
-	 */
-	public static IFLYBannerAd initBannerAD(Activity mActivity,String adId){
-		//创建IFLYBannerAdView对象 
-		final IFLYBannerAd bannerAd = IFLYBannerAd.createBannerAd(mActivity,adId); 
-		bannerAd.setAdSize(IFLYAdSize.BANNER); 
-		return bannerAd;
-	}
 	
 	/**
 	 * 添加banner广告条
@@ -47,6 +40,7 @@ public class ADUtil {
 		//创建IFLYBannerAdView对象 
 		final IFLYBannerAd bannerAd = IFLYBannerAd.createBannerAd(mActivity,adId); 
 		bannerAd.setAdSize(IFLYAdSize.BANNER); 
+		bannerAd.setParameter(AdKeys.DOWNLOAD_ALERT, "true");
 		try {
 			view.removeAllViews();
 			view.addView(bannerAd);
@@ -65,6 +59,7 @@ public class ADUtil {
 		//创建IFLYBannerAdView对象 
 		final IFLYBannerAd bannerAd = IFLYBannerAd.createBannerAd(mActivity,BannerADId); 
 		bannerAd.setAdSize(IFLYAdSize.BANNER); 
+		bannerAd.setParameter(AdKeys.DOWNLOAD_ALERT, "true");
 		try {
 			view.removeAllViews();
 			view.addView(bannerAd);
@@ -79,17 +74,12 @@ public class ADUtil {
 	 * @param mActivity
 	 * @param view
 	 */
-	public static IFLYInterstitialAd initChaPingAD(Activity mActivity,ViewGroup view){
+	public static IFLYInterstitialAd initChaPingAD(Activity mActivity){
 		//创建IFLYBannerAdView对象 
 		final IFLYInterstitialAd interstitialAd = IFLYInterstitialAd.createInterstitialAd(mActivity,ChaPingADId);
 		//设置需要请求的广告大小 
 		interstitialAd.setAdSize(IFLYAdSize.INTERSTITIAL);
-		try {
-			view.removeAllViews();
-			view.addView(interstitialAd);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		interstitialAd.setParameter(AdKeys.DOWNLOAD_ALERT, "true");
 		return interstitialAd;
 	}
 	
@@ -98,17 +88,12 @@ public class ADUtil {
 	 * @param mActivity
 	 * @param view
 	 */
-	public static IFLYFullScreenAd initQuanPingAD(Activity mActivity, LinearLayout view){
+	public static IFLYFullScreenAd initQuanPingAD(Activity mActivity){
 		//创建IFLYBannerAdView对象 
 		final IFLYFullScreenAd fullScreenAd = IFLYFullScreenAd.createFullScreenAd(mActivity,QuanPingADId);
 		fullScreenAd.setAdSize(IFLYAdSize.FULLSCREEN);
 		fullScreenAd.setParameter(AdKeys.SHOW_TIME_FULLSCREEN, "3000");
-		try {
-			view.removeAllViews();
-			view.addView(fullScreenAd);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
+		fullScreenAd.setParameter(AdKeys.DOWNLOAD_ALERT, "true");
 		return fullScreenAd;
 	}
 	

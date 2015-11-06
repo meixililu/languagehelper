@@ -189,26 +189,26 @@ public class BaseActivity extends ActionBarActivity {
     }
     
 	protected void showToolbar() {
-        moveToolbar(0);
+//        moveToolbar(0);
     }
 
 	protected void hideToolbar() {
-		moveToolbar(-toolbar.getHeight());
+//		moveToolbar(-toolbar.getHeight());
     }
     
     private void moveToolbar(float toTranslationY) {
-        ValueAnimator animator = ValueAnimator.ofFloat(ViewHelper.getTranslationY(toolbar), toTranslationY).setDuration(200);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float translationY = (Float) animation.getAnimatedValue();
-                ViewHelper.setTranslationY(toolbar, translationY);
-                ViewHelper.setTranslationY((View) mScrollable, translationY);
-                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) ((View) mScrollable).getLayoutParams();
-                lp.height = (int) -translationY + getScreenHeight() - lp.topMargin;
-                ((View) mScrollable).requestLayout();
-            }
-        });
-        animator.start();
+//        ValueAnimator animator = ValueAnimator.ofFloat(ViewHelper.getTranslationY(toolbar), toTranslationY).setDuration(200);
+//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator animation) {
+//                float translationY = (Float) animation.getAnimatedValue();
+//                ViewHelper.setTranslationY(toolbar, translationY);
+//                ViewHelper.setTranslationY((View) mScrollable, translationY);
+//                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) ((View) mScrollable).getLayoutParams();
+//                lp.height = (int) -translationY + getScreenHeight() - lp.topMargin;
+//                ((View) mScrollable).requestLayout();
+//            }
+//        });
+//        animator.start();
     }
 }

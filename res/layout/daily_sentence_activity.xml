@@ -30,7 +30,10 @@
         android:background="@color/none"
         android:cacheColorHint="@color/none"
         android:divider="@color/none"
-        android:dividerHeight="1px"
+        android:paddingLeft="4dp"
+    	android:paddingRight="4dp"
+    	android:paddingTop="4dp"
+        android:dividerHeight="@dimen/padding_margin"
         android:fadingEdge="none"
         android:listSelector="@color/none"
         android:scrollbars="none" />

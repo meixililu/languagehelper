@@ -65,13 +65,5 @@
 	    </LinearLayout>
     </LinearLayout>
     
-    <LinearLayout 
-        android:id="@+id/middle_ad"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:background="@color/none"
-        android:layout_above="@id/app_logo"
-        />
 
 </RelativeLayout>

@@ -1,341 +1,345 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:fillViewport="true"
-    >
-    
-<LinearLayout 
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@color/contentbg"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/padding_7"
-    >
+    android:fillViewport="true" >
 
-    <RelativeLayout
-        android:id="@+id/ad_layout"
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginBottom="@dimen/padding_7"
-        android:orientation="vertical" >
-    </RelativeLayout>
-    
-    <FrameLayout
-        android:id="@+id/cailing_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="75dp"
-        android:background="@color/style5_color4"
-        android:layout_marginLeft="@dimen/padding_7"
-        android:layout_marginRight="@dimen/padding_7"
-        android:foreground="@drawable/framelayout_selector"
-        android:orientation="vertical" >
+        android:layout_height="fill_parent"
+        android:background="@color/contentbg"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/padding_7" >
 
-        <LinearLayout
+        <FrameLayout
+            android:id="@+id/ad_layout"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_7"
+            android:layout_marginLeft="@dimen/padding_7"
+            android:layout_marginRight="@dimen/padding_7"
+            android:background="@color/none"
+            android:foreground="@drawable/framelayout_selector"
             android:orientation="vertical" >
 
-            <TextView
-                android:layout_width="fill_parent"
+            <ImageView
+                android:id="@+id/ad_img"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:shadowColor="@color/white"
-                android:shadowDx="0.3"
-                android:shadowDy="0.3"
-                android:shadowRadius="0.3"
-                android:text="@string/leisuer_one"
-                android:textColor="@color/white"
-                android:textSize="@dimen/bigger" />
+                android:scaleType="centerCrop" />
+        </FrameLayout>
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/leisuer_one_subtitle"
-                android:textColor="@color/white"
-                android:textSize="@dimen/small" />
-        </LinearLayout>
-    </FrameLayout>
-    
-    <FrameLayout
-        android:id="@+id/baidu_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="75dp"
-        android:layout_marginTop="@dimen/padding_7"
-        android:layout_marginLeft="@dimen/padding_7"
-        android:layout_marginRight="@dimen/padding_7"
-        android:background="#7986CB"
-        android:foreground="@drawable/framelayout_selector"
-        android:orientation="vertical" >
-
-        <LinearLayout
+        <FrameLayout
+            android:id="@+id/cailing_layout"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
+            android:layout_height="75dp"
+            android:layout_marginLeft="@dimen/padding_7"
+            android:layout_marginRight="@dimen/padding_7"
+            android:background="@color/style5_color4"
+            android:foreground="@drawable/framelayout_selector"
             android:orientation="vertical" >
 
-            <TextView
+            <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:gravity="center"
-                android:shadowColor="@color/white"
-                android:shadowDx="0.3"
-                android:shadowDy="0.3"
-                android:shadowRadius="0.3"
-                android:text="@string/leisuer_baidu"
-                android:textColor="@color/white"
-                android:textSize="@dimen/bigger" />
+                android:orientation="vertical" >
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/leisuer_baidu_subtitle"
-                android:textColor="@color/white"
-                android:textSize="@dimen/small" />
-        </LinearLayout>
-    </FrameLayout>
-    
-    <FrameLayout
-        android:id="@+id/news_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="75dp"
-        android:layout_marginTop="@dimen/padding_7"
-        android:layout_marginLeft="@dimen/padding_7"
-        android:layout_marginRight="@dimen/padding_7"
-        android:background="@color/style5_color6"
-        android:foreground="@drawable/framelayout_selector"
-        android:orientation="vertical" >
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:shadowColor="@color/white"
+                    android:shadowDx="0.3"
+                    android:shadowDy="0.3"
+                    android:shadowRadius="0.3"
+                    android:text="@string/leisuer_one"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/bigger" />
 
-        <LinearLayout
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/leisuer_one_subtitle"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/small" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/baidu_layout"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
+            android:layout_height="75dp"
+            android:layout_marginLeft="@dimen/padding_7"
+            android:layout_marginRight="@dimen/padding_7"
+            android:layout_marginTop="@dimen/padding_7"
+            android:background="#7986CB"
+            android:foreground="@drawable/framelayout_selector"
             android:orientation="vertical" >
 
-            <TextView
+            <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:gravity="center"
-                android:shadowColor="@color/white"
-                android:shadowDx="0.3"
-                android:shadowDy="0.3"
-                android:shadowRadius="0.3"
-                android:text="@string/leisuer_news"
-                android:textColor="@color/white"
-                android:textSize="@dimen/bigger" />
+                android:orientation="vertical" >
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/leisuer_news_subtitle"
-                android:textColor="@color/white"
-                android:textSize="@dimen/small" />
-        </LinearLayout>
-    </FrameLayout>
-    
-    <FrameLayout
-        android:id="@+id/game_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="75dp"
-        android:layout_marginTop="@dimen/padding_7"
-        android:layout_marginLeft="@dimen/padding_7"
-        android:layout_marginRight="@dimen/padding_7"
-        android:background="#81C784"
-        android:foreground="@drawable/framelayout_selector"
-        android:orientation="vertical" >
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:shadowColor="@color/white"
+                    android:shadowDx="0.3"
+                    android:shadowDy="0.3"
+                    android:shadowRadius="0.3"
+                    android:text="@string/leisuer_baidu"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/bigger" />
 
-        <LinearLayout
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/leisuer_baidu_subtitle"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/small" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/news_layout"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
+            android:layout_height="75dp"
+            android:layout_marginLeft="@dimen/padding_7"
+            android:layout_marginRight="@dimen/padding_7"
+            android:layout_marginTop="@dimen/padding_7"
+            android:background="@color/style5_color6"
+            android:foreground="@drawable/framelayout_selector"
             android:orientation="vertical" >
 
-            <TextView
+            <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:gravity="center"
-                android:shadowColor="@color/white"
-                android:shadowDx="0.3"
-                android:shadowDy="0.3"
-                android:shadowRadius="0.3"
-                android:text="@string/leisuer_game"
-                android:textColor="@color/white"
-                android:textSize="@dimen/bigger" />
+                android:orientation="vertical" >
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/leisuer_game_subtitle"
-                android:textColor="@color/white"
-                android:textSize="@dimen/small" />
-        </LinearLayout>
-    </FrameLayout>
-    
-    <FrameLayout
-        android:id="@+id/app_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="75dp"
-        android:layout_marginTop="@dimen/padding_7"
-        android:layout_marginLeft="@dimen/padding_7"
-        android:layout_marginRight="@dimen/padding_7"
-        android:background="@color/style6_color1"
-        android:foreground="@drawable/framelayout_selector"
-        android:orientation="vertical" >
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:shadowColor="@color/white"
+                    android:shadowDx="0.3"
+                    android:shadowDy="0.3"
+                    android:shadowRadius="0.3"
+                    android:text="@string/leisuer_news"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/bigger" />
 
-        <LinearLayout
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/leisuer_news_subtitle"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/small" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/game_layout"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
+            android:layout_height="75dp"
+            android:layout_marginLeft="@dimen/padding_7"
+            android:layout_marginRight="@dimen/padding_7"
+            android:layout_marginTop="@dimen/padding_7"
+            android:background="#81C784"
+            android:foreground="@drawable/framelayout_selector"
             android:orientation="vertical" >
 
-            <TextView
+            <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:gravity="center"
-                android:shadowColor="@color/white"
-                android:shadowDx="0.3"
-                android:shadowDy="0.3"
-                android:shadowRadius="0.3"
-                android:text="@string/leisuer_two"
-                android:textColor="@color/white"
-                android:textSize="@dimen/bigger" />
+                android:orientation="vertical" >
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/leisuer_two_subtitle"
-                android:textColor="@color/white"
-                android:textSize="@dimen/small" />
-        </LinearLayout>
-    </FrameLayout>
-    
-    <FrameLayout
-        android:id="@+id/yuedu_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="75dp"
-        android:layout_marginTop="@dimen/padding_7"
-        android:layout_marginLeft="@dimen/padding_7"
-        android:layout_marginRight="@dimen/padding_7"
-        android:background="#CE93D8"
-        android:foreground="@drawable/framelayout_selector"
-        android:orientation="vertical" >
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:shadowColor="@color/white"
+                    android:shadowDx="0.3"
+                    android:shadowDy="0.3"
+                    android:shadowRadius="0.3"
+                    android:text="@string/leisuer_game"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/bigger" />
 
-        <LinearLayout
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/leisuer_game_subtitle"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/small" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/app_layout"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
+            android:layout_height="75dp"
+            android:layout_marginLeft="@dimen/padding_7"
+            android:layout_marginRight="@dimen/padding_7"
+            android:layout_marginTop="@dimen/padding_7"
+            android:background="@color/style6_color1"
+            android:foreground="@drawable/framelayout_selector"
             android:orientation="vertical" >
 
-            <TextView
+            <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:gravity="center"
-                android:shadowColor="@color/white"
-                android:shadowDx="0.3"
-                android:shadowDy="0.3"
-                android:shadowRadius="0.3"
-                android:text="@string/leisuer_reading"
-                android:textColor="@color/white"
-                android:textSize="@dimen/bigger" />
+                android:orientation="vertical" >
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/leisuer_reading_subtitle"
-                android:textColor="@color/white"
-                android:textSize="@dimen/small" />
-        </LinearLayout>
-    </FrameLayout>
-    
-    <FrameLayout
-        android:id="@+id/hotal_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="75dp"
-        android:layout_marginTop="@dimen/padding_7"
-        android:layout_marginLeft="@dimen/padding_7"
-        android:layout_marginRight="@dimen/padding_7"
-        android:background="#4FC3F7"
-        android:foreground="@drawable/framelayout_selector"
-        android:orientation="vertical" >
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:shadowColor="@color/white"
+                    android:shadowDx="0.3"
+                    android:shadowDy="0.3"
+                    android:shadowRadius="0.3"
+                    android:text="@string/leisuer_two"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/bigger" />
 
-        <LinearLayout
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/leisuer_two_subtitle"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/small" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/yuedu_layout"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
+            android:layout_height="75dp"
+            android:layout_marginLeft="@dimen/padding_7"
+            android:layout_marginRight="@dimen/padding_7"
+            android:layout_marginTop="@dimen/padding_7"
+            android:background="#CE93D8"
+            android:foreground="@drawable/framelayout_selector"
             android:orientation="vertical" >
 
-            <TextView
+            <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:gravity="center"
-                android:shadowColor="@color/white"
-                android:shadowDx="0.3"
-                android:shadowDy="0.3"
-                android:shadowRadius="0.3"
-                android:text="@string/leisuer_hotel"
-                android:textColor="@color/white"
-                android:textSize="@dimen/bigger" />
+                android:orientation="vertical" >
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/leisuer_hotel_subtitle"
-                android:textColor="@color/white"
-                android:textSize="@dimen/small" />
-        </LinearLayout>
-    </FrameLayout>
-    
-    <FrameLayout
-        android:id="@+id/invest_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="75dp"
-        android:layout_marginTop="@dimen/padding_7"
-        android:layout_marginLeft="@dimen/padding_7"
-        android:layout_marginBottom="@dimen/padding_7"
-        android:layout_marginRight="@dimen/padding_7"
-        android:background="#EF9A9A"
-        android:foreground="@drawable/framelayout_selector"
-        android:orientation="vertical" >
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:shadowColor="@color/white"
+                    android:shadowDx="0.3"
+                    android:shadowDy="0.3"
+                    android:shadowRadius="0.3"
+                    android:text="@string/leisuer_reading"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/bigger" />
 
-        <LinearLayout
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/leisuer_reading_subtitle"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/small" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/hotal_layout"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
+            android:layout_height="75dp"
+            android:layout_marginLeft="@dimen/padding_7"
+            android:layout_marginRight="@dimen/padding_7"
+            android:layout_marginTop="@dimen/padding_7"
+            android:background="#4FC3F7"
+            android:foreground="@drawable/framelayout_selector"
             android:orientation="vertical" >
 
-            <TextView
+            <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:gravity="center"
-                android:shadowColor="@color/white"
-                android:shadowDx="0.3"
-                android:shadowDy="0.3"
-                android:shadowRadius="0.3"
-                android:text="@string/leisuer_invest"
-                android:textColor="@color/white"
-                android:textSize="@dimen/bigger" />
+                android:orientation="vertical" >
 
-            <TextView
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:shadowColor="@color/white"
+                    android:shadowDx="0.3"
+                    android:shadowDy="0.3"
+                    android:shadowRadius="0.3"
+                    android:text="@string/leisuer_hotel"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/bigger" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/leisuer_hotel_subtitle"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/small" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/invest_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="75dp"
+            android:layout_marginBottom="@dimen/padding_7"
+            android:layout_marginLeft="@dimen/padding_7"
+            android:layout_marginRight="@dimen/padding_7"
+            android:layout_marginTop="@dimen/padding_7"
+            android:background="#EF9A9A"
+            android:foreground="@drawable/framelayout_selector"
+            android:orientation="vertical" >
+
+            <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:gravity="center"
-                android:text="@string/leisuer_invest_subtitle"
-                android:textColor="@color/white"
-                android:textSize="@dimen/small" />
-        </LinearLayout>
-    </FrameLayout>
-    
-    
-</LinearLayout>
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:shadowColor="@color/white"
+                    android:shadowDx="0.3"
+                    android:shadowDy="0.3"
+                    android:shadowRadius="0.3"
+                    android:text="@string/leisuer_invest"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/bigger" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/leisuer_invest_subtitle"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/small" />
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
 
 </ScrollView>

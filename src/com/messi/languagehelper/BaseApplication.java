@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import android.app.Application;
 import android.content.Context;
-import cn.contentx.ContExManager;
 
 import com.avos.avoscloud.AVOSCloud;
 import com.messi.languagehelper.dao.DaoMaster;
