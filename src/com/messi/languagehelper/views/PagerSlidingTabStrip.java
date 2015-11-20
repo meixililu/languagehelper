@@ -18,6 +18,8 @@ package com.messi.languagehelper.views;
 
 import java.util.Locale;
 
+import com.messi.languagehelper.R;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -40,8 +42,6 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.messi.languagehelper.R;
 
 
 public class PagerSlidingTabStrip extends HorizontalScrollView {

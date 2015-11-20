@@ -17,7 +17,6 @@ import com.avos.avoscloud.AVQuery;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.KeyUtil;
-import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.SDCardUtil;
 
 public class StudyDialogActivity extends BaseActivity implements OnClickListener{

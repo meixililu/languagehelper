@@ -135,13 +135,13 @@
 	<string name="symbolStudy">48个音标快速学</string>
 	<string name="spokenEnglishTest">口语练习</string>
 	<string name="reading">双语阅读</string>
+	<string name="examination">英语考题</string>
 	<string name="simulation_dialogue">模拟对话</string>
 	<string name="introduction">基础词汇</string>
 	<string name="primary_lever">第二部分</string>
 	<string name="intermediate_lever">第三部分</string>
 	<string name="fighting">致所有用户</string>
 	<string name="sorry">很抱歉，我们的速度不够快</string>
-	<string name="total_score">满分5分，作者亲测4.2分以上及格</string>
 	<string name="detail">详情</string>
 	<string name="detail_total">总分</string>
 	<string name="download">试一试</string>

@@ -4,7 +4,6 @@ package com.messi.languagehelper.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.iflytek.voiceads.AdKeys;
@@ -27,7 +26,7 @@ public class ADUtil {
 	
 	public static final boolean IsShowAdImmediately = false;
 	public static final int adCount = 3;
-	public static final int adInterval = 8000;
+	public static final int adInterval = 6000;
 
 	// initQuanPingAD  initChaPingAD    initBannerAD    initKaiPingAD
 	
@@ -106,5 +105,5 @@ public class ADUtil {
 			return times > 1;
 		}
 	}
-
+	
 }

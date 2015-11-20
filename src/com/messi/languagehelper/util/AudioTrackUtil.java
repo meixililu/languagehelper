@@ -12,10 +12,47 @@ import android.content.Context;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
+import android.os.Handler;
 import android.view.KeyEvent;
 
-public class AudioTrackUtil {
+import com.iflytek.cloud.SpeechSynthesizer;
+import com.messi.languagehelper.task.MyThread;
 
+public class AudioTrackUtil {
+	
+	public static void stopPlayOnline(SpeechSynthesizer mSpeechSynthesizer){
+		if(mSpeechSynthesizer != null){
+			mSpeechSynthesizer.stopSpeaking();
+		}
+	}
+	
+	public static void stopPlayPcm(Thread mThread){
+		if(mThread != null){
+			LogUtil.DefalutLog("mThread---stop:"+mThread.getId());
+			mThread.interrupt();
+    		mThread = null;
+		}
+	}
+	
+	public static Thread playPcmTask(String path,Handler mHandler){
+		byte[] data = getBytes(path);
+		Thread mThread = new Thread(new MyThread(data, mHandler));
+		mThread.start();
+		return mThread;
+	}
+	
+	public static MyThread getMyThread(String path){
+		byte[] data = getBytes(path);
+		MyThread mMyThread = new MyThread(data);
+		return mMyThread;
+	}
+	
+	public static Thread startMyThread(MyThread mMyThread){
+		Thread mThread = new Thread(mMyThread);
+		mThread.start();
+		return mThread;
+	}
+	
 	public static AudioTrack createAudioTrack(String path) {
 		try {
 	    	byte[] audioData = getBytes(path);

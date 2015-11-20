@@ -1,5 +1,8 @@
 package com.messi.languagehelper.util;
 
+import com.messi.languagehelper.R;
+import com.messi.languagehelper.views.ProportionalImageView;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -7,6 +10,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.MeasureSpec;
 import android.widget.AbsListView.LayoutParams;
 import android.widget.ImageView;
@@ -14,14 +18,19 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.messi.languagehelper.R;
-
 public class ViewUtil {
 	
 	public static ImageView initImageView(Context context){
 		ImageView mImageView = new ImageView(context);
 		mImageView.setScaleType(ScaleType.CENTER_CROP);
 		return mImageView;
+	}
+	
+	public static ProportionalImageView getAutoWidthImage(Context mContext){
+		ProportionalImageView img = new ProportionalImageView(mContext);
+		ViewGroup.LayoutParams mParams = new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
+		img.setLayoutParams(mParams);
+		return img;
 	}
 
 	public static int getToolbarHeight(Context context) {

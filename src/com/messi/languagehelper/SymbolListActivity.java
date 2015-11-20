@@ -5,29 +5,25 @@ import java.util.List;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.GridView;
-import android.widget.LinearLayout;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
-import com.baidu.mobstat.StatService;
-import com.iflytek.voiceads.AdError;
-import com.iflytek.voiceads.IFLYAdListener;
-import com.iflytek.voiceads.IFLYBannerAd;
 import com.messi.languagehelper.adapter.SymbolListAdapter;
 import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.AVOUtil;
+import com.messi.languagehelper.util.XFYSAD;
+import com.messi.languagehelper.views.GridViewWithHeaderAndFooter;
 
 public class SymbolListActivity extends BaseActivity implements OnClickListener{
 
-	private GridView category_lv;
+	private GridViewWithHeaderAndFooter category_lv;
 	private SymbolListAdapter mAdapter;
 	private List<AVObject> avObjects;
-	private IFLYBannerAd mIFLYBannerAd;
-	private LinearLayout ad_view;
+	private XFYSAD mXFYSAD;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,40 +37,16 @@ public class SymbolListActivity extends BaseActivity implements OnClickListener{
 	private void initViews(){
 		getSupportActionBar().setTitle(getResources().getString(R.string.symbolStudy));
 		avObjects = new ArrayList<AVObject>();
-		category_lv = (GridView) findViewById(R.id.studycategory_lv);
-		ad_view = (LinearLayout) findViewById(R.id.ad_view);
+		category_lv = (GridViewWithHeaderAndFooter) findViewById(R.id.studycategory_lv);
+		View headerView = LayoutInflater.from(this).inflate(R.layout.xunfei_ysad_item, null);
+		category_lv.addHeaderView(headerView);
 		mAdapter = new SymbolListAdapter(this, avObjects);
 		category_lv.setAdapter(mAdapter);
-		addAD();
-	}
-	
-	private void addAD(){
-		if(ADUtil.isShowAd(this)){
-			mIFLYBannerAd = ADUtil.initBannerAD(SymbolListActivity.this, ad_view, ADUtil.ListADId);
-			mIFLYBannerAd.loadAd(new IFLYAdListener() {
-				@Override
-				public void onAdReceive() {
-					if(mIFLYBannerAd != null){
-						mIFLYBannerAd.showAd();
-					}
-				}
-				@Override
-				public void onAdFailed(AdError arg0) {
-				}
-				@Override
-				public void onAdClose() {
-				}
-				@Override
-				public void onAdClick() {
-					StatService.onEvent(SymbolListActivity.this, "ad_banner", "点击banner广告", 1);
-				}
-				@Override
-				public void onAdExposure() {
-					// TODO Auto-generated method stub
-					
-				}
-			});
-		}
+		
+		mXFYSAD = new XFYSAD(this, headerView, ADUtil.MRYJYSNRLAd);
+		mXFYSAD.showAD();
+		mXFYSAD.startPlayImg();
+		mAdapter.notifyDataSetChanged();
 	}
 	
 	@Override
@@ -121,10 +93,10 @@ public class SymbolListActivity extends BaseActivity implements OnClickListener{
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		if(mIFLYBannerAd != null){
-			mIFLYBannerAd.destroy();
-			mIFLYBannerAd = null;
-		}
+		if(mXFYSAD != null){
+    		mXFYSAD.canclePlayImg();
+    		mXFYSAD = null;
+    	}
 	}
 	
 	@Override

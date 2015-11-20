@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -23,6 +25,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.baidu.mobstat.StatService;
+import com.gc.materialdesign.views.ButtonFloat;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.gc.materialdesign.widgets.Dialog;
 import com.iflytek.cloud.EvaluatorListener;
@@ -33,11 +36,14 @@ import com.iflytek.cloud.SpeechEvaluator;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.messi.languagehelper.result.Result;
+import com.messi.languagehelper.task.MyThread;
 import com.messi.languagehelper.task.PublicTask;
 import com.messi.languagehelper.task.PublicTask.PublicTaskListener;
 import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.AudioTrackUtil;
+import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
+import com.messi.languagehelper.util.NumberUtil;
 import com.messi.languagehelper.util.SDCardUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.ToastUtil;
@@ -55,6 +61,7 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 	private TextView practice_prompt_detail,practice_prompt_show;
 	private ScrollView practice_prompt_scrollview;
 	private ImageView record_anim_img;
+	private ButtonFloat buttonFloat,previous_btn,next_btn;
 	private LinearLayout record_layout,record_animation_layout;
 	private ButtonRectangle voice_btn;
 	
@@ -71,6 +78,12 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 	private String mLastResult;
 	private SpeechEvaluator mSpeechEvaluator;
 	private boolean isEvaluating;
+	private String userPcmPath;
+	private MyThread mMyThread;
+	private Thread mThread;
+	
+	private List<AVObject> avObjects;
+	private int positin;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -78,16 +91,33 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 		setContentView(R.layout.evaluation_detail_activity);
 		initData();
 		initView();
-		new QueryTask().execute();
 	}
 	
 	private void initData(){
 		getSupportActionBar().setTitle(getResources().getString(R.string.spokenEnglishTest));
-		ECCode = getIntent().getStringExtra(AVOUtil.EvaluationDetail.ECCode);
-		ECLCode = getIntent().getStringExtra(AVOUtil.EvaluationDetail.ECLCode);
+		positin = getIntent().getIntExtra(KeyUtil.PositionKey,0);
+		avObjects = (List<AVObject>) BaseApplication.dataMap.get(KeyUtil.DataMapKey);
+		BaseApplication.dataMap.clear();
+		
 		mSharedPreferences = Settings.getSharedPreferences(this);
 		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this,null);
 		mSpeechEvaluator = SpeechEvaluator.createEvaluator(this, null);
+	}
+	
+	private void setDatas(){
+		avObject = avObjects.get(positin);
+		content = avObject.getString(AVOUtil.EvaluationDetail.EDContent);
+		EDCode = avObject.getString(AVOUtil.EvaluationDetail.EDCode);
+		if(!TextUtils.isEmpty(content)){
+			studyContent = content.split("#");
+			if(studyContent != null){
+				if(studyContent.length > 1){
+					evaluation_en_tv.setText(studyContent[0]);
+					mEvaluationOnClickListener = new MyOnClickListener(studyContent[0],voice_play_answer);
+					evaluation_en_cover.setOnClickListener(mEvaluationOnClickListener);
+				}
+			}
+		}
 	}
 
 	private void initView() {
@@ -102,78 +132,52 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 		show_zh_img = (ImageButton) findViewById(R.id.show_zh_img);
 		voice_btn = (ButtonRectangle) findViewById(R.id.voice_btn);
 		record_anim_img = (ImageView) findViewById(R.id.record_anim_img);
+		buttonFloat = (ButtonFloat) findViewById(R.id.buttonFloat);
+		previous_btn = (ButtonFloat) findViewById(R.id.previous_btn);
+		next_btn = (ButtonFloat) findViewById(R.id.next_btn);
 		record_layout = (LinearLayout) findViewById(R.id.record_layout);
 		record_animation_layout = (LinearLayout) findViewById(R.id.record_animation_layout);
 		record_animation_text = (TextView) findViewById(R.id.record_animation_text);
 		
+		buttonFloat.setEnabled(false);
+		previous_btn.setEnabled(true);
+		next_btn.setEnabled(true);
+		previous_btn.setOnClickListener(this);
+		next_btn.setOnClickListener(this);
 		voice_btn.setOnClickListener(this);
 		show_zh_img.setOnClickListener(this);
+		buttonFloat.setOnClickListener(this);
 		practice_prompt_show.setOnClickListener(this);
+		practice_prompt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 		practice_prompt.setText(this.getResources().getString(R.string.practice_prompt_english));
-		
+		setDatas();
 	}
 	
-	private class QueryTask extends AsyncTask<Void, Void, Void> {
-
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			showProgressbar();
-//			error_txt.setVisibility(View.GONE);
-		}
-		
-		@Override
-		protected Void doInBackground(Void... params) {
-			AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.EvaluationDetail.EvaluationDetail);
-			query.whereEqualTo(AVOUtil.EvaluationDetail.ECCode, ECCode);
-			query.whereEqualTo(AVOUtil.EvaluationDetail.ECLCode, ECLCode);
-			try {
-				List<AVObject> avObjects  = query.find();
-				if(avObjects != null && avObjects.size() > 0){
-					avObject = avObjects.get(0);
-				}
-			} catch (AVException e) {
-				e.printStackTrace();
-			}
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(Void result) {
-			super.onPostExecute(result);
-			hideProgressbar();
-			if(avObject != null){
-				content = avObject.getString(AVOUtil.EvaluationDetail.EDContent);
-				EDCode = avObject.getString(AVOUtil.EvaluationDetail.EDCode);
-				LogUtil.DefalutLog("EDContent:"+content);
-				if(!TextUtils.isEmpty(content)){
-					studyContent = content.split("#");
-					setData();
-				}else{
-//					error_txt.setVisibility(View.VISIBLE);
-				}
-			}else{
-//				error_txt.setVisibility(View.VISIBLE);
-			}
-		}
-	}
-	
-	private void setData(){
-		if(studyContent != null){
-			if(studyContent.length > 1){
-				evaluation_en_tv.setText(studyContent[0]);
-				mEvaluationOnClickListener = new MyOnClickListener(studyContent[0],voice_play_answer);
-				evaluation_en_cover.setOnClickListener(mEvaluationOnClickListener);
-			}
-		}
-	}
-
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) { 
 		case R.id.voice_btn:
 			showIatDialog();
 			StatService.onEvent(EvaluationDetailActivity.this, "practice_page_speak_btn", "口语练习页说话按钮", 1);
+			break;
+		case R.id.buttonFloat:
+			playUserPcm();
+			break;
+		case R.id.previous_btn:
+			if(positin > 0){
+				positin--;
+				setDatas();
+			}else{
+				ToastUtil.diaplayMesShort(EvaluationDetailActivity.this, "已经是第一个了");
+			}
+			break;
+		case R.id.next_btn:
+			if(positin < avObjects.size()-1){
+				positin++;
+				setDatas();
+			}else{
+				ToastUtil.diaplayMesShort(EvaluationDetailActivity.this, "已经是最后一个了");
+			}
 			break;
 		case R.id.show_zh_img:
 			if( TextUtils.isEmpty(evaluation_zh_tv.getText().toString()) ){
@@ -204,16 +208,32 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 		mSpeechEvaluator.setParameter(SpeechConstant.RESULT_LEVEL, "complete");
 		// 设置音频保存路径，保存音频格式仅为pcm，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
 		String path = SDCardUtil.getDownloadPath(SDCardUtil.EvaluationUserPath);
-		mSpeechEvaluator.setParameter(SpeechConstant.ISE_AUDIO_PATH,path + EDCode + ".pcm");
+		userPcmPath = path + EDCode + ".pcm";
+		mSpeechEvaluator.setParameter(SpeechConstant.ISE_AUDIO_PATH, userPcmPath);
 		isEvaluating = true;
 		mSpeechEvaluator.startEvaluating(studyContent[0], null, mEvaluatorListener);
 	}
-
+	
+	private void playUserPcm(){
+		if(!TextUtils.isEmpty(userPcmPath)){
+			if(mMyThread != null){
+				if(mMyThread.isPlaying){
+					AudioTrackUtil.stopPlayPcm(mThread);
+				}else{
+					mThread = AudioTrackUtil.startMyThread(mMyThread);
+				}
+			}else{
+				mMyThread = AudioTrackUtil.getMyThread(userPcmPath);
+				mThread = AudioTrackUtil.startMyThread(mMyThread);
+			}
+		}
+	}
 	
 	/**
 	 * 显示转写对话框.
 	 */
 	public void showIatDialog() {
+		buttonFloat.setEnabled(false);
 		if(!isEvaluating){
 			if(isNewIn){
 				isNewIn = false;
@@ -353,6 +373,8 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 	
 	private void parseEvaluationResult(){
 		if (!TextUtils.isEmpty(mLastResult)) {
+			buttonFloat.setEnabled(true);
+			mMyThread = AudioTrackUtil.getMyThread(userPcmPath);
 			XmlResultParser resultParser = new XmlResultParser();
 			Result result = resultParser.parse(mLastResult);
 			practice_prompt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);
@@ -364,7 +386,8 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 				}else {
 					practice_prompt.setTextColor(getResources().getColor(R.color.red));
 				}
-				practice_prompt.setText("总分："+ result.total_score);
+				practice_prompt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 80);
+				practice_prompt.setText( String.valueOf(NumberUtil.hundred_mark(result.total_score)) );
 				practice_prompt_detail.setText(result.toString());
 			} else {
 				practice_prompt.setText("结析结果为空");
@@ -392,7 +415,8 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 			mSpeechSynthesizer.setParameter(SpeechConstant.TTS_AUDIO_PATH, filepath);
 			if(!AudioTrackUtil.isFileExists(filepath)){
 				showProgressbar();
-				XFUtil.showSpeechSynthesizer(EvaluationDetailActivity.this,mSharedPreferences,mSpeechSynthesizer,ev_content,
+				XFUtil.showSpeechSynthesizer(EvaluationDetailActivity.this,mSharedPreferences,
+						mSpeechSynthesizer,ev_content,XFUtil.SpeakerEn,
 						new SynthesizerListener() {
 					@Override
 					public void onSpeakResumed() {

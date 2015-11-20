@@ -12,7 +12,6 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.messi.languagehelper.adapter.PracticeCategoryListAdapter;
 import com.messi.languagehelper.util.AVOUtil;
-import com.messi.languagehelper.util.KeyUtil;
 
 public class PracticeCategoryListActivity extends BaseActivity {
 

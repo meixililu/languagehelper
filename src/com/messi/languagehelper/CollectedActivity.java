@@ -7,7 +7,6 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.baidu.mobstat.StatService;
 import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.adapter.CollectedActivityAdapter;

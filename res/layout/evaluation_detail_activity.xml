@@ -4,29 +4,30 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-    
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@color/contentbg"
         android:orientation="vertical" >
 
-    <android.support.v7.widget.Toolbar
-	    xmlns:app="http://schemas.android.com/apk/res-auto"
-	    android:id="@+id/my_awesome_toolbar"
-	    android:layout_height="wrap_content"
-	    android:layout_width="match_parent"
-	    android:minHeight="?attr/actionBarSize"
-	    android:background="?attr/colorPrimary" >
-	    <com.gc.materialdesign.views.ProgressBarCircularIndeterminate
-	                android:id="@+id/progressBarCircularIndetermininate"
-	                android:layout_width="28dp"
-	                android:layout_height="28dp"
-            		android:layout_gravity="right"
-            		android:visibility="gone"
-	                android:background="@color/white" />
-   </android.support.v7.widget.Toolbar>
-    
+        <android.support.v7.widget.Toolbar
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/my_awesome_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize" >
+
+            <com.gc.materialdesign.views.ProgressBarCircularIndeterminate
+                android:id="@+id/progressBarCircularIndetermininate"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="right"
+                android:background="@color/white"
+                android:visibility="gone" />
+        </android.support.v7.widget.Toolbar>
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -37,71 +38,68 @@
             android:background="@drawable/list_item_bg_white"
             android:orientation="vertical" >
 
+            <FrameLayout
+                android:id="@+id/record_answer_cover"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:foreground="@drawable/framelayout_selector" >
 
-                <FrameLayout
-                    android:id="@+id/record_answer_cover"
+                <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:foreground="@drawable/framelayout_selector" >
+                    android:orientation="horizontal" >
 
-                    <LinearLayout
-                        android:layout_width="fill_parent"
+                    <TextView
+                        android:id="@+id/record_answer"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal" >
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="12dp"
+                        android:shadowColor="@color/green"
+                        android:shadowDx="0.5"
+                        android:shadowDy="0.5"
+                        android:shadowRadius="0.5"
+                        android:text=""
+                        android:textColor="@color/green"
+                        android:textSize="@dimen/bigest" />
 
-                        <TextView
-                            android:id="@+id/record_answer"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:paddingBottom="8dp"
-                            android:paddingLeft="15dp"
-                            android:paddingTop="12dp"
-                            android:shadowColor="@color/green"
-                            android:shadowDx="0.5"
-                            android:shadowDy="0.5"
-                            android:shadowRadius="0.5"
-                            android:text=""
-                            android:textColor="@color/green"
-                            android:textSize="@dimen/bigest" />
+                    <ImageButton
+                        android:id="@+id/voice_play_answer"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_gravity="center_vertical|right"
+                        android:background="@drawable/voice_play"
+                        android:clickable="false" />
+                </LinearLayout>
+            </FrameLayout>
 
-                        <ImageButton
-                            android:id="@+id/voice_play_answer"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:layout_gravity="center_vertical|right"
-                            android:background="@drawable/voice_play"
-                            android:clickable="false" />
-                    </LinearLayout>
-                </FrameLayout>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
 
+                <TextView
+                    android:id="@+id/record_question"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="7dp"
+                    android:textColor="@color/text_grey"
+                    android:textSize="@dimen/big" />
 
-                    <RelativeLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        >
-                        <TextView
-                            android:id="@+id/record_question"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:paddingBottom="10dp"
-                            android:paddingLeft="15dp"
-                            android:paddingTop="7dp"
-                            android:textColor="@color/text_grey"
-                            android:textSize="@dimen/big" />
-
-                        <ImageButton
-                            android:id="@+id/show_zh_img"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginRight="@dimen/padding_5"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/ic_visibility_grey600_36dp"
-                            />
-                    </RelativeLayout>
+                <ImageButton
+                    android:id="@+id/show_zh_img"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/padding_5"
+                    android:background="@drawable/ic_visibility_grey600_36dp" />
+            </RelativeLayout>
         </LinearLayout>
 
         <RelativeLayout
@@ -110,79 +108,107 @@
             android:layout_weight="1"
             android:orientation="vertical" >
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/layout_bottom"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:background="@color/none"
-                android:gravity="bottom"
+                android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
                 <com.gc.materialdesign.views.ButtonRectangle
                     android:id="@+id/voice_btn"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="60dp"
+                    android:layout_weight="1"
                     android:background="@color/load_blue"
                     android:clickable="false"
                     android:gravity="center"
-                    materialdesign:rippleSpeed="90"
                     android:text="Start"
-                    android:textColor="@color/text_black"
-                    android:textSize="@dimen/title" />
-            </RelativeLayout>
-            
+                    android:textSize="@dimen/title"
+                    materialdesign:rippleSpeed="90" />
+            </LinearLayout>
+
             <FrameLayout
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" 
+                android:layout_height="fill_parent"
+                android:layout_above="@id/layout_bottom"
                 android:layout_marginLeft="@dimen/padding_7"
                 android:layout_marginRight="@dimen/padding_7"
-                android:layout_above="@id/layout_bottom"
-                android:background="@color/white"
-                >
+                android:background="@color/white" >
+
                 <TextView
                     android:id="@+id/practice_prompt"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:gravity="center"
                     android:shadowColor="@color/text_grey"
-                    android:textColor="@color/text_grey"
                     android:shadowDx="0.3"
                     android:shadowDy="0.3"
                     android:shadowRadius="0.3"
-                    android:textSize="@dimen/big" />
-                <TextView
+                    android:textColor="@color/text_grey"
+                    android:textSize="20sp" />
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|right"
-                    android:layout_margin="@dimen/padding_5"
-                    android:gravity="right"
-                    android:text="@string/total_score"
-                    android:textColor="@color/text_grey"
-                    android:textSize="@dimen/middle" />
-                <ScrollView 
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_gravity="bottom|right"
+                    android:orientation="vertical" >
+
+                    <com.gc.materialdesign.views.ButtonFloat
+                        android:id="@+id/previous_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#1E88E5"
+                        materialdesign:iconDrawable="@drawable/ic_skip_previous_white_36dp"
+                        materialdesign:rippleSpeed="98" />
+
+                    <com.gc.materialdesign.views.ButtonFloat
+                        android:id="@+id/next_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding_7"
+                        android:background="#1E88E5"
+                        materialdesign:iconDrawable="@drawable/ic_skip_next_white_36dp"
+                        materialdesign:rippleSpeed="98" />
+
+                    <com.gc.materialdesign.views.ButtonFloat
+                        android:id="@+id/buttonFloat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding_7"
+                        android:background="#1E88E5"
+                        materialdesign:iconDrawable="@drawable/ic_volume_up_white_36dp"
+                        materialdesign:rippleSpeed="98" />
+                </LinearLayout>
+
+                <ScrollView
                     android:id="@+id/practice_prompt_scrollview"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:background="@color/white"
-                    android:scrollbars="none"
-                    android:visibility="gone"
                     android:fillViewport="true"
-                    >
-	                <TextView
-	                    android:id="@+id/practice_prompt_detail"
-	                    android:layout_width="fill_parent"
-	                    android:layout_height="wrap_content"
-	                    android:padding="@dimen/padding_7"
-	                    android:gravity="left|top"
-	                    android:shadowColor="@color/text_grey"
-	                    android:textColor="@color/text_grey"
-	                    android:shadowDx="0.3"
-	                    android:shadowDy="0.3"
-	                    android:shadowRadius="0.3"
-	                    android:textSize="@dimen/big" />
+                    android:scrollbars="none"
+                    android:visibility="gone" >
+
+                    <TextView
+                        android:id="@+id/practice_prompt_detail"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left|top"
+                        android:padding="@dimen/padding_7"
+                        android:shadowColor="@color/text_grey"
+                        android:shadowDx="0.3"
+                        android:shadowDy="0.3"
+                        android:shadowRadius="0.3"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/big" />
                 </ScrollView>
+
                 <TextView
                     android:id="@+id/practice_prompt_show"
                     android:layout_width="wrap_content"
@@ -194,7 +220,6 @@
                     android:textColor="@color/green_500"
                     android:textSize="@dimen/middle" />
             </FrameLayout>
-            
         </RelativeLayout>
     </LinearLayout>
 

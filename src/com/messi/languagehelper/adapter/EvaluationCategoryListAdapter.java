@@ -13,9 +13,11 @@ import android.widget.TextView;
 
 import com.avos.avoscloud.AVObject;
 import com.baidu.mobstat.StatService;
+import com.messi.languagehelper.BaseApplication;
 import com.messi.languagehelper.EvaluationDetailActivity;
 import com.messi.languagehelper.R;
 import com.messi.languagehelper.util.AVOUtil;
+import com.messi.languagehelper.util.KeyUtil;
 
 public class EvaluationCategoryListAdapter extends BaseAdapter {
 
@@ -47,20 +49,29 @@ public class EvaluationCategoryListAdapter extends BaseAdapter {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		final ViewHolder holder;
 		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.studylist_item, null);
+			convertView = mInflater.inflate(R.layout.evaluation_list_item, null);
 			holder = new ViewHolder();
 			holder.cover = (View) convertView.findViewById(R.id.layout_cover);
 			holder.name = (TextView) convertView.findViewById(R.id.name);
+			holder.des = (TextView) convertView.findViewById(R.id.des);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		final AVObject mAVObject = avObjects.get(position);
-		holder.name.setText( mAVObject.getString(AVOUtil.EvaluationCategoryList.ECLName) );
+		String temp = mAVObject.getString(AVOUtil.EvaluationDetail.EDContent);
+		if(temp.contains("#")){
+			String[] strs = temp.split("#");
+			holder.name.setText( strs[0] );
+			holder.des.setText( strs[1] );
+		}else{
+			holder.name.setText( temp );
+			holder.des.setVisibility(View.GONE);
+		}
 		holder.cover.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				onItemClick(mAVObject);
+				onItemClick(position);
 			}
 		});
 		return convertView;
@@ -69,13 +80,14 @@ public class EvaluationCategoryListAdapter extends BaseAdapter {
 	static class ViewHolder {
 		View cover;
 		TextView name;
+		TextView des;
 	}
 
-	public void onItemClick(AVObject mAVObject) {
+	public void onItemClick(int position) {
 		try {
 			Intent intent = new Intent(context,EvaluationDetailActivity.class);
-			intent.putExtra(AVOUtil.EvaluationCategoryList.ECLCode, mAVObject.getString(AVOUtil.EvaluationCategoryList.ECLCode));
-			intent.putExtra(AVOUtil.EvaluationCategory.ECCode, ECCode);
+			intent.putExtra(KeyUtil.PositionKey, position);
+			BaseApplication.dataMap.put(KeyUtil.DataMapKey, avObjects);
 			context.startActivity(intent);
 			StatService.onEvent(context, "to_evaluation_detail", "口语评测进入详情页面", 1);
 		} catch (Exception e) {

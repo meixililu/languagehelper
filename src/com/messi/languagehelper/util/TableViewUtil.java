@@ -3,15 +3,9 @@ package com.messi.languagehelper.util;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import com.messi.languagehelper.R;
 
 public class TableViewUtil {
 

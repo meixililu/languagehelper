@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import android.text.TextUtils;
+import android.util.Xml;
+
 import com.messi.languagehelper.result.FinalResult;
 import com.messi.languagehelper.result.Phone;
 import com.messi.languagehelper.result.ReadSentenceResult;
@@ -20,9 +23,6 @@ import com.messi.languagehelper.result.Result;
 import com.messi.languagehelper.result.Sentence;
 import com.messi.languagehelper.result.Syll;
 import com.messi.languagehelper.result.Word;
-
-import android.text.TextUtils;
-import android.util.Xml;
 
 
 /**

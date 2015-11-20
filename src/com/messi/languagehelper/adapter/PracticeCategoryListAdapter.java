@@ -13,11 +13,9 @@ import android.widget.TextView;
 
 import com.avos.avoscloud.AVObject;
 import com.baidu.mobstat.StatService;
-import com.messi.languagehelper.R;
 import com.messi.languagehelper.PracticeDetailActivity;
+import com.messi.languagehelper.R;
 import com.messi.languagehelper.util.AVOUtil;
-import com.messi.languagehelper.util.ColorUtil;
-import com.messi.languagehelper.util.KeyUtil;
 
 public class PracticeCategoryListAdapter extends BaseAdapter {
 

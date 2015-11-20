@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.impl.PracticeProgressListener;
-import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.NumberUtil;
 import com.messi.languagehelper.util.SDCardUtil;
 import com.messi.languagehelper.util.SpannableStringUtil;

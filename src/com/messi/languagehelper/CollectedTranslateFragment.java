@@ -10,18 +10,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 
-import com.baidu.mobstat.StatService;
 import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
-import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.adapter.ResultListHeaderAdapter;
 import com.messi.languagehelper.dao.record;
 import com.messi.languagehelper.db.DataBaseUtil;
-import com.messi.languagehelper.listener.HidingScrollListener;
-import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.views.DividerItemDecoration;
 

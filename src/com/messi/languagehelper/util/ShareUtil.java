@@ -1,9 +1,9 @@
 package com.messi.languagehelper.util;
 
+import com.messi.languagehelper.R;
+
 import android.content.Context;
 import android.content.Intent;
-
-import com.messi.languagehelper.R;
 
 public class ShareUtil {
 	

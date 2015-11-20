@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
-import com.baidu.mobstat.StatService;
 import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.adapter.DictionaryRecyclerviewAdapter;

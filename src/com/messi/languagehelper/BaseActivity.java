@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.FrameLayout;
 
 import com.baidu.mobstat.StatService;
 import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
@@ -23,7 +22,6 @@ import com.messi.languagehelper.util.AudioTrackUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.ScreenUtil;
 import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
 public class BaseActivity extends ActionBarActivity {

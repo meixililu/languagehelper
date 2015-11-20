@@ -30,9 +30,9 @@
                 android:id="@+id/daily_sentence_list_item_middle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="40dp"
                 android:background="@color/none_alpha"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                android:paddingTop="40dp" >
 
                 <TextView
                     android:id="@+id/dailysentence_txt"
@@ -48,7 +48,6 @@
                     android:shadowRadius="0.4"
                     android:textColor="@color/white"
                     android:textSize="@dimen/biggerx" />
-
             </LinearLayout>
 
             <TextView
@@ -60,6 +59,7 @@
                 android:text="@string/dailysentence"
                 android:textColor="@color/white"
                 android:textSize="@dimen/small" />
+
             <ImageView
                 android:id="@+id/play_img"
                 android:layout_width="36dp"
@@ -67,8 +67,7 @@
                 android:layout_gravity="right|top"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
-                android:background="@drawable/ic_play_circle_outline_white_48dp" 
-                />
+                android:background="@drawable/ic_play_circle_outline_white_48dp" />
         </FrameLayout>
 
         <FrameLayout
@@ -92,7 +91,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/bigger" />
         </FrameLayout>
-        
+
         <FrameLayout
             android:id="@+id/study_spoken_english"
             android:layout_width="fill_parent"
@@ -121,8 +120,8 @@
             android:layout_height="80dp"
             android:layout_marginTop="@dimen/padding_7"
             android:foreground="@drawable/framelayout_selector"
-            android:visibility="gone"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:visibility="gone" >
 
             <TextView
                 android:layout_width="fill_parent"
@@ -161,15 +160,15 @@
         </FrameLayout>
 
         <FrameLayout
-        android:id="@+id/news_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="80dp"
-        android:layout_marginTop="@dimen/padding_7"
-        android:background="@color/style5_color6"
-        android:foreground="@drawable/framelayout_selector"
-        android:orientation="vertical" >
+            android:id="@+id/news_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="@dimen/padding_7"
+            android:background="@color/style5_color6"
+            android:foreground="@drawable/framelayout_selector"
+            android:orientation="vertical" >
 
-        <TextView
+            <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:gravity="center"
@@ -180,63 +179,75 @@
                 android:text="@string/reading"
                 android:textColor="@color/white"
                 android:textSize="@dimen/bigger" />
-    </FrameLayout>
-    
-        
+        </FrameLayout>
 
-        <LinearLayout
-            android:id="@+id/study_ad_view"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_7"
-            android:background="@color/none"
-            android:orientation="vertical" >
-        </LinearLayout>
-        
         <FrameLayout
-        android:id="@+id/instagram_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="80dp"
-        android:background="@color/style6_color1"
-        android:layout_marginTop="@dimen/padding_7"
-        android:foreground="@drawable/framelayout_selector"
-        android:orientation="vertical" >
-
-        <LinearLayout
+            android:id="@+id/en_examination_layout"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
+            android:layout_height="80dp"
+            android:layout_marginTop="@dimen/padding_7"
+            android:background="@color/style6_color1"
+            android:foreground="@drawable/framelayout_selector"
             android:orientation="vertical" >
 
             <TextView
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:gravity="center"
                 android:shadowColor="@color/white"
                 android:shadowDx="0.4"
                 android:shadowDy="0.4"
                 android:shadowRadius="0.4"
-                android:text="@string/foreign_website"
+                android:text="@string/examination"
                 android:textColor="@color/white"
                 android:textSize="@dimen/bigger" />
+        </FrameLayout>
 
-            <TextView
+        <FrameLayout
+            android:id="@+id/instagram_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="@dimen/padding_7"
+            android:background="@color/style5_color2"
+            android:foreground="@drawable/framelayout_selector"
+            android:orientation="vertical" >
+
+            <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:gravity="center"
-                android:text="@string/foreign_website_subtitle"
-                android:textColor="@color/white"
-                android:textSize="@dimen/small" />
-        </LinearLayout>
-    </FrameLayout>
-        
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:shadowColor="@color/white"
+                    android:shadowDx="0.4"
+                    android:shadowDy="0.4"
+                    android:shadowRadius="0.4"
+                    android:text="@string/foreign_website"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/bigger" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/foreign_website_subtitle"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/small" />
+            </LinearLayout>
+        </FrameLayout>
+
         <FrameLayout
             android:id="@+id/study_to_all_user"
             android:layout_width="fill_parent"
             android:layout_height="80dp"
-	        android:background="@color/style5_color2"
             android:layout_marginTop="@dimen/padding_7"
+            android:background="@color/style5_color2"
             android:foreground="@drawable/framelayout_selector"
+            android:visibility="gone"
             android:orientation="vertical" >
 
             <TextView
@@ -251,9 +262,6 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/bigger" />
         </FrameLayout>
-        
-        
-        
     </LinearLayout>
 
 </ScrollView>

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/app_background"
+    android:background="@color/contentbg"
     android:orientation="vertical" >
 
     <android.support.v7.widget.Toolbar
@@ -16,12 +16,14 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:background="@color/contentbg"
         android:fillViewport="true"
         android:scrollbars="none" >
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:background="@color/contentbg"
             android:orientation="vertical" >
 
             <LinearLayout
@@ -136,6 +138,15 @@
                         android:clickable="false"
                         android:focusable="false" />
                 </LinearLayout>
+                
+                <ImageView
+                    android:id="@+id/unread_auto_play"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|top"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/unread_dot" />
             </FrameLayout>
 
             <ImageView
@@ -175,14 +186,7 @@
                         android:focusable="false" />
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/unread_auto_clear_dot_after_finish"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right|top"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/unread_dot" />
+                
             </FrameLayout>
 
             <ImageView
@@ -226,6 +230,12 @@
             <ImageView
                 android:layout_width="fill_parent"
                 android:layout_height="1px"
+                android:background="@color/lightgrey" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="@dimen/padding_15"
                 android:background="@color/lightgrey" />
 
             <FrameLayout

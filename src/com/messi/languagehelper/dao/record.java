@@ -17,7 +17,7 @@ public class record {
     private Integer visit_times;
     private Integer speak_speed;
     private String backup1;
-    private String backup2;
+    private String backup2;/**playing pause stop sign  XFUtil PlayOnline PlayOffline**/
     private String backup3;
 
     public record() {

@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
 
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.SpeechConstant;
@@ -14,19 +12,23 @@ import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.messi.languagehelper.MainFragment;
-import com.messi.languagehelper.PracticeActivity;
 import com.messi.languagehelper.R;
 import com.messi.languagehelper.task.PublicTask;
 import com.messi.languagehelper.task.PublicTask.PublicTaskListener;
 
 public class XFUtil {
 	
+	public static final String SpeakerEn = "vimary";
+	public static final String SpeakerZh = "xiaoyan";//vixy
+	
 	public static final String VoiceEngineCH = "zh_cn";
 	public static final String VoiceEngineEN = "en_us";
 	public static final String VoiceEngineHK = "cantonese";
 	
-	public static final String PlayOnline = "PlayOnline";
-	public static final String PlayOffline = "PlayOffline";
+	public static final String PlayResultOnline = "PlayResultOnline";
+	public static final String PlayResultOffline = "PlayResultOffline";
+	public static final String PlayQueryOnline = "PlayQueryOnline";
+	public static final String PlayQueryOffline = "PlayQueryOffline";
 	
 //	中文：
 //	domain=iat,language=zh_cn,accent=mandarin

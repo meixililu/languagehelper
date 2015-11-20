@@ -53,10 +53,10 @@ public class EvaluationCategoryListActivity extends BaseActivity {
 		
 		@Override
 		protected Void doInBackground(Void... params) {
-			AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.EvaluationCategoryList.EvaluationCategoryList);
-			query.whereEqualTo(AVOUtil.EvaluationCategoryList.ECCode, ECCode);
-			query.whereEqualTo(AVOUtil.EvaluationCategoryList.ECLIsValid, "1");
-			query.orderByDescending(AVOUtil.EvaluationCategoryList.ECLOrder);
+			AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.EvaluationDetail.EvaluationDetail);
+			query.whereEqualTo(AVOUtil.EvaluationDetail.ECCode, ECCode);
+			query.whereEqualTo(AVOUtil.EvaluationDetail.EDIsValid, "1");
+			query.orderByAscending(AVOUtil.EvaluationDetail.ECLCode);
 			try {
 				List<AVObject> avObject  = query.find();
 				if(avObject != null){

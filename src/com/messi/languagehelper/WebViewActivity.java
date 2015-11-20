@@ -40,14 +40,12 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 	private SwipeRefreshLayout mSwipeRefreshLayout;
 	private ObservableWebView mWebView;
 	private TextView tap_to_reload;
-	private LinearLayout ad_view;
     private String Url;
     private String title;
     private String ShareUrlMsg;
     private boolean isReedPullDownRefresh;
     private float mActionBarHeight;
     private IFLYInterstitialAd mIFLYInterstitialAd;
-    private IFLYBannerAd mIFLYBannerAd;
     private long lastClick;
 
 	@Override
@@ -80,7 +78,6 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 		progressdeterminate = (ProgressBarDetermininate) findViewById(R.id.progressdeterminate);
 		mWebView = (ObservableWebView) findViewById(R.id.refreshable_webview);
 		tap_to_reload = (TextView) findViewById(R.id.tap_to_reload);
-		ad_view = (LinearLayout) findViewById(R.id.ad_view);
 		setScrollable(mSwipeRefreshLayout);
 		mWebView.requestFocus();//如果不设置，则在点击网页文本输入框时，不能弹出软键盘及不响应其他的一些事件。
 		mWebView.getSettings().setJavaScriptEnabled(true);//如果访问的页面中有Javascript，则webview必须设置支持Javascript。
@@ -88,10 +85,8 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 		mWebView.requestFocus();
 		mWebView.setScrollViewCallbacks(this);
 		
-		if(Url.equals(Settings.GameUrl)){
+		if(Url.equals(Settings.GameUrl) || Url.equals(Settings.YueduUrl)||Url.equals(Settings.HotalUrl)){
 			showAD();
-		}else if(Url.equals(Settings.YueduUrl)||Url.equals(Settings.HotalUrl)){
-			addAD();
 		}
 		
 		tap_to_reload.setOnClickListener(new OnClickListener() {
@@ -202,35 +197,6 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 		}
 	}
 	
-	private void addAD(){
-		if(ADUtil.isShowAd(this)){
-			mIFLYBannerAd = ADUtil.initBannerAD(this, ad_view, ADUtil.XiuxianBanner);
-			mIFLYBannerAd.loadAd(new IFLYAdListener() {
-				@Override
-				public void onAdReceive() {
-					if(mIFLYBannerAd != null){
-						mIFLYBannerAd.showAd();
-					}
-				}
-				@Override
-				public void onAdFailed(AdError arg0) {
-				}
-				@Override
-				public void onAdClose() {
-				}
-				@Override
-				public void onAdClick() {
-					StatService.onEvent(WebViewActivity.this, "ad_banner", "点击banner广告", 1);
-				}
-				@Override
-				public void onAdExposure() {
-					// TODO Auto-generated method stub
-					
-				}
-			});
-		}
-	}
-	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		try {
@@ -274,16 +240,8 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-//		if(mWebView != null){
-//			mWebView.destroy();
-//		}
 		if(mIFLYInterstitialAd != null){
-			mIFLYInterstitialAd.destroyAd();
 			mIFLYInterstitialAd = null;
-		}
-		if(mIFLYBannerAd != null){
-			mIFLYBannerAd.destroy();
-			mIFLYBannerAd = null;
 		}
 	}
 

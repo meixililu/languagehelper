@@ -177,6 +177,17 @@
                     android:text=""
                     android:textColor="@color/text_grey1"
                     android:textSize="@dimen/bigger" />
+                
+                <com.gc.materialdesign.views.ButtonFloat
+	                android:id="@+id/buttonFloat"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_marginBottom="80dp"
+	                android:layout_marginRight="20dp"
+	                android:layout_gravity="bottom|right"
+	                android:background="#1E88E5"
+	                materialdesign:rippleSpeed="98"
+	                materialdesign:iconDrawable="@drawable/ic_volume_up_white_36dp" />
             </FrameLayout>
 
             <RelativeLayout

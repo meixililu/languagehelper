@@ -12,11 +12,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVObject;
-import com.messi.languagehelper.R;
 import com.messi.languagehelper.PracticeCategoryListActivity;
+import com.messi.languagehelper.R;
 import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.KeyUtil;
-import com.messi.languagehelper.util.ToastUtil;
 
 public class PracticeCategoryAdapter extends BaseAdapter {
 

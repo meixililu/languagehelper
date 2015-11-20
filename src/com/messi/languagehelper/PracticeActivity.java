@@ -19,8 +19,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.baidu.mobstat.StatService;
+import com.gc.materialdesign.views.ButtonFloat;
 import com.gc.materialdesign.views.ButtonRectangle;
-import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
@@ -32,6 +32,7 @@ import com.messi.languagehelper.adapter.PracticePageListItemAdapter;
 import com.messi.languagehelper.bean.UserSpeakBean;
 import com.messi.languagehelper.dao.record;
 import com.messi.languagehelper.db.DataBaseUtil;
+import com.messi.languagehelper.task.MyThread;
 import com.messi.languagehelper.task.PublicTask;
 import com.messi.languagehelper.task.PublicTask.PublicTaskListener;
 import com.messi.languagehelper.util.AudioTrackUtil;
@@ -58,6 +59,7 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 	private ImageView record_anim_img;
 	private LinearLayout record_layout,record_animation_layout;
 	private ButtonRectangle voice_btn;
+	private ButtonFloat buttonFloat;
 	
 	private MyOnClickListener mAnswerOnClickListener,mQuestionOnClickListener;
 	private SpeechSynthesizer mSpeechSynthesizer;
@@ -70,6 +72,10 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 	private boolean isNewIn = true;
 	private boolean isFollow;
 	private StringBuilder sbResult = new StringBuilder();
+	
+	private MyThread mMyThread;
+	private Thread mThread;
+	private String userPcmPath;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -100,6 +106,7 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 		voice_play_answer = (ImageButton) findViewById(R.id.voice_play_answer);
 		voice_play_question = (ImageButton) findViewById(R.id.voice_play_question);
 		voice_btn = (ButtonRectangle) findViewById(R.id.voice_btn);
+		buttonFloat = (ButtonFloat) findViewById(R.id.buttonFloat);
 		record_anim_img = (ImageView) findViewById(R.id.record_anim_img);
 		record_layout = (LinearLayout) findViewById(R.id.record_layout);
 		record_animation_layout = (LinearLayout) findViewById(R.id.record_animation_layout);
@@ -114,8 +121,10 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 		mAnswerOnClickListener = new MyOnClickListener(mBean,voice_play_answer,true);
 		mQuestionOnClickListener = new MyOnClickListener(mBean,voice_play_question,false);
 		
+		buttonFloat.setEnabled(false);
 		record_question_cover.setOnClickListener(mQuestionOnClickListener);
 		record_answer_cover.setOnClickListener(mAnswerOnClickListener);
+		buttonFloat.setOnClickListener(this);
 		voice_btn.setOnClickListener(this);
 		practice_page_exchange.setOnClickListener(this);
 		
@@ -138,12 +147,30 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 			showIatDialog();
 			StatService.onEvent(PracticeActivity.this, "practice_page_speak_btn", "口语练习页说话按钮", 1);
 			break;
+		case R.id.buttonFloat:
+			playUserPcm();
+			break;
 		case R.id.practice_page_exchange:
 			exchangeContentAndResult();
 			StatService.onEvent(PracticeActivity.this, "practice_page_exchange_btn", "口语练习页互换按钮", 1);
 			break;
 		default:
 			break;
+		}
+	}
+	
+	private void playUserPcm(){
+		if(!TextUtils.isEmpty(userPcmPath)){
+			if(mMyThread != null){
+				if(mMyThread.isPlaying){
+					AudioTrackUtil.stopPlayPcm(mThread);
+				}else{
+					mThread = AudioTrackUtil.startMyThread(mMyThread);
+				}
+			}else{
+				mMyThread = AudioTrackUtil.getMyThread(userPcmPath);
+				mThread = AudioTrackUtil.startMyThread(mMyThread);
+			}
 		}
 	}
 	
@@ -169,18 +196,21 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 	 * 显示转写对话框.
 	 */
 	public void showIatDialog() {
+		buttonFloat.setEnabled(false);
 		if(recognizer != null){
 			if(!recognizer.isListening()){
 				if(isNewIn){
 					isNewIn = false;
 					isFollow = true;
+					showListen();
 					practice_prompt.setVisibility(View.GONE);
 					mAnswerOnClickListener.onClick(voice_play_answer);
-					record_animation_layout.setVisibility(View.VISIBLE);
-					record_animation_text.setText("Listen");
 				}else{
 					record_layout.setVisibility(View.VISIBLE);
 					voice_btn.setText(this.getResources().getString(R.string.finish));
+					String path = SDCardUtil.getDownloadPath(SDCardUtil.UserPracticePath);
+					userPcmPath = path + "/userpractice.pcm";
+					recognizer.setParameter(SpeechConstant.ASR_AUDIO_PATH, userPcmPath);
 					XFUtil.showSpeechRecognizer(this,mSharedPreferences,recognizer,recognizerListener);
 				}
 			}else{
@@ -190,11 +220,23 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 		}
 	}
 	
+	private void showListen(){
+		record_animation_layout.setVisibility(View.VISIBLE);
+		record_animation_text.setText("Listen");
+		ObjectAnimator mObjectAnimator = ObjectAnimator.ofFloat(record_animation_layout, "scaleX", 1f, 1f);
+		mObjectAnimator.setDuration(800).start();
+		ObjectAnimator mObjectAnimator1 = ObjectAnimator.ofFloat(record_animation_layout, "scaleY", 1f, 1f);
+		mObjectAnimator1.setDuration(800).start();
+		ObjectAnimator mObjectAnimator2 = ObjectAnimator.ofFloat(record_animation_layout, "alpha", 1, 1);
+		mObjectAnimator2.start();
+	}
+	
 	/**
 	 * finish record
 	 */
 	private void finishRecord(){
 		recognizer.stopListening();
+		isNewIn = true;
 		record_layout.setVisibility(View.GONE);
 		record_anim_img.setBackgroundResource(R.drawable.speak_voice_1);
 		voice_btn.setText("Start");
@@ -307,6 +349,8 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 				adapter.notifyDataSetChanged();
 				animationReward(bean.getScoreInt());
 				sbResult.setLength(0);
+				buttonFloat.setEnabled(true);
+				mMyThread = AudioTrackUtil.getMyThread(userPcmPath);
 			}
 		}
 

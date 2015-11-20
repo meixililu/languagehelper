@@ -10,9 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnBufferingUpdateListener;
 import android.media.MediaPlayer.OnCompletionListener;
-import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,6 +37,7 @@ import com.messi.languagehelper.http.LanguagehelperHttpClient;
 import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.DownLoadUtil;
+import com.messi.languagehelper.util.GytUtil;
 import com.messi.languagehelper.util.JsonParser;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
@@ -53,15 +52,14 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	private View view;
 	private FrameLayout study_daily_sentence,study_spoken_english,study_dailog,study_test,study_to_all_user;
 	private FrameLayout symbol_study_cover;
+	private FrameLayout en_examination_layout;
 	private TextView dailysentence_txt;
 	private ImageView daily_sentence_item_img;
 	private ImageView play_img;
-	private LinearLayout study_ad_view;
 	private FrameLayout instagram_layout,news_layout;
 	public static StudyFragment mMainFragment;
 	private SharedPreferences mSharedPreferences;
 	private EveryDaySentence mEveryDaySentence;
-	private IFLYBannerAd mIFLYBannerAd;
 	private FragmentProgressbarListener mProgressbarListener;
 	private MediaPlayer mPlayer;
 	private String fileFullName;
@@ -100,11 +98,11 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		study_spoken_english = (FrameLayout)view.findViewById(R.id.study_spoken_english);
 		instagram_layout = (FrameLayout)view.findViewById(R.id.instagram_layout);
 		news_layout = (FrameLayout)view.findViewById(R.id.news_layout);
+		en_examination_layout = (FrameLayout)view.findViewById(R.id.en_examination_layout);
 		study_dailog = (FrameLayout)view.findViewById(R.id.study_dailog);
 		study_test = (FrameLayout)view.findViewById(R.id.study_test);
 		study_to_all_user = (FrameLayout)view.findViewById(R.id.study_to_all_user);
 		symbol_study_cover = (FrameLayout)view.findViewById(R.id.symbol_study_cover);
-		study_ad_view = (LinearLayout)view.findViewById(R.id.study_ad_view);
 		dailysentence_txt = (TextView)view.findViewById(R.id.dailysentence_txt);
 		daily_sentence_item_img = (ImageView)view.findViewById(R.id.daily_sentence_item_img);
 		play_img = (ImageView)view.findViewById(R.id.play_img);
@@ -118,38 +116,14 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		study_to_all_user.setOnClickListener(this);
 		dailysentence_txt.setOnClickListener(this);
 		news_layout.setOnClickListener(this);
-		study_ad_view.setOnClickListener(this);
+		en_examination_layout.setOnClickListener(this);
 		play_img.setOnClickListener(this);
 		addAd();
 	}
 	
 	private void addAd(){
 		if(ADUtil.isShowAd(getActivity())){
-			mIFLYBannerAd = ADUtil.initBannerAD(getActivity(), study_ad_view);
-			mIFLYBannerAd.loadAd(new IFLYAdListener() {
-				@Override
-				public void onAdReceive() {
-					if(mIFLYBannerAd != null){
-						mIFLYBannerAd.showAd();
-					}
-				}
-				@Override
-				public void onAdFailed(AdError arg0) {
-					study_ad_view.setVisibility(View.GONE);
-				}
-				@Override
-				public void onAdClose() {
-				}
-				@Override
-				public void onAdClick() {
-					StatService.onEvent(getActivity(), "ad_banner", "点击banner广告", 1);
-				}
-				@Override
-				public void onAdExposure() {
-					// TODO Auto-generated method stub
-					
-				}
-			});
+			
 		}
 	}
 	
@@ -240,7 +214,11 @@ public class StudyFragment extends Fragment implements OnClickListener{
 			break;
 		case R.id.news_layout:
 			ContExManager.initWithAPPId(getActivity(),"61181d6c-9093-4735-93d1-9b07d50e5ab2", "w1461Eub");
-			ContExManager.show(getActivity());//直接显示，使用默认值
+			GytUtil.showHtml(getActivity(), getActivity().getResources().getString(R.string.reading));
+			break;
+		case R.id.en_examination_layout:
+			ContExManager.initWithAPPId(getActivity(),"c18b33e973d147159ee52a8debac9b4c", "w1461Eub");
+			GytUtil.showHtml(getActivity(), getActivity().getResources().getString(R.string.examination));
 			break;
 		case R.id.play_img:
 			if(mEveryDaySentence != null){

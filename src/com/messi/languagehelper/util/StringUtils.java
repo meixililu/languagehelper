@@ -2,24 +2,21 @@ package com.messi.languagehelper.util;
 
 public class StringUtils {
 	
-	public static final String SpeakerEn = "vimary";
-	public static final String SpeakerZh = "xiaoyan";//vixy
-
 	public static void setSpeakerByLan(String lan) {
 		if(lan.equals("en")){
-			Settings.role = SpeakerEn;
+			Settings.role = XFUtil.SpeakerEn;
 		}else{
-			Settings.role = SpeakerZh;
+			Settings.role = XFUtil.SpeakerZh;
 		}
 	}
 	
 	public static void setSpeaker(String content) {
-		Settings.role = SpeakerEn;	
+		Settings.role = XFUtil.SpeakerEn;	
 		char[] ch = content.toCharArray();
 		for (int i = 0; i < ch.length; i++) {
 			char c = ch[i];
 			if (isChinese(c)) {
-				Settings.role = SpeakerZh;	
+				Settings.role = XFUtil.SpeakerZh;	
 				break;
 			}
 		}

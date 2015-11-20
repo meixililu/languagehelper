@@ -1,7 +1,6 @@
 package com.messi.languagehelper;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -17,14 +16,13 @@ import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.SDCardUtil;
 import com.messi.languagehelper.util.Settings;
-import com.messi.languagehelper.util.ShareUtil;
 import com.messi.languagehelper.util.ToastUtil;
 
 public class SettingActivity extends BaseActivity implements OnClickListener,SeekBar.OnSeekBarChangeListener {
 
 	private TextView seekbar_text;
 	private SeekBar seekbar;
-	private ImageView unread_auto_clear_dot_after_finish;
+	private ImageView unread_auto_play;
 	private FrameLayout speak_yueyu,auto_play,auto_clear;
 	private FrameLayout clear_all_except_favorite,clear_all;
 	private FrameLayout auto_clear_after_finish;
@@ -45,7 +43,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 		getSupportActionBar().setTitle(this.getResources().getString(R.string.title_settings));
         seekbar_text = (TextView) findViewById(R.id.seekbar_text);
         seekbar = (SeekBar) findViewById(R.id.seekbar);
-        unread_auto_clear_dot_after_finish = (ImageView) findViewById(R.id.unread_auto_clear_dot_after_finish);
+        unread_auto_play = (ImageView) findViewById(R.id.unread_auto_play);
         speak_yueyu = (FrameLayout) findViewById(R.id.speak_yueyu);
         auto_play = (FrameLayout) findViewById(R.id.setting_auto_play);
         auto_clear = (FrameLayout) findViewById(R.id.setting_auto_clear);
@@ -72,14 +70,14 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 		boolean checked = mSharedPreferences.getBoolean(KeyUtil.SpeakPutonghuaORYueyu, false);
 		boolean autoplay = mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false);
 		boolean AutoClearInputAfterFinish = mSharedPreferences.getBoolean(KeyUtil.AutoClearInputAfterFinish, true);
-		boolean AutoClearAfterFinishUnreadDot = mSharedPreferences.getBoolean(KeyUtil.AutoClearAfterFinishUnreadDot, false);
+		boolean AutoPlayUnreadDot = mSharedPreferences.getBoolean(KeyUtil.AutoPlayUnreadDot, false);
 		boolean AutoClear = mSharedPreferences.getBoolean(KeyUtil.AutoClear, false);
 		speak_yueyu_cb.setChecked(checked);
 		auto_play_cb.setChecked(autoplay);
 		auto_clear_cb.setChecked(AutoClear);
 		auto_clear_cb_after_finish.setChecked(AutoClearInputAfterFinish);
-		if(AutoClearAfterFinishUnreadDot){
-			unread_auto_clear_dot_after_finish.setVisibility(View.GONE);
+		if(AutoPlayUnreadDot){
+			unread_auto_play.setVisibility(View.GONE);
 		}
 	}
 
@@ -97,14 +95,14 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 			break;
 		case R.id.setting_auto_play:
 			auto_play_cb.setChecked(!auto_play_cb.isChecked());
+			unread_auto_play.setVisibility(View.GONE);
+			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoPlayUnreadDot,true);
 			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoPlayResult,auto_play_cb.isChecked());
 			StatService.onEvent(this, "setting_page_auto_play", "翻译完成之后自动播放", 1);
 			break;
 		case R.id.setting_auto_clear_after_finish:
 			auto_clear_cb_after_finish.setChecked(!auto_clear_cb_after_finish.isChecked());
-			unread_auto_clear_dot_after_finish.setVisibility(View.GONE);
 			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoClearInputAfterFinish,auto_clear_cb_after_finish.isChecked());
-			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoClearAfterFinishUnreadDot,true);
 			StatService.onEvent(this, "setting_page_auto_clear_input", "翻译完成之后自动清空输入框", 1);
 			break;
 		case R.id.setting_auto_clear:

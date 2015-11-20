@@ -1,16 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ad_layout"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/none"
-    android:foreground="@drawable/framelayout_selector"
-    android:orientation="vertical" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/xx_ad_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginBottom="@dimen/padding_7"
+            android:layout_marginLeft="@dimen/padding_7"
+            android:layout_marginRight="@dimen/padding_7" >
 
-    <ImageView
-        android:id="@+id/ad_img"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop" />
+            <com.messi.languagehelper.views.WrapContentHeightViewPager
+                android:id="@+id/auto_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
 
-</FrameLayout>
+            <LinearLayout
+                android:id="@+id/viewpager_dot_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:gravity="bottom|right"
+                android:orientation="horizontal"
+                android:padding="5dp" />
+            
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="推广"
+                android:textColor="@color/white"
+                android:textSize="@dimen/middle"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:paddingBottom="3dp"
+                android:paddingLeft="3dp"
+                />
+        </RelativeLayout>

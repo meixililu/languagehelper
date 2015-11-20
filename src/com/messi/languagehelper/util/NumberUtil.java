@@ -119,6 +119,10 @@ public class NumberUtil {
 		}
 	}
 	
+	public static int hundred_mark(float score){
+		return (int)(score / 5 * 100);
+	}
+	
 	/**产生一个随机数，不包括max，0到max-1
 	 * @param max
 	 * @return

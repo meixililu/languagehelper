@@ -1,45 +1,37 @@
 package com.messi.languagehelper;
 
-import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import cn.contentx.ContExManager;
 
-import com.androidquery.AQuery;
 import com.baidu.mobstat.StatService;
-import com.iflytek.voiceads.AdError;
-import com.iflytek.voiceads.IFLYNativeAd;
-import com.iflytek.voiceads.IFLYNativeListener;
-import com.iflytek.voiceads.NativeADDataRef;
 import com.messi.languagehelper.util.ADUtil;
+import com.messi.languagehelper.util.GytUtil;
 import com.messi.languagehelper.util.KeyUtil;
-import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
+import com.messi.languagehelper.util.XFYSAD;
+import com.messi.languagehelper.views.WrapContentHeightViewPager;
 
 public class LeisureFragment extends BaseFragment implements OnClickListener {
 
 	public static final long IntervalTime = 1000 * 20;
-	
 	private View view;
 	private FrameLayout cailing_layout,app_layout,yuedu_layout,hotal_layout;
 	private FrameLayout invest_layout, game_layout,baidu_layout;
 	private FrameLayout news_layout;
-	private IFLYNativeAd nativeAd;
-	private List<NativeADDataRef> adList;
-	protected AQuery $;
-	private int index;
-	private Handler mHandler;
+	private RelativeLayout xx_ad_layout;
 	public static LeisureFragment mMainFragment;
 	private SharedPreferences mSharedPreferences;
+	private XFYSAD mXFYSAD;
+	private boolean misVisibleToUser;
 	
 	public static LeisureFragment getInstance(){
 		if(mMainFragment == null){
@@ -56,9 +48,8 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 	}
 	
 	private void initViews(){
-		mHandler = new Handler();
 		mSharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);
-		cailing_layout = (FrameLayout)view.findViewById(R.id.cailing_layout);
+		cailing_layout = (FrameLayout) view.findViewById(R.id.cailing_layout);
 		baidu_layout = (FrameLayout)view.findViewById(R.id.baidu_layout);
 		game_layout = (FrameLayout)view.findViewById(R.id.game_layout);
 		yuedu_layout = (FrameLayout)view.findViewById(R.id.yuedu_layout);
@@ -66,8 +57,12 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		app_layout = (FrameLayout)view.findViewById(R.id.app_layout);
 		invest_layout = (FrameLayout)view.findViewById(R.id.invest_layout);
 		news_layout = (FrameLayout)view.findViewById(R.id.news_layout);
-		
-		$ = new AQuery(getActivity());
+		xx_ad_layout = (RelativeLayout)view.findViewById(R.id.xx_ad_layout);
+		mXFYSAD = new XFYSAD(getActivity(), xx_ad_layout, ADUtil.XiuxianYSNRLAd);
+		mXFYSAD.showAD();
+		if(misVisibleToUser){
+			mXFYSAD.startPlayImg();
+		}
 		cailing_layout.setOnClickListener(this);
 		yuedu_layout.setOnClickListener(this);
 		hotal_layout.setOnClickListener(this);
@@ -76,58 +71,22 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		baidu_layout.setOnClickListener(this);
 		game_layout.setOnClickListener(this);
 		news_layout.setOnClickListener(this);
-		showAD();
 	}
 	
-	private void showAD(){
-		if(ADUtil.isShowAd(getActivity())){
-			nativeAd = new IFLYNativeAd(getActivity(), ADUtil.XiuxianYSNRLAd,
-					new IFLYNativeListener() {
-				@Override
-				public void onAdFailed(AdError arg0) {
-					$.id(R.id.ad_layout).visibility(View.GONE);
-					LogUtil.DefalutLog("onAdFailed---"+arg0.getErrorCode()+"---"+arg0.getErrorDescription());
-				}
-				@Override
-				public void onADLoaded(List<NativeADDataRef> arg0) {
-					if(arg0 != null && arg0.size() > 0){
-						adList = arg0;
-						setAdData();
-						for(NativeADDataRef bean : arg0){
-							LogUtil.DefalutLog("onADLoaded---"+bean.getTitle());
-						}
-					}
-				}
-			});
-			nativeAd.loadAd(ADUtil.adCount);
-		}else{
-			$.id(R.id.ad_layout).visibility(View.GONE);
-		}
+	@Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        misVisibleToUser = isVisibleToUser;
+        if(isVisibleToUser){
+        	if(mXFYSAD != null){
+        		mXFYSAD.startPlayImg();
+        	}
+        }else{
+        	if(mXFYSAD != null){
+        		mXFYSAD.canclePlayImg();
+        	}
+        }
 	}
-	
-	private void setAdData(){
-		$.id(R.id.ad_img).image(adList.get(index).getImage(),false,true);
-		adList.get(index).onExposured(getActivity().findViewById(R.id.ad_layout));
-		$.id(R.id.ad_layout).clicked(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				adList.get(index).onClicked(v);
-			}
-		});
-		mHandler.postDelayed(mRunnable, ADUtil.adInterval);
-	}
-	
-	private Runnable mRunnable = new Runnable() {
-		@Override
-		public void run() {
-			index++;
-			if(index >= ADUtil.adCount){
-				index = 0;	
-			}
-			LogUtil.DefalutLog("resetAd---"+index);
-			setAdData();
-		}
-	};
 	
 	@Override
 	public void onClick(View v) {
@@ -147,7 +106,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 			toBaiduActivity();
 		}else if(v.getId() == R.id.news_layout){
 			ContExManager.initWithAPPId(getActivity(),"f9136944-bc17-4cb1-9b14-ece9de91b39d", "w1461Eub");
-			ContExManager.show(getActivity());//直接显示，使用默认值
+			GytUtil.showHtml(getActivity(), getActivity().getResources().getString(R.string.leisuer_news));
 		}
 	}
 	
@@ -206,11 +165,8 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		if(nativeAd != null){
-			nativeAd = null;
-		}
-		if(mHandler != null){
-			mHandler.removeCallbacks(mRunnable);
-		}
+		if(mXFYSAD != null){
+    		mXFYSAD.canclePlayImg();
+    	}
 	}
 }

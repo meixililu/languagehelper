@@ -110,7 +110,7 @@ public class JsonParser {
 				if(jObject.has("trans_result")){
 					JSONArray jArray = new JSONArray(jObject.getString("trans_result"));
 					int len = jArray.length();
-					if(len == 1){
+					if(len >= 1){
 						JSONObject jaObject = jArray.getJSONObject(0);
 						if(jaObject.has("dst")){
 							 String tempString = jaObject.getString("dst");

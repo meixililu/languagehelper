@@ -1,6 +1,5 @@
 package com.messi.languagehelper.adapter;
 
-import java.io.IOException;
 import java.util.List;
 
 import android.content.Context;

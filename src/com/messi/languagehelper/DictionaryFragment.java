@@ -351,7 +351,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 						mDictionaryBean = JsonParser.changeShowapiResultToDicBean(mRoot,Settings.q);
 						setData();
 					}else{
-						RequestBaiduDictionaryAsyncTask();
+						GetDictionaryFaultAsyncTask();
 					}
 					if(mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false)){
 						new AutoPlayWaitTask().execute();
@@ -413,12 +413,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 	private void GetDictionaryFaultAsyncTask(){
 		loadding();
 		submit_btn.setEnabled(false);
-		RequestParams mRequestParams = new RequestParams();
-		mRequestParams.put("client_id", Settings.client_id);
-		mRequestParams.put("q", Settings.q);
-		mRequestParams.put("from", Settings.from);
-		mRequestParams.put("to", Settings.to);
-		LanguagehelperHttpClient.get(Settings.baiduTranslateUrl, mRequestParams, new TextHttpResponseHandler() {
+		LanguagehelperHttpClient.postBaidu( new TextHttpResponseHandler() {
 			@Override
 			public void onFinish() {
 				super.onFinish();
@@ -479,7 +474,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 	
 	private void autoPlay(){
 		View mView = recent_used_lv.getChildAt(0);
-		FrameLayout record_answer_cover = (FrameLayout) mView.findViewById(R.id.record_answer_cover); 
+		FrameLayout record_answer_cover = (FrameLayout) mView.findViewById(R.id.record_question_cover); 
 		record_answer_cover.callOnClick();
 	}
 
@@ -618,11 +613,11 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 	 */
 	private void submit(){
 		Settings.q = input_et.getText().toString().trim();
-		String last = Settings.q.substring(Settings.q.length()-1);
-		if(",.?!;:'，。？！‘；：".contains(last)){
-			Settings.q = Settings.q.substring(0,Settings.q.length()-1);
-		}
 		if (!TextUtils.isEmpty(Settings.q)) {
+			String last = Settings.q.substring(Settings.q.length()-1);
+			if(",.?!;:'，。？！‘；：".contains(last)){
+				Settings.q = Settings.q.substring(0,Settings.q.length()-1);
+			}
 			RequestShowapiAsyncTask();
 			StatService.onEvent(getActivity(), "tab_dic_submit_btn", "首页词典页面翻译提交按钮", 1);
 		} else {
@@ -643,6 +638,9 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 			recognizer.stopListening();
 			recognizer.destroy();
 			recognizer = null;
+		}
+		if(mAdapter != null){
+			mAdapter.stopPlay();
 		}
 		LogUtil.DefalutLog("MainFragment-onDestroy");
 	}

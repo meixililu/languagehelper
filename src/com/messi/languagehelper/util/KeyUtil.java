@@ -20,7 +20,9 @@ public class KeyUtil {
 	
 	public static final String IsFirstLoadPracticePage = "IsFirstLoadPracticePage";
 	
-	public static final String IsShowNewFunction = "IsShowNewFunction";
+	public static final String IsShowAnswerUnread = "IsShowAnswerUnread";
+	
+	public static final String IsShowQuestionUnread = "IsShowQuestionUnread";
 	
 	public static final String IsShowSettingNewAdd = "IsShowSettingNewAdd";
 	
@@ -40,7 +42,7 @@ public class KeyUtil {
 	
 	public static final String AutoClearInputAfterFinish = "AutoClearInputAfterFinish";
 
-	public static final String AutoClearAfterFinishUnreadDot = "AutoClearAfterFinishUnreadDot";
+	public static final String AutoPlayUnreadDot = "AutoPlayUnreadDot";
 	
 	public static final String AutoClear = "AutoClear";
 	
@@ -78,7 +80,9 @@ public class KeyUtil {
 
 	public static final String BundleKey = "BundleKey";
 
+	public static final String PositionKey = "PositionKey";
 	
+	public static final String DataMapKey = "DataMapKey";
 	
 	
 	

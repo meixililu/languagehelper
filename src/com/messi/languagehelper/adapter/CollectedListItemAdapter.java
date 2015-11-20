@@ -9,6 +9,8 @@ import android.graphics.drawable.AnimationDrawable;
 import android.media.AudioTrack;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.ClipboardManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -35,10 +37,12 @@ import com.messi.languagehelper.ImgShareActivity;
 import com.messi.languagehelper.MainFragment;
 import com.messi.languagehelper.PracticeActivity;
 import com.messi.languagehelper.R;
+import com.messi.languagehelper.dao.Dictionary;
 import com.messi.languagehelper.dao.record;
 import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.dialog.PopDialog;
 import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
+import com.messi.languagehelper.task.MyThread;
 import com.messi.languagehelper.task.PublicTask;
 import com.messi.languagehelper.task.PublicTask.PublicTaskListener;
 import com.messi.languagehelper.util.AudioTrackUtil;
@@ -59,6 +63,10 @@ public class CollectedListItemAdapter extends BaseAdapter {
 	private AudioTrack audioTrack;
 	private SharedPreferences mSharedPreferences;
 	private Bundle bundle;
+	private Thread mThread;
+	private MyThread mMyThread;
+	private Handler mHandler;
+	private AnimationDrawable currentAnimationDrawable;
 
 	public CollectedListItemAdapter(Context mContext,LayoutInflater mInflater,List<record> mBeans,
 			SpeechSynthesizer mSpeechSynthesizer,SharedPreferences mSharedPreferences, 
@@ -70,6 +78,20 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		this.mSharedPreferences = mSharedPreferences;
 		this.mSpeechSynthesizer = mSpeechSynthesizer;
 		this.bundle = bundle;
+		mHandler = new Handler() {
+			public void handleMessage(Message message) {
+				if (message.what == MyThread.EVENT_PLAY_OVER) {
+					mThread = null;
+					if (currentAnimationDrawable != null) {
+						currentAnimationDrawable.setOneShot(true);
+						currentAnimationDrawable.stop();
+						currentAnimationDrawable.selectDrawable(0);
+					}
+					resetStatus();
+				}
+			}
+		};
+		mMyThread = new MyThread(mHandler);
 	}
 
 	public int getCount() {
@@ -96,7 +118,8 @@ public class CollectedListItemAdapter extends BaseAdapter {
 			holder.record_to_practice = (FrameLayout) convertView.findViewById(R.id.record_to_practice);
 			holder.record_question = (TextView) convertView.findViewById(R.id.record_question);
 			holder.record_answer = (TextView) convertView.findViewById(R.id.record_answer);
-			holder.unread_dot = (ImageView) convertView.findViewById(R.id.unread_dot);
+			holder.unread_dot_answer = (ImageView) convertView.findViewById(R.id.unread_dot_answer);
+			holder.unread_dot_question = (ImageView) convertView.findViewById(R.id.unread_dot_question);
 			holder.voice_play = (ImageButton) convertView.findViewById(R.id.voice_play);
 			holder.collected_cb = (CheckBox) convertView.findViewById(R.id.collected_cb);
 			holder.voice_play_layout = (FrameLayout) convertView.findViewById(R.id.voice_play_layout);
@@ -121,12 +144,20 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		}else{
 			holder.collected_cb.setChecked(true);
 		}
-		if(isFirstLoaded()){
-			if(position == 0){
-				holder.unread_dot.setVisibility(View.VISIBLE);
+		if(position == 0){
+			if(!mSharedPreferences.getBoolean(KeyUtil.IsShowAnswerUnread, false)){
+				holder.unread_dot_answer.setVisibility(View.VISIBLE);
 			}else{
-				holder.unread_dot.setVisibility(View.GONE);
+				holder.unread_dot_answer.setVisibility(View.GONE);
 			}
+			if(!mSharedPreferences.getBoolean(KeyUtil.IsShowQuestionUnread, false)){
+				holder.unread_dot_question.setVisibility(View.VISIBLE);
+			}else{
+				holder.unread_dot_question.setVisibility(View.GONE);
+			}
+		}else{
+			holder.unread_dot_answer.setVisibility(View.GONE);
+			holder.unread_dot_question.setVisibility(View.GONE);
 		}
 		holder.record_question.setText(mBean.getChinese());
 		holder.record_answer.setText(mBean.getEnglish());
@@ -169,7 +200,6 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		holder.record_to_practice.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				holder.unread_dot.setVisibility(View.GONE);
 				Intent intent = new Intent(context,PracticeActivity.class);
 				BaseApplication.dataMap.put(KeyUtil.DialogBeanKey, mBean);
 				context.startActivity(intent);
@@ -179,7 +209,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		holder.baidu_btn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				toBaiduActivity(mBean.getChinese());
+				toBaiduActivity(mBean.getEnglish());
 				StatService.onEvent(context, "dic_item_bdsearch", "首页词典页面列表收藏按钮", 1);
 			}
 		});
@@ -190,14 +220,6 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
 		cm.setText(query);//string为你要传入的值
 		SearchManger.openDetail(context);
-	}
-	
-	private boolean isFirstLoaded(){
-		boolean result = mSharedPreferences.getBoolean(KeyUtil.IsShowNewFunction, false);
-		if(!result){
-			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsShowNewFunction, true);
-		}
-		return !result;
 	}
 	
 	static class ViewHolder {
@@ -212,7 +234,8 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		FrameLayout weixi_btn;
 		FrameLayout baidu_btn;
 		ImageButton voice_play;
-		ImageView unread_dot;
+		ImageView unread_dot_answer;
+		ImageView unread_dot_question;
 		CheckBox collected_cb;
 		FrameLayout voice_play_layout;
 		ProgressBar play_content_btn_progressbar;
@@ -320,108 +343,131 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		}
 		@Override
 		public void onClick(final View v) {
-			ShowView.showIndexPageGuide(context, KeyUtil.IsHasShowClickText);
-			String path = SDCardUtil.getDownloadPath(SDCardUtil.sdPath);
-			if(TextUtils.isEmpty(mBean.getResultVoiceId()) || TextUtils.isEmpty(mBean.getQuestionVoiceId())){
-				mBean.setQuestionVoiceId(System.currentTimeMillis() + "");
-				mBean.setResultVoiceId(System.currentTimeMillis()-5 + "");
-			}
-			String filepath = "";
-			String speakContent = "";
-			if(isPlayResult){
-				filepath = path + mBean.getResultVoiceId() + ".pcm";
-				mBean.setResultAudioPath(filepath);
-				speakContent = mBean.getEnglish();
-			}else{
-				filepath = path + mBean.getQuestionVoiceId() + ".pcm";
-				mBean.setQuestionAudioPath(filepath);
-				speakContent = mBean.getChinese();
-			}
-			if(mBean.getSpeak_speed() != MainFragment.speed){
-				String filep1 = path + mBean.getResultVoiceId() + ".pcm";
-				String filep2 = path + mBean.getQuestionVoiceId() + ".pcm";
-				AudioTrackUtil.deleteFile(filep1);
-				AudioTrackUtil.deleteFile(filep2);
-				mBean.setSpeak_speed(MainFragment.speed);
-			}
-			mSpeechSynthesizer.setParameter(SpeechConstant.TTS_AUDIO_PATH, filepath);
-			if(!AudioTrackUtil.isFileExists(filepath)){
-				play_content_btn_progressbar.setVisibility(View.VISIBLE);
-				voice_play.setVisibility(View.GONE);
-				XFUtil.showSpeechSynthesizer(context,mSharedPreferences,mSpeechSynthesizer,speakContent,
-						new SynthesizerListener() {
-					@Override
-					public void onSpeakResumed() {
+			try {
+				boolean isPlay = true;
+				stopPlay();
+				if(TextUtils.isEmpty(mBean.getBackup2())){
+					isPlay = true;
+				}else if(isPlayResult && (mBean.getBackup2().equals(XFUtil.PlayResultOnline) || mBean.getBackup2().equals(XFUtil.PlayResultOffline))){
+					isPlay = false;
+				}else if(!isPlayResult && (mBean.getBackup2().equals(XFUtil.PlayQueryOnline) || mBean.getBackup2().equals(XFUtil.PlayQueryOffline))){
+					isPlay = false;
+				}
+				resetStatus();
+				if(isPlay){
+//					ShowView.showIndexPageGuide(context, KeyUtil.IsHasShowClickText);
+					String path = SDCardUtil.getDownloadPath(SDCardUtil.sdPath);
+					if(TextUtils.isEmpty(mBean.getResultVoiceId()) || TextUtils.isEmpty(mBean.getQuestionVoiceId())){
+						mBean.setQuestionVoiceId(System.currentTimeMillis() + "");
+						mBean.setResultVoiceId(System.currentTimeMillis()-5 + "");
 					}
-					@Override
-					public void onSpeakProgress(int arg0, int arg1, int arg2) {
+					String filepath = "";
+					String speakContent = "";
+					if(isPlayResult){
+						Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsShowAnswerUnread, true);
+						filepath = path + mBean.getResultVoiceId() + ".pcm";
+						mBean.setResultAudioPath(filepath);
+						speakContent = mBean.getEnglish();
+					}else{
+						Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsShowQuestionUnread, true);
+						filepath = path + mBean.getQuestionVoiceId() + ".pcm";
+						mBean.setQuestionAudioPath(filepath);
+						speakContent = mBean.getChinese();
 					}
-					@Override
-					public void onSpeakPaused() {
+					notifyDataSetChanged();
+					if(mBean.getSpeak_speed() != MainFragment.speed){
+						String filep1 = path + mBean.getResultVoiceId() + ".pcm";
+						String filep2 = path + mBean.getQuestionVoiceId() + ".pcm";
+						AudioTrackUtil.deleteFile(filep1);
+						AudioTrackUtil.deleteFile(filep2);
+						mBean.setSpeak_speed(MainFragment.speed);
 					}
-					@Override
-					public void onSpeakBegin() {
-						play_content_btn_progressbar.setVisibility(View.GONE);
-						voice_play.setVisibility(View.VISIBLE);
-						if(!animationDrawable.isRunning()){
+					mSpeechSynthesizer.setParameter(SpeechConstant.TTS_AUDIO_PATH, filepath);
+					if(!AudioTrackUtil.isFileExists(filepath)){
+						if(isPlayResult){
+							mBean.setBackup2(XFUtil.PlayResultOnline);
+						}else{
+							mBean.setBackup2(XFUtil.PlayQueryOnline);
+						}
+						play_content_btn_progressbar.setVisibility(View.VISIBLE);
+						voice_play.setVisibility(View.GONE);
+						XFUtil.showSpeechSynthesizer(context,mSharedPreferences,mSpeechSynthesizer,speakContent,
+								new SynthesizerListener() {
+							@Override
+							public void onSpeakResumed() {
+							}
+							@Override
+							public void onSpeakProgress(int arg0, int arg1, int arg2) {
+							}
+							@Override
+							public void onSpeakPaused() {
+							}
+							@Override
+							public void onSpeakBegin() {
+								play_content_btn_progressbar.setVisibility(View.GONE);
+								voice_play.setVisibility(View.VISIBLE);
+								if(!animationDrawable.isRunning()){
+									animationDrawable.setOneShot(false);
+									animationDrawable.start();  
+								}
+							}
+							@Override
+							public void onCompleted(SpeechError arg0) {
+								LogUtil.DefalutLog("---onCompleted");
+								if(arg0 != null){
+									ToastUtil.diaplayMesShort(context, arg0.getErrorDescription());
+								}
+								mBean.setBackup2("");
+								DataBaseUtil.getInstance().update(mBean);
+								animationDrawable.setOneShot(true);
+								animationDrawable.stop(); 
+								animationDrawable.selectDrawable(0);
+							}
+							@Override
+							public void onBufferProgress(int arg0, int arg1, int arg2, String arg3) {
+							}
+							@Override
+							public void onEvent(int arg0, int arg1, int arg2,Bundle arg3) {
+							}
+						});
+					}else{
+						if(isPlayResult){
+							mBean.setBackup2(XFUtil.PlayResultOffline);
+						}else{
+							mBean.setBackup2(XFUtil.PlayQueryOffline);
+						}
+						if (!animationDrawable.isRunning()) {
 							animationDrawable.setOneShot(false);
-							animationDrawable.start();  
+							animationDrawable.start();
 						}
+						currentAnimationDrawable = animationDrawable;
+						mMyThread.setDataUri(filepath);
+						mThread = AudioTrackUtil.startMyThread(mMyThread);
+						LogUtil.DefalutLog("mThread--start:"+mThread.getId());
 					}
-					@Override
-					public void onCompleted(SpeechError arg0) {
-						LogUtil.DefalutLog("---onCompleted");
-						if(arg0 != null){
-							ToastUtil.diaplayMesShort(context, arg0.getErrorDescription());
-						}
-						DataBaseUtil.getInstance().update(mBean);
-						animationDrawable.setOneShot(true);
-						animationDrawable.stop(); 
-						animationDrawable.selectDrawable(0);
+					if(v.getId() == R.id.record_question_cover){
+						StatService.onEvent(context, "tab_translate_play_content", "首页翻译页面列表播放内容", 1);
+					}else if(v.getId() == R.id.record_answer_cover){
+						StatService.onEvent(context, "tab_translate_play_result", "首页翻译页面列表播放结果", 1);
+					}else if(v.getId() == R.id.voice_play_layout){
+						StatService.onEvent(context, "tab_translate_playvoicebtn", "首页翻译页面列表播放按钮", 1);
 					}
-					@Override
-					public void onBufferProgress(int arg0, int arg1, int arg2, String arg3) {
-					}
-					@Override
-					public void onEvent(int arg0, int arg1, int arg2,Bundle arg3) {
-					}
-				});
-			}else{
-				playLocalPcm(filepath,animationDrawable);
-			}
-			if(v.getId() == R.id.record_question_cover){
-				StatService.onEvent(context, "tab_translate_play_content", "首页翻译页面列表播放内容", 1);
-			}else if(v.getId() == R.id.record_answer_cover){
-				StatService.onEvent(context, "tab_translate_play_result", "首页翻译页面列表播放结果", 1);
-			}else if(v.getId() == R.id.voice_play_layout){
-				StatService.onEvent(context, "tab_translate_playvoicebtn", "首页翻译页面列表播放按钮", 1);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 	}
 	
-	private void playLocalPcm(final String path,final AnimationDrawable animationDrawable){
-		PublicTask mPublicTask = new PublicTask(context);
-		mPublicTask.setmPublicTaskListener(new PublicTaskListener() {
-			@Override
-			public void onPreExecute() {
-				if(!animationDrawable.isRunning()){
-					animationDrawable.setOneShot(false);
-					animationDrawable.start();  
-				}
-			}
-			@Override
-			public Object doInBackground() {
-				audioTrack = AudioTrackUtil.createAudioTrack(path);
-				return null;
-			}
-			@Override
-			public void onFinish(Object resutl) {
-				animationDrawable.setOneShot(true);
-				animationDrawable.stop(); 
-				animationDrawable.selectDrawable(0);
-			}
-		});
-		mPublicTask.execute();
+	public void stopPlay(){
+		AudioTrackUtil.stopPlayOnline(mSpeechSynthesizer);
+		AudioTrackUtil.stopPlayPcm(mThread);
+	}
+	
+	public void resetStatus(){
+		for(record mBean : beans){
+			mBean.setBackup2("");
+		}
 	}
 	
 	/**toast message

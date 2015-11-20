@@ -28,7 +28,7 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="110dp"
-                android:background="@color/cyan"
+                android:background="@color/load_blue"
                 android:gravity="center"
                 android:shadowColor="@color/white"
                 android:shadowDx="0.5"
@@ -68,7 +68,7 @@
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/expend_right"
                         />
-
+					
                 </LinearLayout>
                 <ImageView
                     android:id="@+id/unread_dot_setting"
@@ -78,7 +78,7 @@
                     android:layout_marginRight="@dimen/padding_margin"
                     android:layout_gravity="top|right"
                     android:src="@drawable/unread_dot"
-                    android:visibility="gone" 
+                    android:visibility="gone"
                     />
             </FrameLayout>
             <ImageView 

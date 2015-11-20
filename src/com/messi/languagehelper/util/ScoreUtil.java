@@ -1,14 +1,13 @@
 package com.messi.languagehelper.util;
 
-import com.messi.languagehelper.R;
-import com.messi.languagehelper.bean.UserSpeakBean;
-
 import android.content.Context;
-import android.content.res.Resources.NotFoundException;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+
+import com.messi.languagehelper.R;
+import com.messi.languagehelper.bean.UserSpeakBean;
 
 public class ScoreUtil {
 

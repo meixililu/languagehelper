@@ -1,6 +1,5 @@
 package com.messi.languagehelper;
 
-import java.io.IOException;
 import java.util.List;
 
 import android.media.MediaPlayer;
@@ -26,7 +25,6 @@ import com.avos.avoscloud.AVQuery;
 import com.baidu.mobstat.StatService;
 import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.DownLoadUtil;
-import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.SDCardUtil;
 
 public class SymbolDetailActivity extends BaseActivity implements OnClickListener {

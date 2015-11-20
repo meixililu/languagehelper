@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.baidu.mobstat.StatService;
 import com.iflytek.voiceads.AdError;
@@ -144,7 +142,7 @@ public class LoadingActivity extends Activity implements OnClickListener{
 	}
 	
 	private void startTask(){
-		mHandler.postDelayed(m3Runnable, 2700);
+		mHandler.postDelayed(m3Runnable, 3000);
 	}
 	
 	@Override
@@ -206,7 +204,6 @@ public class LoadingActivity extends Activity implements OnClickListener{
 		super.onDestroy();
 		LogUtil.DefalutLog("LoadingActivity---onDestroy---destroyAd");
 		if(fullScreenAd != null){
-			fullScreenAd.destroyAd();
 			fullScreenAd = null;
 		}
 	}

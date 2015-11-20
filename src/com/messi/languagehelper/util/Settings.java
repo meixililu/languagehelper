@@ -1,5 +1,7 @@
 package com.messi.languagehelper.util;
 
+import com.messi.languagehelper.R;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,12 +11,10 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.text.ClipboardManager;
 
-import com.messi.languagehelper.R;
-
 public class Settings {
 
 	/**baidu translate api**/
-	public static String baiduTranslateUrl = "http://openapi.baidu.com/public/2.0/bmt/translate";
+	public static String baiduTranslateUrl = "http://api.fanyi.baidu.com/api/trans/vip/translate";
 	
 	/**baidu dictionary api**/
 	public static String baiduDictionaryUrl = "http://openapi.baidu.com/public/2.0/translate/dict/simple";
@@ -44,6 +44,8 @@ public class Settings {
 	public static final String showapi_appid = "11619";	
 	public static final String showapi_secret = "f27574671ec14eb4a97faacb2eee3ef2";	
 	
+	public static final String baidu_appid = "20151111000005006";	
+	public static final String baidu_secretkey = "91mGcsmdvX9HAaE8tXoI";	
 	public static final String client_id = "vCV6TTGRTI5QrckdYSKHQIhq";	
 	public static String from = "auto";	
 	public static String to = "auto";	

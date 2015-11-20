@@ -27,6 +27,7 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
+import com.lerdian.search.SearchManger;
 import com.messi.languagehelper.DictionaryFragment;
 import com.messi.languagehelper.ImgShareActivity;
 import com.messi.languagehelper.MainFragment;
@@ -79,8 +80,8 @@ public class DictionaryRecyclerviewAdapter extends RecyclerView.Adapter<Recycler
 		public FrameLayout copy_btn;
 		public FrameLayout collected_btn;
 		public FrameLayout weixi_btn;
+		public FrameLayout baidu_btn;
 		public ImageButton voice_play;
-		public ImageView unread_dot;
 		public CheckBox collected_cb;
 		public FrameLayout voice_play_layout;
 		public ProgressBar play_content_btn_progressbar;
@@ -92,7 +93,6 @@ public class DictionaryRecyclerviewAdapter extends RecyclerView.Adapter<Recycler
 			record_to_practice = (FrameLayout) convertView.findViewById(R.id.record_to_practice);
 			record_question = (TextView) convertView.findViewById(R.id.record_question);
 			record_answer = (TextView) convertView.findViewById(R.id.record_answer);
-			unread_dot = (ImageView) convertView.findViewById(R.id.unread_dot);
 			voice_play = (ImageButton) convertView.findViewById(R.id.voice_play);
 			collected_cb = (CheckBox) convertView.findViewById(R.id.collected_cb);
 			voice_play_layout = (FrameLayout) convertView.findViewById(R.id.voice_play_layout);
@@ -100,6 +100,7 @@ public class DictionaryRecyclerviewAdapter extends RecyclerView.Adapter<Recycler
 			copy_btn = (FrameLayout) convertView.findViewById(R.id.copy_btn);
 			collected_btn = (FrameLayout) convertView.findViewById(R.id.collected_btn);
 			weixi_btn = (FrameLayout) convertView.findViewById(R.id.weixi_btn);
+			baidu_btn = (FrameLayout) convertView.findViewById(R.id.baidu_btn);
 			play_content_btn_progressbar = (ProgressBar) convertView.findViewById(R.id.play_content_btn_progressbar);
         }
     }
@@ -227,12 +228,23 @@ public class DictionaryRecyclerviewAdapter extends RecyclerView.Adapter<Recycler
 						StatService.onEvent(context, "favor_dic_collectedbtn", "收藏词典页取消收藏", 1);
 					}
 				});
+				holder.baidu_btn.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						toBaiduActivity(mBean.getWord_name());
+					}
+				});
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		
     }
+    
+    private void toBaiduActivity(String query){
+		ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+		cm.setText(query);//string为你要传入的值
+		SearchManger.openDetail(context);
+	}
 
 	public void notifyDataChange(List<Dictionary> mBeans, int maxNumber) {
 		if (maxNumber == 0) {
@@ -340,7 +352,7 @@ public class DictionaryRecyclerviewAdapter extends RecyclerView.Adapter<Recycler
 		@Override
 		public void onClick(final View v) {
 			try {
-				ShowView.showIndexPageGuide(context, KeyUtil.IsHasShowClickText);
+//				ShowView.showIndexPageGuide(context, KeyUtil.IsHasShowClickText);
 				String path = SDCardUtil.getDownloadPath(SDCardUtil.sdPath);
 				 if(TextUtils.isEmpty(mBean.getResultVoiceId()) || TextUtils.isEmpty(mBean.getQuestionVoiceId())){
 					 mBean.setQuestionVoiceId(System.currentTimeMillis() + "");

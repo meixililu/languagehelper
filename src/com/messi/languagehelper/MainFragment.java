@@ -58,7 +58,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 	private EditText input_et;
 	private ButtonRectangle submit_btn;
 	private ButtonFlat baidu_btn;
-	private LinearLayout baidu_translate,baidu_tranlate_prompt;;
+	private LinearLayout baidu_translate;
 	private FrameLayout clear_btn_layout;
 	private Button voice_btn;
 	private LinearLayout speak_round_layout;
@@ -149,19 +149,21 @@ public class MainFragment extends Fragment implements OnClickListener {
 		voice_btn = (Button) view.findViewById(R.id.voice_btn);
 		
 		AutoClearInputAfterFinish = mSharedPreferences.getBoolean(KeyUtil.AutoClearInputAfterFinish, true);
+		
 		boolean IsHasShowBaiduMessage = mSharedPreferences.getBoolean(KeyUtil.IsHasShowBaiduMessage, false);
-		View listviewFooter = mInflater.inflate(R.layout.listview_item_recent_used_footer, null);
-		baidu_tranlate_prompt = (LinearLayout) listviewFooter.findViewById(R.id.baidu_tranlate_prompt);
+//		View listviewFooter = mInflater.inflate(R.layout.listview_item_recent_used_footer, null);
+//		baidu_tranlate_prompt = (LinearLayout) listviewFooter.findViewById(R.id.baidu_tranlate_prompt);
 		if(!IsHasShowBaiduMessage){
-			baidu_translate = (LinearLayout) listviewFooter.findViewById(R.id.baidu_translate);
-			baidu_translate.setOnClickListener(this);
-			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsHasShowBaiduMessage, true);
 			initSample();
-			recent_used_lv.addFooterView(listviewFooter);
-		}else{
-//			baidu_tranlate_prompt.setVisibility(View.GONE);
-			recent_used_lv.addFooterView( ViewUtil.getListFooterView(getActivity()) );
+			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsHasShowBaiduMessage, true);
+//			baidu_translate = (LinearLayout) listviewFooter.findViewById(R.id.baidu_translate);
+//			baidu_translate.setOnClickListener(this);
+//			recent_used_lv.addFooterView(listviewFooter);
 		}
+//			else{
+////			baidu_tranlate_prompt.setVisibility(View.GONE);
+//			recent_used_lv.addFooterView( ViewUtil.getListFooterView(getActivity()) );
+//		}
 		
 		initLanguage();
 		baidu_btn.setOnClickListener(this);
@@ -344,12 +346,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 	private void RequestAsyncTask(){
 		loadding();
 		submit_btn.setEnabled(false);
-		RequestParams mRequestParams = new RequestParams();
-		mRequestParams.put("client_id", Settings.client_id);
-		mRequestParams.put("q", Settings.q);
-		mRequestParams.put("from", Settings.from);
-		mRequestParams.put("to", Settings.to);
-		LanguagehelperHttpClient.post(Settings.baiduTranslateUrl, mRequestParams, new TextHttpResponseHandler() {
+		LanguagehelperHttpClient.postBaidu( new TextHttpResponseHandler() {
 			@Override
 			public void onFinish() {
 				super.onFinish();

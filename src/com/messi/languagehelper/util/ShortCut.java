@@ -1,12 +1,12 @@
 package com.messi.languagehelper.util;
 
 
+import com.messi.languagehelper.R;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-
-import com.messi.languagehelper.R;
 
 
 public class ShortCut {

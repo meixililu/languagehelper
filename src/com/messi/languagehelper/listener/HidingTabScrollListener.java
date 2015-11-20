@@ -1,9 +1,9 @@
 package com.messi.languagehelper.listener;
 
-import com.messi.languagehelper.util.ViewUtil;
-
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+
+import com.messi.languagehelper.util.ViewUtil;
 
 /*
 * This class is a ScrollListener for RecyclerView that allows to show/hide
