@@ -117,6 +117,7 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 					evaluation_en_cover.setOnClickListener(mEvaluationOnClickListener);
 				}
 			}
+			changeZh();
 		}
 	}
 
@@ -180,11 +181,7 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 			}
 			break;
 		case R.id.show_zh_img:
-			if( TextUtils.isEmpty(evaluation_zh_tv.getText().toString()) ){
-				evaluation_zh_tv.setText(studyContent[1]);
-			}else{
-				evaluation_zh_tv.setText("");
-			}
+			showZH();
 			break;
 		case R.id.practice_prompt_show:
 			if(!practice_prompt_scrollview.isShown()){
@@ -195,6 +192,20 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 				practice_prompt_show.setText(EvaluationDetailActivity.this.getResources().getString(R.string.detail));
 			}
 			break;
+		}
+	}
+	
+	private void showZH(){
+		if( TextUtils.isEmpty(evaluation_zh_tv.getText().toString()) ){
+			evaluation_zh_tv.setText(studyContent[1]);
+		}else{
+			evaluation_zh_tv.setText("");
+		}
+	}
+	
+	private void changeZh(){
+		if( !TextUtils.isEmpty(evaluation_zh_tv.getText().toString()) ){
+			evaluation_zh_tv.setText(studyContent[1]);
 		}
 	}
 	
