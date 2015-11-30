@@ -45,6 +45,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <meta-data
+            android:name="BDAPPID"
+            android:value="6351423" />
+        <meta-data
+            android:name="BDAPPKEY"
+            android:value="YxhcUQ2FABS8hFzc2NhwD8LI" />
+        <activity
+            android:name="com.baidu.autoupdatesdk.ConfirmDialoigActivity"
+            android:exported="false"
+            android:screenOrientation="sensor"
+            />
+        <receiver
+            android:name="com.baidu.autoupdatesdk.receiver.BDBroadcastReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.baidu.autoupdatesdk.ACTION_NEW_UPDATE" />
+                <action android:name="com.baidu.autoupdatesdk.ACTION_DOWNLOAD_COMPLETE" />
+                <action android:name="com.baidu.autoupdatesdk.ACTION_NEW_AS" />
+                <action android:name="com.baidu.autoupdatesdk.ACTION_AS_DOWNLOAD_COMPLETE" />
+            </intent-filter>
+        </receiver>
 
         <!-- 渠道商编号，其中name请不要改，将value修改为渠道商编号。渠道名称请到mtj.baidu.com的渠道管理中修改 -->
         <meta-data

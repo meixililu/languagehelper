@@ -288,6 +288,7 @@
             android:layout_marginLeft="@dimen/padding_7"
             android:layout_marginRight="@dimen/padding_7"
             android:layout_marginTop="@dimen/padding_7"
+            android:visibility="gone"
             android:background="#4FC3F7"
             android:foreground="@drawable/framelayout_selector"
             android:orientation="vertical" >

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.gc.materialdesign.views.ButtonFlat;
+import com.gc.materialdesign.widgets.Dialog;
 import com.messi.languagehelper.R;
 import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.AppDownloadUtil;
@@ -75,7 +76,7 @@ public class AppRecommendDetailAdapter extends BaseAdapter {
 			holder.download_btn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
-					onItemClick(mAVObject);
+					showConfirmDialog(mAVObject);
 				}
 			});
 		} catch (Exception e) {
@@ -91,6 +92,20 @@ public class AppRecommendDetailAdapter extends BaseAdapter {
 		TextView item_msg;
 		TextView item_size;
 		ButtonFlat download_btn;
+	}
+	
+	private void showConfirmDialog(final AVObject mAVObject){
+		Dialog dialog = new Dialog(context, "温馨提示", "开始下载应用！");
+		dialog.addCancelButton("取消");
+		dialog.addAcceptButton("确定");
+		dialog.setOnAcceptButtonClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				onItemClick(mAVObject);
+			}
+		});
+		dialog.show();
 	}
 
 	private void onItemClick(AVObject mAVObject){
