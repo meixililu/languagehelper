@@ -34,9 +34,23 @@ public class StringUtils {
 		}
 		return isEnglish;
 	}
+	
+	public static boolean isChinese(String str) {
+		boolean result = true;
+		char[] ch = str.toCharArray();
+		for (int i = 0; i < ch.length; i++) {
+			char c = ch[i];
+			if (!isChinese(c)) {
+				result = false;
+				break;
+			}
+		}
+		return result;
+	}
+	
+	
 
-	// 根据Unicode编码完美的判断中文汉字和符号
-	private static boolean isChinese(char c) {
+	public static boolean isChinese(char c) {
 		Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
 		if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
 				|| ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS

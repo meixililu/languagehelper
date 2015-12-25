@@ -32,6 +32,7 @@ import android.widget.RadioButton;
 import com.baidu.mobstat.StatService;
 import com.gc.materialdesign.views.ButtonFlat;
 import com.gc.materialdesign.views.ButtonRectangle;
+import com.google.gson.Gson;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
@@ -41,10 +42,12 @@ import com.lerdian.search.SearchManger;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 import com.messi.languagehelper.adapter.CollectedListItemAdapter;
+import com.messi.languagehelper.dao.Iciba;
 import com.messi.languagehelper.dao.record;
 import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.http.LanguagehelperHttpClient;
 import com.messi.languagehelper.impl.FragmentProgressbarListener;
+import com.messi.languagehelper.util.HtmlParseUtil;
 import com.messi.languagehelper.util.JsonParser;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
@@ -343,7 +346,58 @@ public class MainFragment extends Fragment implements OnClickListener {
 	/**
 	 * send translate request
 	 */
+	private void RequestJinShanAsyncTask(){
+		loadding();
+		submit_btn.setEnabled(false);
+		LanguagehelperHttpClient.postIciba( new TextHttpResponseHandler() {
+			@Override
+			public void onFinish() {
+				super.onFinish();
+				finishLoadding();
+				submit_btn.setEnabled(true);
+			}
+			@Override
+			public void onFailure(int statusCode, Header[] headers,String responseString, Throwable throwable) {
+				showToast("Error("+statusCode+")");
+			}
+			@Override
+			public void onSuccess(int statusCode, Header[] headers, String responseString) {
+				if (!TextUtils.isEmpty(responseString)) {
+					setJinShanResult(responseString);
+				} else {
+					RequestAsyncTask();
+				}
+			}
+		});
+	}
+	
+	private void setJinShanResult(String responseString){
+		Iciba mIciba = new Gson().fromJson(responseString, Iciba.class);
+		if(mIciba != null){
+			if(!TextUtils.isEmpty(mIciba.getRetcopy())){
+				if(AutoClearInputAfterFinish){
+					input_et.setText("");
+				}
+				currentDialogBean = new record(mIciba.getRetcopy(), Settings.q);
+				long newRowId = DataBaseUtil.getInstance().insert(currentDialogBean);
+				beans.add(0,currentDialogBean);
+				mAdapter.notifyDataSetChanged();
+				recent_used_lv.setSelection(0);
+				if(mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false)){
+					new AutoPlayWaitTask().execute();
+				}
+				LogUtil.DefalutLog("mDataBaseUtil:"+currentDialogBean.toString());
+			}else{
+				RequestAsyncTask();
+			}
+		}else {
+			RequestAsyncTask();
+		}
+		
+	}
+	
 	private void RequestAsyncTask(){
+		showToast("baidu");
 		loadding();
 		submit_btn.setEnabled(false);
 		LanguagehelperHttpClient.postBaidu( new TextHttpResponseHandler() {
@@ -544,7 +598,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 	private void submit(){
 		Settings.q = input_et.getText().toString().trim();
 		if (!TextUtils.isEmpty(Settings.q)) {
-			RequestAsyncTask();
+			RequestJinShanAsyncTask();
 			StatService.onEvent(getActivity(), "tab_translate_submitbtn", "首页翻译页面翻译按钮", 1);
 		} else {
 			showToast(getActivity().getResources().getString(R.string.input_et_hint));

@@ -2,15 +2,19 @@
 
     <style name="AppTheme" parent="AppTheme.Base"/>
  
-    <style name="AppTheme.Base" parent="Theme.AppCompat">
+    <style name="AppTheme.Base" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/load_blue</item>
         <item name="colorPrimaryDark">@color/load_blue</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-        <item name="android:windowActionBarOverlay">true</item>
-        <item name="windowActionBarOverlay">true</item>
+        <item name="colorAccent">@color/load_blue</item>
+        <item name="android:itemBackground">@drawable/bg_lightblue_blue_selector</item>
+<!--         <item name="android:itemTextAppearance">@style/MyActionBar.MenuTextStyle</item> -->
     </style>
 
+    <style name="MyActionBar.MenuTextStyle"
+        parent="style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/text_black</item>
+    </style>
+    
     <style name="dialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item><!--边框-->
         <item name="android:windowNoTitle">true	</item>

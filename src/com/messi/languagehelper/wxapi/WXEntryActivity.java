@@ -2,13 +2,20 @@ package com.messi.languagehelper.wxapi;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.AttributeSet;
+import android.view.InflateException;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.LayoutInflater.Factory;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -132,7 +139,6 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 		mSharedPreferences = getSharedPreferences(this.getPackageName(), Activity.MODE_PRIVATE);
 		if (toolbar != null) {
 			getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-//			toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
 		}
         
 		viewPager = (ViewPager) findViewById(R.id.pager);

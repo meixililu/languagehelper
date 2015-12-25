@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
@@ -165,6 +166,21 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		holder.record_question_cover.setOnClickListener(mQuestionOnClickListener);
 		holder.record_answer_cover.setOnClickListener(mMyOnClickListener);
 		holder.voice_play_layout.setOnClickListener(mMyOnClickListener);
+		
+		holder.record_answer_cover.setOnLongClickListener(new OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				copy(mBean.getEnglish());
+				return true;
+			}
+		});
+		holder.record_question_cover.setOnLongClickListener(new OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				copy(mBean.getChinese());
+				return true;
+			}
+		});
 		
 		holder.delete_btn.setOnClickListener(new OnClickListener() {
 			@Override

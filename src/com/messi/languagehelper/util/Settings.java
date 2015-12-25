@@ -19,6 +19,10 @@ public class Settings {
 	/**baidu dictionary api**/
 	public static String baiduDictionaryUrl = "http://openapi.baidu.com/public/2.0/translate/dict/simple";
 	
+	public static String baiduWebTranslateUrl = "http://fanyi.baidu.com/v2transapi";
+
+	public static String IcibaTranslateUrl = "http://fy.iciba.com/api.php";
+	
 	/**showapi dictionary api**/
 	public static String ShowApiUrl = "http://route.showapi.com/32-9";
 	

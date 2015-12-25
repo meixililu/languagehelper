@@ -203,9 +203,6 @@ public class LoadingActivity extends Activity implements OnClickListener{
 	protected void onDestroy() {
 		super.onDestroy();
 		LogUtil.DefalutLog("LoadingActivity---onDestroy---destroyAd");
-		if(fullScreenAd != null){
-			fullScreenAd = null;
-		}
 	}
 
 	@Override

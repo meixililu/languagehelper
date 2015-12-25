@@ -6,7 +6,7 @@ import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -24,7 +24,7 @@ import com.messi.languagehelper.util.ScreenUtil;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
-public class BaseActivity extends ActionBarActivity {
+public class BaseActivity extends AppCompatActivity {
 
 	public Toolbar toolbar;
 	private View mScrollable;
@@ -60,7 +60,7 @@ public class BaseActivity extends ActionBarActivity {
                 setSupportActionBar(toolbar);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 if(VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
-                	toolbar.setPadding(0, ScreenUtil.dip2px(this, 6), 0, 0);
+                	toolbar.setPadding(0, ScreenUtil.dip2px(this, 10), 0, 0);
                 }
             }
             String title = getIntent().getStringExtra(KeyUtil.ActionbarTitle);

@@ -19,7 +19,7 @@ import com.messi.languagehelper.task.PublicTask.PublicTaskListener;
 public class XFUtil {
 	
 	public static final String SpeakerEn = "vimary";
-	public static final String SpeakerZh = "xiaoyan";//vixy
+	public static final String SpeakerZh = "xiaoqi";//vixy xiaoqi  xiaoyan
 	
 	public static final String VoiceEngineCH = "zh_cn";
 	public static final String VoiceEngineEN = "en_us";
