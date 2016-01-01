@@ -1,5 +1,7 @@
 package com.messi.languagehelper;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.http.Header;
@@ -9,9 +11,12 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -42,11 +47,15 @@ import com.lerdian.search.SearchManger;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
 import com.messi.languagehelper.adapter.DictionaryListViewAdapter;
+import com.messi.languagehelper.dao.BaiduOcrRoot;
 import com.messi.languagehelper.dao.Dictionary;
 import com.messi.languagehelper.dao.Root;
 import com.messi.languagehelper.db.DataBaseUtil;
+import com.messi.languagehelper.dialog.PopDialog;
+import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
 import com.messi.languagehelper.http.LanguagehelperHttpClient;
 import com.messi.languagehelper.impl.FragmentProgressbarListener;
+import com.messi.languagehelper.util.CameraUtil;
 import com.messi.languagehelper.util.JsonParser;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
@@ -59,7 +68,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 
 	private EditText input_et;
 	private ButtonRectangle submit_btn;
-	private ButtonFlat baidu_btn;
+	private FrameLayout photo_tran_btn;
 	private FrameLayout clear_btn_layout;
 	private Button voice_btn;
 	private LinearLayout speak_round_layout;
@@ -92,6 +101,8 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 	public static DictionaryFragment mMainFragment;
 	private FragmentProgressbarListener mProgressbarListener;
 	private boolean AutoClearInputAfterFinish;
+	
+	private String mCurrentPhotoPath;
 	
 	public static DictionaryFragment getInstance(Bundle bundle){
 		if(mMainFragment == null){
@@ -138,7 +149,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		recent_used_lv = (ListView) view.findViewById(R.id.recent_used_lv);
 		input_et = (EditText) view.findViewById(R.id.input_et);
 		submit_btn = (ButtonRectangle) view.findViewById(R.id.submit_btn);
-		baidu_btn = (ButtonFlat) view.findViewById(R.id.baidu_btn);
+		photo_tran_btn = (FrameLayout) view.findViewById(R.id.photo_tran_btn);
 		cb_speak_language_ch = (RadioButton) view.findViewById(R.id.cb_speak_language_ch);
 		cb_speak_language_en = (RadioButton) view.findViewById(R.id.cb_speak_language_en);
 		speak_round_layout = (LinearLayout) view.findViewById(R.id.speak_round_layout);
@@ -151,7 +162,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		
 		AutoClearInputAfterFinish = mSharedPreferences.getBoolean(KeyUtil.AutoClearInputAfterFinish, true);
 		initLanguage();
-		baidu_btn.setOnClickListener(this);
+		photo_tran_btn.setOnClickListener(this);
 		submit_btn.setOnClickListener(this);
 		cb_speak_language_ch.setOnClickListener(this);
 		cb_speak_language_en.setOnClickListener(this);
@@ -196,22 +207,15 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 			hideIME();
 			submit();
 			StatService.onEvent(getActivity(), "1.6_fanyibtn", "翻译按钮", 1);
-		}else if (v.getId() == R.id.baidu_btn) {
-			toBaiduActivity();
-			StatService.onEvent(getActivity(), "ask_baidu", "首页问百度", 1);
+		}else if (v.getId() == R.id.photo_tran_btn) {
+			photoSelectDialog();
+//			StatService.onEvent(getActivity(), "ask_baidu", "首页问百度", 1);
 		}else if (v.getId() == R.id.speak_round_layout) {
 			showIatDialog();
 			StatService.onEvent(getActivity(), "1.6_shuohuabtn", "说话按钮", 1);
 		}else if (v.getId() == R.id.clear_btn_layout) {
 			input_et.setText("");
 			StatService.onEvent(getActivity(), "1.6_clearbtn", "清空按钮", 1);
-		}else if (v.getId() == R.id.baidu_translate) {
-			try {
-				Intent intent = new Intent("android.intent.action.VIEW", Uri.parse("http://fanyi.baidu.com"));
-				startActivity(intent);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}	
 		}else if (v.getId() == R.id.cb_speak_language_ch) {
 			cb_speak_language_en.setChecked(false);
 			XFUtil.setSpeakLanguage(getActivity(),mSharedPreferences,XFUtil.VoiceEngineCH);
@@ -229,17 +233,118 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		}
 	}
 	
-	private void toBaiduActivity(){
-		String data = input_et.getText().toString();
-		if(TextUtils.isEmpty(data)){
-			Intent intent = new Intent(getActivity(),com.lerdian.search.SearchResult.class);
-			startActivity(intent);
-		}else{
-			ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-			cm.setText(data);//string为你要传入的值
-			SearchManger.openDetail(getActivity());
+	private void photoSelectDialog(){
+		String[] titles = {getResources().getString(R.string.take_photo),getResources().getString(R.string.photo_album)};
+		PopDialog mPhonoSelectDialog = new PopDialog(getContext(),titles);
+		mPhonoSelectDialog.setListener(new PopViewItemOnclickListener() {
+			@Override
+			public void onSecondClick(View v) {
+				getImageFromAlbum();
+			}
+			@Override
+			public void onFirstClick(View v) {
+				getImageFromCamera();
+			}
+		});
+		mPhonoSelectDialog.show();
+	}
+	
+	public void getImageFromAlbum() {
+		Intent intent = new Intent(Intent.ACTION_PICK, 
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");//相片类型
+        startActivityForResult(intent, CameraUtil.REQUEST_CODE_PICK_IMAGE);
+    }
+	
+	public void getImageFromCamera() {
+		String state = Environment.getExternalStorageState();
+		if (state.equals(Environment.MEDIA_MOUNTED)) {
+			Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+			if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+				File photoFile = null;
+		        try {
+		            photoFile = CameraUtil.createImageFile();
+		            mCurrentPhotoPath = photoFile.getAbsolutePath();
+		        } catch (IOException ex) {
+		            ex.printStackTrace();
+		        }
+		        if (photoFile != null) {
+		            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(photoFile));
+		            startActivityForResult(takePictureIntent, CameraUtil.REQUEST_CODE_CAPTURE_CAMEIA);
+		        }
+			} else {
+				ToastUtil.diaplayMesShort(getContext(), "请确认已经插入SD卡");
+			}
 		}
 	}
+	
+	public void doCropPhoto(Uri uri) {
+		File photoTemp = null;
+        try {
+        	photoTemp = new File(CameraUtil.createTempFile());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+		Intent intent = new Intent("com.android.camera.action.CROP");
+		intent.setDataAndType(uri, "image/*");
+		intent.putExtra("crop", "true");
+		intent.putExtra("scale", true);
+		intent.putExtra("return-data", false);
+		intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+		intent.putExtra("noFaceDetection",  false); 
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoTemp));
+		startActivityForResult(intent, CameraUtil.PHOTO_PICKED_WITH_DATA);
+	}
+	
+	 @Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == CameraUtil.REQUEST_CODE_PICK_IMAGE && resultCode == Activity.RESULT_OK) {
+			if(data != null){
+				Uri uri = data.getData();
+				if(uri != null){
+					doCropPhoto(uri);
+				}
+			}
+		} else if (requestCode == CameraUtil.REQUEST_CODE_CAPTURE_CAMEIA && resultCode == Activity.RESULT_OK) {
+			File f = new File(mCurrentPhotoPath);
+    	    Uri contentUri = Uri.fromFile(f);
+    	    doCropPhoto(contentUri);
+		}else if (requestCode == CameraUtil.PHOTO_PICKED_WITH_DATA && resultCode == Activity.RESULT_OK) {
+			sendBaiduOCR();
+		}
+	}
+	 
+	 public void sendBaiduOCR(){
+			try {
+				loadding();
+				LanguagehelperHttpClient.postBaiduOCR(getContext(),CameraUtil.createTempFile(), new TextHttpResponseHandler(){
+					@Override
+					public void onFinish() {
+						super.onFinish();
+						finishLoadding();
+					}
+					@Override
+					public void onFailure(int statusCode, Header[] headers,String responseString, Throwable throwable) {
+						showToast("网络连接失败("+statusCode+")");
+					}
+					@Override
+					public void onSuccess(int statusCode, Header[] headers, String responseString) {
+						if (!TextUtils.isEmpty(responseString)) {
+							BaiduOcrRoot mBaiduOcrRoot = new Gson().fromJson(responseString, BaiduOcrRoot.class);
+							if(mBaiduOcrRoot.getErrNum().equals("0")){
+								input_et.setText("");
+								input_et.setText(CameraUtil.getOcrResult(mBaiduOcrRoot));
+							}else{
+								ToastUtil.diaplayMesShort(getContext(), mBaiduOcrRoot.getErrMsg());
+							}
+						} 
+					}
+
+				});
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	
 	@Override
     public void setUserVisibleHint(boolean isVisibleToUser) {

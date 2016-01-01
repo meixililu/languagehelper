@@ -20,7 +20,6 @@
 	<classpathentry kind="lib" path="libs/google-play-services.jar"/>
 	<classpathentry kind="lib" path="libs/gson-2.4.jar"/>
 	<classpathentry kind="lib" path="libs/contx.jar"/>
-	<classpathentry kind="lib" path="libs/jsoup-1.8.3.jar"/>
 	<classpathentry kind="lib" path="libs/org.apache.http.legacy.jar"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="output" path="bin/classes"/>

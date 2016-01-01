@@ -37,6 +37,8 @@
     
     <string name="share_dialog_text_1">Text</string>
     <string name="share_dialog_text_2">Image(recommend)</string>
+    <string name="take_photo">TakePhoto</string>
+    <string name="photo_album">PhotoAlbum</string>
     
     <string name="speak_english">please tap mic to speak english</string>
     <string name="speak_chinese">please tap mic to speak chinese</string>
@@ -70,6 +72,7 @@
     <string name="auto_clear_after_translate">Auto Clear After Translate</string>
     <string name="clear_success">Clear Success</string>
     <string name="ask_baidu">Baidu</string>
+    <string name="auto_play_after_read">Auto Play Next After Readed</string>
 
     <string name="feedback">Feedback</string>
     <string name="preference_key_tts_music">tts_music</string>

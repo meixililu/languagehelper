@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.messi.languagehelper"
-    android:versionCode="19"
-    android:versionName="2.8" >
+    android:versionCode="20"
+    android:versionName="2.9" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -21,9 +21,12 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="7"
         android:targetSdkVersion="14" />
 
     <supports-screens
@@ -126,6 +129,9 @@
             android:theme="@android:style/Theme.Translucent" />
         <!-- 讯飞广告sdk -->
 
+        <activity
+            android:name=".PhotosTranslateActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MoreActivity"
             android:screenOrientation="portrait" />

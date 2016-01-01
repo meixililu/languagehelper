@@ -4,10 +4,8 @@ import java.util.List;
 
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -21,12 +19,11 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVQuery;
 import com.baidu.mobstat.StatService;
 import com.gc.materialdesign.views.ButtonFloat;
 import com.gc.materialdesign.views.ButtonRectangle;
+import com.gc.materialdesign.views.CheckBox;
 import com.gc.materialdesign.widgets.Dialog;
 import com.iflytek.cloud.EvaluatorListener;
 import com.iflytek.cloud.EvaluatorResult;
@@ -56,6 +53,8 @@ import com.nineoldandroids.animation.ObjectAnimator;
 public class EvaluationDetailActivity extends BaseActivity implements OnClickListener {
 
 	private FrameLayout evaluation_en_cover;
+	private FrameLayout auto_play_cover;
+	private CheckBox auto_play_cb;
 	private ImageButton voice_play_answer,show_zh_img;
 	private TextView evaluation_zh_tv,evaluation_en_tv,practice_prompt,record_animation_text;
 	private TextView practice_prompt_detail,practice_prompt_show;
@@ -123,6 +122,8 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 
 	private void initView() {
 		evaluation_en_cover = (FrameLayout) findViewById(R.id.record_answer_cover);
+		auto_play_cover = (FrameLayout) findViewById(R.id.auto_play_cover);
+		auto_play_cb = (CheckBox) findViewById(R.id.auto_play_cb);
 		practice_prompt = (TextView) findViewById(R.id.practice_prompt);
 		practice_prompt_scrollview = (ScrollView) findViewById(R.id.practice_prompt_scrollview);
 		practice_prompt_detail = (TextView) findViewById(R.id.practice_prompt_detail);
@@ -143,6 +144,7 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 		buttonFloat.setEnabled(false);
 		previous_btn.setEnabled(true);
 		next_btn.setEnabled(true);
+		auto_play_cover.setOnClickListener(this);
 		previous_btn.setOnClickListener(this);
 		next_btn.setOnClickListener(this);
 		voice_btn.setOnClickListener(this);
@@ -163,6 +165,9 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 			break;
 		case R.id.buttonFloat:
 			playUserPcm();
+			break;
+		case R.id.auto_play_cover:
+			auto_play_cb.setChecked(!auto_play_cb.isCheck());
 			break;
 		case R.id.previous_btn:
 			if(positin > 0){
@@ -321,6 +326,51 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 		}
 	};
 	
+	private void playNext(){
+		new Handler().postDelayed(new Runnable() {
+			
+			@Override
+			public void run() {
+				if(auto_play_cb.isCheck()){
+					if(positin < avObjects.size()-1){
+						showNext();
+					}else{
+						ToastUtil.diaplayMesShort(EvaluationDetailActivity.this, "很好，本节已完成！");
+					}
+				}
+			}
+		}, 800);
+	}
+	
+	private void showNext(){
+		record_animation_layout.setVisibility(View.VISIBLE);
+		record_animation_text.setText("Next");
+		ObjectAnimator mObjectAnimator = ObjectAnimator.ofFloat(record_animation_layout, "scaleX", 1f, 1f);
+		mObjectAnimator.addListener(mShowNextAnimator);
+		mObjectAnimator.setDuration(800).start();
+		ObjectAnimator mObjectAnimator1 = ObjectAnimator.ofFloat(record_animation_layout, "scaleY", 1f, 1f);
+		mObjectAnimator1.setDuration(800).start();
+		ObjectAnimator mObjectAnimator2 = ObjectAnimator.ofFloat(record_animation_layout, "alpha", 1, 0);
+		mObjectAnimator2.setDuration(800).start();
+	}
+	
+	private AnimatorListener mShowNextAnimator = new AnimatorListener() {
+		@Override
+		public void onAnimationStart(Animator animation) {
+		}
+		@Override
+		public void onAnimationRepeat(Animator animation) {
+		}
+		@Override
+		public void onAnimationEnd(Animator animation) {
+			onClick(next_btn);
+			onClick(voice_btn);
+		}
+		@Override
+		public void onAnimationCancel(Animator animation) {
+		}
+	};
+	
 	// 评测监听接口
 	private EvaluatorListener mEvaluatorListener = new EvaluatorListener() {
 		
@@ -333,6 +383,7 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 				hideProgressbar();
 				finishRecord();
 				parseEvaluationResult();
+				playNext();
 				LogUtil.DefalutLog("isLast-------mLastResult:"+mLastResult);
 			}
 		}

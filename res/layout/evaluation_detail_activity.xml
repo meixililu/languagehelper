@@ -154,11 +154,20 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_gravity="bottom|right"
+                    android:layout_marginBottom="25dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_gravity="bottom|right"
                     android:orientation="vertical" >
 
+                    <com.gc.materialdesign.views.ButtonFloat
+                        android:id="@+id/buttonFloat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/padding_7"
+                        android:background="#1E88E5"
+                        materialdesign:iconDrawable="@drawable/ic_volume_up_white_36dp"
+                        materialdesign:rippleSpeed="98" />
+                    
                     <com.gc.materialdesign.views.ButtonFloat
                         android:id="@+id/previous_btn"
                         android:layout_width="wrap_content"
@@ -176,14 +185,6 @@
                         materialdesign:iconDrawable="@drawable/ic_skip_next_white_36dp"
                         materialdesign:rippleSpeed="98" />
 
-                    <com.gc.materialdesign.views.ButtonFloat
-                        android:id="@+id/buttonFloat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/padding_7"
-                        android:background="#1E88E5"
-                        materialdesign:iconDrawable="@drawable/ic_volume_up_white_36dp"
-                        materialdesign:rippleSpeed="98" />
                 </LinearLayout>
 
                 <ScrollView
@@ -218,7 +219,43 @@
                     android:gravity="right"
                     android:text="@string/detail"
                     android:textColor="@color/green_500"
+                    android:visibility="gone"
                     android:textSize="@dimen/middle" />
+                
+            <FrameLayout
+                android:id="@+id/auto_play_cover"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:foreground="@drawable/framelayout_selector" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <com.gc.materialdesign.views.CheckBox
+                        android:id="@+id/auto_play_cb"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="#1E88E5"
+                        />
+                    
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="left"
+                        android:text="@string/auto_play_after_read"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/big" />
+
+                </LinearLayout>
+            </FrameLayout>
+                
             </FrameLayout>
         </RelativeLayout>
     </LinearLayout>

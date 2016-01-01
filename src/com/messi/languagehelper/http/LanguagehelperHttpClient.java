@@ -1,12 +1,16 @@
 package com.messi.languagehelper.http;
 
+import java.io.File;
 import java.net.URLEncoder;
 
+import android.content.Context;
 import cn.contentx.MD5;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.messi.languagehelper.util.CameraUtil;
+import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.StringUtils;
 
@@ -35,16 +39,6 @@ public class LanguagehelperHttpClient {
 		client.post(Settings.baiduTranslateUrl, mRequestParams, responseHandler);
 	}
 	
-	public static void postIcibaWeb(AsyncHttpResponseHandler responseHandler){
-		try {
-			client.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.80 Safari/537.36");
-			String url = "http://www.iciba.com/" + URLEncoder.encode(Settings.q, "utf-8");
-			client.get(url, new RequestParams(), responseHandler);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public static void postIciba(AsyncHttpResponseHandler responseHandler){
 		try {
 			client.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.80 Safari/537.36");
@@ -57,6 +51,48 @@ public class LanguagehelperHttpClient {
 		}
 	}
 	
+	public static void postBaiduOCR(Context mContext,String path,AsyncHttpResponseHandler responseHandler){
+		try {
+			client.addHeader("apikey", "bb3e54f1ade6307919e47bd1eccc3dde");
+			RequestParams mRequestParams = new RequestParams();
+			mRequestParams.put("fromdevice", "android");
+			mRequestParams.put("clientip", "10.10.10.0");
+			mRequestParams.put("detecttype", "LocateRecognize");
+			mRequestParams.put("languagetype", "CHN_ENG");
+			mRequestParams.put("imagetype", "2");
+			mRequestParams.put("image", CameraUtil.getFile(path));
+			LogUtil.DefalutLog("mRequestParams:"+mRequestParams.toString());
+			client.post(Settings.BaiduOCRUrl, mRequestParams, responseHandler);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static String getBaiduTranslateSign(long salt){
+		String str = Settings.baidu_appid + Settings.q + salt + Settings.baidu_secretkey;
+		return MD5.encode(str);
+	}
+	
+	public static void postIcibaWeb(AsyncHttpResponseHandler responseHandler){
+		try {
+			client.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.80 Safari/537.36");
+			String url = "http://www.iciba.com/" + URLEncoder.encode(Settings.q, "utf-8");
+			client.get(url, new RequestParams(), responseHandler);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void setTranslateLan(){
+		if(StringUtils.isChinese(Settings.q)){
+			Settings.from = "zh";
+			Settings.to = "en";
+		}else{
+			Settings.from = "en";
+			Settings.to = "zh";
+		}
+	}
+
 //	public static void postBingYing(AsyncHttpResponseHandler responseHandler){
 //		try {
 //			client.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.80 Safari/537.36");
@@ -75,20 +111,4 @@ public class LanguagehelperHttpClient {
 //			e.printStackTrace();
 //		}
 //	}
-	
-	public static String getBaiduTranslateSign(long salt){
-		String str = Settings.baidu_appid + Settings.q + salt + Settings.baidu_secretkey;
-		return MD5.encode(str);
-	}
-	
-	public static void setTranslateLan(){
-		if(StringUtils.isChinese(Settings.q)){
-			Settings.from = "zh";
-			Settings.to = "en";
-		}else{
-			Settings.from = "en";
-			Settings.to = "zh";
-		}
-	}
-
 }

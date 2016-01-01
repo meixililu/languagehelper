@@ -1,7 +1,5 @@
 package com.messi.languagehelper.util;
 
-import com.messi.languagehelper.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +7,11 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.text.ClipboardManager;
+
+import com.messi.languagehelper.R;
 
 public class Settings {
 
@@ -22,6 +24,8 @@ public class Settings {
 	public static String baiduWebTranslateUrl = "http://fanyi.baidu.com/v2transapi";
 
 	public static String IcibaTranslateUrl = "http://fy.iciba.com/api.php";
+	
+	public static String BaiduOCRUrl = "http://apis.baidu.com/idl_baidu/baiduocrpay/idlocrpaid";
 	
 	/**showapi dictionary api**/
 	public static String ShowApiUrl = "http://route.showapi.com/32-9";
@@ -186,4 +190,22 @@ public class Settings {
 		}
 	}
 	
+	public static String getIpAddress(Context mContext){
+		//获取wifi服务  
+        WifiManager wifiManager = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);  
+        //判断wifi是否开启  
+        if (!wifiManager.isWifiEnabled()) {  
+        wifiManager.setWifiEnabled(true);    
+        }  
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();       
+        int ipAddress = wifiInfo.getIpAddress();   
+        return intToIp(ipAddress);   
+	}
+	
+	public static String intToIp(int i) {       
+      return (i & 0xFF ) + "." +       
+      ((i >> 8 ) & 0xFF) + "." +       
+      ((i >> 16 ) & 0xFF) + "." +       
+      ( i >> 24 & 0xFF) ;  
+   }  
 }

@@ -1,104 +1,146 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3cec8a9e-fffd-49fb-a406-d6544b253d99" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/languagehelper.iml" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\AndroidManifest.xml" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\R.txt" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes.dex" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\actionbarsherlock\R$attr.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\actionbarsherlock\R$bool.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\actionbarsherlock\R$color.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\actionbarsherlock\R$dimen.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\actionbarsherlock\R$drawable.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\actionbarsherlock\R$id.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\actionbarsherlock\R$integer.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\actionbarsherlock\R$layout.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\actionbarsherlock\R$string.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\actionbarsherlock\R$style.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\actionbarsherlock\R$styleable.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\actionbarsherlock\R.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\handmark\pulltorefresh\library\R$anim.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\handmark\pulltorefresh\library\R$attr.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\handmark\pulltorefresh\library\R$dimen.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\handmark\pulltorefresh\library\R$drawable.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\handmark\pulltorefresh\library\R$id.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\handmark\pulltorefresh\library\R$layout.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\handmark\pulltorefresh\library\R$string.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\handmark\pulltorefresh\library\R$styleable.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\handmark\pulltorefresh\library\R.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\messi\languagehelper\CollectedFragment$1.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\messi\languagehelper\LoadingActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\messi\languagehelper\bean\DialogBean.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\messi\languagehelper\db\DBOpenHelper.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\messi\languagehelper\db\LHContract$FeedEntry.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\messi\languagehelper\util\AudioTrackUtil$1.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\messi\languagehelper\util\ViewUtil$1.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\messi\languagehelper\views\MyListView$OnRefreshListener.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\messi\languagehelper\views\MyListView.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\messi\languagehelper\views\MyScrollView.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\messi\languagehelper\views\PagerSlidingTabStrip$3.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\classes\com\messi\languagehelper\wxapi\WXEntryActivity$DrawerItemClickListener.class" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\dexedLibs\Msc-86d4e45c4942aeb37d5df7e5940f2b1e.jar" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\dexedLibs\actionbarsherlock-382e102dc28fd32bfbf30bd963689f24.jar" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\dexedLibs\android-support-v4-8c201c6a2a0b77a09f11647c6e458741.jar" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\dexedLibs\android_api_3_4-541c1b32e6a9e8780062ff11b68aef25.jar" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\dexedLibs\animation_library-10ab45b6e7c597400b69f77695fd5b6f.jar" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\dexedLibs\libammsdk-67015237f3c4e1c4639c4582eb592f71.jar" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\dexedLibs\pulltorefreshlibrary-ca8285d0f762906b89bd45d46bac6e41.jar" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\jarlist.cache" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\languagehelper.apk" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\res\crunch\drawable-hdpi\bottom_bg.9.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\res\crunch\drawable-hdpi\dialog_a_d.9.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\res\crunch\drawable-hdpi\dialog_a_p.9.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\res\crunch\drawable-hdpi\dialog_b_d.9.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\res\crunch\drawable-hdpi\dialog_b_p.9.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\res\crunch\drawable-hdpi\gray_btn_bg_d.9.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\res\crunch\drawable-hdpi\gray_btn_bg_s.9.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\res\crunch\drawable-hdpi\ic_drawer.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\res\crunch\drawable-hdpi\ic_pulltorefresh_arrow.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\res\crunch\drawable-ldpi\ic_pulltorefresh_arrow.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\res\crunch\drawable-mdpi\ic_pulltorefresh_arrow.png" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\bin\resources.ap_" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\gen\com\actionbarsherlock\R.java" afterPath="" />
-      <change type="DELETED" beforePath="D:\workspace\languagehelper\gen\com\handmark\pulltorefresh\library\R.java" afterPath="" />
+    <list default="true" id="3b709f99-f50c-411c-8c32-389a843e5e85" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/AndroidManifest.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/R.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes.dex" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/actionbarsherlock/R$attr.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/actionbarsherlock/R$bool.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/actionbarsherlock/R$color.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/actionbarsherlock/R$dimen.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/actionbarsherlock/R$drawable.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/actionbarsherlock/R$id.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/actionbarsherlock/R$integer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/actionbarsherlock/R$layout.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/actionbarsherlock/R$string.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/actionbarsherlock/R$style.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/actionbarsherlock/R$styleable.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/actionbarsherlock/R.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/handmark/pulltorefresh/library/R$anim.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/handmark/pulltorefresh/library/R$attr.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/handmark/pulltorefresh/library/R$dimen.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/handmark/pulltorefresh/library/R$drawable.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/handmark/pulltorefresh/library/R$id.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/handmark/pulltorefresh/library/R$layout.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/handmark/pulltorefresh/library/R$string.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/handmark/pulltorefresh/library/R$styleable.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/handmark/pulltorefresh/library/R.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/CollectedFragment$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/CollectedFragment$WaitTask.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/CollectedFragment.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/LoadingActivity$WaitTask.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/R$array.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/db/DBOpenHelper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/db/LHContract$FeedEntry.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/dialog/TextClickGuideDialog$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/dialog/TextClickGuideDialog.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/AsyncHttpClient$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/AsyncHttpClient$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/AsyncHttpClient$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/AsyncHttpClient$4.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/AsyncHttpClient$InflatingEntity.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/AsyncHttpClient.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/AsyncHttpRequest.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/AsyncHttpResponseHandler$ResponderHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/AsyncHttpResponseHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/Base64$Coder.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/Base64$Decoder.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/Base64$Encoder.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/Base64.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/Base64DataException.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/Base64OutputStream.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/BaseJsonHttpResponseHandler$1$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/BaseJsonHttpResponseHandler$1$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/BaseJsonHttpResponseHandler$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/BaseJsonHttpResponseHandler$2$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/BaseJsonHttpResponseHandler$2$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/BaseJsonHttpResponseHandler$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/BaseJsonHttpResponseHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/BinaryHttpResponseHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/DataAsyncHttpResponseHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/FileAsyncHttpResponseHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/JsonHttpResponseHandler$1$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/JsonHttpResponseHandler$1$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/JsonHttpResponseHandler$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/JsonHttpResponseHandler$2$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/JsonHttpResponseHandler$2$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/JsonHttpResponseHandler$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/JsonHttpResponseHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/JsonStreamerEntity.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/MySSLSocketFactory$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/MySSLSocketFactory.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/PersistentCookieStore.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/PreemtiveAuthorizationHttpRequestInterceptor.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/RangeFileAsyncHttpResponseHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/RequestHandle.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/RequestParams$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/RequestParams$FileWrapper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/RequestParams$StreamWrapper.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/RequestParams.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/ResponseHandlerInterface.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/RetryHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/SerializableCookie.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/SimpleMultipartEntity$FilePart.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/SimpleMultipartEntity.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/SyncHttpClient.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/TextHttpResponseHandler.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/AudioTrackUtil$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/BaiduStatistics.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/SharedPreferencesUtil.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/ViewUtil$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/MyListView$OnRefreshListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/MyListView.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/MyScrollView.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip$3.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/wxapi/WXEntryActivity$DrawerItemClickListener.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/dexedLibs/Msc-86d4e45c4942aeb37d5df7e5940f2b1e.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/dexedLibs/actionbarsherlock-382e102dc28fd32bfbf30bd963689f24.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/dexedLibs/android-support-v4-8c201c6a2a0b77a09f11647c6e458741.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/dexedLibs/android_api_3_4-541c1b32e6a9e8780062ff11b68aef25.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/dexedLibs/animation_library-10ab45b6e7c597400b69f77695fd5b6f.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/dexedLibs/libammsdk-67015237f3c4e1c4639c4582eb592f71.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/dexedLibs/pulltorefreshlibrary-ca8285d0f762906b89bd45d46bac6e41.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/jarlist.cache" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/bottom_bg.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/dialog_a_d.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/dialog_a_p.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/dialog_b_d.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/dialog_b_p.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/drawer_shadow.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/gray_btn_bg_d.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/gray_btn_bg_s.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/ic_drawer.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/ic_pulltorefresh_arrow.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/yueyuzhushou.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/zhongrizhushou.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-ldpi/ic_pulltorefresh_arrow.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-mdpi/ic_pulltorefresh_arrow.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/resources.ap_" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/gen/com/actionbarsherlock/R.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/gen/com/handmark/pulltorefresh/library/R.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/jsoup-1.8.3.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-hdpi/ic_grade_white_36dp.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-hdpi/ic_photo_camera_white_24dp.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-hdpi/ic_photo_camera_white_36dp.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-mdpi/ic_photo_camera_white_24dp.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-xhdpi/ic_grade_white_36dp.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-xhdpi/ic_photo_camera_white_24dp.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-xxhdpi/ic_grade_white_36dp.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-xxhdpi/ic_photo_camera_white_24dp.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/res/layout/listview_item_recent_used_footer.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/AboutActivity.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/AboutActivity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/AudioTrackUtil.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/AudioTrackUtil.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/CollectedFragment$WaitTask.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/CollectedFragment$WaitTask.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/CollectedFragment.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/CollectedFragment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$1.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$2.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$3.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$4.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$5.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$MyOnClickListener$1.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$MyOnClickListener$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$MyOnClickListener.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$MyOnClickListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$ViewHolder.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$ViewHolder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/db/DataBaseUtil.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/db/DataBaseUtil.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/DialogUtil.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/DialogUtil.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/HelpActivity.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/HelpActivity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/JsonParser.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/JsonParser.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/db/LHContract.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/db/LHContract.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/LanguagehelperHttpClient.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/LanguagehelperHttpClient.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/LoadingActivity$1.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/LoadingActivity$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/LoadingActivity$WaitTask.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/LoadingActivity$WaitTask.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/LoadingActivity$2.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/LoadingActivity$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/LoadingActivity.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/LoadingActivity.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/MainFragment$1.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/MainFragment$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/MainFragment$2.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/MainFragment$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/MainFragment$WaitTask.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/MainFragment$WaitTask.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/MainFragment.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/MainFragment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/MainPageAdapter.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/MainPageAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip$1.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip$2.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip$PageListener.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip$PageListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip$SavedState$1.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip$SavedState$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip$SavedState.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip$SavedState.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/dialog/PopDialog$1.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/dialog/PopDialog$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/dialog/PopDialog.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/dialog/PopDialog.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/R$anim.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/R$anim.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/R$array.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/R$array.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/R$attr.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/R$attr.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/R$bool.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/R$bool.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/R$color.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/R$color.class" />
@@ -112,51 +154,111 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/R$styleable.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/R$styleable.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/R.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/R.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/RecommendActivity.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/RecommendActivity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/SDCardUtil.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/SDCardUtil.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/SettingActivity.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/SettingActivity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/Settings.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/Settings.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/SharedPreferencesUtil.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/SharedPreferencesUtil.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/ShortCut.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/ShortCut.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/StringUtils.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/StringUtils.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/TabPageIndicator.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/TabPageIndicator.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/dialog/TextClickGuideDialog.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/dialog/TextClickGuideDialog.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/ViewUtil.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/ViewUtil.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/wxapi/WXEntryActivity$1.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/wxapi/WXEntryActivity$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/wxapi/WXEntryActivity.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/wxapi/WXEntryActivity.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/WebViewActivity$1.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/WebViewActivity$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/WebViewActivity$2.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/WebViewActivity$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/WebViewActivity$3.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/WebViewActivity$3.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/WebViewActivity.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/WebViewActivity.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$1.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$2.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$3.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$4.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$5.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$5.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$MyOnClickListener$1.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$MyOnClickListener$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$MyOnClickListener.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$MyOnClickListener.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$ViewHolder.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter$ViewHolder.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/CollectedListItemAdapter.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/MainPageAdapter.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/adapter/MainPageAdapter.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/bean/DialogBean.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/bean/DialogBean.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/db/DataBaseUtil.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/db/DataBaseUtil.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/db/LHContract.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/db/LHContract.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/dialog/PopDialog$1.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/dialog/PopDialog$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/dialog/PopDialog.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/dialog/PopDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/LanguagehelperHttpClient.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/http/LanguagehelperHttpClient.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/AudioTrackUtil.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/AudioTrackUtil.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/DialogUtil.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/DialogUtil.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/JsonParser.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/JsonParser.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/SDCardUtil.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/SDCardUtil.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/ScreenUtil.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/ScreenUtil.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/Settings.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/Settings.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/ShortCut.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/ShortCut.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/ShowView.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/ShowView.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/StringUtils.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/StringUtils.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/ToastUtil.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/ToastUtil.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/UnicodeToStr.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/UnicodeToStr.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/ViewUtil.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/ViewUtil.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/WechatUtil.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/WechatUtil.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/XFUtil.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/util/XFUtil.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip$1.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip$2.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip$PageListener.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip$PageListener.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip$SavedState$1.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip$SavedState$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip$SavedState.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip$SavedState.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/PagerSlidingTabStrip.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/TabPageIndicator$1.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/TabPageIndicator$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/TabPageIndicator$2.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/TabPageIndicator$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/TabPageIndicator$TabView.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/TabPageIndicator$TabView.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/TabPageIndicator.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/views/TabPageIndicator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/wxapi/WXEntryActivity$1.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/wxapi/WXEntryActivity$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/wxapi/WXEntryActivity.class" afterPath="$PROJECT_DIR$/bin/classes/com/messi/languagehelper/wxapi/WXEntryActivity.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/languagehelper.apk" afterPath="$PROJECT_DIR$/bin/languagehelper.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/border.9.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/border.9.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/buy_lottery_cz_bg_s.9.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/buy_lottery_cz_bg_s.9.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/collect_d.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/collect_d.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/collect_d.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/collect_d.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/custom_tab_indicator_s.9.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/custom_tab_indicator_s.9.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/custom_tab_indicator_selected.9.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/custom_tab_indicator_selected.9.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/delete.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/delete.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/drawer_shadow.9.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/drawer_shadow.9.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/ic_launcher.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/ic_voice_padded_normal.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/ic_voice_padded_normal.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/icon_copy_d.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/icon_copy_d.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/icon_copy_d.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/icon_copy_d.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/icon_weixin.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/icon_weixin.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/icon_weixin.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/icon_weixin.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/play_btn_1.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/play_btn_1.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/play_btn_1.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/play_btn_1.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/play_btn_2.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/play_btn_2.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/play_btn_2.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/play_btn_2.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/play_btn_d.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/play_btn_d.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/play_btn_d.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/play_btn_d.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/recent_used_item_bg.9.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/recent_used_item_bg.9.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/uncollected.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-hdpi/uncollected.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-mdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-mdpi/ic_launcher.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/collect_d.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/collect_d.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/delete.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/delete.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/ic_launcher.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/icon_copy_d.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/icon_copy_d.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/icon_weixin.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/icon_weixin.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/play_btn_1.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/play_btn_1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/play_btn_2.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/play_btn_2.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/play_btn_d.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/play_btn_d.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/uncollected.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-xhdpi/uncollected.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/res/crunch/drawable-xxhdpi/ic_launcher.png" afterPath="$PROJECT_DIR$/bin/res/crunch/drawable-xxhdpi/ic_launcher.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.classpath" afterPath="$PROJECT_DIR$/.classpath" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gen/com/messi/languagehelper/R.java" afterPath="$PROJECT_DIR$/gen/com/messi/languagehelper/R.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/languagehelper.iml" afterPath="$PROJECT_DIR$/languagehelper.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/evaluation_detail_activity.xml" afterPath="$PROJECT_DIR$/res/layout/evaluation_detail_activity.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/fragment_dictionary.xml" afterPath="$PROJECT_DIR$/res/layout/fragment_dictionary.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/fragment_translate.xml" afterPath="$PROJECT_DIR$/res/layout/fragment_translate.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/menu/main.xml" afterPath="$PROJECT_DIR$/res/menu/main.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values-en/strings.xml" afterPath="$PROJECT_DIR$/res/values-en/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/strings.xml" afterPath="$PROJECT_DIR$/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/messi/languagehelper/DictionaryFragment.java" afterPath="$PROJECT_DIR$/src/com/messi/languagehelper/DictionaryFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/messi/languagehelper/EvaluationDetailActivity.java" afterPath="$PROJECT_DIR$/src/com/messi/languagehelper/EvaluationDetailActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/messi/languagehelper/MainFragment.java" afterPath="$PROJECT_DIR$/src/com/messi/languagehelper/MainFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/messi/languagehelper/adapter/DictionaryListViewAdapter.java" afterPath="$PROJECT_DIR$/src/com/messi/languagehelper/adapter/DictionaryListViewAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/messi/languagehelper/http/LanguagehelperHttpClient.java" afterPath="$PROJECT_DIR$/src/com/messi/languagehelper/http/LanguagehelperHttpClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/messi/languagehelper/util/HtmlParseUtil.java" afterPath="$PROJECT_DIR$/src/com/messi/languagehelper/util/HtmlParseUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/messi/languagehelper/util/KeyUtil.java" afterPath="$PROJECT_DIR$/src/com/messi/languagehelper/util/KeyUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/messi/languagehelper/util/Settings.java" afterPath="$PROJECT_DIR$/src/com/messi/languagehelper/util/Settings.java" />
     </list>
     <ignored path="languagehelper.iws" />
     <ignored path=".idea/workspace.xml" />
+    <ignored path="$PROJECT_DIR$/build/classes/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,30 +269,24 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="DaemonCodeAnalyzer">
-    <disable_hints />
-  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view />
+      </state>
+    </system>
+  </component>
   <component name="FavoritesManager">
     <favorites_list name="languagehelper" />
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="build.gradle" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="1260">
-              <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AboutActivity.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/messi/languagehelper/AboutActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1170">
-              <caret line="0" column="32" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="32" />
+            <state vertical-scroll-proportion="-1.2648221">
+              <caret line="8" column="9" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -198,27 +294,19 @@
       </file>
     </leaf>
   </component>
-  <component name="FindManager">
-    <FindUsagesManager>
-      <setting name="OPEN_NEW_TAB" value="true" />
-    </FindUsagesManager>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="changedFiles">
-      <list>
-        <option value="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
-        <option value="$PROJECT_DIR$/build.gradle" />
-      </list>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1938" />
+    <option name="height" value="1050" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -230,11 +318,8 @@
     <ConfirmationsSetting value="0" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
-  <component name="ProjectReloadState">
-    <option name="STATE" value="0" />
-  </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator currentView="AndroidView" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -244,11 +329,25 @@
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="languagehelper" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Gradle Scripts" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidBuildScriptsGroupNode" />
+            </PATH_ELEMENT>
+          </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="languagehelper" />
@@ -257,114 +356,16 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="languagehelper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="languagehelper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="languagehelper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="GoToClass.includeLibraries" value="false" />
-    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="MemberChooser.sorted" value="false" />
-    <property name="MemberChooser.showClasses" value="true" />
-    <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="options.lastSelected" value="preferences.general" />
-    <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="options.searchVisible" value="true" />
-    <property name="recentsLimit" value="5" />
-    <property name="FullScreen" value="false" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-      <method />
-    </configuration>
-    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
-      <module name="" />
-      <option name="ACTIVITY_CLASS" value="" />
-      <option name="MODE" value="default_activity" />
-      <option name="DEPLOY" value="true" />
-      <option name="ARTIFACT_NAME" value="" />
-      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
-      <method />
-    </configuration>
-    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
-      <module name="" />
-      <option name="TESTING_TYPE" value="0" />
-      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
-      <method />
-    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
@@ -378,7 +379,37 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -390,13 +421,13 @@
       <option name="TEST_OBJECT" value="CLASS" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <option name="OUTPUT_DIRECTORY" />
       <option name="ANNOTATION_TYPE" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
       <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
+        <value defaultName="singleModule" />
       </option>
       <option name="USE_DEFAULT_REPORTERS" value="false" />
       <option name="PROPERTIES_FILE" />
@@ -405,7 +436,6 @@
       <listeners />
       <method />
     </configuration>
-    <list size="0" />
     <configuration name="&lt;template&gt;" type="Applet" default="true" selected="false">
       <option name="MAIN_CLASS_NAME" />
       <option name="HTML_FILE_NAME" />
@@ -418,177 +448,66 @@
     <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
     </configuration>
-    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
-      <Host>localhost</Host>
-      <Port>5050</Port>
-    </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
-  <component name="SvnConfiguration">
-    <configuration />
-  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="3cec8a9e-fffd-49fb-a406-d6544b253d99" name="Default" comment="" />
-      <created>1427889041088</created>
-      <updated>1427889041088</updated>
+      <changelist id="3b709f99-f50c-411c-8c32-389a843e5e85" name="Default" comment="" />
+      <created>1451615500889</created>
+      <option name="number" value="Default" />
+      <updated>1451615500889</updated>
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-9" y="-9" width="1938" height="1050" extended-state="1" />
     <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32925472" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32983682" sideWeight="0.49785638" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32983682" sideWeight="0.5021436" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973205" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
-    <layout-to-restore>
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32925472" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-    </layout-to-restore>
-  </component>
-  <component name="Vcs.Log.UiProperties">
-    <option name="RECENTLY_FILTERED_USER_GROUPS">
-      <collection />
-    </option>
-    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-      <collection />
-    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
-  <component name="VcsManagerConfiguration">
-    <option name="myTodoPanelSettings">
-      <TodoPanelSettings />
-    </option>
-  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
+    <watches-manager />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="1260">
-          <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/messi/languagehelper/AboutActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1170">
-          <caret line="0" column="32" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1260">
-          <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/messi/languagehelper/AboutActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1170">
-          <caret line="0" column="32" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="95" max-vertical-offset="798">
-          <caret line="5" column="45" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gradlew.bat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.20765027" vertical-offset="114" max-vertical-offset="1824">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20765027" vertical-offset="0" max-vertical-offset="549">
-          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="150" max-vertical-offset="1260">
-          <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/messi/languagehelper/AboutActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1170">
-          <caret line="0" column="32" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="32" />
+        <state vertical-scroll-proportion="-1.2648221">
+          <caret line="8" column="9" selection-start-line="8" selection-start-column="9" selection-end-line="8" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
   </component>
 </project>
-

@@ -84,6 +84,7 @@ public class KeyUtil {
 	
 	public static final String DataMapKey = "DataMapKey";
 	
+	public static final String IsAutoPlayAfterReaded = "IsAutoPlayAfterReaded";
 	
 	
 	

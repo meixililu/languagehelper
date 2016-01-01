@@ -40,12 +40,15 @@
     <string name="translate">翻 译</string>
     <string name="finish">完毕</string>
     <string name="exit_program">再按一次退出应用</string>
+    <string name="auto_play_after_read">跟读完成自动播放下一句</string>
     
     <string name="share_dialog_text_1">文字</string>
     <string name="share_dialog_text_2">图片（推荐）</string>
+    <string name="take_photo">拍照翻译</string>
+    <string name="photo_album">相册选图</string>
     
-    <string name="speak_english">请点击话筒说英文</string>
-    <string name="speak_chinese">请点击话筒说中文</string>
+    <string name="speak_english">请点击话筒说英语</string>
+    <string name="speak_chinese">请点击话筒说普通话</string>
     <string name="network_error">网络错误，请稍后重试</string>
     <string name="no_result">没有查询到结果</string>
     
@@ -97,8 +100,8 @@
 	<string name="errcode_cancel">发送取消</string>
 	<string name="errcode_deny">发送被拒绝</string>
 	<string name="errcode_unknown">发送返回</string>
-	<string name="chinese">中文</string>
-	<string name="english">英文</string>
+	<string name="chinese">普通话</string>
+	<string name="english">英语</string>
 	<string name="collect">收藏</string>
 	<string name="wechat">微信</string>
 	<string name="speak">说</string>

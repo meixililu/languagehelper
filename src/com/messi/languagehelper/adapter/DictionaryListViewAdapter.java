@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
@@ -164,6 +165,21 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 			holder.cover_result.setOnClickListener(mResultClickListener);
 			holder.cover_question.setOnClickListener(mQuestionOnClickListener);
 
+			
+			holder.cover_result.setOnLongClickListener(new OnLongClickListener() {
+				@Override
+				public boolean onLongClick(View v) {
+					copy(mBean.getResult());
+					return true;
+				}
+			});
+			holder.cover_question.setOnLongClickListener(new OnLongClickListener() {
+				@Override
+				public boolean onLongClick(View v) {
+					copy(mBean.getWord_name());
+					return true;
+				}
+			});
 			holder.delete_btn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
