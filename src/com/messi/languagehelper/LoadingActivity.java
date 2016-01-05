@@ -67,6 +67,7 @@ public class LoadingActivity extends Activity implements OnClickListener{
 			TransparentStatusbar();
 			setContentView(R.layout.loading_activity);
 			init();
+			StatService.setDebugOn(true);
 		} catch (Exception e) {
 			onError();
 			e.printStackTrace();

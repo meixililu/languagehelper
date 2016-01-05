@@ -32,26 +32,21 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
-import com.lerdian.search.SearchManger;
 import com.messi.languagehelper.BaseApplication;
 import com.messi.languagehelper.ImgShareActivity;
 import com.messi.languagehelper.MainFragment;
 import com.messi.languagehelper.PracticeActivity;
 import com.messi.languagehelper.R;
-import com.messi.languagehelper.dao.Dictionary;
 import com.messi.languagehelper.dao.record;
 import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.dialog.PopDialog;
 import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
 import com.messi.languagehelper.task.MyThread;
-import com.messi.languagehelper.task.PublicTask;
-import com.messi.languagehelper.task.PublicTask.PublicTaskListener;
 import com.messi.languagehelper.util.AudioTrackUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.SDCardUtil;
 import com.messi.languagehelper.util.Settings;
-import com.messi.languagehelper.util.ShowView;
 import com.messi.languagehelper.util.ToastUtil;
 import com.messi.languagehelper.util.XFUtil;
 
@@ -128,7 +123,6 @@ public class CollectedListItemAdapter extends BaseAdapter {
 			holder.copy_btn = (FrameLayout) convertView.findViewById(R.id.copy_btn);
 			holder.collected_btn = (FrameLayout) convertView.findViewById(R.id.collected_btn);
 			holder.weixi_btn = (FrameLayout) convertView.findViewById(R.id.weixi_btn);
-			holder.baidu_btn = (FrameLayout) convertView.findViewById(R.id.baidu_btn);
 			holder.play_content_btn_progressbar = (ProgressBar) convertView.findViewById(R.id.play_content_btn_progressbar);
 			convertView.setTag(holder);
 		} else {
@@ -222,20 +216,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 				StatService.onEvent(context, "tab_translate_to_practice", "首页翻译页面列表练口语按钮", 1);
 			}
 		});
-		holder.baidu_btn.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				toBaiduActivity(mBean.getEnglish());
-				StatService.onEvent(context, "dic_item_bdsearch", "首页词典页面列表收藏按钮", 1);
-			}
-		});
 		return convertView;
-	}
-	
-	private void toBaiduActivity(String query){
-		ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-		cm.setText(query);//string为你要传入的值
-		SearchManger.openDetail(context);
 	}
 	
 	static class ViewHolder {
@@ -248,7 +229,6 @@ public class CollectedListItemAdapter extends BaseAdapter {
 		FrameLayout copy_btn;
 		FrameLayout collected_btn;
 		FrameLayout weixi_btn;
-		FrameLayout baidu_btn;
 		ImageButton voice_play;
 		ImageView unread_dot_answer;
 		ImageView unread_dot_question;

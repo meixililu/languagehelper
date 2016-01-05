@@ -182,4 +182,6 @@
 	<string name="learn_english">Learn Chinese\nPerseverance\nAccumulation </string>
 	
 	<string name="follow_teacher">Follow Teacher</string>
+	<string name="server_error">Server Error,Retry Later Please!</string>
+	<string name="network_error">Network Error,Retry Later Please!</string>
 </resources>

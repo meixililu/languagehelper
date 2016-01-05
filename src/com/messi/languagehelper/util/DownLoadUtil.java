@@ -5,40 +5,33 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import org.apache.http.Header;
-
 import android.content.Context;
 import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
-
-import com.loopj.android.http.BinaryHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-import com.messi.languagehelper.http.LanguagehelperHttpClient;
 
 public class DownLoadUtil {
 	
 	public static void downloadFile(final Context mContext,String url, final String path, final String fileName, final Handler mHandler){
 		LogUtil.DefalutLog("---url:"+url);
 		String[] allowedContentTypes = new String[] {".*"};  
-		LanguagehelperHttpClient.get(url, new RequestParams(), new BinaryHttpResponseHandler(allowedContentTypes){
-			@Override
-			public void onFailure(int arg0, Header[] arg1, byte[] arg2,Throwable arg3) {
-				LogUtil.DefalutLog("---onFailure");
-				arg3.printStackTrace();
-			}
-
-			@Override
-			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-				LogUtil.DefalutLog("---onSuccess");
-				saveFile(mContext, path, fileName, arg2);
-				if(mHandler != null){
-					Message msg = new Message();
-					msg.what = 1;
-					mHandler.sendMessage(msg);
-				}
-			}
-		});
+//		LanguagehelperHttpClient.get(url, new RequestParams(), new BinaryHttpResponseHandler(allowedContentTypes){
+//			@Override
+//			public void onFailure(int arg0, Header[] arg1, byte[] arg2,Throwable arg3) {
+//				LogUtil.DefalutLog("---onFailure");
+//				arg3.printStackTrace();
+//			}
+//
+//			@Override
+//			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+//				LogUtil.DefalutLog("---onSuccess");
+//				saveFile(mContext, path, fileName, arg2);
+//				if(mHandler != null){
+//					Message msg = new Message();
+//					msg.what = 1;
+//					mHandler.sendMessage(msg);
+//				}
+//			}
+//		});
 	}
 	
 	public static void saveFile(Context mContext, String path, String suffix, byte[] binaryData){

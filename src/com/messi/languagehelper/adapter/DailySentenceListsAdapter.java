@@ -2,8 +2,6 @@ package com.messi.languagehelper.adapter;
 
 import java.util.List;
 
-import org.apache.http.Header;
-
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -19,8 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
-import com.loopj.android.http.BinaryHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.messi.languagehelper.R;
 import com.messi.languagehelper.ViewImageActivity;
 import com.messi.languagehelper.dao.EveryDaySentence;
@@ -166,26 +162,26 @@ public class DailySentenceListsAdapter extends BaseAdapter {
 		if(mProgressbar != null){
 			mProgressbar.setVisibility(View.VISIBLE);
 		}
-		LanguagehelperHttpClient.get(url, new RequestParams(), new BinaryHttpResponseHandler(allowedContentTypes){
-			@Override
-			public void onFailure(int arg0, Header[] arg1, byte[] arg2,Throwable arg3) {
-				LogUtil.DefalutLog("---onFailure");
-				arg3.printStackTrace();
-			}
-			@Override
-			public void onFinish() {
-				if(mProgressbar != null){
-					mProgressbar.setVisibility(View.GONE);
-				}
-			}
-			@Override
-			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-				LogUtil.DefalutLog("---onSuccess");
-				DownLoadUtil.saveFile(mContext, SDCardUtil.DailySentencePath, suffix, arg2);
-				String fileFullName = SDCardUtil.getDownloadPath(SDCardUtil.DailySentencePath) + suffix;
-				playMp3(fileFullName);
-			}
-		});
+//		LanguagehelperHttpClient.get(url, new RequestParams(), new BinaryHttpResponseHandler(allowedContentTypes){
+//			@Override
+//			public void onFailure(int arg0, Header[] arg1, byte[] arg2,Throwable arg3) {
+//				LogUtil.DefalutLog("---onFailure");
+//				arg3.printStackTrace();
+//			}
+//			@Override
+//			public void onFinish() {
+//				if(mProgressbar != null){
+//					mProgressbar.setVisibility(View.GONE);
+//				}
+//			}
+//			@Override
+//			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
+//				LogUtil.DefalutLog("---onSuccess");
+//				DownLoadUtil.saveFile(mContext, SDCardUtil.DailySentencePath, suffix, arg2);
+//				String fileFullName = SDCardUtil.getDownloadPath(SDCardUtil.DailySentencePath) + suffix;
+//				playMp3(fileFullName);
+//			}
+//		});
 	}
 	
 	private void toViewImgActivity(String imgurl){

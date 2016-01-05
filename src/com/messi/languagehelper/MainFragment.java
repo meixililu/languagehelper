@@ -4,12 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.http.Header;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources.NotFoundException;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -43,8 +43,6 @@ import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.TextHttpResponseHandler;
 import com.messi.languagehelper.adapter.CollectedListItemAdapter;
 import com.messi.languagehelper.dao.BaiduOcrRoot;
 import com.messi.languagehelper.dao.Iciba;
@@ -53,6 +51,7 @@ import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.dialog.PopDialog;
 import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
 import com.messi.languagehelper.http.LanguagehelperHttpClient;
+import com.messi.languagehelper.http.UICallback;
 import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.util.CameraUtil;
 import com.messi.languagehelper.util.JsonParser;
@@ -61,6 +60,9 @@ import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.ToastUtil;
 import com.messi.languagehelper.util.XFUtil;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 public class MainFragment extends Fragment implements OnClickListener {
 	
@@ -328,30 +330,30 @@ public class MainFragment extends Fragment implements OnClickListener {
 	public void sendBaiduOCR(){
 		try {
 			loadding();
-			LanguagehelperHttpClient.postBaiduOCR(getContext(),CameraUtil.createTempFile(), new TextHttpResponseHandler(){
-				@Override
-				public void onFinish() {
-					super.onFinish();
-					finishLoadding();
-				}
-				@Override
-				public void onFailure(int statusCode, Header[] headers,String responseString, Throwable throwable) {
-					showToast("网络连接失败("+statusCode+")");
-				}
-				@Override
-				public void onSuccess(int statusCode, Header[] headers, String responseString) {
-					if (!TextUtils.isEmpty(responseString)) {
-						BaiduOcrRoot mBaiduOcrRoot = new Gson().fromJson(responseString, BaiduOcrRoot.class);
-						if(mBaiduOcrRoot.getErrNum().equals("0")){
-							input_et.setText("");
-							input_et.setText(CameraUtil.getOcrResult(mBaiduOcrRoot));
-						}else{
-							ToastUtil.diaplayMesShort(getContext(), mBaiduOcrRoot.getErrMsg());
-						}
-					} 
-				}
-
-			});
+//			LanguagehelperHttpClient.postBaiduOCR(getContext(),CameraUtil.createTempFile(), new TextHttpResponseHandler(){
+//				@Override
+//				public void onFinish() {
+//					super.onFinish();
+//					finishLoadding();
+//				}
+//				@Override
+//				public void onFailure(int statusCode, Header[] headers,String responseString, Throwable throwable) {
+//					showToast("网络连接失败("+statusCode+")");
+//				}
+//				@Override
+//				public void onSuccess(int statusCode, Header[] headers, String responseString) {
+//					if (!TextUtils.isEmpty(responseString)) {
+//						BaiduOcrRoot mBaiduOcrRoot = new Gson().fromJson(responseString, BaiduOcrRoot.class);
+//						if(mBaiduOcrRoot.getErrNum().equals("0")){
+//							input_et.setText("");
+//							input_et.setText(CameraUtil.getOcrResult(mBaiduOcrRoot));
+//						}else{
+//							ToastUtil.diaplayMesShort(getContext(), mBaiduOcrRoot.getErrMsg());
+//						}
+//					} 
+//				}
+//
+//			});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -441,26 +443,31 @@ public class MainFragment extends Fragment implements OnClickListener {
 	private void RequestJinShanAsyncTask(){
 		loadding();
 		submit_btn.setEnabled(false);
-		LanguagehelperHttpClient.postIciba( new TextHttpResponseHandler() {
+		LanguagehelperHttpClient.postIciba(new UICallback(getActivity()) {
 			@Override
-			public void onFinish() {
-				super.onFinish();
-				finishLoadding();
-				submit_btn.setEnabled(true);
+			public void onResponsed(String mResult){
+				try {
+					onFinishRequest();
+					if (!TextUtils.isEmpty(mResult)) {
+						setJinShanResult(mResult);
+					} else {
+						RequestAsyncTask();
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				} 
 			}
 			@Override
-			public void onFailure(int statusCode, Header[] headers,String responseString, Throwable throwable) {
-				showToast("网络连接失败("+statusCode+")");
-			}
-			@Override
-			public void onSuccess(int statusCode, Header[] headers, String responseString) {
-				if (!TextUtils.isEmpty(responseString)) {
-					setJinShanResult(responseString);
-				} else {
-					RequestAsyncTask();
-				}
+			public void onFailured() {
+				onFinishRequest();
+				showToast(getActivity().getResources().getString(R.string.network_error));
 			}
 		});
+	}
+	
+	private void onFinishRequest(){
+		finishLoadding();
+		submit_btn.setEnabled(true);
 	}
 	
 	private void setJinShanResult(String responseString){
@@ -497,42 +504,46 @@ public class MainFragment extends Fragment implements OnClickListener {
 //		showToast("baidu");
 		loadding();
 		submit_btn.setEnabled(false);
-		LanguagehelperHttpClient.postBaidu( new TextHttpResponseHandler() {
+		LanguagehelperHttpClient.postBaidu(new Callback() {
+
 			@Override
-			public void onFinish() {
-				super.onFinish();
-				finishLoadding();
-				submit_btn.setEnabled(true);
+			public void onFailure(Request arg0, IOException arg1) {
+				onFinishRequest();
+				showToast(getActivity().getResources().getString(R.string.network_error));
 			}
+
 			@Override
-			public void onFailure(int statusCode, Header[] headers,String responseString, Throwable throwable) {
-				showToast("Error("+statusCode+")");
-			}
-			@Override
-			public void onSuccess(int statusCode, Header[] headers, String responseString) {
-				if (!TextUtils.isEmpty(responseString)) {
-					LogUtil.DefalutLog(responseString);
-					if(AutoClearInputAfterFinish){
-						input_et.setText("");
-					}
-					dstString = JsonParser.getTranslateResult(responseString);
-					if (dstString.contains("error_msg:")) {
-						showToast(dstString);
-					} else {
-						currentDialogBean = new record(dstString, Settings.q);
-						long newRowId = DataBaseUtil.getInstance().insert(currentDialogBean);
-						beans.add(0,currentDialogBean);
-						mAdapter.notifyDataSetChanged();
-						recent_used_lv.setSelection(0);
-						if(mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false)){
-							new AutoPlayWaitTask().execute();
+			public void onResponse(Response mResponse) throws IOException {
+				onFinishRequest();
+				if (mResponse.isSuccessful()){
+					String responseString = mResponse.body().string();
+					if (!TextUtils.isEmpty(responseString)) {
+						LogUtil.DefalutLog(responseString);
+						if(AutoClearInputAfterFinish){
+							input_et.setText("");
 						}
-						LogUtil.DefalutLog("mDataBaseUtil:"+currentDialogBean.toString());
+						dstString = JsonParser.getTranslateResult(responseString);
+						if (dstString.contains("error_msg:")) {
+							showToast(dstString);
+						} else {
+							currentDialogBean = new record(dstString, Settings.q);
+							long newRowId = DataBaseUtil.getInstance().insert(currentDialogBean);
+							beans.add(0,currentDialogBean);
+							mAdapter.notifyDataSetChanged();
+							recent_used_lv.setSelection(0);
+							if(mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false)){
+								new AutoPlayWaitTask().execute();
+							}
+							LogUtil.DefalutLog("mDataBaseUtil:"+currentDialogBean.toString());
+						}
+					} else {
+						showToast(getActivity().getResources().getString(R.string.network_error));
 					}
-				} else {
-					showToast(getActivity().getResources().getString(R.string.network_error));
+				}else{
+					showToast(getActivity().getResources().getString(R.string.server_error));
 				}
 			}
+			
 		});
 	}
 	

@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +27,6 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
-import com.lerdian.search.SearchManger;
 import com.messi.languagehelper.BaseApplication;
 import com.messi.languagehelper.ImgShareActivity;
 import com.messi.languagehelper.MainFragment;
@@ -44,8 +42,6 @@ import com.messi.languagehelper.util.AudioTrackUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.SDCardUtil;
-import com.messi.languagehelper.util.Settings;
-import com.messi.languagehelper.util.ShowView;
 import com.messi.languagehelper.util.ToastUtil;
 import com.messi.languagehelper.util.XFUtil;
 
@@ -85,7 +81,6 @@ public class ResultListHeaderAdapter extends RecyclerView.Adapter<RecyclerView.V
 		public FrameLayout copy_btn;
 		public FrameLayout collected_btn;
 		public FrameLayout weixi_btn;
-		public FrameLayout baidu_btn;
 		public ImageButton voice_play;
 		public CheckBox collected_cb;
 		public FrameLayout voice_play_layout;
@@ -105,7 +100,6 @@ public class ResultListHeaderAdapter extends RecyclerView.Adapter<RecyclerView.V
 			copy_btn = (FrameLayout) convertView.findViewById(R.id.copy_btn);
 			collected_btn = (FrameLayout) convertView.findViewById(R.id.collected_btn);
 			weixi_btn = (FrameLayout) convertView.findViewById(R.id.weixi_btn);
-			baidu_btn = (FrameLayout) convertView.findViewById(R.id.baidu_btn);
 			play_content_btn_progressbar = (ProgressBar) convertView.findViewById(R.id.play_content_btn_progressbar);
         }
     }
@@ -237,21 +231,8 @@ public class ResultListHeaderAdapter extends RecyclerView.Adapter<RecyclerView.V
 					StatService.onEvent(context, "favor_tran_to_practice", "收藏翻译页去口语练按钮", 1);
 				}
 			});
-			holder.baidu_btn.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					toBaiduActivity(mBean.getEnglish());
-				}
-			});
 		}
 	}
-	
-	private void toBaiduActivity(String query){
-		ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-		cm.setText(query);//string为你要传入的值
-		SearchManger.openDetail(context);
-	}
-
 	
 	public void notifyDataChange(List<record> mBeans,int maxNumber){
 		if(maxNumber == 0){

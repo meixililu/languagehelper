@@ -18,7 +18,6 @@ import com.messi.languagehelper.util.GytUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.XFYSAD;
-import com.messi.languagehelper.views.WrapContentHeightViewPager;
 
 public class LeisureFragment extends BaseFragment implements OnClickListener {
 
@@ -103,17 +102,17 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		}else if(v.getId() == R.id.game_layout){
 			toGameCenterActivity();
 		}else if(v.getId() == R.id.baidu_layout){
-			toBaiduActivity();
+//			toBaiduActivity();
 		}else if(v.getId() == R.id.news_layout){
 			ContExManager.initWithAPPId(getActivity(),"f9136944-bc17-4cb1-9b14-ece9de91b39d", "w1461Eub");
 			GytUtil.showHtml(getActivity(), getActivity().getResources().getString(R.string.leisuer_news));
 		}
 	}
 	
-	private void toBaiduActivity(){
-		Intent intent = new Intent(getActivity(),com.lerdian.search.SearchResult.class);
-		startActivity(intent);
-	}
+//	private void toBaiduActivity(){
+//		Intent intent = new Intent(getActivity(),com.lerdian.search.SearchResult.class);
+//		startActivity(intent);
+//	}
 	
 	private void toInvestorListActivity(){
 		Intent intent = new Intent(getActivity(),WebViewActivity.class);
