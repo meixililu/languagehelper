@@ -486,7 +486,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 					if(mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false)){
 						new AutoPlayWaitTask().execute();
 					}
-					LogUtil.DefalutLog("mDataBaseUtil:"+currentDialogBean.toString());
+					LogUtil.DefalutLog("ciba---mDataBaseUtil:"+currentDialogBean.toString());
 				}else{
 					RequestAsyncTask();
 				}
@@ -501,49 +501,45 @@ public class MainFragment extends Fragment implements OnClickListener {
 	}
 	
 	private void RequestAsyncTask(){
-//		showToast("baidu");
 		loadding();
 		submit_btn.setEnabled(false);
-		LanguagehelperHttpClient.postBaidu(new Callback() {
+		LanguagehelperHttpClient.postBaidu(new UICallback(getActivity()) {
 
 			@Override
-			public void onFailure(Request arg0, IOException arg1) {
+			public void onFailured() {
 				onFinishRequest();
 				showToast(getActivity().getResources().getString(R.string.network_error));
 			}
 
 			@Override
-			public void onResponse(Response mResponse) throws IOException {
+			public void onResponsed(String responseString) {
 				onFinishRequest();
-				if (mResponse.isSuccessful()){
-					String responseString = mResponse.body().string();
-					if (!TextUtils.isEmpty(responseString)) {
-						LogUtil.DefalutLog(responseString);
-						if(AutoClearInputAfterFinish){
-							input_et.setText("");
-						}
-						dstString = JsonParser.getTranslateResult(responseString);
-						if (dstString.contains("error_msg:")) {
-							showToast(dstString);
-						} else {
-							currentDialogBean = new record(dstString, Settings.q);
-							long newRowId = DataBaseUtil.getInstance().insert(currentDialogBean);
-							beans.add(0,currentDialogBean);
-							mAdapter.notifyDataSetChanged();
-							recent_used_lv.setSelection(0);
-							if(mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false)){
-								new AutoPlayWaitTask().execute();
-							}
-							LogUtil.DefalutLog("mDataBaseUtil:"+currentDialogBean.toString());
-						}
-					} else {
-						showToast(getActivity().getResources().getString(R.string.network_error));
+				if (!TextUtils.isEmpty(responseString)) {
+					LogUtil.DefalutLog(responseString);
+					if (AutoClearInputAfterFinish) {
+						input_et.setText("");
 					}
-				}else{
-					showToast(getActivity().getResources().getString(R.string.server_error));
+					dstString = JsonParser.getTranslateResult(responseString);
+					if (dstString.contains("error_msg:")) {
+						showToast(dstString);
+					} else {
+						currentDialogBean = new record(dstString, Settings.q);
+						long newRowId = DataBaseUtil.getInstance().insert(
+								currentDialogBean);
+						beans.add(0, currentDialogBean);
+						mAdapter.notifyDataSetChanged();
+						recent_used_lv.setSelection(0);
+						if (mSharedPreferences.getBoolean(
+								KeyUtil.AutoPlayResult, false)) {
+							new AutoPlayWaitTask().execute();
+						}
+						LogUtil.DefalutLog("baidu---mDataBaseUtil:" + currentDialogBean.toString());
+					}
+				} else {
+					showToast(getActivity().getResources().getString(
+							R.string.network_error));
 				}
 			}
-			
 		});
 	}
 	
@@ -707,6 +703,7 @@ public class MainFragment extends Fragment implements OnClickListener {
 		Settings.q = input_et.getText().toString().trim();
 		if (!TextUtils.isEmpty(Settings.q)) {
 			RequestJinShanAsyncTask();
+//			RequestAsyncTask();
 			StatService.onEvent(getActivity(), "tab_translate_submitbtn", "首页翻译页面翻译按钮", 1);
 		} else {
 			showToast(getActivity().getResources().getString(R.string.input_et_hint));
