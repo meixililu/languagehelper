@@ -1,7 +1,9 @@
 package com.messi.languagehelper.adapter;
 
+import java.io.IOException;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -16,11 +18,15 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.avos.avoscloud.okhttp.Callback;
+import com.avos.avoscloud.okhttp.Request;
+import com.avos.avoscloud.okhttp.Response;
 import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
 import com.messi.languagehelper.R;
 import com.messi.languagehelper.ViewImageActivity;
 import com.messi.languagehelper.dao.EveryDaySentence;
 import com.messi.languagehelper.http.LanguagehelperHttpClient;
+import com.messi.languagehelper.task.MyThread;
 import com.messi.languagehelper.util.DownLoadUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
@@ -31,11 +37,11 @@ public class DailySentenceListsAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	private List<EveryDaySentence> beans;
-	private Context context;
+	private Activity context;
 	private MediaPlayer mPlayer;
 	public ProgressBarCircularIndeterminate mProgressbar;
 
-	public DailySentenceListsAdapter(Context mContext,LayoutInflater mInflater,List<EveryDaySentence> mBeans, MediaPlayer mPlayer,
+	public DailySentenceListsAdapter(Activity mContext,LayoutInflater mInflater,List<EveryDaySentence> mBeans, MediaPlayer mPlayer,
 			ProgressBarCircularIndeterminate mProgressbar) {
 		context = mContext;
 		beans = mBeans;
@@ -158,30 +164,33 @@ public class DailySentenceListsAdapter extends BaseAdapter {
 	
 	public void downloadFile(final Context mContext,String url, final String suffix){
 		LogUtil.DefalutLog("---url:"+url);
-		String[] allowedContentTypes = new String[] {".*"};  
 		if(mProgressbar != null){
 			mProgressbar.setVisibility(View.VISIBLE);
 		}
-//		LanguagehelperHttpClient.get(url, new RequestParams(), new BinaryHttpResponseHandler(allowedContentTypes){
-//			@Override
-//			public void onFailure(int arg0, Header[] arg1, byte[] arg2,Throwable arg3) {
-//				LogUtil.DefalutLog("---onFailure");
-//				arg3.printStackTrace();
-//			}
-//			@Override
-//			public void onFinish() {
-//				if(mProgressbar != null){
-//					mProgressbar.setVisibility(View.GONE);
-//				}
-//			}
-//			@Override
-//			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-//				LogUtil.DefalutLog("---onSuccess");
-//				DownLoadUtil.saveFile(mContext, SDCardUtil.DailySentencePath, suffix, arg2);
-//				String fileFullName = SDCardUtil.getDownloadPath(SDCardUtil.DailySentencePath) + suffix;
-//				playMp3(fileFullName);
-//			}
-//		});
+		LanguagehelperHttpClient.get(url,new Callback() {
+			@Override
+			public void onResponse(Response arg0) throws IOException {
+				DownLoadUtil.saveFile(context, SDCardUtil.DailySentencePath, suffix, arg0.body().bytes());
+				String fileFullName = SDCardUtil.getDownloadPath(SDCardUtil.DailySentencePath) + suffix;
+				onFinish();
+				playMp3(fileFullName);
+			}
+			@Override
+			public void onFailure(Request arg0, IOException arg1) {
+				onFinish();
+			}
+		});
+	}
+	
+	private void onFinish(){
+		context.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				if(mProgressbar != null){
+					mProgressbar.setVisibility(View.GONE);
+				}
+			}
+		});
 	}
 	
 	private void toViewImgActivity(String imgurl){

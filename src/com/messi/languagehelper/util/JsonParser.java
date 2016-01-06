@@ -311,10 +311,11 @@ public class JsonParser {
 		return ret.toString();
 	}
 	
-	public static EveryDaySentence parseEveryDaySentence(JSONObject jObject){
+	public static EveryDaySentence parseEveryDaySentence(String result){
 		EveryDaySentence bean = new EveryDaySentence();
 		JSONArray tags = null;
 		try {
+			JSONObject jObject = new JSONObject(result);
 			if(jObject.has("sid")){
 				bean.setSid(jObject.getString("sid"));
 			}
@@ -379,5 +380,14 @@ public class JsonParser {
 			e.printStackTrace();
 		}
 		return bean;
+	}
+	
+	public static boolean isJson(String value) { 
+		try {
+			new JSONObject(value);
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
 	}
 }

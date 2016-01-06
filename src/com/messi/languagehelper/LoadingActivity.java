@@ -16,6 +16,7 @@ import com.baidu.mobstat.StatService;
 import com.iflytek.voiceads.AdError;
 import com.iflytek.voiceads.IFLYAdListener;
 import com.iflytek.voiceads.IFLYFullScreenAd;
+import com.messi.languagehelper.http.LanguagehelperHttpClient;
 import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
@@ -32,34 +33,6 @@ public class LoadingActivity extends Activity implements OnClickListener{
 	private boolean isAdExposure;
 	private boolean isAdClicked;
 	
-	private Runnable mRunnable = new Runnable() {
-		@Override
-		public void run() {
-			mHandler.removeCallbacks(m3Runnable);
-			mHandler.removeCallbacks(mRunnableFinal);
-			toNextPage();
-		}
-	};
-	
-	private Runnable mRunnableFinal = new Runnable() {
-		@Override
-		public void run() {
-			LogUtil.DefalutLog("LoadingActivity---mRunnableFinal");
-			toNextPage();
-		}
-	};
-	
-	private Runnable m3Runnable = new Runnable() {
-		@Override
-		public void run() {
-			LogUtil.DefalutLog("LoadingActivity---m3Runnable---isAdExposure:"+isAdExposure);
-			if(!isAdExposure){
-				mHandler.removeCallbacks(mRunnableFinal);
-				toNextPage();
-			}
-		}
-	};
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,7 +40,6 @@ public class LoadingActivity extends Activity implements OnClickListener{
 			TransparentStatusbar();
 			setContentView(R.layout.loading_activity);
 			init();
-			StatService.setDebugOn(true);
 		} catch (Exception e) {
 			onError();
 			e.printStackTrace();
@@ -85,6 +57,8 @@ public class LoadingActivity extends Activity implements OnClickListener{
 	}
 	
 	private void init(){
+		StatService.setDebugOn(false);
+		LanguagehelperHttpClient.initClient(this);
 		mSharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
 		mHandler = new Handler();
 		forward_img = (ImageView) findViewById(R.id.forward_img);
@@ -121,7 +95,9 @@ public class LoadingActivity extends Activity implements OnClickListener{
 				@Override
 				public void onAdExposure() {
 					isAdExposure = true;
-					mHandler.postDelayed(mRunnableFinal, 3500);
+					if(mHandler != null){
+						mHandler.postDelayed(mRunnableFinal, 3500);
+					}
 					LogUtil.DefalutLog("LoadingActivity---fullScreenAd---onAdExposure");
 				}
 			});
@@ -137,6 +113,34 @@ public class LoadingActivity extends Activity implements OnClickListener{
 		forward_img.setVisibility(View.VISIBLE);
 		StatService.onEvent(LoadingActivity.this, "ad_kaiping", "点击开屏广告", 1);
 	}
+	
+	private Runnable mRunnable = new Runnable() {
+		@Override
+		public void run() {
+			mHandler.removeCallbacks(m3Runnable);
+			mHandler.removeCallbacks(mRunnableFinal);
+			toNextPage();
+		}
+	};
+	
+	private Runnable mRunnableFinal = new Runnable() {
+		@Override
+		public void run() {
+			LogUtil.DefalutLog("LoadingActivity---mRunnableFinal");
+			toNextPage();
+		}
+	};
+	
+	private Runnable m3Runnable = new Runnable() {
+		@Override
+		public void run() {
+			LogUtil.DefalutLog("LoadingActivity---m3Runnable---isAdExposure:"+isAdExposure);
+			if(!isAdExposure){
+				mHandler.removeCallbacks(mRunnableFinal);
+				toNextPage();
+			}
+		}
+	};
 	
 	private void onError(){
 		mHandler.postDelayed(mRunnable, 800);

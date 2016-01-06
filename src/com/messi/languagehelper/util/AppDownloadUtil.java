@@ -1,6 +1,7 @@
 package com.messi.languagehelper.util;
 
 import java.io.File;
+import java.io.IOException;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -12,7 +13,14 @@ import android.support.v4.app.NotificationCompat.Builder;
 import android.text.TextUtils;
 
 import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.okhttp.Interceptor;
+import com.avos.avoscloud.okhttp.OkHttpClient;
+import com.avos.avoscloud.okhttp.Request;
+import com.avos.avoscloud.okhttp.Response;
 import com.messi.languagehelper.R;
+import com.messi.languagehelper.http.LanguagehelperHttpClient;
+import com.messi.languagehelper.http.ProgressResponseBody;
+import com.messi.languagehelper.inteface.ProgressListener;
 import com.messi.languagehelper.wxapi.WXEntryActivity;
 
 public class AppDownloadUtil {
@@ -26,6 +34,8 @@ public class AppDownloadUtil {
 	private String appLocalFullName;
 	private String AVObjectId;
 	private String path;
+	private NotificationManager mNotifyManager;
+	private Builder mBuilder;
 	
 	public AppDownloadUtil(Context mContext, String url, String appName, String AVObjectId, String path){
 		this.mContext = mContext;
@@ -42,52 +52,66 @@ public class AppDownloadUtil {
 		if(isFileExist()){
 			installApk(mContext,appLocalFullName);
 		}else if(!TextUtils.isEmpty(url)){
-			final NotificationManager mNotifyManager  = (NotificationManager)mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-			final Builder mBuilder = new NotificationCompat.Builder(mContext); 
-			mBuilder.setContentTitle(ContentTitle).setContentText("开始下载").setSmallIcon(R.drawable.ic_get_app_white_36dp).setTicker(Ticker).setAutoCancel(true);
-			Intent intent = new Intent (mContext, WXEntryActivity.class);
-			intent.addFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
-			PendingIntent pend = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-			mBuilder.setContentIntent (pend);
-			mNotifyManager.notify(0, mBuilder.build());
-//			LanguagehelperHttpClient.get(url, new RequestParams(), new AsyncHttpResponseHandler(){
-//				@Override
-//				public void onSuccess(int statusCode, Header[] headers, byte[] binaryData) {
-//					LogUtil.DefalutLog("---DownloadFile success");
-//					DownLoadUtil.saveFile(mContext,path,appFileName,binaryData);
-//					PendingIntent pend = PendingIntent.getActivity(mContext, 0, getInstallApkIntent(appLocalFullName), 
-//							PendingIntent.FLAG_UPDATE_CURRENT);
-//					mBuilder.setContentIntent (pend);
-//		            mNotifyManager.notify(0, mBuilder.build());
-//		            installApk(mContext,appLocalFullName);
-//		            updateDownloadTime();
-//				}
-//				@Override
-//				public void onFailure(int statusCode, Header[] headers, byte[] binaryData, Throwable error) {
-//					LogUtil.DefalutLog("---DownloadFile onFailure");
-//					mBuilder.setContentText("下载失败,请稍后重试").setProgress(0,0,false);
-//		            mNotifyManager.notify(0, mBuilder.build());
-//					error.printStackTrace();
-//				}
-//				@Override
-//				public void onProgress(int bytesWritten, int totalSize) {
-//					super.onProgress(bytesWritten, totalSize);
-//					if(bytesWritten <= totalSize){
-//						int percent = (int) (((float)bytesWritten / totalSize) * 100);
-//						if(percent != 100 && record != percent){
-//							record = percent;
-//							mBuilder.setProgress(100, percent, false);
-//							mBuilder.setContentText("更新进度"+percent+"%");
-//							mNotifyManager.notify(0, mBuilder.build());
-//						}else if(percent == 100){
-//							mBuilder.setContentText("下载完成").setProgress(0,0,false);
-//							mNotifyManager.notify(0, mBuilder.build());
-//						}
-//					}
-//				}
-//			});
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					mNotifyManager  = (NotificationManager)mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+					mBuilder = new NotificationCompat.Builder(mContext); 
+					mBuilder.setContentTitle(ContentTitle).setContentText("开始下载").setSmallIcon(R.drawable.ic_get_app_white_36dp).setTicker(Ticker).setAutoCancel(true);
+					Intent intent = new Intent (mContext, WXEntryActivity.class);
+					intent.addFlags (Intent.FLAG_ACTIVITY_NEW_TASK);
+					PendingIntent pend = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+					mBuilder.setContentIntent (pend);
+					mNotifyManager.notify(0, mBuilder.build());
+					try {
+						Request request = new Request.Builder()
+					        .url(url)
+					        .build();
+						OkHttpClient clone = LanguagehelperHttpClient.addProgressResponseListener(progressListener);
+						Response response = clone.newCall(request).execute();
+						if(response.isSuccessful()){
+							LogUtil.DefalutLog("---DownloadFile success");
+							DownLoadUtil.saveFile(mContext,path,appFileName,response.body().bytes());
+							PendingIntent pendUp = PendingIntent.getActivity(mContext, 0, getInstallApkIntent(appLocalFullName), 
+									PendingIntent.FLAG_UPDATE_CURRENT);
+							mBuilder.setContentIntent (pendUp);
+				            mNotifyManager.notify(0, mBuilder.build());
+				            installApk(mContext,appLocalFullName);
+				            updateDownloadTime();
+						}else{
+							LogUtil.DefalutLog("---DownloadFile onFailure");
+							mBuilder.setContentText("下载失败,请稍后重试").setProgress(0,0,false);
+							mNotifyManager.notify(0, mBuilder.build());
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}).start();
 		}
 	}
+	
+	final ProgressListener progressListener = new ProgressListener() {
+		@Override
+		public void update(long bytesRead, long contentLength, boolean done) {
+			try {
+				int percent = (int) ((100 * bytesRead) / contentLength);
+				if(percent != 100 && record != percent){
+					record = percent;
+					mBuilder.setProgress(100, percent, false);
+					mBuilder.setContentText("更新进度"+percent+"%");
+					mNotifyManager.notify(0, mBuilder.build());
+				}else if(percent == 100){
+					if(done){
+						mBuilder.setContentText("下载完成").setProgress(0,0,false);
+						mNotifyManager.notify(0, mBuilder.build());
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	};
 	
 	private void updateDownloadTime(){
 		if(path.equals(SDCardUtil.apkPath)){

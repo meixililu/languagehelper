@@ -1,30 +1,33 @@
 package com.messi.languagehelper.http;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import android.content.Context;
 import cn.contentx.MD5;
 
+import com.avos.avoscloud.okhttp.Cache;
+import com.avos.avoscloud.okhttp.Callback;
+import com.avos.avoscloud.okhttp.FormEncodingBuilder;
+import com.avos.avoscloud.okhttp.Interceptor;
+import com.avos.avoscloud.okhttp.MediaType;
+import com.avos.avoscloud.okhttp.MultipartBuilder;
+import com.avos.avoscloud.okhttp.OkHttpClient;
+import com.avos.avoscloud.okhttp.Request;
+import com.avos.avoscloud.okhttp.RequestBody;
+import com.avos.avoscloud.okhttp.Response;
+import com.messi.languagehelper.inteface.ProgressListener;
 import com.messi.languagehelper.util.CameraUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.StringUtils;
-import com.squareup.okhttp.Cache;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.FormEncodingBuilder;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.MultipartBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
 
 public class LanguagehelperHttpClient {
 	
 	public static final int HTTP_RESPONSE_DISK_CACHE_MAX_SIZE = 10 * 1024 * 1024;
-	private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/jpg");
+	private static final MediaType MEDIA_TYPE_JPG = MediaType.parse("image/jpg");
 
-	private static OkHttpClient client = new OkHttpClient();
+	public static OkHttpClient client = new OkHttpClient();
 	
 	public static void initClient(Context mContext){
 		if(client ==  null){
@@ -40,7 +43,20 @@ public class LanguagehelperHttpClient {
 		}
 	}
 
-	public static void get(String url, RequestBody params, Callback mCallback) {
+	public static Response get(String url) {
+		Response mResponse = null;
+		try {
+			Request request = new Request.Builder()
+			.url(url)
+			.build();
+			mResponse = client.newCall(request).execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mResponse;
+	}
+	
+	public static void get(String url, Callback mCallback) {
 		Request request = new Request.Builder()
 			.url(url)
 			.build();
@@ -57,7 +73,7 @@ public class LanguagehelperHttpClient {
 
 	public static void postBaidu(Callback mCallback) {
 		long salt = System.currentTimeMillis();
-		RequestBody  formBody  = new FormEncodingBuilder()
+		RequestBody formBody  = new FormEncodingBuilder()
 			.add("appid", Settings.baidu_appid)
 			.add("salt", String.valueOf(salt))
 			.add("q", Settings.q)
@@ -85,16 +101,17 @@ public class LanguagehelperHttpClient {
 		}
 	}
 
-	public static void postBaiduOCR(Context mContext, String path, Callback mCallback) {
+	public static void postBaiduOCR(String path, Callback mCallback) {
 		try {
-			RequestBody mRequestBody = RequestBody.create(MEDIA_TYPE_PNG, CameraUtil.getFile(path));
+			RequestBody mRequestBody = RequestBody.create( MEDIA_TYPE_JPG, CameraUtil.getFile(path) );
 			RequestBody formBody = new MultipartBuilder()
+				.type(MultipartBuilder.FORM)
 				.addFormDataPart("fromdevice", "android")
 				.addFormDataPart("clientip", "10.10.10.0")
 				.addFormDataPart("detecttype", "LocateRecognize")
 				.addFormDataPart("languagetype", "CHN_ENG")
 				.addFormDataPart("imagetype", "2")
-				.addFormDataPart("image", "picture", mRequestBody)
+				.addFormDataPart("image", "picture.jpg", mRequestBody)
 				.build();
 			Request request = new Request.Builder()
 				.url(Settings.BaiduOCRUrl)
@@ -106,10 +123,28 @@ public class LanguagehelperHttpClient {
 			e.printStackTrace();
 		}
 	}
+	
+	public static OkHttpClient addProgressResponseListener(final ProgressListener progressListener){
+        //克隆
+		OkHttpClient clone = client.clone();
+		// 增加拦截器
+		clone.networkInterceptors().add(new Interceptor() {
+			@Override
+			public Response intercept(Chain chain) throws IOException {
+				// 拦截
+				Response originalResponse = chain.proceed(chain.request());
+				// 包装响应体并返回
+				return originalResponse
+						.newBuilder()
+						.body(new ProgressResponseBody(originalResponse.body(), progressListener))
+						.build();
+			}
+		});
+        return clone;
+    }
 
 	public static String getBaiduTranslateSign(long salt) {
-		String str = Settings.baidu_appid + Settings.q + salt
-				+ Settings.baidu_secretkey;
+		String str = Settings.baidu_appid + Settings.q + salt + Settings.baidu_secretkey;
 		return MD5.encode(str);
 	}
 

@@ -4,12 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources.NotFoundException;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -32,12 +29,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
@@ -60,9 +55,6 @@ import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.ToastUtil;
 import com.messi.languagehelper.util.XFUtil;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
 public class MainFragment extends Fragment implements OnClickListener {
 	
@@ -330,30 +322,32 @@ public class MainFragment extends Fragment implements OnClickListener {
 	public void sendBaiduOCR(){
 		try {
 			loadding();
-//			LanguagehelperHttpClient.postBaiduOCR(getContext(),CameraUtil.createTempFile(), new TextHttpResponseHandler(){
-//				@Override
-//				public void onFinish() {
-//					super.onFinish();
-//					finishLoadding();
-//				}
-//				@Override
-//				public void onFailure(int statusCode, Header[] headers,String responseString, Throwable throwable) {
-//					showToast("网络连接失败("+statusCode+")");
-//				}
-//				@Override
-//				public void onSuccess(int statusCode, Header[] headers, String responseString) {
-//					if (!TextUtils.isEmpty(responseString)) {
-//						BaiduOcrRoot mBaiduOcrRoot = new Gson().fromJson(responseString, BaiduOcrRoot.class);
-//						if(mBaiduOcrRoot.getErrNum().equals("0")){
-//							input_et.setText("");
-//							input_et.setText(CameraUtil.getOcrResult(mBaiduOcrRoot));
-//						}else{
-//							ToastUtil.diaplayMesShort(getContext(), mBaiduOcrRoot.getErrMsg());
-//						}
-//					} 
-//				}
-//
-//			});
+			LanguagehelperHttpClient.postBaiduOCR(CameraUtil.createTempFile(), new UICallback(getActivity()){
+				@Override
+				public void onResponsed(String responseString){
+					if (!TextUtils.isEmpty(responseString)) {
+						if(JsonParser.isJson(responseString)){
+							BaiduOcrRoot mBaiduOcrRoot = new Gson().fromJson(responseString, BaiduOcrRoot.class);
+							if(mBaiduOcrRoot.getErrNum().equals("0")){
+								input_et.setText("");
+								input_et.setText(CameraUtil.getOcrResult(mBaiduOcrRoot));
+							}else{
+								ToastUtil.diaplayMesShort(getContext(), mBaiduOcrRoot.getErrMsg());
+							}
+						}else{
+							showToast(getActivity().getResources().getString(R.string.server_error));
+						}
+					} 
+				}
+				@Override
+				public void onFailured() {
+					showToast(getActivity().getResources().getString(R.string.network_error));
+				}
+				@Override
+				public void onFinished() {
+					finishLoadding();
+				}
+			});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -447,9 +441,12 @@ public class MainFragment extends Fragment implements OnClickListener {
 			@Override
 			public void onResponsed(String mResult){
 				try {
-					onFinishRequest();
 					if (!TextUtils.isEmpty(mResult)) {
-						setJinShanResult(mResult);
+						if(JsonParser.isJson(mResult)){
+							setJinShanResult(mResult);
+						}else{
+							RequestAsyncTask();
+						}
 					} else {
 						RequestAsyncTask();
 					}
@@ -459,8 +456,11 @@ public class MainFragment extends Fragment implements OnClickListener {
 			}
 			@Override
 			public void onFailured() {
-				onFinishRequest();
 				showToast(getActivity().getResources().getString(R.string.network_error));
+			}
+			@Override
+			public void onFinished() {
+				onFinishRequest();
 			}
 		});
 	}
@@ -497,25 +497,23 @@ public class MainFragment extends Fragment implements OnClickListener {
 			RequestAsyncTask();
 			e.printStackTrace();
 		}
-		
 	}
 	
 	private void RequestAsyncTask(){
 		loadding();
 		submit_btn.setEnabled(false);
 		LanguagehelperHttpClient.postBaidu(new UICallback(getActivity()) {
-
 			@Override
 			public void onFailured() {
-				onFinishRequest();
 				showToast(getActivity().getResources().getString(R.string.network_error));
 			}
-
+			@Override
+			public void onFinished() {
+				onFinishRequest();
+			}
 			@Override
 			public void onResponsed(String responseString) {
-				onFinishRequest();
 				if (!TextUtils.isEmpty(responseString)) {
-					LogUtil.DefalutLog(responseString);
 					if (AutoClearInputAfterFinish) {
 						input_et.setText("");
 					}
@@ -716,13 +714,14 @@ public class MainFragment extends Fragment implements OnClickListener {
 		super.onDestroy();
 		if(mSpeechSynthesizer != null){
 			mSpeechSynthesizer.stopSpeaking();
-			mSpeechSynthesizer.destroy();
 			mSpeechSynthesizer = null;
 		}
 		if(recognizer != null){
 			recognizer.stopListening();
-			recognizer.destroy();
 			recognizer = null;
+		}
+		if(mAdapter != null){
+			mAdapter.stopPlay();
 		}
 		LogUtil.DefalutLog("MainFragment-onDestroy");
 	}

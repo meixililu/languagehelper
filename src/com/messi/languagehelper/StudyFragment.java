@@ -2,6 +2,8 @@ package com.messi.languagehelper;
 
 import java.util.List;
 
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -25,14 +27,18 @@ import cn.contentx.ContExManager;
 import com.baidu.mobstat.StatService;
 import com.messi.languagehelper.dao.EveryDaySentence;
 import com.messi.languagehelper.db.DataBaseUtil;
+import com.messi.languagehelper.http.LanguagehelperHttpClient;
+import com.messi.languagehelper.http.UICallback;
 import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.DownLoadUtil;
 import com.messi.languagehelper.util.GytUtil;
+import com.messi.languagehelper.util.JsonParser;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.NumberUtil;
 import com.messi.languagehelper.util.SDCardUtil;
+import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.TimeUtil;
 import com.squareup.picasso.Picasso;
 
@@ -138,25 +144,15 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	}
 	
 	private void requestDailysentence(){
-//		LogUtil.DefalutLog("StudyFragment-requestDailysentence()");
-//		LanguagehelperHttpClient.get(Settings.DailySentenceUrl, null, new JsonHttpResponseHandler(){
-//			@Override
-//			public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//				super.onSuccess(statusCode, headers, response);
-//				mEveryDaySentence = JsonParser.parseEveryDaySentence(response);
-//				setSentence();
-//			}
-//
-//			@Override
-//			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-//				super.onFailure(statusCode, headers, responseString, throwable);
-//			}
-//
-//			@Override
-//			public void onFinish() {
-//				super.onFinish();
-//			}
-//		});
+		LogUtil.DefalutLog("StudyFragment-requestDailysentence()");
+		LanguagehelperHttpClient.get(Settings.DailySentenceUrl, new UICallback(getActivity()){
+			public void onResponsed(String responseString) {
+				if(JsonParser.isJson(responseString)){
+					mEveryDaySentence = JsonParser.parseEveryDaySentence(responseString);
+					setSentence();
+				}
+			}
+		});
 	}
 	
 	private void setSentence(){
@@ -221,7 +217,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 				}else{
 					LogUtil.DefalutLog("FileNotExist");
 					loadding();
-					DownLoadUtil.downloadFile(getActivity(), mEveryDaySentence.getTts(), SDCardUtil.DailySentencePath, fileName, mHandler);
+					DownLoadUtil.downloadFile(getContext(), mEveryDaySentence.getTts(), SDCardUtil.DailySentencePath, fileName, mHandler);
 				}
 			}
 			StatService.onEvent(getActivity(), "play_daily_sentence", "播放每日一句", 1);
@@ -237,6 +233,8 @@ public class StudyFragment extends Fragment implements OnClickListener{
 			if(msg.what == 1){
 				finishLoadding();
 				playMp3(fileFullName);
+			}else if(msg.what == 2){
+				finishLoadding();
 			}
 		}
 	};
@@ -343,7 +341,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	/**
 	 * 通过接口回调activity执行进度条显示控制
 	 */
-	private void loadding(){
+	public void loadding(){
 		if(mProgressbarListener != null){
 			mProgressbarListener.showProgressbar();
 		}
@@ -352,7 +350,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	/**
 	 * 通过接口回调activity执行进度条显示控制
 	 */
-	private void finishLoadding(){
+	public void finishLoadding(){
 		if(mProgressbarListener != null){
 			mProgressbarListener.hideProgressbar();
 		}

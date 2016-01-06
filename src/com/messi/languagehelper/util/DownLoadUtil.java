@@ -5,33 +5,53 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import com.avos.avoscloud.okhttp.Response;
+import com.messi.languagehelper.StudyFragment;
+import com.messi.languagehelper.http.LanguagehelperHttpClient;
+
 import android.content.Context;
 import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 
 public class DownLoadUtil {
 	
-	public static void downloadFile(final Context mContext,String url, final String path, final String fileName, final Handler mHandler){
-		LogUtil.DefalutLog("---url:"+url);
-		String[] allowedContentTypes = new String[] {".*"};  
-//		LanguagehelperHttpClient.get(url, new RequestParams(), new BinaryHttpResponseHandler(allowedContentTypes){
-//			@Override
-//			public void onFailure(int arg0, Header[] arg1, byte[] arg2,Throwable arg3) {
-//				LogUtil.DefalutLog("---onFailure");
-//				arg3.printStackTrace();
-//			}
-//
-//			@Override
-//			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
-//				LogUtil.DefalutLog("---onSuccess");
-//				saveFile(mContext, path, fileName, arg2);
-//				if(mHandler != null){
-//					Message msg = new Message();
-//					msg.what = 1;
-//					mHandler.sendMessage(msg);
-//				}
-//			}
-//		});
+	public static void downloadFile(final Context mContext,final String url, final String path, final String fileName, final Handler mHandler){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Message msg = new Message();
+				try {
+					LogUtil.DefalutLog("---url:"+url);
+					Response mResponse = LanguagehelperHttpClient.get(url);
+					if(mResponse != null){
+						if(mResponse.isSuccessful()){
+							saveFile(mContext, path, fileName, mResponse.body().bytes());
+							if(mHandler != null){
+								msg.what = 1;
+								mHandler.sendMessage(msg);
+							}
+						}else{
+							if(mHandler != null){
+								msg.what = 2;
+								mHandler.sendMessage(msg);
+							}
+						}
+					}else{
+						if(mHandler != null){
+							msg.what = 2;
+							mHandler.sendMessage(msg);
+						}
+					}
+				} catch (Exception e) {
+					if(mHandler != null){
+						msg.what = 2;
+						mHandler.sendMessage(msg);
+					}
+					e.printStackTrace();
+				}
+			}
+		}).start();
 	}
 	
 	public static void saveFile(Context mContext, String path, String suffix, byte[] binaryData){

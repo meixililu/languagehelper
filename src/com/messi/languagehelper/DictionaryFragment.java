@@ -30,18 +30,25 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 
+import com.avos.avoscloud.okhttp.FormEncodingBuilder;
+import com.avos.avoscloud.okhttp.RequestBody;
 import com.baidu.mobstat.StatService;
 import com.gc.materialdesign.views.ButtonRectangle;
+import com.google.gson.Gson;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.adapter.DictionaryListViewAdapter;
+import com.messi.languagehelper.dao.BaiduOcrRoot;
 import com.messi.languagehelper.dao.Dictionary;
+import com.messi.languagehelper.dao.Root;
 import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.dialog.PopDialog;
 import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
+import com.messi.languagehelper.http.LanguagehelperHttpClient;
+import com.messi.languagehelper.http.UICallback;
 import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.util.CameraUtil;
 import com.messi.languagehelper.util.JsonParser;
@@ -304,31 +311,29 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 	 
 	 public void sendBaiduOCR(){
 			try {
-//				loadding();
-//				LanguagehelperHttpClient.postBaiduOCR(getContext(),CameraUtil.createTempFile(), new TextHttpResponseHandler(){
-//					@Override
-//					public void onFinish() {
-//						super.onFinish();
-//						finishLoadding();
-//					}
-//					@Override
-//					public void onFailure(int statusCode, Header[] headers,String responseString, Throwable throwable) {
-//						showToast("网络连接失败("+statusCode+")");
-//					}
-//					@Override
-//					public void onSuccess(int statusCode, Header[] headers, String responseString) {
-//						if (!TextUtils.isEmpty(responseString)) {
-//							BaiduOcrRoot mBaiduOcrRoot = new Gson().fromJson(responseString, BaiduOcrRoot.class);
-//							if(mBaiduOcrRoot.getErrNum().equals("0")){
-//								input_et.setText("");
-//								input_et.setText(CameraUtil.getOcrResult(mBaiduOcrRoot));
-//							}else{
-//								ToastUtil.diaplayMesShort(getContext(), mBaiduOcrRoot.getErrMsg());
-//							}
-//						} 
-//					}
-//
-//				});
+				loadding();
+				LanguagehelperHttpClient.postBaiduOCR(CameraUtil.createTempFile(), new UICallback(getActivity()){
+					@Override
+					public void onResponsed(String responseString){
+						finishLoadding();
+						if (!TextUtils.isEmpty(responseString)) {
+							if(JsonParser.isJson(responseString)){
+								BaiduOcrRoot mBaiduOcrRoot = new Gson().fromJson(responseString, BaiduOcrRoot.class);
+								if(mBaiduOcrRoot.getErrNum().equals("0")){
+									input_et.setText("");
+									input_et.setText(CameraUtil.getOcrResult(mBaiduOcrRoot));
+								}else{
+									ToastUtil.diaplayMesShort(getContext(), mBaiduOcrRoot.getErrMsg());
+								}
+							}
+						} 
+					}
+					@Override
+					public void onFailured() {
+						finishLoadding();
+						showToast(getActivity().getResources().getString(R.string.network_error));
+					}
+				});
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -417,86 +422,51 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 	 * showapi dictionary api
 	 */
 	private void RequestShowapiAsyncTask(){
-//		loadding();
-//		submit_btn.setEnabled(false);
-//		RequestParams mRequestParams = new RequestParams();
-//		mRequestParams.put("showapi_appid", Settings.showapi_appid);
-//		mRequestParams.put("showapi_sign", Settings.showapi_secret);
-//		mRequestParams.put("showapi_timestamp", String.valueOf(System.currentTimeMillis()) );
-//		mRequestParams.put("q", Settings.q);
-//		LanguagehelperHttpClient.get(Settings.ShowApiUrl, mRequestParams, new TextHttpResponseHandler() {
-//			@Override
-//			public void onFinish() {
-//				super.onFinish();
-//				finishLoadding();
-//				submit_btn.setEnabled(true);
-//			}
-//			@Override
-//			public void onFailure(int statusCode, Header[] headers,String responseString, Throwable throwable) {
-//				showToast("Error("+statusCode+")");
-//			}
-//			@Override
-//			public void onSuccess(int statusCode, Header[] headers, String responseString) {
-//				if (!TextUtils.isEmpty(responseString)) {
-//					LogUtil.DefalutLog("Result---showapi:"+responseString);
-//					Root mRoot = new Gson().fromJson(responseString, Root.class);
-//					if(mRoot != null && mRoot.getShowapi_res_code() == 0 && mRoot.getShowapi_res_body() != null){
-//						mDictionaryBean = JsonParser.changeShowapiResultToDicBean(mRoot,Settings.q);
-//						setData();
-//					}else{
-//						GetDictionaryFaultAsyncTask();
-//					}
-//					if(mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false)){
-//						new AutoPlayWaitTask().execute();
-//					}
-//				} else {
-//					showToast(getActivity().getResources().getString(R.string.network_error));
-//				}
-//			}
-//		});
-	}
-	
-	/**
-	 * send translate request
-	 * baidu dictionary api
-	 */
-	private void RequestBaiduDictionaryAsyncTask(){
-//		loadding();
-//		submit_btn.setEnabled(false);
-//		RequestParams mRequestParams = new RequestParams();
-//		mRequestParams.put("client_id", Settings.client_id);
-//		mRequestParams.put("q", Settings.q);
-//		mRequestParams.put("from", Settings.from);
-//		mRequestParams.put("to", Settings.to);
-//		LanguagehelperHttpClient.get(Settings.baiduDictionaryUrl, mRequestParams, new TextHttpResponseHandler() {
-//			@Override
-//			public void onFinish() {
-//				super.onFinish();
-//				finishLoadding();
-//				submit_btn.setEnabled(true);
-//			}
-//			@Override
-//			public void onFailure(int statusCode, Header[] headers,String responseString, Throwable throwable) {
-//				showToast("Error("+statusCode+")");
-//			}
-//			@Override
-//			public void onSuccess(int statusCode, Header[] headers, String responseString) {
-//				if (!TextUtils.isEmpty(responseString)) {
-//					LogUtil.DefalutLog("Result---baidu dic:"+responseString);
-//					mDictionaryBean = JsonParser.parseDictionaryJson(responseString);
-//					if(mDictionaryBean != null){
-//						setData();
-//					}else{
-//						GetDictionaryFaultAsyncTask();
-//					}
-//					if(mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false)){
-//						new AutoPlayWaitTask().execute();
-//					}
-//				} else {
-//					showToast(getActivity().getResources().getString(R.string.network_error));
-//				}
-//			}
-//		});
+		loadding();
+		submit_btn.setEnabled(false);
+		RequestBody formBody = new FormEncodingBuilder()
+		.add("showapi_appid", Settings.showapi_appid)
+		.add("showapi_sign", Settings.showapi_secret)
+		.add("showapi_timestamp", String.valueOf(System.currentTimeMillis()))
+		.add("q", Settings.q)
+		.build();
+		LanguagehelperHttpClient.post(Settings.ShowApiUrl, formBody, new UICallback(getActivity()){
+			@Override
+			public void onResponsed(String responseString){
+				try {
+					if (!TextUtils.isEmpty(responseString)) {
+						if(JsonParser.isJson(responseString)){
+							Root mRoot = new Gson().fromJson(responseString, Root.class);
+							if(mRoot != null && mRoot.getShowapi_res_code() == 0 && mRoot.getShowapi_res_body() != null){
+								mDictionaryBean = JsonParser.changeShowapiResultToDicBean(mRoot,Settings.q);
+								setData();
+							}else{
+								GetDictionaryFaultAsyncTask();
+							}
+							if(mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false)){
+								new AutoPlayWaitTask().execute();
+							}
+							LogUtil.DefalutLog("Result---showapi:"+responseString);
+						}else{
+							GetDictionaryFaultAsyncTask();
+						}
+					} else {
+						GetDictionaryFaultAsyncTask();
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					GetDictionaryFaultAsyncTask();
+				}
+			}
+			@Override
+			public void onFailured() {
+				showToast(getActivity().getResources().getString(R.string.network_error));
+			}
+			@Override
+			public void onFinished() {
+				onFinishRequest();
+			}
+		});
 	}
 	
 	/**
@@ -504,39 +474,37 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 	 * baidu translate api
 	 */
 	private void GetDictionaryFaultAsyncTask(){
-//		loadding();
-//		submit_btn.setEnabled(false);
-//		LanguagehelperHttpClient.postBaidu( new TextHttpResponseHandler() {
-//			@Override
-//			public void onFinish() {
-//				super.onFinish();
-//				finishLoadding();
-//				submit_btn.setEnabled(true);
-//			}
-//			@Override
-//			public void onFailure(int statusCode, Header[] headers,String responseString, Throwable throwable) {
-//				showToast("Error("+statusCode+")");
-//			}
-//			@Override
-//			public void onSuccess(int statusCode, Header[] headers, String responseString) {
-//				if (!TextUtils.isEmpty(responseString)) {
-//					LogUtil.DefalutLog("Result---baidu tran:"+responseString);
-//					String dstString = JsonParser.getTranslateResult(responseString);
-//					if (dstString.contains("error_msg:")) {
-//						showToast(dstString);
-//					} else {
-//						mDictionaryBean = new Dictionary();
-//						mDictionaryBean.setType(KeyUtil.ResultTypeTranslate);
-//						mDictionaryBean.setWord_name(Settings.q);
-//						mDictionaryBean.setResult(dstString);
-//						DataBaseUtil.getInstance().insert(mDictionaryBean);
-//						setData();
-//					}
-//				} else {
-//					showToast(getActivity().getResources().getString(R.string.network_error));
-//				}
-//			}
-//		});
+		loadding();
+		submit_btn.setEnabled(false);
+		LanguagehelperHttpClient.postBaidu(new UICallback(getActivity()) {
+			@Override
+			public void onFailured() {
+				showToast(getActivity().getResources().getString(R.string.network_error));
+			}
+			@Override
+			public void onResponsed(String responseString) {
+				if (!TextUtils.isEmpty(responseString)) {
+					LogUtil.DefalutLog("Result---baidu tran:"+responseString);
+					String dstString = JsonParser.getTranslateResult(responseString);
+					if (dstString.contains("error_msg:")) {
+						showToast(dstString);
+					} else {
+						mDictionaryBean = new Dictionary();
+						mDictionaryBean.setType(KeyUtil.ResultTypeTranslate);
+						mDictionaryBean.setWord_name(Settings.q);
+						mDictionaryBean.setResult(dstString);
+						DataBaseUtil.getInstance().insert(mDictionaryBean);
+						setData();
+					}
+				} else {
+					showToast(getActivity().getResources().getString(R.string.network_error));
+				}
+			}
+			@Override
+			public void onFinished() {
+				onFinishRequest();
+			}
+		});
 	}
 	
 	private void setData(){
@@ -564,6 +532,10 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		}
 	}
 	
+	private void onFinishRequest(){
+		finishLoadding();
+		submit_btn.setEnabled(true);
+	}
 	
 	private void autoPlay(){
 		View mView = recent_used_lv.getChildAt(0);
@@ -712,6 +684,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 				Settings.q = Settings.q.substring(0,Settings.q.length()-1);
 			}
 			RequestShowapiAsyncTask();
+//			GetDictionaryFaultAsyncTask();
 			StatService.onEvent(getActivity(), "tab_dic_submit_btn", "首页词典页面翻译提交按钮", 1);
 		} else {
 			showToast(getActivity().getResources().getString(R.string.input_et_hint));
@@ -724,12 +697,10 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		super.onDestroy();
 		if(mSpeechSynthesizer != null){
 			mSpeechSynthesizer.stopSpeaking();
-			mSpeechSynthesizer.destroy();
 			mSpeechSynthesizer = null;
 		}
 		if(recognizer != null){
 			recognizer.stopListening();
-			recognizer.destroy();
 			recognizer = null;
 		}
 		if(mAdapter != null){

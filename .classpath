@@ -16,10 +16,10 @@
 	<classpathentry kind="lib" path="libs/google-play-services.jar"/>
 	<classpathentry kind="lib" path="libs/gson-2.4.jar"/>
 	<classpathentry kind="lib" path="libs/contx.jar"/>
-	<classpathentry kind="lib" path="libs/avoscloud-sdk-v3.12.jar"/>
-	<classpathentry kind="lib" path="libs/okio-1.6.0.jar"/>
 	<classpathentry kind="lib" path="libs/Baidu_Mtj_3.7.2.0.jar"/>
-	<classpathentry kind="lib" path="libs/okhttp-2.7.1.jar"/>
+	<classpathentry kind="lib" path="libs/avoscloud-sdk-v3.12.2.jar"/>
+	<classpathentry kind="lib" path="libs/okhttp-2.6.0-leancloud.jar"/>
+	<classpathentry kind="lib" path="libs/okio-1.6.0-leancloud.jar"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

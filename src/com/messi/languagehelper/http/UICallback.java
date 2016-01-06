@@ -3,11 +3,10 @@ package com.messi.languagehelper.http;
 import java.io.IOException;
 
 import android.app.Activity;
-import android.content.Context;
 
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+import com.avos.avoscloud.okhttp.Callback;
+import com.avos.avoscloud.okhttp.Request;
+import com.avos.avoscloud.okhttp.Response;
 
 public class UICallback implements Callback{
 	
@@ -23,6 +22,7 @@ public class UICallback implements Callback{
 		context.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
+				onFinished();
 				onFailured();
 			}
 		});
@@ -36,11 +36,14 @@ public class UICallback implements Callback{
 		context.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
+				onFinished();
 				onResponsed(responseString);
 			}
 		});
 	}
 	
 	public void onFailured() {}
-	public void onResponsed(String mResult) {}
+	public void onFinished() {}
+	public void onResponsed(String responseString) {}
+	
 }
