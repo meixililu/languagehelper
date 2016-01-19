@@ -2,8 +2,6 @@ package com.messi.languagehelper.db;
 
 import java.util.List;
 
-import android.content.Context;
-
 import com.messi.languagehelper.BaseApplication;
 import com.messi.languagehelper.MainFragment;
 import com.messi.languagehelper.dao.DaoSession;
@@ -15,6 +13,8 @@ import com.messi.languagehelper.dao.Means;
 import com.messi.languagehelper.dao.MeansDao;
 import com.messi.languagehelper.dao.Parts;
 import com.messi.languagehelper.dao.PartsDao;
+import com.messi.languagehelper.dao.SymbolListDao;
+import com.messi.languagehelper.dao.SymbolListDaoDao;
 import com.messi.languagehelper.dao.Tag;
 import com.messi.languagehelper.dao.TagDao;
 import com.messi.languagehelper.dao.record;
@@ -22,6 +22,7 @@ import com.messi.languagehelper.dao.recordDao;
 import com.messi.languagehelper.dao.recordDao.Properties;
 import com.messi.languagehelper.util.LogUtil;
 
+import android.content.Context;
 import de.greenrobot.dao.query.DeleteQuery;
 import de.greenrobot.dao.query.QueryBuilder;
 
@@ -36,6 +37,7 @@ public class DataBaseUtil {
     private MeansDao MmeansDao;
     private PartsDao mPartsDao;
     private TagDao mTagDao;
+    private SymbolListDaoDao mSymbolListDaoDao;
 
 	public DataBaseUtil() {
 	}
@@ -53,6 +55,7 @@ public class DataBaseUtil {
             instance.mPartsDao = instance.mDaoSession.getPartsDao();  
             instance.MmeansDao = instance.mDaoSession.getMeansDao();  
             instance.mTagDao = instance.mDaoSession.getTagDao();  
+            instance.mSymbolListDaoDao = instance.mDaoSession.getSymbolListDaoDao();  
         }  
         return instance;  
     }  
@@ -76,6 +79,24 @@ public class DataBaseUtil {
 	public long insert(Means bean){
 		return MmeansDao.insert(bean);
 	}
+	
+	public void insert(List<SymbolListDao> beans){
+		for (SymbolListDao bean : beans) {
+			mSymbolListDaoDao.insert(bean);
+		}
+	}
+	
+	public long getSymbolListSize(){
+		return mSymbolListDaoDao.count();
+	}
+	
+	public List<SymbolListDao> getSymbolList(){
+		return mSymbolListDaoDao.loadAll();
+	}
+	
+	public void update(SymbolListDao bean){
+		mSymbolListDaoDao.update(bean);
+	}
 
 	public long insert(record bean) {
 		bean.setIscollected("0");
@@ -85,6 +106,7 @@ public class DataBaseUtil {
 		bean.setResultVoiceId(System.currentTimeMillis()-5 + "");
 		return recordDao.insert(bean);
 	}
+	
 	
 	public void update(record bean){
 		recordDao.update(bean);
@@ -189,6 +211,6 @@ public class DataBaseUtil {
 		qb.limit(limit);
 		return qb.list();
 	}
-
 	/**Daily Sentence CURD**/
+	
 }

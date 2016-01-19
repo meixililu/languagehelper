@@ -16,6 +16,7 @@ public class SDCardUtil {
 	public static final String sdPath = "/zyhy/audio/";
 	public static final String ImgPath = "/DCIM/zyhy/";
 	public static final String SymbolPath = "/zyhy/audio/symbol/";
+	public static final String WordStudyPath = "/zyhy/audio/wordstudy/";
 	public static final String UserPracticePath = "/zyhy/audio/practice/user/";
 	public static final String PracticePath = "/zyhy/audio/practice/en/";
 	public static final String StudyDialogPath = "/zyhy/audio/study/dialog/";

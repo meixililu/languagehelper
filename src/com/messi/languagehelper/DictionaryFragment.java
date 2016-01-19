@@ -428,9 +428,10 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		.add("showapi_appid", Settings.showapi_appid)
 		.add("showapi_sign", Settings.showapi_secret)
 		.add("showapi_timestamp", String.valueOf(System.currentTimeMillis()))
+		.add("showapi_res_gzip", "1")
 		.add("q", Settings.q)
 		.build();
-		LanguagehelperHttpClient.post(Settings.ShowApiUrl, formBody, new UICallback(getActivity()){
+		LanguagehelperHttpClient.post(Settings.ShowApiDictionaryUrl, formBody, new UICallback(getActivity()){
 			@Override
 			public void onResponsed(String responseString){
 				try {

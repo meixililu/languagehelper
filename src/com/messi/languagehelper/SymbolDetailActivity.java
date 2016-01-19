@@ -1,11 +1,14 @@
 package com.messi.languagehelper;
 
-import java.util.List;
+import com.baidu.mobstat.StatService;
+import com.messi.languagehelper.dao.SymbolListDao;
+import com.messi.languagehelper.util.DownLoadUtil;
+import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.SDCardUtil;
 
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,15 +21,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVFile;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVQuery;
-import com.baidu.mobstat.StatService;
-import com.messi.languagehelper.util.AVOUtil;
-import com.messi.languagehelper.util.DownLoadUtil;
-import com.messi.languagehelper.util.SDCardUtil;
-
 public class SymbolDetailActivity extends BaseActivity implements OnClickListener {
 
 	private FrameLayout symbol_cover,teacher_cover;
@@ -35,8 +29,8 @@ public class SymbolDetailActivity extends BaseActivity implements OnClickListene
 	private ImageView play_img;
 	private ImageButton symbol_play_img,teacher_play_img;
 	private MediaPlayer mPlayer;
-	private String SLCode,audioPath;
-	private AVObject avObject;
+	private String audioPath;
+	private SymbolListDao avObject;
 	private String SDAudioMp3FullName,SDTeacherMp3FullName;
 	private String SDAudioMp3Name,SDTeacherMp3Name;
 	private String SDAudioMp3Url,SDTeacherMp3Url;
@@ -48,13 +42,18 @@ public class SymbolDetailActivity extends BaseActivity implements OnClickListene
 		setContentView(R.layout.symbol_study_activity);
 		initData();
 		initViews();
-		new QueryTask().execute();
+		setData();
 	}
 	
 	private void initData(){
-		SLCode = getIntent().getStringExtra(AVOUtil.SymbolList.SLCode);
-		audioPath = SDCardUtil.SymbolPath + SLCode + SDCardUtil.Delimiter;
 		mPlayer = new MediaPlayer();
+		avObject = (SymbolListDao) BaseApplication.dataMap.get(KeyUtil.DataMapKey);
+		BaseApplication.dataMap.clear();
+		if(avObject != null){
+			audioPath = SDCardUtil.SymbolPath + avObject.getSDCode() + SDCardUtil.Delimiter;
+		}else{
+			finish();
+		}
 	}
 
 	private void initViews() {
@@ -68,82 +67,27 @@ public class SymbolDetailActivity extends BaseActivity implements OnClickListene
 		play_img = (ImageView) findViewById(R.id.play_img);
 		symbol_play_img = (ImageButton) findViewById(R.id.symbol_play_img);
 		teacher_play_img = (ImageButton) findViewById(R.id.teacher_play_img);
-		error_txt.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				new QueryTask().execute();
-			}
-		});
 		
 		symbol_cover.setOnClickListener(this);
 		teacher_cover.setOnClickListener(this);
 	}
 	
-	private class QueryTask extends AsyncTask<Void, Void, Void> {
-
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			showProgressbar();
-			content.setVisibility(View.VISIBLE);
-			error_txt.setVisibility(View.GONE);
-		}
-		
-		@Override
-		protected Void doInBackground(Void... params) {
-			AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.SymbolDetail.SymbolDetail);
-			query.whereEqualTo(AVOUtil.SymbolDetail.SLCode, SLCode);
-			query.whereEqualTo(AVOUtil.SymbolDetail.SDIsValid, "1");
-			try {
-				List<AVObject> avObjects  = query.find();
-				if(avObjects != null && avObjects.size() > 0){
-					avObject = avObjects.get(0);
-				}
-			} catch (AVException e) {
-				e.printStackTrace();
-			}
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(Void result) {
-			super.onPostExecute(result);
-			hideProgressbar();
-			if(avObject != null){
-				String SDName = avObject.getString(AVOUtil.SymbolDetail.SDName);
-				if(!TextUtils.isEmpty(SDName)){
-					setData();
-				}else{
-					error_txt.setVisibility(View.VISIBLE);
-					content.setVisibility(View.GONE);
-				}
-			}else{
-				content.setVisibility(View.GONE);
-				error_txt.setVisibility(View.VISIBLE);
-			}
-		}
-	}
-	
 	private void setData(){
 		try {
-			symbol_en.setText(avObject.getString(AVOUtil.SymbolDetail.SDName));
-			symbol_des.setText(avObject.getString(AVOUtil.SymbolDetail.SDDes));
-			symbol_info.setText(avObject.getString(AVOUtil.SymbolDetail.SDInfo));
+			symbol_en.setText(avObject.getSDName());
+			symbol_des.setText(avObject.getSDDes());
+			symbol_info.setText(avObject.getSDInfo());
 			
-			AVFile avFile = avObject.getAVFile(AVOUtil.SymbolDetail.SDAudioMp3);
-			SDAudioMp3Url = avFile.getUrl();
+			SDAudioMp3Url = avObject.getSDAudioMp3Url();
 			SDAudioMp3Name = SDAudioMp3Url.substring(SDAudioMp3Url.lastIndexOf("/")+1);
 			SDAudioMp3FullName = SDCardUtil.getDownloadPath(audioPath) + SDAudioMp3Name;
-			
 			if(!SDCardUtil.isFileExist(SDAudioMp3FullName)){
 				DownLoadUtil.downloadFile(this, SDAudioMp3Url, audioPath, SDAudioMp3Name, null);
 			}
 			
-			AVFile avFileTeacher = avObject.getAVFile(AVOUtil.SymbolDetail.SDTeacherMp3);
-			SDTeacherMp3Url = avFileTeacher.getUrl();
+			SDTeacherMp3Url = avObject.getSDTeacherMp3Url();
 			SDTeacherMp3Name = SDTeacherMp3Url.substring(SDTeacherMp3Url.lastIndexOf("/")+1);
 			SDTeacherMp3FullName = SDCardUtil.getDownloadPath(audioPath) + SDTeacherMp3Name;
-			
 			if(!SDCardUtil.isFileExist(SDTeacherMp3FullName)){
 				DownLoadUtil.downloadFile(this, SDTeacherMp3Url, audioPath, SDTeacherMp3Name, null);
 			}
@@ -210,7 +154,6 @@ public class SymbolDetailActivity extends BaseActivity implements OnClickListene
 			if(uriPath.equals(SDTeacherMp3FullName)){
 				play_img.setBackgroundResource(R.drawable.ic_pause_circle_outline_grey600_36dp);
 			}
-			mPlayer.start();
 			currentFileFullName = uriPath;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -24,7 +24,6 @@
             android:shadowDx="0.3"
             android:shadowDy="0.3"
             android:shadowRadius="0.3"
-            android:text="[I]"
             android:textColor="@color/text_black"
             android:textSize="@dimen/title" />
         
@@ -34,7 +33,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:gravity="center"
-            android:text="前元音"
             android:textColor="@color/gray"
             android:textSize="@dimen/small" />
     </LinearLayout>

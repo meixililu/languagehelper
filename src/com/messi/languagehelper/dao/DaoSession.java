@@ -25,6 +25,10 @@ public class DaoSession extends AbstractDaoSession {
     private final DaoConfig everyDaySentenceDaoConfig;
     private final DaoConfig roleDaoConfig;
     private final DaoConfig dialogDaoDaoConfig;
+    private final DaoConfig symbolListDaoDaoConfig;
+    private final DaoConfig wordListTypeDaoConfig;
+    private final DaoConfig wordDetailListItemDaoConfig;
+
 
     private final recordDao recordDao;
     private final MeansDao meansDao;
@@ -34,6 +38,9 @@ public class DaoSession extends AbstractDaoSession {
     private final EveryDaySentenceDao everyDaySentenceDao;
     private final RoleDao roleDao;
     private final DialogDaoDao dialogDaoDao;
+    private final SymbolListDaoDao symbolListDaoDao;
+    private final WordListTypeDao wordListTypeDao;
+    private final WordDetailListItemDao wordDetailListItemDao;
 
     public DaoSession(SQLiteDatabase db, IdentityScopeType type, Map<Class<? extends AbstractDao<?, ?>>, DaoConfig>
             daoConfigMap) {
@@ -62,6 +69,15 @@ public class DaoSession extends AbstractDaoSession {
 
         dialogDaoDaoConfig = daoConfigMap.get(DialogDaoDao.class).clone();
         dialogDaoDaoConfig.initIdentityScope(type);
+        
+        symbolListDaoDaoConfig = daoConfigMap.get(SymbolListDaoDao.class).clone();
+        symbolListDaoDaoConfig.initIdentityScope(type);
+        
+        wordListTypeDaoConfig = daoConfigMap.get(WordListTypeDao.class).clone();
+        wordListTypeDaoConfig.initIdentityScope(type);
+
+        wordDetailListItemDaoConfig = daoConfigMap.get(WordDetailListItemDao.class).clone();
+        wordDetailListItemDaoConfig.initIdentityScope(type);
 
         recordDao = new recordDao(recordDaoConfig, this);
         meansDao = new MeansDao(meansDaoConfig, this);
@@ -71,6 +87,9 @@ public class DaoSession extends AbstractDaoSession {
         everyDaySentenceDao = new EveryDaySentenceDao(everyDaySentenceDaoConfig, this);
         roleDao = new RoleDao(roleDaoConfig, this);
         dialogDaoDao = new DialogDaoDao(dialogDaoDaoConfig, this);
+        symbolListDaoDao = new SymbolListDaoDao(symbolListDaoDaoConfig, this);
+        wordListTypeDao = new WordListTypeDao(wordListTypeDaoConfig, this);
+        wordDetailListItemDao = new WordDetailListItemDao(wordDetailListItemDaoConfig, this);
 
         registerDao(record.class, recordDao);
         registerDao(Means.class, meansDao);
@@ -80,6 +99,9 @@ public class DaoSession extends AbstractDaoSession {
         registerDao(EveryDaySentence.class, everyDaySentenceDao);
         registerDao(Role.class, roleDao);
         registerDao(DialogDao.class, dialogDaoDao);
+        registerDao(SymbolListDao.class, symbolListDaoDao);
+        registerDao(WordListType.class, wordListTypeDao);
+        registerDao(WordDetailListItem.class, wordDetailListItemDao);
     }
     
     public void clear() {
@@ -91,6 +113,9 @@ public class DaoSession extends AbstractDaoSession {
         everyDaySentenceDaoConfig.getIdentityScope().clear();
         roleDaoConfig.getIdentityScope().clear();
         dialogDaoDaoConfig.getIdentityScope().clear();
+        symbolListDaoDaoConfig.getIdentityScope().clear();
+        wordListTypeDaoConfig.getIdentityScope().clear();
+        wordDetailListItemDaoConfig.getIdentityScope().clear();
     }
 
     public recordDao getRecordDao() {
@@ -123,6 +148,18 @@ public class DaoSession extends AbstractDaoSession {
 
     public DialogDaoDao getDialogDaoDao() {
         return dialogDaoDao;
+    }
+    
+    public SymbolListDaoDao getSymbolListDaoDao() {
+        return symbolListDaoDao;
+    }
+    
+    public WordListTypeDao getWordListTypeDao() {
+        return wordListTypeDao;
+    }
+
+    public WordDetailListItemDao getWordDetailListItemDao() {
+        return wordDetailListItemDao;
     }
 
 }

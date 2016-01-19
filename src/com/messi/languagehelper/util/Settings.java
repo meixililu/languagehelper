@@ -28,7 +28,13 @@ public class Settings {
 	public static String BaiduOCRUrl = "http://apis.baidu.com/idl_baidu/baiduocrpay/idlocrpaid";
 	
 	/**showapi dictionary api**/
-	public static String ShowApiUrl = "http://route.showapi.com/32-9";
+	public static String ShowApiDictionaryUrl = "http://route.showapi.com/32-9";
+	
+	/**showapi word list api**/
+	public static String ShowApiWordListUrl = "http://route.showapi.com/8-11";
+	
+	/**showapi word detail list api**/
+	public static String ShowApiWordDetailListUrl = "http://route.showapi.com/8-10";
 	
 	/**jinshan daily sentence api**/
 	public static String DailySentenceUrl = "http://open.iciba.com/dsapi/";

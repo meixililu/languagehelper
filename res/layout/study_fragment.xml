@@ -93,6 +93,28 @@
         </FrameLayout>
 
         <FrameLayout
+            android:id="@+id/word_study_cover"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="@dimen/padding_7"
+            android:foreground="@drawable/framelayout_selector"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/style5_color4"
+                android:gravity="center"
+                android:shadowColor="@color/white"
+                android:shadowDx="0.4"
+                android:shadowDy="0.4"
+                android:shadowRadius="0.4"
+                android:text="@string/title_word_study"
+                android:textColor="@color/white"
+                android:textSize="@dimen/bigger" />
+        </FrameLayout>
+        
+        <FrameLayout
             android:id="@+id/study_spoken_english"
             android:layout_width="fill_parent"
             android:layout_height="80dp"

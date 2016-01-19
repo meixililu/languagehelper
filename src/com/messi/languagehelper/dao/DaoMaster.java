@@ -1,5 +1,7 @@
 package com.messi.languagehelper.dao;
 
+import com.messi.languagehelper.db.LHContract;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
@@ -13,7 +15,7 @@ import de.greenrobot.dao.identityscope.IdentityScopeType;
  * Master of DAO (schema version 3): knows all DAOs.
 */
 public class DaoMaster extends AbstractDaoMaster {
-    public static final int SCHEMA_VERSION = 3;
+    public static final int SCHEMA_VERSION = LHContract.DATABASE_VERSION;
 
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(SQLiteDatabase db, boolean ifNotExists) {
@@ -25,6 +27,9 @@ public class DaoMaster extends AbstractDaoMaster {
         EveryDaySentenceDao.createTable(db, ifNotExists);
         RoleDao.createTable(db, ifNotExists);
         DialogDaoDao.createTable(db, ifNotExists);
+        SymbolListDaoDao.createTable(db, ifNotExists);
+        WordListTypeDao.createTable(db, ifNotExists);
+        WordDetailListItemDao.createTable(db, ifNotExists);
     }
     
     /** Drops underlying database table using DAOs. */
@@ -37,6 +42,9 @@ public class DaoMaster extends AbstractDaoMaster {
         EveryDaySentenceDao.dropTable(db, ifExists);
         RoleDao.dropTable(db, ifExists);
         DialogDaoDao.dropTable(db, ifExists);
+        SymbolListDaoDao.dropTable(db, ifExists);
+        WordListTypeDao.dropTable(db, ifExists);
+        WordDetailListItemDao.dropTable(db, ifExists);
     }
     
     public static abstract class OpenHelper extends SQLiteOpenHelper {
@@ -76,6 +84,9 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(EveryDaySentenceDao.class);
         registerDaoClass(RoleDao.class);
         registerDaoClass(DialogDaoDao.class);
+        registerDaoClass(SymbolListDaoDao.class);
+        registerDaoClass(WordListTypeDao.class);
+        registerDaoClass(WordDetailListItemDao.class);
     }
     
     public DaoSession newSession() {

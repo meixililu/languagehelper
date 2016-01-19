@@ -299,32 +299,11 @@ public class AVOUtil {
 		
 	}
 	
-	public static class SymbolList {
-		
-		public final static String SymbolList = "SymbolList";
-		
-		public final static String SLCode = "SLCode";
-		
-		public final static String SLName = "SLName";
-		
-		public final static String SLDes = "SLDes";
-		
-		public final static String SLType = "SLType";
-		
-		public final static String SLIsValid = "SLIsValid";
-		
-		public final static String SLImgUrl = "SLImgUrl";
-		
-		public final static String SLOrder = "SLOrder";
-	}
-	
 	public static class SymbolDetail {
 		
 		public final static String SymbolDetail = "SymbolDetail";
 		
 		public final static String SDCode = "SDCode";
-		
-		public final static String SLCode = "SLCode";
 		
 		public final static String SDName = "SDName";
 		
@@ -338,6 +317,46 @@ public class AVOUtil {
 		
 		public final static String SDIsValid = "SDIsValid";
 		
+	}
+	
+	public static class WordStudyType {
+		
+		public final static String WordStudyType = "WordStudyType";
+		
+		public final static String type_id = "type_id";
+		
+		public final static String title = "title";
+
+		public final static String is_valid = "is_valid";
+		
+		public final static String word_num = "word_num";
+		
+		public final static String course_num = "course_num";
+		
+		public final static String img = "img";
+		
+		public final static String child_list_json = "child_list_json";
+	}
+	
+	public static class WordStudyDetail {
+		
+		public final static String WordStudyDetail = "WordStudyDetail";
+		
+		public final static String class_id = "class_id";
+
+		public final static String course = "course";
+
+		public final static String class_title = "class_title";
+		
+		public final static String sound = "sound";
+		
+		public final static String desc = "desc";
+		
+		public final static String item_id = "item_id";
+		
+		public final static String symbol = "symbol";
+		
+		public final static String name = "name";
 	}
 
 }

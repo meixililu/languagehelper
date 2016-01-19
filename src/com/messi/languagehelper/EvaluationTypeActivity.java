@@ -53,8 +53,8 @@ public class EvaluationTypeActivity extends BaseActivity implements OnClickListe
 		
 		mXFYSAD = new XFYSAD(this, headerView, ADUtil.MRYJYSNRLAd);
 		mXFYSAD.showAD();
-		mXFYSAD.startPlayImg();
 		mAdapter.notifyDataSetChanged();
+		mXFYSAD.startPlayImg();
 	}
 	
 	@Override

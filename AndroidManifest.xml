@@ -143,6 +143,15 @@
         <!-- 讯飞广告sdk -->
 
         <activity
+            android:name=".WordStudyDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WordStudyUintListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WordBookListActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".WordStudyListActivity"
             android:screenOrientation="portrait" />
         <activity

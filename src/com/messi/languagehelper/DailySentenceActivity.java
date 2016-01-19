@@ -53,8 +53,8 @@ public class DailySentenceActivity extends BaseActivity implements OnClickListen
 			
 			mXFYSAD = new XFYSAD(this, headerView, ADUtil.MRYJYSNRLAd);
 			mXFYSAD.showAD();
-			mXFYSAD.startPlayImg();
 			mAdapter.notifyDataSetChanged();
+			mXFYSAD.startPlayImg();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

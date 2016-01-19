@@ -85,6 +85,12 @@ public class KeyUtil {
 	public static final String DataMapKey = "DataMapKey";
 	
 	public static final String IsAutoPlayAfterReaded = "IsAutoPlayAfterReaded";
+
+	public static final String CourseId = "CourseId";
+	
+	public static final String ClassId = "ClassId";
+	
+	public static final String ClassName = "ClassName";
 	
 	
 	

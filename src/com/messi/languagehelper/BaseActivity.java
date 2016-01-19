@@ -64,11 +64,15 @@ public class BaseActivity extends AppCompatActivity {
                 }
             }
             String title = getIntent().getStringExtra(KeyUtil.ActionbarTitle);
-            if(!TextUtils.isEmpty(title)){
-            	getSupportActionBar().setTitle(title);
-            }
+            setTitle(title);
         }
     }
+	
+	protected void setTitle(String title){
+		if(!TextUtils.isEmpty(title)){
+			getSupportActionBar().setTitle(title);
+		}
+	}
 	
 	protected void toActivity(Class mClass,Bundle bundle){
 		Intent intent = new Intent(this,mClass);

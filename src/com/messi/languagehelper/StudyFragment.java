@@ -47,6 +47,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	private View view;
 	private FrameLayout study_daily_sentence,study_spoken_english,study_dailog,study_test,study_to_all_user;
 	private FrameLayout symbol_study_cover;
+	private FrameLayout word_study_cover;
 	private FrameLayout en_examination_layout;
 	private TextView dailysentence_txt;
 	private ImageView daily_sentence_item_img;
@@ -98,6 +99,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		study_test = (FrameLayout)view.findViewById(R.id.study_test);
 		study_to_all_user = (FrameLayout)view.findViewById(R.id.study_to_all_user);
 		symbol_study_cover = (FrameLayout)view.findViewById(R.id.symbol_study_cover);
+		word_study_cover = (FrameLayout)view.findViewById(R.id.word_study_cover);
 		dailysentence_txt = (TextView)view.findViewById(R.id.dailysentence_txt);
 		daily_sentence_item_img = (ImageView)view.findViewById(R.id.daily_sentence_item_img);
 		play_img = (ImageView)view.findViewById(R.id.play_img);
@@ -108,6 +110,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		study_dailog.setOnClickListener(this);
 		study_test.setOnClickListener(this);
 		symbol_study_cover.setOnClickListener(this);
+		word_study_cover.setOnClickListener(this);
 		study_to_all_user.setOnClickListener(this);
 		dailysentence_txt.setOnClickListener(this);
 		news_layout.setOnClickListener(this);
@@ -174,6 +177,9 @@ public class StudyFragment extends Fragment implements OnClickListener{
 			break;
 		case R.id.symbol_study_cover:
 			toSymbolListActivity();
+			break;
+		case R.id.word_study_cover:
+			toWordStudyListActivity();
 			break;
 		case R.id.study_daily_sentence:
 			toDailySentenceActivity();
@@ -276,6 +282,12 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	
 	private void toSymbolListActivity(){
 		Intent intent = new Intent(getActivity(),SymbolListActivity.class);
+		startActivity(intent);
+		StatService.onEvent(getActivity(), "tab_symbol_study", "去音标学习页面", 1);
+	}
+	
+	private void toWordStudyListActivity(){
+		Intent intent = new Intent(getActivity(),WordStudyListActivity.class);
 		startActivity(intent);
 		StatService.onEvent(getActivity(), "tab_symbol_study", "去音标学习页面", 1);
 	}
