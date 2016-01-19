@@ -65,10 +65,11 @@ public class WordStudyUnitListAdapter extends BaseAdapter {
 		TextView name;
 	}
 
-	private void onItemClick(String course_num){
+	private void onItemClick(String course_id){
 		Intent intent = new Intent(context,WordStudyDetailActivity.class);
 		intent.putExtra(KeyUtil.ClassName, avObjects.getTitle());
-		intent.putExtra(KeyUtil.CourseId, Integer.parseInt(course_num));
+		intent.putExtra(KeyUtil.CourseId, Integer.parseInt(course_id));
+		intent.putExtra(KeyUtil.CourseNum, avObjects.getCourse_num());
 		intent.putExtra(KeyUtil.ClassId, avObjects.getClass_id());
 		context.startActivity(intent);
 	}
