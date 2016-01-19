@@ -31,6 +31,7 @@ public class WordStudyDetailActivity extends BaseActivity implements OnClickList
 	private ButtonFloat playbtn,previous_btn,next_btn;
 	private String class_name;
 	private String class_id;
+	private int course_id;
 	private int course_num;
 	private MediaPlayer mPlayer;
 	private String audioPath;
@@ -49,10 +50,11 @@ public class WordStudyDetailActivity extends BaseActivity implements OnClickList
 		mPlayer = new MediaPlayer();
 		class_name = getIntent().getStringExtra(KeyUtil.ClassName);
 		class_id = getIntent().getStringExtra(KeyUtil.ClassId);
-		course_num = getIntent().getIntExtra(KeyUtil.CourseId, 1);
-		setTitle(class_name + course_num +"单元");
+		course_id = getIntent().getIntExtra(KeyUtil.CourseId, 1);
+		course_num = getIntent().getIntExtra(KeyUtil.CourseNum, 0);
+		setTitle(class_name + course_id +"单元");
 		if(!TextUtils.isEmpty(class_id)){
-			audioPath = SDCardUtil.WordStudyPath + class_id + SDCardUtil.Delimiter + String.valueOf(course_num) + SDCardUtil.Delimiter;
+			audioPath = SDCardUtil.WordStudyPath + class_id + SDCardUtil.Delimiter + String.valueOf(course_id) + SDCardUtil.Delimiter;
 		}else{
 			finish();
 		}
@@ -88,7 +90,7 @@ public class WordStudyDetailActivity extends BaseActivity implements OnClickList
 			try {
 				AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.WordStudyDetail.WordStudyDetail);
 				query.whereEqualTo(AVOUtil.WordStudyDetail.class_id, class_id);
-				query.whereEqualTo(AVOUtil.WordStudyDetail.course, course_num);
+				query.whereEqualTo(AVOUtil.WordStudyDetail.course, course_id);
 				query.orderByAscending(AVOUtil.WordStudyDetail.item_id);
 				List<AVObject> avObjects  = query.find();
 				if(avObjects != null){
@@ -109,6 +111,7 @@ public class WordStudyDetailActivity extends BaseActivity implements OnClickList
 			hideProgressbar();
 			onSwipeRefreshLayoutFinish();
 			mAdapter.notifyDataSetChanged();
+			category_lv.setSelection(0);
 		}
 	}
 	
@@ -132,18 +135,18 @@ public class WordStudyDetailActivity extends BaseActivity implements OnClickList
 			playSound();
 			break;
 		case R.id.previous_btn:
-			if(course_num > 1){
-				course_num--;
-				setTitle(class_name + course_num +"单元");
+			if(course_id > 1){
+				course_id--;
+				setTitle(class_name + course_id +"单元");
 				new QueryTask().execute();
 			}else{
 				ToastUtil.diaplayMesShort(WordStudyDetailActivity.this, "已经是第一单元了");
 			}
 			break;
 		case R.id.next_btn:
-			if(index < itemList.size()){
-				course_num++;
-				setTitle(class_name + course_num +"单元");
+			if(course_id < course_num){
+				course_id++;
+				setTitle(class_name + course_id +"单元");
 				new QueryTask().execute();
 			}else{
 				ToastUtil.diaplayMesShort(WordStudyDetailActivity.this, "已经是最后一单元了");
@@ -153,7 +156,15 @@ public class WordStudyDetailActivity extends BaseActivity implements OnClickList
 	}
 	
 	private void playSound(){
-		mAdapter.onPlayBtnClick(index);
+		if(mAdapter.isPlaying()){
+			mAdapter.onPlayBtnClick(index);
+		}
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		index = 0;
 	}
 	
 }

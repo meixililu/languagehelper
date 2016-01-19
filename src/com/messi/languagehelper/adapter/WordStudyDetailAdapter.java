@@ -166,5 +166,14 @@ public class WordStudyDetailAdapter extends BaseAdapter {
 	public void setIsPlayNext(boolean isPlay){
 		isPlayNext = isPlay;
 	}
+	
+	public boolean isPlaying(){
+		if(mPlayer.isPlaying()){
+			mPlayer.stop();
+			return false;
+		}else{
+			return true;
+		}
+	}
 
 }

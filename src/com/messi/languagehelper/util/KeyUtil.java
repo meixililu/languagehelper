@@ -87,6 +87,8 @@ public class KeyUtil {
 	public static final String IsAutoPlayAfterReaded = "IsAutoPlayAfterReaded";
 
 	public static final String CourseId = "CourseId";
+
+	public static final String CourseNum = "CourseNum";
 	
 	public static final String ClassId = "ClassId";
 	
