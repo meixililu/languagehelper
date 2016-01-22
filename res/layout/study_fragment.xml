@@ -24,7 +24,7 @@
                 android:id="@+id/daily_sentence_item_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scaleType="centerCrop" />
+                />
 
             <LinearLayout
                 android:id="@+id/daily_sentence_list_item_middle"
@@ -103,7 +103,7 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@color/style5_color4"
+                android:background="#7986CB"
                 android:gravity="center"
                 android:shadowColor="@color/white"
                 android:shadowDx="0.4"

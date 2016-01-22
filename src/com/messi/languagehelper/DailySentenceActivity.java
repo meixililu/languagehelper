@@ -6,6 +6,7 @@ import java.util.List;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -44,23 +45,22 @@ public class DailySentenceActivity extends BaseActivity implements OnClickListen
 			mInflater = LayoutInflater.from(this);
 			recent_used_lv = (ListView) findViewById(R.id.studycategory_lv);
 			
-			View headerView = mInflater.inflate(R.layout.xunfei_ysad_item, null);
+			final View headerView = mInflater.inflate(R.layout.xunfei_ysad_item, null);
 			recent_used_lv.addHeaderView(headerView);
 			
 			beans = new ArrayList<EveryDaySentence>();
 			mAdapter = new DailySentenceListsAdapter(this, mInflater, beans, mPlayer, mProgressbar);
 			recent_used_lv.setAdapter(mAdapter);
 			
-			mXFYSAD = new XFYSAD(this, headerView, ADUtil.MRYJYSNRLAd);
+			mXFYSAD = new XFYSAD(DailySentenceActivity.this, headerView, ADUtil.MRYJYSNRLAd);
 			mXFYSAD.showAD();
 			mAdapter.notifyDataSetChanged();
-			mXFYSAD.startPlayImg();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	class GetDataTask extends AsyncTask<Void, Void, Void>{
+	class GetDataTask extends AsyncTask<Void, Void, List<EveryDaySentence>>{
 
 		@Override
 		protected void onPreExecute() {
@@ -69,16 +69,16 @@ public class DailySentenceActivity extends BaseActivity implements OnClickListen
 		}
 
 		@Override
-		protected Void doInBackground(Void... params) {
+		protected List<EveryDaySentence> doInBackground(Void... params) {
 			List<EveryDaySentence> list = DataBaseUtil.getInstance().getDailySentenceList(Settings.offset);
-			beans.clear();
-			beans.addAll(list);
-			return null;
+			return list;
 		}
 
 		@Override
-		protected void onPostExecute(Void result) {
+		protected void onPostExecute(List<EveryDaySentence> list) {
 			hideProgressbar();
+			beans.clear();
+			beans.addAll(list);
 			mAdapter.notifyDataSetChanged();
 		}
 	}

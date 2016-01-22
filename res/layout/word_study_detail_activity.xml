@@ -76,7 +76,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/padding_7"
                         android:background="#1E88E5"
-                        materialdesign:iconDrawable="@drawable/ic_play_circle_outline_white_48dp"
+                        materialdesign:iconDrawable="@drawable/ic_play_arrow_white_48dp"
                         materialdesign:rippleSpeed="98" />
 
                 </LinearLayout>

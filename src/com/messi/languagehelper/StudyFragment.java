@@ -2,7 +2,23 @@ package com.messi.languagehelper;
 
 import java.util.List;
 
-import org.json.JSONObject;
+import com.baidu.mobstat.StatService;
+import com.bumptech.glide.Glide;
+import com.messi.languagehelper.dao.EveryDaySentence;
+import com.messi.languagehelper.db.DataBaseUtil;
+import com.messi.languagehelper.http.LanguagehelperHttpClient;
+import com.messi.languagehelper.http.UICallback;
+import com.messi.languagehelper.impl.FragmentProgressbarListener;
+import com.messi.languagehelper.util.ADUtil;
+import com.messi.languagehelper.util.DownLoadUtil;
+import com.messi.languagehelper.util.GytUtil;
+import com.messi.languagehelper.util.JsonParser;
+import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.LogUtil;
+import com.messi.languagehelper.util.NumberUtil;
+import com.messi.languagehelper.util.SDCardUtil;
+import com.messi.languagehelper.util.Settings;
+import com.messi.languagehelper.util.TimeUtil;
 
 import android.app.Activity;
 import android.content.Context;
@@ -23,24 +39,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import cn.contentx.ContExManager;
-
-import com.baidu.mobstat.StatService;
-import com.messi.languagehelper.dao.EveryDaySentence;
-import com.messi.languagehelper.db.DataBaseUtil;
-import com.messi.languagehelper.http.LanguagehelperHttpClient;
-import com.messi.languagehelper.http.UICallback;
-import com.messi.languagehelper.impl.FragmentProgressbarListener;
-import com.messi.languagehelper.util.ADUtil;
-import com.messi.languagehelper.util.DownLoadUtil;
-import com.messi.languagehelper.util.GytUtil;
-import com.messi.languagehelper.util.JsonParser;
-import com.messi.languagehelper.util.KeyUtil;
-import com.messi.languagehelper.util.LogUtil;
-import com.messi.languagehelper.util.NumberUtil;
-import com.messi.languagehelper.util.SDCardUtil;
-import com.messi.languagehelper.util.Settings;
-import com.messi.languagehelper.util.TimeUtil;
-import com.squareup.picasso.Picasso;
 
 public class StudyFragment extends Fragment implements OnClickListener{
 
@@ -162,9 +160,8 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		LogUtil.DefalutLog("StudyFragment-setSentence()");
 		if(mEveryDaySentence != null){
 			dailysentence_txt.setText(mEveryDaySentence.getContent());
-			Picasso.with(getActivity())
+			Glide.with(getActivity())
 			.load(mEveryDaySentence.getPicture2())
-			.tag(getActivity())
 			.into(daily_sentence_item_img);
 		}
 	}

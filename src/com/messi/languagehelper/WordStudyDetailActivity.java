@@ -157,14 +157,28 @@ public class WordStudyDetailActivity extends BaseActivity implements OnClickList
 	
 	private void playSound(){
 		if(mAdapter.isPlaying()){
+			playbtn.setDrawableIcon(this.getResources().getDrawable(R.drawable.ic_stop_white_48dp));
 			mAdapter.onPlayBtnClick(index);
+		}else{
+			playbtn.setDrawableIcon(this.getResources().getDrawable(R.drawable.ic_play_arrow_white_48dp));
 		}
+	}
+	
+	public void stopPlay(){
+		if (mPlayer != null) {   
+			mPlayer.stop();  
+        } 
+		playbtn.setDrawableIcon(this.getResources().getDrawable(R.drawable.ic_play_arrow_white_48dp));
 	}
 	
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		index = 0;
+		if (mPlayer != null) {   
+			mPlayer.stop();  
+			mPlayer.release();   
+			mPlayer = null;   
+        } 
 	}
 	
 }

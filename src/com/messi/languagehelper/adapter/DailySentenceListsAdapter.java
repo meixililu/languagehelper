@@ -3,6 +3,20 @@ package com.messi.languagehelper.adapter;
 import java.io.IOException;
 import java.util.List;
 
+import com.avos.avoscloud.okhttp.Callback;
+import com.avos.avoscloud.okhttp.Request;
+import com.avos.avoscloud.okhttp.Response;
+import com.bumptech.glide.Glide;
+import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
+import com.messi.languagehelper.R;
+import com.messi.languagehelper.ViewImageActivity;
+import com.messi.languagehelper.dao.EveryDaySentence;
+import com.messi.languagehelper.http.LanguagehelperHttpClient;
+import com.messi.languagehelper.util.DownLoadUtil;
+import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.LogUtil;
+import com.messi.languagehelper.util.SDCardUtil;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -17,21 +31,6 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.avos.avoscloud.okhttp.Callback;
-import com.avos.avoscloud.okhttp.Request;
-import com.avos.avoscloud.okhttp.Response;
-import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
-import com.messi.languagehelper.R;
-import com.messi.languagehelper.ViewImageActivity;
-import com.messi.languagehelper.dao.EveryDaySentence;
-import com.messi.languagehelper.http.LanguagehelperHttpClient;
-import com.messi.languagehelper.task.MyThread;
-import com.messi.languagehelper.util.DownLoadUtil;
-import com.messi.languagehelper.util.KeyUtil;
-import com.messi.languagehelper.util.LogUtil;
-import com.messi.languagehelper.util.SDCardUtil;
-import com.squareup.picasso.Picasso;
 
 public class DailySentenceListsAdapter extends BaseAdapter {
 
@@ -82,9 +81,8 @@ public class DailySentenceListsAdapter extends BaseAdapter {
 		holder.english_txt.setText(mBean.getContent());
 		holder.chinese_txt.setText(mBean.getNote());
 		
-		Picasso.with(context)
+		Glide.with(context)
 		.load(mBean.getPicture2())
-		.tag(context)
 		.into(holder.daily_sentence_list_item_img);
 		
 		holder.daily_sentence_list_item_cover.setOnClickListener(new OnClickListener() {

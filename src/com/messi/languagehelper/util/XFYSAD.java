@@ -4,6 +4,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.bumptech.glide.Glide;
+import com.iflytek.voiceads.AdError;
+import com.iflytek.voiceads.IFLYNativeAd;
+import com.iflytek.voiceads.IFLYNativeListener;
+import com.iflytek.voiceads.NativeADDataRef;
+import com.messi.languagehelper.R;
+import com.messi.languagehelper.adapter.ViewPagerAdapter;
+import com.messi.languagehelper.views.ProportionalImageView;
+import com.messi.languagehelper.views.WrapContentHeightViewPager;
+
 import android.content.Context;
 import android.os.Handler;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -14,16 +24,6 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-
-import com.iflytek.voiceads.AdError;
-import com.iflytek.voiceads.IFLYNativeAd;
-import com.iflytek.voiceads.IFLYNativeListener;
-import com.iflytek.voiceads.NativeADDataRef;
-import com.messi.languagehelper.R;
-import com.messi.languagehelper.adapter.ViewPagerAdapter;
-import com.messi.languagehelper.views.ProportionalImageView;
-import com.messi.languagehelper.views.WrapContentHeightViewPager;
-import com.squareup.picasso.Picasso;
 
 public class XFYSAD {
 	
@@ -38,6 +38,7 @@ public class XFYSAD {
 	private Handler mHandler;
 	private int Index;
 	private String adId;
+	private int retryTime;
 	
 	public XFYSAD(Context mContext,View parentView,String adId){
 		this.mContext = mContext;
@@ -47,6 +48,7 @@ public class XFYSAD {
 		mHandler = new Handler();
 		auto_view_pager = (WrapContentHeightViewPager)parentView.findViewById(R.id.auto_view_pager);
 		viewpager_dot_layout = (LinearLayout)parentView.findViewById(R.id.viewpager_dot_layout);
+		parentView.setVisibility(View.GONE);
 	}
 	
 	private Runnable mRunnable = new Runnable() {
@@ -66,8 +68,10 @@ public class XFYSAD {
 	
 	public void startPlayImg(){
 		if(mHandler != null){
-			mHandler.postDelayed(mRunnable, ADUtil.adInterval);
-			LogUtil.DefalutLog("---startPlayImg---");
+			if(adList != null && adList.size() > 0){
+				mHandler.postDelayed(mRunnable, ADUtil.adInterval);
+				LogUtil.DefalutLog("---startPlayImg---");
+			}
 		}
 	}
 	
@@ -85,6 +89,15 @@ public class XFYSAD {
 				public void onAdFailed(AdError arg0) {
 					parentView.setVisibility(View.GONE);
 					LogUtil.DefalutLog("onAdFailed---"+arg0.getErrorCode()+"---"+arg0.getErrorDescription());
+					if(retryTime < 1){
+						retryTime ++;
+						if(adId.equals(ADUtil.XiuxianYSNRLAd)){
+							adId = ADUtil.MRYJYSNRLAd;
+						}else if(adId.equals(ADUtil.MRYJYSNRLAd)){
+							adId = ADUtil.XiuxianYSNRLAd;
+						}
+						showAD();
+					}
 				}
 				@Override
 				public void onADLoaded(List<NativeADDataRef> arg0) {
@@ -96,9 +109,6 @@ public class XFYSAD {
 						}
 						isReverse = !isReverse;
 						setAdData();
-						for(NativeADDataRef bean : arg0){
-							LogUtil.DefalutLog("onADLoaded---"+bean.getTitle());
-						}
 					}
 				}
 			});
@@ -128,6 +138,7 @@ public class XFYSAD {
 				return false;
 			}
 		});
+        startPlayImg();
 	}
 	
 	public View getAdItem(final NativeADDataRef mNativeADDataRef){
@@ -135,9 +146,8 @@ public class XFYSAD {
 		FrameLayout cover = (FrameLayout) convertView.findViewById(R.id.ad_layout);
 		ProportionalImageView ad_img = (ProportionalImageView) convertView.findViewById(R.id.ad_img);
 		
-		Picasso.with(mContext)
+		Glide.with(mContext)
 		.load(mNativeADDataRef.getImage())
-		.tag(mContext)
 		.into(ad_img);
 		cover.setOnClickListener(new OnClickListener() {
 			@Override

@@ -27,6 +27,7 @@
     <string name="title_comments">吐槽评价</string>
     <string name="title_apps">发现APP</string>
     <string name="evaluation_prompt">关于口语评测</string>
+    <string name="offline_download">下载Mp3</string>
     
     <string name="menu_share">DIY分享</string>
     <string name="menu_settings">语速调节</string>

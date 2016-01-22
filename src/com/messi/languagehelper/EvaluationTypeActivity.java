@@ -3,28 +3,20 @@ package com.messi.languagehelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.messi.languagehelper.adapter.EvaluationTypeAdapter;
+import com.messi.languagehelper.util.ADUtil;
+import com.messi.languagehelper.util.AVOUtil;
+import com.messi.languagehelper.util.XFYSAD;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.FrameLayout;
 import android.widget.ListView;
-
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVQuery;
-import com.iflytek.voiceads.AdError;
-import com.iflytek.voiceads.IFLYNativeAd;
-import com.iflytek.voiceads.IFLYNativeListener;
-import com.iflytek.voiceads.NativeADDataRef;
-import com.messi.languagehelper.adapter.EvaluationTypeAdapter;
-import com.messi.languagehelper.util.ADUtil;
-import com.messi.languagehelper.util.AVOUtil;
-import com.messi.languagehelper.util.LogUtil;
-import com.messi.languagehelper.util.XFYSAD;
-import com.messi.languagehelper.views.ProportionalImageView;
-import com.squareup.picasso.Picasso;
 
 public class EvaluationTypeActivity extends BaseActivity implements OnClickListener{
 
@@ -54,7 +46,6 @@ public class EvaluationTypeActivity extends BaseActivity implements OnClickListe
 		mXFYSAD = new XFYSAD(this, headerView, ADUtil.MRYJYSNRLAd);
 		mXFYSAD.showAD();
 		mAdapter.notifyDataSetChanged();
-		mXFYSAD.startPlayImg();
 	}
 	
 	@Override

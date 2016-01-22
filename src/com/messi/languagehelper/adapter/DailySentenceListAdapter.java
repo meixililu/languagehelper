@@ -2,6 +2,15 @@ package com.messi.languagehelper.adapter;
 
 import java.util.List;
 
+import com.bumptech.glide.Glide;
+import com.messi.languagehelper.R;
+import com.messi.languagehelper.ViewImageActivity;
+import com.messi.languagehelper.dao.EveryDaySentence;
+import com.messi.languagehelper.task.PublicTask;
+import com.messi.languagehelper.task.PublicTask.PublicTaskListener;
+import com.messi.languagehelper.util.AudioTrackUtil;
+import com.messi.languagehelper.util.KeyUtil;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
@@ -18,15 +27,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.messi.languagehelper.R;
-import com.messi.languagehelper.ViewImageActivity;
-import com.messi.languagehelper.dao.EveryDaySentence;
-import com.messi.languagehelper.task.PublicTask;
-import com.messi.languagehelper.task.PublicTask.PublicTaskListener;
-import com.messi.languagehelper.util.AudioTrackUtil;
-import com.messi.languagehelper.util.KeyUtil;
-import com.squareup.picasso.Picasso;
 
 public class DailySentenceListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -116,9 +116,8 @@ public class DailySentenceListAdapter extends RecyclerView.Adapter<RecyclerView.
 			final EveryDaySentence mBean = beans.get(position-1);
 			holder.english_txt.setText(mBean.getContent());
 			holder.chinese_txt.setText(mBean.getNote());
-			Picasso.with(context)
+			Glide.with(context)
 			.load(mBean.getPicture2())
-			.tag(context)
 			.into(holder.daily_sentence_list_item_img);
 			
 			holder.daily_sentence_list_item_cover.setOnClickListener(new OnClickListener() {

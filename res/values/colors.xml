@@ -5,6 +5,7 @@
 	<color name="none">#00000000</color>
 	<color name="none_thin">#aa000000</color>
 	<color name="none_alpha">#77000000</color>
+	<color name="alpha_5">#55000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="white_alph_dark">#ddFFFFFF</color>
     <color name="white_alph">#ddFFFFFF</color>

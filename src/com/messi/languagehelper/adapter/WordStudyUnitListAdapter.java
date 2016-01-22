@@ -42,7 +42,7 @@ public class WordStudyUnitListAdapter extends BaseAdapter {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		final ViewHolder holder;
 		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.word_study_root_list_item, null);
+			convertView = mInflater.inflate(R.layout.word_study_unit_list_item, null);
 			holder = new ViewHolder();
 			holder.cover = (View) convertView.findViewById(R.id.layout_cover);
 			holder.name = (TextView) convertView.findViewById(R.id.name);

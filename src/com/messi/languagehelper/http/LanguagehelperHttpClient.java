@@ -29,7 +29,7 @@ public class LanguagehelperHttpClient {
 
 	public static OkHttpClient client = new OkHttpClient();
 	
-	public static void initClient(Context mContext){
+	public static OkHttpClient initClient(Context mContext){
 		if(client ==  null){
 			client = new OkHttpClient();
 		}
@@ -41,6 +41,7 @@ public class LanguagehelperHttpClient {
 			File cacheDir = new File(baseDir,"HttpResponseCache");
 			client.setCache(new Cache(cacheDir, HTTP_RESPONSE_DISK_CACHE_MAX_SIZE));
 		}
+		return client;
 	}
 
 	public static Response get(String url) {

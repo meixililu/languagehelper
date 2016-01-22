@@ -2,6 +2,12 @@ package com.messi.languagehelper;
 
 import java.io.File;
 
+import com.bumptech.glide.Glide;
+import com.gc.materialdesign.views.ButtonFloat;
+import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.LogUtil;
+import com.messi.languagehelper.util.SDCardUtil;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -12,19 +18,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 
-import com.gc.materialdesign.views.ButtonFloat;
-import com.messi.languagehelper.util.KeyUtil;
-import com.messi.languagehelper.util.LogUtil;
-import com.messi.languagehelper.util.SDCardUtil;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.RequestCreator;
-
 public class ViewImageActivity extends BaseActivity implements OnClickListener {
 
 	private ImageView imageview;
 	private ButtonFloat mButtonFloat;
 	private String imgUrl;
-	private RequestCreator mRequestCreator;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -47,9 +45,7 @@ public class ViewImageActivity extends BaseActivity implements OnClickListener {
 	}
 	
 	private void loadData() throws Exception{
-		mRequestCreator = Picasso.with(this).load(imgUrl);
-		mRequestCreator.tag(this).into(imageview);
-		
+		Glide.with(this).load(imgUrl).into(imageview);
 	}
 	
 	private void shareImg() throws Exception{

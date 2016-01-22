@@ -25,6 +25,7 @@
     <string name="title_comments">Comments</string>
     <string name="title_apps">Find Apps</string>
     <string name="evaluation_prompt">About Evaluation</string>
+    <string name="offline_download">Download Mp3</string>
     
     <string name="menu_share">DIY Share</string>
     <string name="menu_settings">Play Speed</string>

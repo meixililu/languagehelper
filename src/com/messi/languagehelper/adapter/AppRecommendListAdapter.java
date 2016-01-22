@@ -2,6 +2,14 @@ package com.messi.languagehelper.adapter;
 
 import java.util.List;
 
+import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVObject;
+import com.bumptech.glide.Glide;
+import com.messi.languagehelper.R;
+import com.messi.languagehelper.RecommendActivity;
+import com.messi.languagehelper.util.AVOUtil;
+import com.messi.languagehelper.util.KeyUtil;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -12,14 +20,6 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.avos.avoscloud.AVFile;
-import com.avos.avoscloud.AVObject;
-import com.messi.languagehelper.R;
-import com.messi.languagehelper.RecommendActivity;
-import com.messi.languagehelper.util.AVOUtil;
-import com.messi.languagehelper.util.KeyUtil;
-import com.squareup.picasso.Picasso;
 
 public class AppRecommendListAdapter extends BaseAdapter {
 
@@ -62,9 +62,8 @@ public class AppRecommendListAdapter extends BaseAdapter {
 		final AVObject mAVObject = avObjects.get(position);
 		try {
 			AVFile avFile = mAVObject.getAVFile(AVOUtil.AppRecommendList.AppTypeIcon);
-			Picasso.with(context)
+			Glide.with(context)
 			.load(avFile.getUrl())
-			.tag(context)
 			.into(holder.list_item_img);
 			holder.item_name.setText( mAVObject.getString(AVOUtil.AppRecommendList.AppTypeName) );
 			holder.item_msg.setText( mAVObject.getString(AVOUtil.AppRecommendList.AppTypeDescribe) );

@@ -7,18 +7,18 @@ package com.messi.languagehelper.adapter;
  */
 import java.util.List;
 
+import com.bumptech.glide.Glide;
+import com.iflytek.voiceads.NativeADDataRef;
+import com.messi.languagehelper.R;
+import com.messi.languagehelper.views.ProportionalImageView;
+import com.messi.languagehelper.views.RecyclingPagerAdapter;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-
-import com.iflytek.voiceads.NativeADDataRef;
-import com.messi.languagehelper.R;
-import com.messi.languagehelper.views.ProportionalImageView;
-import com.messi.languagehelper.views.RecyclingPagerAdapter;
-import com.squareup.picasso.Picasso;
 
 
 /**
@@ -71,9 +71,8 @@ public class ImagePagerAdapter extends RecyclingPagerAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		Picasso.with(context)
+		Glide.with(context)
 		.load(adList.get(position).getImage())
-		.tag(context)
 		.into(holder.ad_img);
 		adList.get(position).onExposured(holder.cover);
 		holder.cover.setOnClickListener(new OnClickListener() {

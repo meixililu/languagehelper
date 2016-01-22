@@ -42,7 +42,6 @@ public class WordBookListActivity extends BaseActivity {
 			mXFYSAD = new XFYSAD(this, headerView, ADUtil.MRYJYSNRLAd);
 			mXFYSAD.showAD();
 			mAdapter.notifyDataSetChanged();
-			mXFYSAD.startPlayImg();
 		}
 	}
 	

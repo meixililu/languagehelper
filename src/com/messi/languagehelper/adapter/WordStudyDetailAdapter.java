@@ -27,7 +27,7 @@ import android.widget.TextView;
 public class WordStudyDetailAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
-	private Context context;
+	private WordStudyDetailActivity context;
 	private List<WordDetailListItem> avObjects;
 	private ListView category_lv;
 	private MediaPlayer mPlayer;
@@ -37,7 +37,7 @@ public class WordStudyDetailAdapter extends BaseAdapter {
 	private int autoPlayIndex;
 	private int loopTime;
 	
-	public WordStudyDetailAdapter(Context mContext, ListView category_lv,List<WordDetailListItem> avObjects, String audioPath, MediaPlayer mPlayer) {
+	public WordStudyDetailAdapter(WordStudyDetailActivity mContext, ListView category_lv,List<WordDetailListItem> avObjects, String audioPath, MediaPlayer mPlayer) {
 		context = mContext;
 		this.mInflater = LayoutInflater.from(mContext);
 		this.avObjects = avObjects;
@@ -117,6 +117,7 @@ public class WordStudyDetailAdapter extends BaseAdapter {
 		}else{
 			isPlayNext = false;
 			ToastUtil.diaplayMesShort(context, "播放完毕");
+			context.stopPlay();
 		}
 	}
 	

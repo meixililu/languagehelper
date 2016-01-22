@@ -4,9 +4,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import com.avos.avoscloud.okhttp.Response;
 import com.messi.languagehelper.StudyFragment;
+import com.messi.languagehelper.dao.SymbolListDao;
 import com.messi.languagehelper.http.LanguagehelperHttpClient;
 
 import android.content.Context;
@@ -106,6 +108,34 @@ public class DownLoadUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void downloadSymbolMp3(final Context mContext,final List<SymbolListDao> mSymbolListDao,final Handler mHandler){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				for(SymbolListDao avObject : mSymbolListDao){
+					String audioPath = SDCardUtil.SymbolPath + avObject.getSDCode() + SDCardUtil.Delimiter;
+					String SDAudioMp3Url = avObject.getSDAudioMp3Url();
+					String SDAudioMp3Name = SDAudioMp3Url.substring(SDAudioMp3Url.lastIndexOf("/")+1);
+					String SDAudioMp3FullName = SDCardUtil.getDownloadPath(audioPath) + SDAudioMp3Name;
+					if(!SDCardUtil.isFileExist(SDAudioMp3FullName)){
+						DownLoadUtil.downloadFile(mContext, SDAudioMp3Url, audioPath, SDAudioMp3Name, null);
+					}
+					
+					String SDTeacherMp3Url = avObject.getSDTeacherMp3Url();
+					String SDTeacherMp3Name = SDTeacherMp3Url.substring(SDTeacherMp3Url.lastIndexOf("/")+1);
+					String SDTeacherMp3FullName = SDCardUtil.getDownloadPath(audioPath) + SDTeacherMp3Name;
+					if(!SDCardUtil.isFileExist(SDTeacherMp3FullName)){
+						DownLoadUtil.downloadFile(mContext, SDTeacherMp3Url, audioPath, SDTeacherMp3Name, mHandler);
+					}if(mHandler != null){
+						Message msg = new Message();
+						msg.what = 1;
+						mHandler.sendMessage(msg);
+					}
+				}
+			}
+		}).start();
 	}
 
 }

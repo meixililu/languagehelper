@@ -1,5 +1,22 @@
 package com.messi.languagehelper;
 
+import java.io.InputStream;
+
+import com.baidu.mobstat.StatService;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.model.GlideUrl;
+import com.iflytek.voiceads.AdError;
+import com.iflytek.voiceads.IFLYAdListener;
+import com.iflytek.voiceads.IFLYFullScreenAd;
+import com.messi.languagehelper.http.LanguagehelperHttpClient;
+import com.messi.languagehelper.http.OkHttpUrlLoader;
+import com.messi.languagehelper.util.ADUtil;
+import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.LogUtil;
+import com.messi.languagehelper.util.Settings;
+import com.messi.languagehelper.util.ShortCut;
+import com.messi.languagehelper.wxapi.WXEntryActivity;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,18 +28,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.ImageView;
-
-import com.baidu.mobstat.StatService;
-import com.iflytek.voiceads.AdError;
-import com.iflytek.voiceads.IFLYAdListener;
-import com.iflytek.voiceads.IFLYFullScreenAd;
-import com.messi.languagehelper.http.LanguagehelperHttpClient;
-import com.messi.languagehelper.util.ADUtil;
-import com.messi.languagehelper.util.KeyUtil;
-import com.messi.languagehelper.util.LogUtil;
-import com.messi.languagehelper.util.Settings;
-import com.messi.languagehelper.util.ShortCut;
-import com.messi.languagehelper.wxapi.WXEntryActivity;
 
 public class LoadingActivity extends Activity implements OnClickListener{
 	
@@ -39,12 +44,18 @@ public class LoadingActivity extends Activity implements OnClickListener{
 		try {
 			TransparentStatusbar();
 			setContentView(R.layout.loading_activity);
+			initGlide();
 			init();
 		} catch (Exception e) {
 			onError();
 			e.printStackTrace();
 		}
 	}
+	
+	private void initGlide(){
+    	Glide.get(this).register(GlideUrl.class, InputStream.class, 
+    	        new OkHttpUrlLoader.Factory(LanguagehelperHttpClient.initClient(this))); 
+    }
 	
 	private void TransparentStatusbar(){
 		if(VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
@@ -58,7 +69,6 @@ public class LoadingActivity extends Activity implements OnClickListener{
 	
 	private void init(){
 		StatService.setDebugOn(false);
-		LanguagehelperHttpClient.initClient(this);
 		mSharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
 		mHandler = new Handler();
 		forward_img = (ImageView) findViewById(R.id.forward_img);

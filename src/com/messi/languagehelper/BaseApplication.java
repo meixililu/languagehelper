@@ -2,14 +2,14 @@ package com.messi.languagehelper;
 
 import java.util.HashMap;
 
-import android.app.Application;
-import android.content.Context;
-
 import com.avos.avoscloud.AVOSCloud;
 import com.messi.languagehelper.dao.DaoMaster;
 import com.messi.languagehelper.dao.DaoMaster.OpenHelper;
 import com.messi.languagehelper.dao.DaoSession;
 import com.messi.languagehelper.db.LHContract;
+
+import android.app.Application;
+import android.content.Context;
 
 public class BaseApplication extends Application {
 
