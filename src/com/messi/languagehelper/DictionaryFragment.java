@@ -9,6 +9,7 @@ import com.avos.avoscloud.okhttp.FormEncodingBuilder;
 import com.avos.avoscloud.okhttp.RequestBody;
 import com.baidu.mobstat.StatService;
 import com.gc.materialdesign.views.ButtonRectangle;
+import com.google.gson.Gson;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
@@ -434,10 +435,11 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		LanguagehelperHttpClient.post(Settings.ShowApiDictionaryUrl, formBody, new UICallback(getActivity()){
 			@Override
 			public void onResponsed(String responseString){
+				LogUtil.DefalutLog("Result---showapi:"+responseString);
 				try {
 					if (!TextUtils.isEmpty(responseString)) {
 						if(JsonParser.isJson(responseString)){
-							Root mRoot = JSON.parseObject(responseString, Root.class);
+							Root mRoot = new Gson().fromJson(responseString, Root.class);
 							if(mRoot != null && mRoot.getShowapi_res_code() == 0 && mRoot.getShowapi_res_body() != null){
 								mDictionaryBean = JsonParser.changeShowapiResultToDicBean(mRoot,Settings.q);
 								setData();
@@ -447,7 +449,6 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 							if(mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false)){
 								new AutoPlayWaitTask().execute();
 							}
-							LogUtil.DefalutLog("Result---showapi:"+responseString);
 						}else{
 							GetDictionaryFaultAsyncTask();
 						}

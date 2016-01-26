@@ -37,7 +37,6 @@ public class Showapi_res_body {
 		return this.ret_code;
 	}
 
-
 	public String[] getTranslations() {
 		return translation;
 	}

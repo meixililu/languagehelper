@@ -1,6 +1,5 @@
 package com.messi.languagehelper.dao;
 
-
 public class Basic {
 	
 	private String[] explains;
