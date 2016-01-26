@@ -20,7 +20,7 @@
             android:foreground="@drawable/framelayout_selector"
             android:orientation="vertical" >
 
-            <ImageView
+            <com.messi.languagehelper.views.ProportionalImageView
                 android:id="@+id/daily_sentence_item_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -208,7 +208,7 @@
             android:layout_width="fill_parent"
             android:layout_height="80dp"
             android:layout_marginTop="@dimen/padding_7"
-            android:background="@color/style6_color1"
+            android:background="#4db6ac"
             android:foreground="@drawable/framelayout_selector"
             android:orientation="vertical" >
 
@@ -230,7 +230,7 @@
             android:layout_width="fill_parent"
             android:layout_height="80dp"
             android:layout_marginTop="@dimen/padding_7"
-            android:background="@color/style5_color2"
+            android:background="#4dd0e1"
             android:foreground="@drawable/framelayout_selector"
             android:orientation="vertical" >
 

@@ -26,6 +26,9 @@
     <string name="title_apps">Find Apps</string>
     <string name="evaluation_prompt">About Evaluation</string>
     <string name="offline_download">Download Mp3</string>
+    <string name="title_duanzi">Joke</string>
+    <string name="title_duanzi_word">Text</string>
+    <string name="title_duanzi_img">Picture</string>
     
     <string name="menu_share">DIY Share</string>
     <string name="menu_settings">Play Speed</string>
@@ -36,6 +39,7 @@
     <string name="translate">Translate</string>
     <string name="finish">Finish</string>
     <string name="exit_program">Press again to exit the program</string>
+    <string name="loadmore">loading...</string>
     
     <string name="share_dialog_text_1">Text</string>
     <string name="share_dialog_text_2">Image(recommend)</string>
@@ -73,7 +77,6 @@
     <string name="invite_friends">Very good,invite some friends</string>
     <string name="auto_clear_after_translate">Auto Clear After Translate</string>
     <string name="clear_success">Clear Success</string>
-    <string name="ask_baidu">Baidu</string>
     <string name="auto_play_after_read">Auto Play Next After Readed</string>
 
     <string name="feedback">Feedback</string>

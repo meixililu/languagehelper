@@ -2,6 +2,15 @@ package com.messi.languagehelper;
 
 import java.util.List;
 
+import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
+import com.iflytek.cloud.SpeechSynthesizer;
+import com.messi.languagehelper.adapter.DictionaryRecyclerviewAdapter;
+import com.messi.languagehelper.dao.Dictionary;
+import com.messi.languagehelper.db.DataBaseUtil;
+import com.messi.languagehelper.util.LogUtil;
+import com.messi.languagehelper.util.Settings;
+import com.messi.languagehelper.views.DividerItemDecoration;
+
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,15 +21,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-
-import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
-import com.iflytek.cloud.SpeechSynthesizer;
-import com.messi.languagehelper.adapter.DictionaryRecyclerviewAdapter;
-import com.messi.languagehelper.dao.Dictionary;
-import com.messi.languagehelper.db.DataBaseUtil;
-import com.messi.languagehelper.util.LogUtil;
-import com.messi.languagehelper.util.Settings;
-import com.messi.languagehelper.views.DividerItemDecoration;
 
 public class CollectedDictionaryFragment extends Fragment implements OnClickListener {
 
@@ -67,11 +67,11 @@ public class CollectedDictionaryFragment extends Fragment implements OnClickList
 //		recent_used_lv.setOnScrollListener(new HidingScrollListener() {
 //			@Override
 //			public void onShow() {
-////				showViews();
+//				showViews();
 //			}
 //			@Override
 //			public void onHide() {
-////				hideViews();
+//				hideViews();
 //			}
 //		});
 		beans = DataBaseUtil.getInstance().getDataListDictionaryCollected(0, Settings.offset);

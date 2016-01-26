@@ -39,6 +39,15 @@ public class Settings {
 	/**jinshan daily sentence api**/
 	public static String DailySentenceUrl = "http://open.iciba.com/dsapi/";
 	
+	/**showapi budejie api**/
+	public static String BudejieUrl = "http://route.showapi.com/255-1";
+	
+	/**showapi joke picture api**/
+	public static String JokePictureUrl = "http://route.showapi.com/341-2";
+	
+	/**showapi joke text api**/
+	public static String JokeTextUrl = "http://route.showapi.com/341-1";
+	
 	public static final String CaiLingUrl = "http://api.openspeech.cn/kyls/NTBhYTEyMTM=";
 	
 	public static final String YueduUrl = "http://api.openspeech.cn/cmread/NTBhYTEyMTM=";

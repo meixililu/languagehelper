@@ -4,6 +4,35 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import com.alibaba.fastjson.JSON;
+import com.avos.avoscloud.okhttp.FormEncodingBuilder;
+import com.avos.avoscloud.okhttp.RequestBody;
+import com.baidu.mobstat.StatService;
+import com.gc.materialdesign.views.ButtonRectangle;
+import com.iflytek.cloud.RecognizerListener;
+import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechRecognizer;
+import com.iflytek.cloud.SpeechSynthesizer;
+import com.messi.languagehelper.adapter.DictionaryListViewAdapter;
+import com.messi.languagehelper.dao.BaiduOcrRoot;
+import com.messi.languagehelper.dao.Dictionary;
+import com.messi.languagehelper.dao.Root;
+import com.messi.languagehelper.db.DataBaseUtil;
+import com.messi.languagehelper.dialog.PopDialog;
+import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
+import com.messi.languagehelper.http.LanguagehelperHttpClient;
+import com.messi.languagehelper.http.UICallback;
+import com.messi.languagehelper.impl.FragmentProgressbarListener;
+import com.messi.languagehelper.util.CameraUtil;
+import com.messi.languagehelper.util.JsonParser;
+import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.LogUtil;
+import com.messi.languagehelper.util.Settings;
+import com.messi.languagehelper.util.ToastUtil;
+import com.messi.languagehelper.util.ViewUtil;
+import com.messi.languagehelper.util.XFUtil;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,35 +58,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
-
-import com.avos.avoscloud.okhttp.FormEncodingBuilder;
-import com.avos.avoscloud.okhttp.RequestBody;
-import com.baidu.mobstat.StatService;
-import com.gc.materialdesign.views.ButtonRectangle;
-import com.google.gson.Gson;
-import com.iflytek.cloud.RecognizerListener;
-import com.iflytek.cloud.RecognizerResult;
-import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.SpeechRecognizer;
-import com.iflytek.cloud.SpeechSynthesizer;
-import com.messi.languagehelper.adapter.DictionaryListViewAdapter;
-import com.messi.languagehelper.dao.BaiduOcrRoot;
-import com.messi.languagehelper.dao.Dictionary;
-import com.messi.languagehelper.dao.Root;
-import com.messi.languagehelper.db.DataBaseUtil;
-import com.messi.languagehelper.dialog.PopDialog;
-import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
-import com.messi.languagehelper.http.LanguagehelperHttpClient;
-import com.messi.languagehelper.http.UICallback;
-import com.messi.languagehelper.impl.FragmentProgressbarListener;
-import com.messi.languagehelper.util.CameraUtil;
-import com.messi.languagehelper.util.JsonParser;
-import com.messi.languagehelper.util.KeyUtil;
-import com.messi.languagehelper.util.LogUtil;
-import com.messi.languagehelper.util.Settings;
-import com.messi.languagehelper.util.ToastUtil;
-import com.messi.languagehelper.util.ViewUtil;
-import com.messi.languagehelper.util.XFUtil;
 
 public class DictionaryFragment extends Fragment implements OnClickListener {
 
@@ -318,7 +318,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 						finishLoadding();
 						if (!TextUtils.isEmpty(responseString)) {
 							if(JsonParser.isJson(responseString)){
-								BaiduOcrRoot mBaiduOcrRoot = new Gson().fromJson(responseString, BaiduOcrRoot.class);
+								BaiduOcrRoot mBaiduOcrRoot = JSON.parseObject(responseString, BaiduOcrRoot.class);
 								if(mBaiduOcrRoot.getErrNum().equals("0")){
 									input_et.setText("");
 									input_et.setText(CameraUtil.getOcrResult(mBaiduOcrRoot));
@@ -437,7 +437,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 				try {
 					if (!TextUtils.isEmpty(responseString)) {
 						if(JsonParser.isJson(responseString)){
-							Root mRoot = new Gson().fromJson(responseString, Root.class);
+							Root mRoot = JSON.parseObject(responseString, Root.class);
 							if(mRoot != null && mRoot.getShowapi_res_code() == 0 && mRoot.getShowapi_res_body() != null){
 								mDictionaryBean = JsonParser.changeShowapiResultToDicBean(mRoot,Settings.q);
 								setData();

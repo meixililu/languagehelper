@@ -7,7 +7,7 @@
     android:paddingTop="@dimen/padding_margin"
     android:foreground="@drawable/framelayout_selector" >
 
-    <ImageView
+    <com.messi.languagehelper.views.ProportionalImageView
         android:id="@+id/daily_sentence_list_item_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -482,13 +482,13 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 		animationDrawable.selectDrawable(0);
 	}
 	
-	private void showProgressbar(){
+	public void showProgressbar(){
 		if(mPracticeProgress != null){
 			mPracticeProgress.onLoading();
 		}
 	}
 	
-	private void hideProgressbar(){
+	public void hideProgressbar(){
 		if(mPracticeProgress != null){
 			mPracticeProgress.onCompleteLoading();
 		}

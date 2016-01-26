@@ -44,11 +44,4 @@
         android:paddingRight="@dimen/padding_margin"
         android:scrollbars="none" />
 	</android.support.v4.widget.SwipeRefreshLayout>
-	<LinearLayout
-            android:id="@+id/ad_view"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/none"
-            android:orientation="vertical" >
-        </LinearLayout>
 </LinearLayout>

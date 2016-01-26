@@ -7,6 +7,7 @@ import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.gc.materialdesign.views.ButtonFloat;
+import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.adapter.WordStudyDetailAdapter;
 import com.messi.languagehelper.dao.WordDetailListItem;
 import com.messi.languagehelper.dao.WordListType;
@@ -15,6 +16,8 @@ import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.SDCardUtil;
 import com.messi.languagehelper.util.ToastUtil;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -37,6 +40,9 @@ public class WordStudyDetailActivity extends BaseActivity implements OnClickList
 	private String audioPath;
 	private int index;
 	
+	private SpeechSynthesizer mSpeechSynthesizer;
+	private SharedPreferences mSharedPreferences;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -47,7 +53,10 @@ public class WordStudyDetailActivity extends BaseActivity implements OnClickList
 	}
 	
 	private void initViews(){
+		mSharedPreferences = this.getSharedPreferences(this.getPackageName(), Activity.MODE_PRIVATE);
+		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this, null);
 		mPlayer = new MediaPlayer();
+		
 		class_name = getIntent().getStringExtra(KeyUtil.ClassName);
 		class_id = getIntent().getStringExtra(KeyUtil.ClassId);
 		course_id = getIntent().getIntExtra(KeyUtil.CourseId, 1);
@@ -63,7 +72,8 @@ public class WordStudyDetailActivity extends BaseActivity implements OnClickList
 		next_btn = (ButtonFloat) findViewById(R.id.next_btn);
 		itemList = new ArrayList<WordDetailListItem>();
 		category_lv = (ListView) findViewById(R.id.studycategory_lv);
-		mAdapter = new WordStudyDetailAdapter(this, category_lv, itemList, audioPath, mPlayer);
+		mAdapter = new WordStudyDetailAdapter(this, mSharedPreferences, mSpeechSynthesizer, category_lv,
+				itemList, audioPath, mPlayer);
 		category_lv.setAdapter(mAdapter);
 		
 		playbtn.setOnClickListener(this);
@@ -179,6 +189,10 @@ public class WordStudyDetailActivity extends BaseActivity implements OnClickList
 			mPlayer.release();   
 			mPlayer = null;   
         } 
+		if(mSpeechSynthesizer != null){
+			mSpeechSynthesizer.stopSpeaking();
+			mSpeechSynthesizer = null;
+		}
 	}
 	
 }

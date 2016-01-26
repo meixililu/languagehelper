@@ -1,17 +1,17 @@
 package com.messi.languagehelper;
 
+import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
+import com.iflytek.cloud.SpeechSynthesizer;
+import com.messi.languagehelper.adapter.CollectedActivityAdapter;
+import com.messi.languagehelper.util.LogUtil;
+import com.messi.languagehelper.views.PagerSlidingTabStrip;
+
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.View.OnClickListener;
-
-import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
-import com.iflytek.cloud.SpeechSynthesizer;
-import com.messi.languagehelper.adapter.CollectedActivityAdapter;
-import com.messi.languagehelper.util.LogUtil;
-import com.messi.languagehelper.views.PagerSlidingTabStrip;
 
 public class CollectedActivity extends BaseActivity implements OnClickListener {
 
@@ -54,7 +54,7 @@ public class CollectedActivity extends BaseActivity implements OnClickListener {
 		super.onDestroy();
 		LogUtil.DefalutLog("CollectedFragment-onDestroy");
 	}
-
+	
 	@Override
 	public void onClick(View v) {
 		

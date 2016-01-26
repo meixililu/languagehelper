@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.messi.languagehelper"
-    android:versionCode="20"
-    android:versionName="2.9" >
+    android:versionCode="21"
+    android:versionName="3.0" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -114,17 +114,6 @@
             android:name="IFLYTEK_CHANNEL"
             android:value="messi" />
 
-        <!-- 乐点百度搜索sdk -->
-        <activity
-            android:name="com.lerdian.search.SearchResult"
-            android:screenOrientation="portrait" />
-
-        <meta-data
-            android:name="LERDIAN_CHANNEL"
-            android:value="02a82416e42d4c8c942255c7cf75aa8d" />
-        <!-- 乐点百度搜索sdk -->
-
-
         <!-- 讯飞广告sdk -->
         <service android:name="com.iflytek.voiceads.update.DownloadService" />
 
@@ -142,6 +131,9 @@
             android:theme="@android:style/Theme.Translucent" />
         <!-- 讯飞广告sdk -->
 
+        <activity
+            android:name=".JokeActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".WordStudyDetailActivity"
             android:screenOrientation="portrait" />

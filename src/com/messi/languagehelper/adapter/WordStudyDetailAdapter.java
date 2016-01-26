@@ -2,17 +2,27 @@ package com.messi.languagehelper.adapter;
 
 import java.util.List;
 
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechSynthesizer;
+import com.iflytek.cloud.SynthesizerListener;
 import com.messi.languagehelper.R;
 import com.messi.languagehelper.WordStudyDetailActivity;
 import com.messi.languagehelper.dao.WordDetailListItem;
+import com.messi.languagehelper.db.DataBaseUtil;
+import com.messi.languagehelper.task.MyThread;
+import com.messi.languagehelper.util.AudioTrackUtil;
 import com.messi.languagehelper.util.DownLoadUtil;
+import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.SDCardUtil;
 import com.messi.languagehelper.util.ToastUtil;
+import com.messi.languagehelper.util.XFUtil;
 
-import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -37,13 +47,22 @@ public class WordStudyDetailAdapter extends BaseAdapter {
 	private int autoPlayIndex;
 	private int loopTime;
 	
-	public WordStudyDetailAdapter(WordStudyDetailActivity mContext, ListView category_lv,List<WordDetailListItem> avObjects, String audioPath, MediaPlayer mPlayer) {
+	private SpeechSynthesizer mSpeechSynthesizer;
+	private SharedPreferences mSharedPreferences;
+	private Thread mThread;
+	private MyThread mMyThread;
+	
+	public WordStudyDetailAdapter(WordStudyDetailActivity mContext,SharedPreferences mSharedPreferences,
+			SpeechSynthesizer mSpeechSynthesizer, ListView category_lv,List<WordDetailListItem> avObjects, String audioPath, MediaPlayer mPlayer) {
 		context = mContext;
 		this.mInflater = LayoutInflater.from(mContext);
 		this.avObjects = avObjects;
 		this.category_lv = category_lv;
 		this.mPlayer = mPlayer;
 		this.audioPath = audioPath;
+		this.mSharedPreferences = mSharedPreferences;
+		this.mSpeechSynthesizer = mSpeechSynthesizer;
+		mMyThread = new MyThread(mHandler);
 	}
 
 	public int getCount() {
@@ -98,12 +117,51 @@ public class WordStudyDetailAdapter extends BaseAdapter {
 		clearPlaySign();
 		mAVObject.setBackup1("play");
 		notifyDataSetChanged();
-		String mp3Name = mAVObject.getSound().substring(mAVObject.getSound().lastIndexOf("/")+1);
-		fullName = SDCardUtil.getDownloadPath(audioPath) + mp3Name;
-		if(!SDCardUtil.isFileExist(fullName)){
-			DownLoadUtil.downloadFile(context, mAVObject.getSound(), audioPath, mp3Name, mHandler);
+		if(TextUtils.isEmpty(mAVObject.getSound()) ||  mAVObject.getSound().equals("http://app1.showapi.com/en_word")){
+			playWithSpeechSynthesizer(mAVObject);
 		}else{
-			playMp3();
+			String mp3Name = mAVObject.getSound().substring(mAVObject.getSound().lastIndexOf("/")+1);
+			fullName = SDCardUtil.getDownloadPath(audioPath) + mp3Name;
+			if(!SDCardUtil.isFileExist(fullName)){
+				DownLoadUtil.downloadFile(context, mAVObject.getSound(), audioPath, mp3Name, mHandler);
+			}else{
+				playMp3();
+			}
+		}
+	}
+	
+	private void playWithSpeechSynthesizer(WordDetailListItem mAVObject){
+		String filepath = SDCardUtil.getDownloadPath(audioPath) + mAVObject.getItem_id() + ".pcm";
+		if(!AudioTrackUtil.isFileExists(filepath)){
+			mSpeechSynthesizer.setParameter(SpeechConstant.TTS_AUDIO_PATH, filepath);
+			XFUtil.showSpeechSynthesizer(context,mSharedPreferences,mSpeechSynthesizer,mAVObject.getName(),
+					new SynthesizerListener() {
+				@Override
+				public void onSpeakResumed() {
+				}
+				@Override
+				public void onSpeakProgress(int arg0, int arg1, int arg2) {
+				}
+				@Override
+				public void onSpeakPaused() {
+				}
+				@Override
+				public void onSpeakBegin() {
+				}
+				@Override
+				public void onCompleted(SpeechError arg0) {
+					replay();
+				}
+				@Override
+				public void onBufferProgress(int arg0, int arg1, int arg2, String arg3) {
+				}
+				@Override
+				public void onEvent(int arg0, int arg1, int arg2,Bundle arg3) {
+				}
+			});
+		}else{
+			mMyThread.setDataUri(filepath);
+			mThread = AudioTrackUtil.startMyThread(mMyThread);
 		}
 	}
 	
@@ -126,6 +184,8 @@ public class WordStudyDetailAdapter extends BaseAdapter {
 		public void handleMessage(Message msg) {
 			if(msg.what == 1){
 				playMp3();
+			}else if (msg.what == MyThread.EVENT_PLAY_OVER) {
+				replay();
 			}
 		}
 	};
@@ -143,18 +203,22 @@ public class WordStudyDetailAdapter extends BaseAdapter {
 			mPlayer.setOnCompletionListener(new OnCompletionListener() {
 				@Override
 				public void onCompletion(MediaPlayer mp) {
-					if(isPlayNext){
-						loopTime ++;
-						if(loopTime > 2){
-							autoPlayIndex++;
-							loopTime = 0;
-						}
-						onPlayBtnClick(autoPlayIndex);
-					}
+					replay();
 				}
 			});
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	private void replay(){
+		if(isPlayNext){
+			loopTime ++;
+			if(loopTime > 2){
+				autoPlayIndex++;
+				loopTime = 0;
+			}
+			onPlayBtnClick(autoPlayIndex);
 		}
 	}
 	

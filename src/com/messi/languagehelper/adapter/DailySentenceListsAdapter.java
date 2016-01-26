@@ -16,6 +16,7 @@ import com.messi.languagehelper.util.DownLoadUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.SDCardUtil;
+import com.messi.languagehelper.views.ProportionalImageView;
 
 import android.app.Activity;
 import android.content.Context;
@@ -69,7 +70,7 @@ public class DailySentenceListsAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			convertView = mInflater.inflate(R.layout.daily_sentence_list_item, null);
 			holder.daily_sentence_list_item_cover = (FrameLayout) convertView.findViewById(R.id.daily_sentence_list_item_cover);
-			holder.daily_sentence_list_item_img = (ImageView) convertView.findViewById(R.id.daily_sentence_list_item_img);
+			holder.daily_sentence_list_item_img = (ProportionalImageView) convertView.findViewById(R.id.daily_sentence_list_item_img);
 			holder.play_img = (ImageView) convertView.findViewById(R.id.play_img);
 			holder.english_txt = (TextView) convertView.findViewById(R.id.english_txt);
 			holder.chinese_txt = (TextView) convertView.findViewById(R.id.chinese_txt);
@@ -200,7 +201,7 @@ public class DailySentenceListsAdapter extends BaseAdapter {
 	static class ViewHolder {
 		TextView english_txt;
 		TextView chinese_txt;
-		ImageView daily_sentence_list_item_img;
+		ProportionalImageView daily_sentence_list_item_img;
 		ImageView play_img;
 		FrameLayout daily_sentence_list_item_cover;
 	}

@@ -12,6 +12,7 @@ import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.AppDownloadUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.SDCardUtil;
+import com.messi.languagehelper.views.ProportionalImageView;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -20,7 +21,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class AppRecommendDetailAdapter extends BaseAdapter {
@@ -54,7 +54,7 @@ public class AppRecommendDetailAdapter extends BaseAdapter {
 			convertView = mInflater.inflate(R.layout.app_recommend_detail_list_item, null);
 			holder = new ViewHolder();
 			holder.cover = (FrameLayout) convertView.findViewById(R.id.layout_cover);
-			holder.list_item_img = (ImageView) convertView.findViewById(R.id.list_item_img);
+			holder.list_item_img = (ProportionalImageView) convertView.findViewById(R.id.list_item_img);
 			holder.item_name = (TextView) convertView.findViewById(R.id.item_name);
 			holder.item_msg = (TextView) convertView.findViewById(R.id.item_msg);
 			holder.item_size = (TextView) convertView.findViewById(R.id.item_size);
@@ -86,7 +86,7 @@ public class AppRecommendDetailAdapter extends BaseAdapter {
 
 	static class ViewHolder {
 		FrameLayout cover;
-		ImageView list_item_img;
+		ProportionalImageView list_item_img;
 		TextView item_name;
 		TextView item_msg;
 		TextView item_size;

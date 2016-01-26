@@ -9,6 +9,7 @@ import com.messi.languagehelper.WordBookListActivity;
 import com.messi.languagehelper.dao.WordListType;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.ScreenUtil;
+import com.messi.languagehelper.views.ProportionalImageView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +19,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -54,7 +54,7 @@ public class WordStudyListAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			holder.cover = (View) convertView.findViewById(R.id.layout_cover);
 			holder.name = (TextView) convertView.findViewById(R.id.name);
-			holder.list_item_img = (ImageView) convertView.findViewById(R.id.list_item_img);
+			holder.list_item_img = (ProportionalImageView) convertView.findViewById(R.id.list_item_img);
 			holder.list_item_bg = (LinearLayout) convertView.findViewById(R.id.list_item_bg);
 			convertView.setTag(holder);
 		} else {
@@ -91,7 +91,7 @@ public class WordStudyListAdapter extends BaseAdapter {
 		View cover;
 		TextView name;
 		LinearLayout list_item_bg;
-		ImageView list_item_img;
+		ProportionalImageView list_item_img;
 	}
 
 	private void onItemClick(WordListType mAVObject){

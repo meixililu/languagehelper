@@ -19,6 +19,7 @@ import com.messi.languagehelper.util.NumberUtil;
 import com.messi.languagehelper.util.SDCardUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.TimeUtil;
+import com.messi.languagehelper.views.ProportionalImageView;
 
 import android.app.Activity;
 import android.content.Context;
@@ -48,7 +49,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	private FrameLayout word_study_cover;
 	private FrameLayout en_examination_layout;
 	private TextView dailysentence_txt;
-	private ImageView daily_sentence_item_img;
+	private ProportionalImageView daily_sentence_item_img;
 	private ImageView play_img;
 	private FrameLayout instagram_layout,news_layout;
 	public static StudyFragment mMainFragment;
@@ -99,7 +100,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		symbol_study_cover = (FrameLayout)view.findViewById(R.id.symbol_study_cover);
 		word_study_cover = (FrameLayout)view.findViewById(R.id.word_study_cover);
 		dailysentence_txt = (TextView)view.findViewById(R.id.dailysentence_txt);
-		daily_sentence_item_img = (ImageView)view.findViewById(R.id.daily_sentence_item_img);
+		daily_sentence_item_img = (ProportionalImageView)view.findViewById(R.id.daily_sentence_item_img);
 		play_img = (ImageView)view.findViewById(R.id.play_img);
 		
 		study_daily_sentence.setOnClickListener(this);

@@ -33,6 +33,11 @@ public class DownLoadUtil {
 								msg.what = 1;
 								mHandler.sendMessage(msg);
 							}
+						}else if(mResponse.code() == 404){
+							if(mHandler != null){
+								msg.what = 3;
+								mHandler.sendMessage(msg);
+							}
 						}else{
 							if(mHandler != null){
 								msg.what = 2;

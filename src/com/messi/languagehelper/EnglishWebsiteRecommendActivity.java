@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
@@ -20,14 +21,14 @@ import com.iflytek.voiceads.IFLYBannerAd;
 import com.messi.languagehelper.adapter.EnglishWebsiteListAdapter;
 import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.AVOUtil;
+import com.messi.languagehelper.util.XFYSAD;
 
 public class EnglishWebsiteRecommendActivity extends BaseActivity implements OnClickListener {
 
 	private ListView category_lv;
 	private EnglishWebsiteListAdapter mAdapter;
 	private List<AVObject> avObjects;
-	private IFLYBannerAd mIFLYBannerAd;
-	private LinearLayout ad_view;
+	private XFYSAD mXFYSAD;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,39 +43,14 @@ public class EnglishWebsiteRecommendActivity extends BaseActivity implements OnC
 		getSupportActionBar().setTitle(getResources().getString(R.string.title_website));
 		avObjects = new ArrayList<AVObject>();
 		category_lv = (ListView) findViewById(R.id.studycategory_lv);
-		ad_view = (LinearLayout) findViewById(R.id.ad_view);
+		View headerView = LayoutInflater.from(this).inflate(R.layout.xunfei_ysad_item, null);
+		category_lv.addHeaderView(headerView);
 		mAdapter = new EnglishWebsiteListAdapter(this, avObjects);
 		category_lv.setAdapter(mAdapter);
-		addAD();
-	}
-	
-	private void addAD(){
-		if(ADUtil.isShowAd(this)){
-			mIFLYBannerAd = ADUtil.initBannerAD(EnglishWebsiteRecommendActivity.this, ad_view, ADUtil.ListADId);
-			mIFLYBannerAd.loadAd(new IFLYAdListener() {
-				@Override
-				public void onAdReceive() {
-					if(mIFLYBannerAd != null){
-						mIFLYBannerAd.showAd();
-					}
-				}
-				@Override
-				public void onAdFailed(AdError arg0) {
-				}
-				@Override
-				public void onAdClose() {
-				}
-				@Override
-				public void onAdClick() {
-					StatService.onEvent(EnglishWebsiteRecommendActivity.this, "ad_banner", "点击banner广告", 1);
-				}
-				@Override
-				public void onAdExposure() {
-					// TODO Auto-generated method stub
-					
-				}
-			});
-		}
+		
+		mXFYSAD = new XFYSAD(this, headerView, ADUtil.MRYJYSNRLAd);
+		mXFYSAD.showAD();
+		mAdapter.notifyDataSetChanged();
 	}
 	
 	@Override
@@ -124,9 +100,9 @@ public class EnglishWebsiteRecommendActivity extends BaseActivity implements OnC
 	
 	public void onDestroy() {
 		super.onDestroy();
-		if(mIFLYBannerAd != null){
-			mIFLYBannerAd.destroy();
-			mIFLYBannerAd = null;
-		}
+		if(mXFYSAD != null){
+    		mXFYSAD.canclePlayImg();
+    		mXFYSAD = null;
+    	}
 	}
 }
