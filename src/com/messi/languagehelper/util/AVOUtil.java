@@ -358,5 +358,39 @@ public class AVOUtil {
 		
 		public final static String name = "name";
 	}
+	
+	public static class CompositionType {
+		
+		public final static String CompositionType = "CompositionType";
+		
+		public final static String type_id = "type_id";
+		
+		public final static String type_name = "type_name";
+		
+		public final static String order = "order";
+		
+		public final static String is_valid = "is_valid";
+	}
+	
+	public static class Composition {
+		
+		public final static String Composition = "Composition";
+		
+		public final static String type_id = "type_id";
+		
+		public final static String type_name = "type_name";
+		
+		public final static String title = "title";
+		
+		public final static String content = "content";
+		
+		public final static String item_id = "item_id";
+		
+		public final static String img_url = "img_url";
+		
+		public final static String img_type = "img_type";
+		
+		public final static String img = "img";
+	}
 
 }

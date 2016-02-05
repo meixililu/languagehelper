@@ -132,6 +132,12 @@
         <!-- 讯飞广告sdk -->
 
         <activity
+            android:name=".CompositionDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CompositionActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".JokeActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -198,9 +204,6 @@
             android:name=".PracticeDetailActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity
-            android:name=".GetContentActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".RecommendActivity"
             android:screenOrientation="portrait" />

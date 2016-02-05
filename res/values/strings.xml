@@ -29,6 +29,7 @@
     <string name="title_duanzi">段子</string>
     <string name="title_duanzi_word">文字</string>
     <string name="title_duanzi_img">图片</string>
+    <string name="title_composition">英语作文</string>
     <string name="evaluation_prompt">关于口语评测</string>
     <string name="offline_download">下载Mp3</string>
     
@@ -154,7 +155,7 @@
 	<string name="detail_total">总分</string>
 	<string name="download">试一试</string>
 	
-	<string name="foreign_website">不错的学习网站</string>
+	<string name="foreign_website">学习网站</string>
 	<string name="foreign_website_subtitle">喜欢进步的看这里</string>
 	<string name="leisuer_one">酷炫彩铃</string>
 	<string name="leisuer_one_subtitle">听听音乐放松一下</string>
