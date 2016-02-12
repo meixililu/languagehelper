@@ -93,6 +93,8 @@ public class KeyUtil {
 	public static final String ClassId = "ClassId";
 	
 	public static final String ClassName = "ClassName";
+
+	public static final String SaveLastTime_CompositionActivity = "SaveLastTime_CompositionActivity";
 	
 	
 	

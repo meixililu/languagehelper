@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cover"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:foreground="@drawable/framelayout_selector" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/load_blue"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#33728dff"
+            android:shadowColor="#33728dff"
+            android:shadowDx="0.3"
+            android:shadowDy="0.3"
+            android:textStyle="bold"
+            android:gravity="left"
+            android:padding="@dimen/padding_20"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title" />
+
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="left"
+            android:padding="15dp"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/bigger" />
+
+        <FrameLayout
+            android:id="@+id/close_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:foreground="@drawable/framelayout_selector"
+            android:background="@color/white"
+            android:padding="10dp" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/delete"
+                android:clickable="false" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/play_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="25dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/ic_play_arrow_white_48dp"
+        app:backgroundTint="@color/load_blue"
+        app:elevation="3dp"
+        app:pressedTranslationZ="6dp"
+        app:rippleColor="#33728dff" />
+
+</FrameLayout>

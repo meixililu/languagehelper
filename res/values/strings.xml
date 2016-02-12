@@ -92,6 +92,7 @@
     <string name="click_and_speak">点击说话</string>
     <string name="dele_success">删除成功</string>
     <string name="copy_success">复制成功</string>
+    <string name="copy">复制</string>
     <string name="share">分享</string>
     <string name="share_buddy">分享给小伙伴</string>
     <string name="wechat_long_click">微信长按有惊喜</string>

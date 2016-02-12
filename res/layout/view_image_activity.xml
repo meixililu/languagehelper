@@ -35,6 +35,6 @@
         android:background="@color/load_blue"
         materialdesign:animate="true"
         materialdesign:rippleSpeed="95"
-        materialdesign:iconDrawable="@drawable/ic_share_white_36dp"
+        materialdesign:iconDrawable="@drawable/ic_share_white_24dp"
          />
 </RelativeLayout>

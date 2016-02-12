@@ -10,6 +10,7 @@ import com.messi.languagehelper.http.LanguagehelperHttpClient;
 import com.messi.languagehelper.http.UICallback;
 import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.util.ADUtil;
+import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.DownLoadUtil;
 import com.messi.languagehelper.util.GytUtil;
 import com.messi.languagehelper.util.JsonParser;
@@ -18,6 +19,7 @@ import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.NumberUtil;
 import com.messi.languagehelper.util.SDCardUtil;
 import com.messi.languagehelper.util.Settings;
+import com.messi.languagehelper.util.TextHandlerUtil;
 import com.messi.languagehelper.util.TimeUtil;
 import com.messi.languagehelper.views.ProportionalImageView;
 
@@ -109,7 +111,6 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		study_test.setOnClickListener(this);
 		symbol_study_cover.setOnClickListener(this);
 		word_study_cover.setOnClickListener(this);
-		dailysentence_txt.setOnClickListener(this);
 		news_layout.setOnClickListener(this);
 		en_examination_layout.setOnClickListener(this);
 		play_img.setOnClickListener(this);
@@ -158,7 +159,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	private void setSentence(){
 		LogUtil.DefalutLog("StudyFragment-setSentence()");
 		if(mEveryDaySentence != null){
-			dailysentence_txt.setText(mEveryDaySentence.getContent());
+			TextHandlerUtil.handlerText(getActivity(), null, dailysentence_txt, mEveryDaySentence.getContent());
 			Glide.with(getActivity())
 			.load(mEveryDaySentence.getPicture2())
 			.into(daily_sentence_item_img);
@@ -168,9 +169,6 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
-		case R.id.dailysentence_txt:
-			toDailySentenceActivity();
-			break;
 		case R.id.symbol_study_cover:
 			toSymbolListActivity();
 			break;

@@ -11,6 +11,8 @@ import com.messi.languagehelper.util.AudioTrackUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.SDCardUtil;
+import com.messi.languagehelper.util.Settings;
+import com.messi.languagehelper.util.TextHandlerUtil;
 import com.messi.languagehelper.util.XFUtil;
 
 import android.app.Activity;
@@ -19,6 +21,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -60,7 +64,7 @@ public class CompositionDetailActivity extends BaseActivity implements OnClickLi
 		mMyThread = new MyThread(mHandler);
 		
 		title.setText(mAVObject.getString(AVOUtil.Composition.title));
-		content.setText(mAVObject.getString(AVOUtil.Composition.content));
+		TextHandlerUtil.handlerText(this, mProgressbar, content, mAVObject.getString(AVOUtil.Composition.content));
 		fab.setOnClickListener(this);
 	}
 	
@@ -68,12 +72,13 @@ public class CompositionDetailActivity extends BaseActivity implements OnClickLi
 		@Override
 		public void handleMessage(Message msg) {
 			if(msg.what == MyThread.EVENT_PLAY_OVER){
-				
+				fab.setImageResource(R.drawable.ic_play_arrow_white_48dp);
 			}
 		}
 	};
 	
 	private void playContent(){
+		fab.setImageResource(R.drawable.ic_stop_white_48dp);
 		String filepath = SDCardUtil.getDownloadPath(SDCardUtil.CompositionPath) + 
 				String.valueOf(mAVObject.getNumber(AVOUtil.Composition.item_id)) + ".pcm";
 		if(!AudioTrackUtil.isFileExists(filepath)){
@@ -95,6 +100,7 @@ public class CompositionDetailActivity extends BaseActivity implements OnClickLi
 				}
 				@Override
 				public void onCompleted(SpeechError arg0) {
+					fab.setImageResource(R.drawable.ic_play_arrow_white_48dp);
 				}
 				@Override
 				public void onBufferProgress(int arg0, int arg1, int arg2, String arg3) {
@@ -108,12 +114,61 @@ public class CompositionDetailActivity extends BaseActivity implements OnClickLi
 			mThread = AudioTrackUtil.startMyThread(mMyThread);
 		}
 	}
+	
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.composition, menu);
+        return true;
+    }
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		super.onOptionsItemSelected(item);
+		switch (item.getItemId()) {
+		case R.id.action_share:
+			copyOrshare(0);
+			break;
+		case R.id.action_copy:
+			copyOrshare(1);
+			break;
+		}
+       return true;
+	}
+	
+	private void copyOrshare(int i){
+		StringBuilder sb = new StringBuilder();
+		sb.append(mAVObject.getString(AVOUtil.Composition.title));
+		sb.append("\n");
+		sb.append(mAVObject.getString(AVOUtil.Composition.content));
+		if(i == 0){
+			Settings.share(this, sb.toString());
+		}else{
+			Settings.copy(this, sb.toString());
+		}
+	}
 
 	@Override
 	public void onClick(View v) {
 		if(v.getId() == R.id.play_btn){
-			playContent();
+			if(!isPlaying()){
+				playContent();
+			}else{
+				fab.setImageResource(R.drawable.ic_play_arrow_white_48dp);
+			}
 		}
+	}
+	
+	private boolean isPlaying(){
+		boolean isPlaying = false;
+		if(mSpeechSynthesizer.isSpeaking()){
+			mSpeechSynthesizer.stopSpeaking();
+			isPlaying = true;
+		}
+		if(mMyThread.isPlaying){
+			AudioTrackUtil.stopPlayPcm(mThread);
+			isPlaying = true;
+		}
+		return isPlaying;
 	}
 	
 	@Override

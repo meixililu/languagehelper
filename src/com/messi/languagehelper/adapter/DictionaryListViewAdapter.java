@@ -165,7 +165,7 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 			holder.cover_result.setOnLongClickListener(new OnLongClickListener() {
 				@Override
 				public boolean onLongClick(View v) {
-					copy(mBean.getResult());
+					copy(mBean.getWord_name() + "\n" + mBean.getResult());
 					return true;
 				}
 			});
@@ -261,10 +261,8 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 	 */
 	private void sendToWechat(final Dictionary mBean) {
 		String[] tempText = new String[2];
-		tempText[0] = context.getResources().getString(
-				R.string.share_dialog_text_1);
-		tempText[1] = context.getResources().getString(
-				R.string.share_dialog_text_2);
+		tempText[0] = context.getResources().getString(R.string.share_dialog_text_1);
+		tempText[1] = context.getResources().getString(R.string.share_dialog_text_2);
 		PopDialog mPopDialog = new PopDialog(context, tempText);
 		mPopDialog.setCanceledOnTouchOutside(true);
 		mPopDialog.setListener(new PopViewItemOnclickListener() {

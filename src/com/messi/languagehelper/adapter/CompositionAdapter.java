@@ -24,7 +24,8 @@ public class CompositionAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
     	String code = avObjects.get(position).getString(AVOUtil.CompositionType.type_id);
-    	return new CompositionFragment(code);
+    	int random_max = avObjects.get(position).getInt(AVOUtil.CompositionType.random_max);
+    	return new CompositionFragment(code,random_max);
     }
 
     @Override

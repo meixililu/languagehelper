@@ -10,8 +10,14 @@ import android.content.pm.PackageManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.text.ClipboardManager;
+import android.view.View;
 
+import com.baidu.mobstat.StatService;
+import com.messi.languagehelper.ImgShareActivity;
 import com.messi.languagehelper.R;
+import com.messi.languagehelper.dao.record;
+import com.messi.languagehelper.dialog.PopDialog;
+import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
 
 public class Settings {
 
@@ -223,4 +229,45 @@ public class Settings {
       ((i >> 16 ) & 0xFF) + "." +       
       ( i >> 24 & 0xFF) ;  
    }  
+	
+	/**
+	 * 分享
+	 */
+	public static void share(final Context context,final String dstString){
+		String[] tempText = new String[2];
+		tempText[0] = context.getResources().getString(R.string.share_dialog_text_1);
+		tempText[1] = context.getResources().getString(R.string.share_dialog_text_2);
+		PopDialog mPopDialog = new PopDialog(context,tempText);
+		mPopDialog.setCanceledOnTouchOutside(true);
+		mPopDialog.setListener(new PopViewItemOnclickListener() {
+			@Override
+			public void onSecondClick(View v) {
+				toShareImageActivity(context,dstString);
+				StatService.onEvent(context, "tab_translate_share_image_btn", "首页翻译页面列表图片分享按钮", 1);
+			}
+			@Override
+			public void onFirstClick(View v) {
+				toShareTextActivity(context,dstString);
+				StatService.onEvent(context, "tab_translate_share_text_btn", "首页翻译页面列表文字分享按钮", 1);
+			}
+		});
+		mPopDialog.show();
+	}
+	
+	public static void toShareTextActivity(Context context,String dstString){
+		Intent intent = new Intent(Intent.ACTION_SEND);    
+		intent.setType("text/plain"); // 纯文本     
+		intent.putExtra(Intent.EXTRA_SUBJECT, context.getResources().getString(R.string.share));    
+		intent.putExtra(Intent.EXTRA_TEXT, dstString);    
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);    
+		context.startActivity(Intent.createChooser(intent, context.getResources().getString(R.string.share)));    
+	}
+	
+	public static void toShareImageActivity(Context context,String dstString){
+		Intent intent = new Intent(context, ImgShareActivity.class); 
+		intent.putExtra(KeyUtil.ShareContentKey, dstString);
+		context.startActivity(intent); 
+	}
+	
+	
 }

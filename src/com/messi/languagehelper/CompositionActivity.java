@@ -9,7 +9,13 @@ import com.avos.avoscloud.AVQuery;
 import com.messi.languagehelper.adapter.CompositionAdapter;
 import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.util.AVOUtil;
+import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.LogUtil;
+import com.messi.languagehelper.util.SaveData;
+import com.messi.languagehelper.util.Settings;
+import com.messi.languagehelper.util.TimeUtil;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -21,20 +27,50 @@ public class CompositionActivity extends BaseActivity implements FragmentProgres
 	private ViewPager viewpager;
 	private CompositionAdapter pageAdapter;
 	private List<AVObject> avObjects;
+	private SharedPreferences spf;
+	private boolean isNeedSaveData;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.joke_activity);
 		initViews();
-		new QueryTask().execute();
+		initData(); 
 	}
 	
 	private void initViews(){
+		spf = Settings.getSharedPreferences(this);
 		getSupportActionBar().setTitle(getResources().getString(R.string.title_composition));
 		tablayout = (TabLayout) findViewById(R.id.tablayout);
 		viewpager = (ViewPager) findViewById(R.id.viewpager);
 		avObjects = new ArrayList<AVObject>();
+	}
+	
+	private void initData(){
+		try {
+			String lastTimeSave = spf.getString(KeyUtil.SaveLastTime_CompositionActivity, "");
+			String cuttrnt = TimeUtil.getTimeDate(System.currentTimeMillis());
+			if(!lastTimeSave.equals(cuttrnt)){
+				SaveData.deleteObject(this, "CompositionActivity");
+				LogUtil.DefalutLog("deleteObject   CompositionActivity");
+				new QueryTask().execute();
+			}else{
+				List<String> listStr =  (ArrayList<String>) SaveData.getObject(this, "CompositionActivity");
+				if(listStr == null || listStr.size() == 0){
+					LogUtil.DefalutLog("avObjects is null");
+					new QueryTask().execute();
+				}else{
+					LogUtil.DefalutLog("avObjects is not null");
+					for(String str : listStr){
+						avObjects.add(AVObject.parseAVObject(str));
+					}
+					initTabTitle();
+				}
+			}
+		} catch (Exception e) {
+			new QueryTask().execute();
+			e.printStackTrace();
+		}
 	}
 	
 	private class QueryTask extends AsyncTask<Void, Void, Void> {
@@ -55,6 +91,7 @@ public class CompositionActivity extends BaseActivity implements FragmentProgres
 				if(avObject != null){
 					avObjects.clear();
 					avObjects.addAll(avObject);
+					isNeedSaveData = true;
 				}
 			} catch (AVException e) {
 				e.printStackTrace();
@@ -76,6 +113,21 @@ public class CompositionActivity extends BaseActivity implements FragmentProgres
 		viewpager.setOffscreenPageLimit(5);
 		tablayout.setTabsFromPagerAdapter(pageAdapter);
 		tablayout.setupWithViewPager(viewpager);
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if(avObjects != null && isNeedSaveData){
+			List<String> listStr = new ArrayList<String>();
+			for(AVObject item : avObjects){
+				listStr.add(item.toString());
+			}
+			SaveData.saveObject(this, "CompositionActivity", listStr);
+			Settings.saveSharedPreferences(spf, KeyUtil.SaveLastTime_CompositionActivity, 
+					TimeUtil.getTimeDate(System.currentTimeMillis()));
+			LogUtil.DefalutLog("saveObject   CompositionActivity");
+		}
 	}
 	
 	

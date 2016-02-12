@@ -2,6 +2,7 @@ package com.messi.languagehelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
@@ -9,6 +10,7 @@ import com.avos.avoscloud.AVQuery;
 import com.messi.languagehelper.adapter.CompositionListAdapter;
 import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.util.AVOUtil;
+import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.ScreenUtil;
 import com.messi.languagehelper.util.ToastUtil;
 
@@ -31,9 +33,14 @@ public class CompositionFragment extends BaseFragment implements OnClickListener
 	private View footerview;
 	private int skip = 0;
 	private String code;
+	private int maxRandom;
 	
-	public CompositionFragment(String code){
+	public CompositionFragment(String code,int maxRandom){
 		this.code = code;
+		this.maxRandom = maxRandom;
+		if(!code.equals("1000")){
+			random();
+		}
 	}
 	
 	@Override
@@ -64,6 +71,11 @@ public class CompositionFragment extends BaseFragment implements OnClickListener
 		setListOnScrollListener();
 	}
 	
+	private void random(){
+		skip = (int) Math.round(Math.random()*maxRandom);
+		LogUtil.DefalutLog("skip:"+skip);
+	}
+	
 	public void setListOnScrollListener(){
 		listview.setOnScrollListener(new OnScrollListener() {  
             private int lastItemIndex;//当前ListView中最后一个Item的索引  
@@ -88,17 +100,19 @@ public class CompositionFragment extends BaseFragment implements OnClickListener
 	
 	private void showFooterview(){
 		footerview.setVisibility(View.VISIBLE);  
-		footerview.setPadding(0, ScreenUtil.dip2px(getContext(), 15), 0, ScreenUtil.dip2px(getContext(), 15));  
+		footerview.setPadding(0, ScreenUtil.dip2px(getActivity(), 15), 0, ScreenUtil.dip2px(getActivity(), 15));  
 	}
 	
 	private void hideFooterview(){
 		footerview.setVisibility(View.GONE);  
-		footerview.setPadding(0, -footerview.getHeight(), 0, 0);  
+		footerview.setPadding(0, - (footerview.getHeight()+20), 0, 0);  
 	}
 	
 	@Override
 	public void onSwipeRefreshLayoutRefresh() {
-		skip = 0;
+		random();
+		avObjects.clear();
+		mAdapter.notifyDataSetChanged();
 		new QueryTask().execute();
 	}
 	
@@ -137,9 +151,6 @@ public class CompositionFragment extends BaseFragment implements OnClickListener
 					ToastUtil.diaplayMesShort(getContext(), "没有了！");
 					hideFooterview();
 				}else{
-					if(skip == 0){
-						avObjects.clear();
-					}
 					avObjects.addAll(avObject);
 					mAdapter.notifyDataSetChanged();
 					skip += 20;

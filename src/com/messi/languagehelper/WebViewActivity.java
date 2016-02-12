@@ -1,6 +1,16 @@
 package com.messi.languagehelper;
 
-import android.content.res.TypedArray;
+import com.baidu.mobstat.StatService;
+import com.gc.materialdesign.views.ProgressBarDetermininate;
+import com.iflytek.voiceads.AdError;
+import com.iflytek.voiceads.IFLYAdListener;
+import com.iflytek.voiceads.IFLYInterstitialAd;
+import com.messi.languagehelper.util.ADUtil;
+import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.LogUtil;
+import com.messi.languagehelper.util.Settings;
+import com.messi.languagehelper.util.ShareUtil;
+
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,36 +25,19 @@ import android.view.View.OnClickListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.baidu.mobstat.StatService;
-import com.gc.materialdesign.views.ProgressBarDetermininate;
-import com.iflytek.voiceads.AdError;
-import com.iflytek.voiceads.IFLYAdListener;
-import com.iflytek.voiceads.IFLYBannerAd;
-import com.iflytek.voiceads.IFLYInterstitialAd;
-import com.messi.languagehelper.observablescrollview.ObservableScrollViewCallbacks;
-import com.messi.languagehelper.observablescrollview.ObservableWebView;
-import com.messi.languagehelper.observablescrollview.ScrollState;
-import com.messi.languagehelper.util.ADUtil;
-import com.messi.languagehelper.util.KeyUtil;
-import com.messi.languagehelper.util.LogUtil;
-import com.messi.languagehelper.util.Settings;
-import com.messi.languagehelper.util.ShareUtil;
 
-
-public class WebViewActivity extends BaseActivity implements ObservableScrollViewCallbacks{
+public class WebViewActivity extends BaseActivity{
 	
 	private ProgressBarDetermininate progressdeterminate;
 	private SwipeRefreshLayout mSwipeRefreshLayout;
-	private ObservableWebView mWebView;
+	private WebView mWebView;
 	private TextView tap_to_reload;
     private String Url;
     private String title;
     private String ShareUrlMsg;
     private boolean isReedPullDownRefresh;
-    private float mActionBarHeight;
     private IFLYInterstitialAd mIFLYInterstitialAd;
     private long lastClick;
 
@@ -65,25 +58,18 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 			title = getResources().getString(R.string.app_name);
 		}
 		getSupportActionBar().setTitle(title);
-		
-		final TypedArray styledAttributes = getTheme().obtainStyledAttributes(
-                new int[] { android.R.attr.actionBarSize });
-		mActionBarHeight = styledAttributes.getDimension(0, 0);
-    	styledAttributes.recycle(); 
-    	LogUtil.DefalutLog("mActionBarHeight:"+mActionBarHeight);
 	}
 	
 	private void initViews(){
 		mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
 		progressdeterminate = (ProgressBarDetermininate) findViewById(R.id.progressdeterminate);
-		mWebView = (ObservableWebView) findViewById(R.id.refreshable_webview);
+		mWebView = (WebView) findViewById(R.id.refreshable_webview);
 		tap_to_reload = (TextView) findViewById(R.id.tap_to_reload);
 		setScrollable(mSwipeRefreshLayout);
 		mWebView.requestFocus();//如果不设置，则在点击网页文本输入框时，不能弹出软键盘及不响应其他的一些事件。
 		mWebView.getSettings().setJavaScriptEnabled(true);//如果访问的页面中有Javascript，则webview必须设置支持Javascript。
 		mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
 		mWebView.requestFocus();
-		mWebView.setScrollViewCallbacks(this);
 		
 		if(Url.equals(Settings.GameUrl) || Url.equals(Settings.YueduUrl)||Url.equals(Settings.HotalUrl)){
 			showAD();
@@ -200,7 +186,7 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		try {
-			menu.add(0,0,0,this.getResources().getString(R.string.menu_share)).setIcon(R.drawable.ic_share_white_36dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+			menu.add(0,0,0,this.getResources().getString(R.string.menu_share)).setIcon(R.drawable.ic_share_white_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -243,37 +229,6 @@ public class WebViewActivity extends BaseActivity implements ObservableScrollVie
 		if(mIFLYInterstitialAd != null){
 			mIFLYInterstitialAd = null;
 		}
-	}
-
-	@Override
-	public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
-		
-	}
-
-	@Override
-	public void onDownMotionEvent() {
-		
-	}
-
-	@Override
-	public void onUpOrCancelMotionEvent(ScrollState scrollState) {
-		if (scrollState == ScrollState.UP) {
-            if (toolbarIsShown()) {
-            	if(mWebView.getScrollY() != 0){
-            		hideToolbar();
-            	}
-            }
-            progressdeterminate.setVisibility(View.GONE);
-            LogUtil.DefalutLog("onUpOrCancelMotionEvent-getScrollY:"+mWebView.getScrollY());
-            LogUtil.DefalutLog("onUpOrCancelMotionEvent:ScrollState.UP");
-        } else if (scrollState == ScrollState.DOWN) {
-        	if(mWebView.getContentHeight()*mWebView.getScale()-(mWebView.getHeight()+mWebView.getScrollY()) != 0){
-        		if (toolbarIsHidden()) {
-        			showToolbar();
-        		}
-        	}
-            LogUtil.DefalutLog("onUpOrCancelMotionEvent:ScrollState.DOWN");
-        }
 	}
 	
 }

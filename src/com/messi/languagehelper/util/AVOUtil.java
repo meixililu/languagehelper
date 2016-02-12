@@ -370,6 +370,8 @@ public class AVOUtil {
 		public final static String order = "order";
 		
 		public final static String is_valid = "is_valid";
+		
+		public final static String random_max = "random_max";
 	}
 	
 	public static class Composition {

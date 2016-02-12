@@ -31,15 +31,17 @@
                 android:layout_height="match_parent"
                 android:background="@color/none_alpha"
                 android:orientation="vertical"
-                android:paddingTop="40dp" >
+                android:paddingTop="40dp" 
+                />
 
-                <TextView
+            <TextView
                     android:id="@+id/dailysentence_txt"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/padding_10"
                     android:layout_marginLeft="@dimen/padding_7"
                     android:layout_marginRight="@dimen/padding_7"
+                    android:layout_gravity="bottom"
                     android:gravity="left|bottom"
                     android:shadowColor="@color/white"
                     android:shadowDx="0.4"
@@ -47,7 +49,6 @@
                     android:shadowRadius="0.4"
                     android:textColor="@color/white"
                     android:textSize="@dimen/biggerx" />
-            </LinearLayout>
 
             <TextView
                 android:layout_width="fill_parent"

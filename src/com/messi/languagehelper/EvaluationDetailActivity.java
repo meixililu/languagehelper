@@ -1,13 +1,45 @@
 package com.messi.languagehelper;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.avos.avoscloud.AVObject;
+import com.baidu.mobstat.StatService;
+import com.gc.materialdesign.views.ButtonFloat;
+import com.gc.materialdesign.views.ButtonRectangle;
+import com.gc.materialdesign.views.CheckBox;
+import com.gc.materialdesign.widgets.Dialog;
+import com.iflytek.cloud.RecognizerListener;
+import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechRecognizer;
+import com.iflytek.cloud.SpeechSynthesizer;
+import com.iflytek.cloud.SynthesizerListener;
+import com.messi.languagehelper.adapter.PracticePageListItemAdapter;
+import com.messi.languagehelper.bean.UserSpeakBean;
+import com.messi.languagehelper.task.MyThread;
+import com.messi.languagehelper.task.PublicTask;
+import com.messi.languagehelper.task.PublicTask.PublicTaskListener;
+import com.messi.languagehelper.util.AVOUtil;
+import com.messi.languagehelper.util.AudioTrackUtil;
+import com.messi.languagehelper.util.JsonParser;
+import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.LogUtil;
+import com.messi.languagehelper.util.SDCardUtil;
+import com.messi.languagehelper.util.ScoreUtil;
+import com.messi.languagehelper.util.Settings;
+import com.messi.languagehelper.util.ToastUtil;
+import com.messi.languagehelper.util.XFUtil;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.Animator.AnimatorListener;
+import com.nineoldandroids.animation.ObjectAnimator;
 
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,39 +48,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.widget.ListView;
 import android.widget.TextView;
-
-import com.avos.avoscloud.AVObject;
-import com.baidu.mobstat.StatService;
-import com.gc.materialdesign.views.ButtonFloat;
-import com.gc.materialdesign.views.ButtonRectangle;
-import com.gc.materialdesign.views.CheckBox;
-import com.gc.materialdesign.widgets.Dialog;
-import com.iflytek.cloud.EvaluatorListener;
-import com.iflytek.cloud.EvaluatorResult;
-import com.iflytek.cloud.SpeechConstant;
-import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.SpeechEvaluator;
-import com.iflytek.cloud.SpeechSynthesizer;
-import com.iflytek.cloud.SynthesizerListener;
-import com.messi.languagehelper.result.Result;
-import com.messi.languagehelper.task.MyThread;
-import com.messi.languagehelper.task.PublicTask;
-import com.messi.languagehelper.task.PublicTask.PublicTaskListener;
-import com.messi.languagehelper.util.AVOUtil;
-import com.messi.languagehelper.util.AudioTrackUtil;
-import com.messi.languagehelper.util.KeyUtil;
-import com.messi.languagehelper.util.LogUtil;
-import com.messi.languagehelper.util.NumberUtil;
-import com.messi.languagehelper.util.SDCardUtil;
-import com.messi.languagehelper.util.Settings;
-import com.messi.languagehelper.util.ToastUtil;
-import com.messi.languagehelper.util.XFUtil;
-import com.messi.languagehelper.util.XmlResultParser;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.Animator.AnimatorListener;
-import com.nineoldandroids.animation.ObjectAnimator;
 
 public class EvaluationDetailActivity extends BaseActivity implements OnClickListener {
 
@@ -56,9 +57,8 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 	private FrameLayout auto_play_cover;
 	private CheckBox auto_play_cb;
 	private ImageButton voice_play_answer,show_zh_img;
-	private TextView evaluation_zh_tv,evaluation_en_tv,practice_prompt,record_animation_text;
-	private TextView practice_prompt_detail,practice_prompt_show;
-	private ScrollView practice_prompt_scrollview;
+	private TextView evaluation_zh_tv,evaluation_en_tv,record_animation_text;
+	private ListView user_result_lv;
 	private ImageView record_anim_img;
 	private ButtonFloat buttonFloat,previous_btn,next_btn;
 	private LinearLayout record_layout,record_animation_layout;
@@ -67,6 +67,10 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 	private MyOnClickListener mEvaluationOnClickListener;
 	private SpeechSynthesizer mSpeechSynthesizer;
 	private SharedPreferences mSharedPreferences;
+	private SpeechRecognizer recognizer;
+	private ArrayList<UserSpeakBean> mUserSpeakBeanList;
+	private PracticePageListItemAdapter adapter;
+	
 	private boolean isNewIn = true;
 	private boolean isFollow;
 	private StringBuilder sbResult = new StringBuilder();
@@ -75,8 +79,6 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 	private String content,EDCode;
 	private String[] studyContent;
 	private String mLastResult;
-	private SpeechEvaluator mSpeechEvaluator;
-	private boolean isEvaluating;
 	private String userPcmPath;
 	private MyThread mMyThread;
 	private Thread mThread;
@@ -100,7 +102,41 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 		
 		mSharedPreferences = Settings.getSharedPreferences(this);
 		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this,null);
-		mSpeechEvaluator = SpeechEvaluator.createEvaluator(this, null);
+		recognizer = SpeechRecognizer.createRecognizer(this,null);
+		mUserSpeakBeanList = new ArrayList<UserSpeakBean>();
+		adapter = new PracticePageListItemAdapter(this, mUserSpeakBeanList);
+		XFUtil.setSpeakLanguage(this,mSharedPreferences,XFUtil.VoiceEngineEN);
+	}
+	
+	private void initView() {
+		evaluation_en_cover = (FrameLayout) findViewById(R.id.record_answer_cover);
+		auto_play_cover = (FrameLayout) findViewById(R.id.auto_play_cover);
+		auto_play_cb = (CheckBox) findViewById(R.id.auto_play_cb);
+		user_result_lv = (ListView) findViewById(R.id.user_result_lv);
+		evaluation_en_tv = (TextView) findViewById(R.id.record_answer);
+		evaluation_zh_tv = (TextView) findViewById(R.id.record_question);
+		voice_play_answer = (ImageButton) findViewById(R.id.voice_play_answer);
+		show_zh_img = (ImageButton) findViewById(R.id.show_zh_img);
+		voice_btn = (ButtonRectangle) findViewById(R.id.voice_btn);
+		record_anim_img = (ImageView) findViewById(R.id.record_anim_img);
+		buttonFloat = (ButtonFloat) findViewById(R.id.buttonFloat);
+		previous_btn = (ButtonFloat) findViewById(R.id.previous_btn);
+		next_btn = (ButtonFloat) findViewById(R.id.next_btn);
+		record_layout = (LinearLayout) findViewById(R.id.record_layout);
+		record_animation_layout = (LinearLayout) findViewById(R.id.record_animation_layout);
+		record_animation_text = (TextView) findViewById(R.id.record_animation_text);
+		
+		user_result_lv.setAdapter(adapter);
+		buttonFloat.setEnabled(false);
+		previous_btn.setEnabled(true);
+		next_btn.setEnabled(true);
+		auto_play_cover.setOnClickListener(this);
+		previous_btn.setOnClickListener(this);
+		next_btn.setOnClickListener(this);
+		voice_btn.setOnClickListener(this);
+		show_zh_img.setOnClickListener(this);
+		buttonFloat.setOnClickListener(this);
+		setDatas();
 	}
 	
 	private void setDatas(){
@@ -118,42 +154,6 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 			}
 			changeZh();
 		}
-	}
-
-	private void initView() {
-		evaluation_en_cover = (FrameLayout) findViewById(R.id.record_answer_cover);
-		auto_play_cover = (FrameLayout) findViewById(R.id.auto_play_cover);
-		auto_play_cb = (CheckBox) findViewById(R.id.auto_play_cb);
-		practice_prompt = (TextView) findViewById(R.id.practice_prompt);
-		practice_prompt_scrollview = (ScrollView) findViewById(R.id.practice_prompt_scrollview);
-		practice_prompt_detail = (TextView) findViewById(R.id.practice_prompt_detail);
-		practice_prompt_show = (TextView) findViewById(R.id.practice_prompt_show);
-		evaluation_en_tv = (TextView) findViewById(R.id.record_answer);
-		evaluation_zh_tv = (TextView) findViewById(R.id.record_question);
-		voice_play_answer = (ImageButton) findViewById(R.id.voice_play_answer);
-		show_zh_img = (ImageButton) findViewById(R.id.show_zh_img);
-		voice_btn = (ButtonRectangle) findViewById(R.id.voice_btn);
-		record_anim_img = (ImageView) findViewById(R.id.record_anim_img);
-		buttonFloat = (ButtonFloat) findViewById(R.id.buttonFloat);
-		previous_btn = (ButtonFloat) findViewById(R.id.previous_btn);
-		next_btn = (ButtonFloat) findViewById(R.id.next_btn);
-		record_layout = (LinearLayout) findViewById(R.id.record_layout);
-		record_animation_layout = (LinearLayout) findViewById(R.id.record_animation_layout);
-		record_animation_text = (TextView) findViewById(R.id.record_animation_text);
-		
-		buttonFloat.setEnabled(false);
-		previous_btn.setEnabled(true);
-		next_btn.setEnabled(true);
-		auto_play_cover.setOnClickListener(this);
-		previous_btn.setOnClickListener(this);
-		next_btn.setOnClickListener(this);
-		voice_btn.setOnClickListener(this);
-		show_zh_img.setOnClickListener(this);
-		buttonFloat.setOnClickListener(this);
-		practice_prompt_show.setOnClickListener(this);
-		practice_prompt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-		practice_prompt.setText(this.getResources().getString(R.string.practice_prompt_english));
-		setDatas();
 	}
 	
 	@Override
@@ -188,15 +188,6 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 		case R.id.show_zh_img:
 			showZH();
 			break;
-		case R.id.practice_prompt_show:
-			if(!practice_prompt_scrollview.isShown()){
-				practice_prompt_scrollview.setVisibility(View.VISIBLE);
-				practice_prompt_show.setText(EvaluationDetailActivity.this.getResources().getString(R.string.detail_total));
-			}else{
-				practice_prompt_scrollview.setVisibility(View.GONE);
-				practice_prompt_show.setText(EvaluationDetailActivity.this.getResources().getString(R.string.detail));
-			}
-			break;
 		}
 	}
 	
@@ -212,22 +203,6 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 		if( !TextUtils.isEmpty(evaluation_zh_tv.getText().toString()) ){
 			evaluation_zh_tv.setText(studyContent[1]);
 		}
-	}
-	
-	private void startEvaluation() {
-		mSpeechEvaluator.setParameter(SpeechConstant.LANGUAGE, "en_us");//zh_cn
-		mSpeechEvaluator.setParameter(SpeechConstant.ISE_CATEGORY, "read_sentence");
-		mSpeechEvaluator.setParameter(SpeechConstant.TEXT_ENCODING, "utf-8");
-		mSpeechEvaluator.setParameter(SpeechConstant.VAD_BOS, "5000");
-		mSpeechEvaluator.setParameter(SpeechConstant.VAD_EOS, "1800");
-		mSpeechEvaluator.setParameter(SpeechConstant.KEY_SPEECH_TIMEOUT, "-1");
-		mSpeechEvaluator.setParameter(SpeechConstant.RESULT_LEVEL, "complete");
-		// 设置音频保存路径，保存音频格式仅为pcm，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
-		String path = SDCardUtil.getDownloadPath(SDCardUtil.EvaluationUserPath);
-		userPcmPath = path + EDCode + ".pcm";
-		mSpeechEvaluator.setParameter(SpeechConstant.ISE_AUDIO_PATH, userPcmPath);
-		isEvaluating = true;
-		mSpeechEvaluator.startEvaluating(studyContent[0], null, mEvaluatorListener);
 	}
 	
 	private void playUserPcm(){
@@ -250,20 +225,25 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 	 */
 	public void showIatDialog() {
 		buttonFloat.setEnabled(false);
-		if(!isEvaluating){
-			if(isNewIn){
-				isNewIn = false;
-				isFollow = true;
-				showListen();
-				mEvaluationOnClickListener.onClick(voice_play_answer);
+		if(recognizer != null){
+			if(!recognizer.isListening()){
+				if(isNewIn){
+					isNewIn = false;
+					isFollow = true;
+					showListen();
+					mEvaluationOnClickListener.onClick(voice_play_answer);
+				}else{
+					record_layout.setVisibility(View.VISIBLE);
+					voice_btn.setText(this.getResources().getString(R.string.finish));
+					String path = SDCardUtil.getDownloadPath(SDCardUtil.UserPracticePath);
+					userPcmPath = path + "/userpractice.pcm";
+					recognizer.setParameter(SpeechConstant.ASR_AUDIO_PATH, userPcmPath);
+					XFUtil.showSpeechRecognizer(this,mSharedPreferences,recognizer,recognizerListener);
+				}
 			}else{
-				record_layout.setVisibility(View.VISIBLE);
-				voice_btn.setText(this.getResources().getString(R.string.finish));
-				startEvaluation();
+				showProgressbar();
+				finishRecord();
 			}
-		}else{
-			showProgressbar();
-			finishRecord();
 		}
 	}
 	
@@ -271,9 +251,10 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 	 * finish record
 	 */
 	private void finishRecord(){
-		isEvaluating = false;
+		if(recognizer.isListening()){
+			recognizer.stopListening();
+		}
 		isNewIn = true;
-		mSpeechEvaluator.stopEvaluating();
 		record_layout.setVisibility(View.GONE);
 		record_anim_img.setBackgroundResource(R.drawable.speak_voice_1);
 		voice_btn.setText("Start");
@@ -328,7 +309,6 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 	
 	private void playNext(){
 		new Handler().postDelayed(new Runnable() {
-			
 			@Override
 			public void run() {
 				if(auto_play_cb.isCheck()){
@@ -371,20 +351,24 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 		}
 	};
 	
-	// 评测监听接口
-	private EvaluatorListener mEvaluatorListener = new EvaluatorListener() {
+	RecognizerListener recognizerListener = new RecognizerListener() {
 		
 		@Override
-		public void onResult(EvaluatorResult result, boolean isLast) {
-			if (isLast) {
-				StringBuilder builder = new StringBuilder();
-				builder.append(result.getResultString());
-				mLastResult = builder.toString();
+		public void onResult(RecognizerResult results, boolean isLast) {
+			String text = JsonParser.parseIatResult(results.getResultString());
+			sbResult.append(text);
+			if(isLast) {
+				LogUtil.DefalutLog("isLast-------onResult:"+sbResult.toString());
 				hideProgressbar();
 				finishRecord();
-				parseEvaluationResult();
+				UserSpeakBean bean = ScoreUtil.score(EvaluationDetailActivity.this, sbResult.toString(), evaluation_en_tv.getText().toString());
+				mUserSpeakBeanList.add(0,bean);
+				adapter.notifyDataSetChanged();
+				animationReward(bean.getScoreInt());
+				sbResult.setLength(0);
+				buttonFloat.setEnabled(true);
+				mMyThread = AudioTrackUtil.getMyThread(userPcmPath);
 				playNext();
-				LogUtil.DefalutLog("isLast-------mLastResult:"+mLastResult);
 			}
 		}
 
@@ -433,29 +417,40 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 		}
 	};
 	
-	private void parseEvaluationResult(){
-		if (!TextUtils.isEmpty(mLastResult)) {
-			buttonFloat.setEnabled(true);
-			mMyThread = AudioTrackUtil.getMyThread(userPcmPath);
-			XmlResultParser resultParser = new XmlResultParser();
-			Result result = resultParser.parse(mLastResult);
-			practice_prompt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);
-			if (null != result) {
-				if(result.total_score > 4.2){
-					practice_prompt.setTextColor(getResources().getColor(R.color.green_500));
-				}else if(result.total_score > 2.5){
-					practice_prompt.setTextColor(getResources().getColor(R.color.yellow_400));
-				}else {
-					practice_prompt.setTextColor(getResources().getColor(R.color.red));
-				}
-				practice_prompt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 80);
-				practice_prompt.setText( String.valueOf(NumberUtil.hundred_mark(result.total_score)) );
-				practice_prompt_detail.setText(result.toString());
-			} else {
-				practice_prompt.setText("结析结果为空");
-			}
+	private void animationReward(int score){
+		String word = "Nice";
+		if(score > 90){
+			word = "Perfect";
+		}else if(score > 70){
+			word = "Great";
+		}else if(score > 59){
+			word = "Not bad";
+		}else {
+			word = "Try harder";
 		}
+		record_animation_layout.setVisibility(View.VISIBLE);
+		record_animation_text.setText(word);
+		ObjectAnimator mObjectAnimator = ObjectAnimator.ofFloat(record_animation_layout, "alpha", 1, 0f);
+		mObjectAnimator.addListener(mAnimatorListenerReward);
+		mObjectAnimator.setStartDelay(300);
+		mObjectAnimator.setDuration(1500).start();
 	}
+	
+	private AnimatorListener mAnimatorListenerReward = new AnimatorListener() {
+		@Override
+		public void onAnimationStart(Animator animation) {
+		}
+		@Override
+		public void onAnimationRepeat(Animator animation) {
+		}
+		@Override
+		public void onAnimationEnd(Animator animation) {
+			record_animation_layout.setVisibility(View.GONE);
+		}
+		@Override
+		public void onAnimationCancel(Animator animation) {
+		}
+	};
 	
 	public class MyOnClickListener implements OnClickListener {
 		
@@ -592,12 +587,16 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 		super.onDestroy();
 		LogUtil.DefalutLog("EvaluationDetailActivity onDestroy");
 		if(mSpeechSynthesizer != null){
-			mSpeechSynthesizer.stopSpeaking();
-			mSpeechSynthesizer.destroy();
+			if(mSpeechSynthesizer.isSpeaking()){
+				mSpeechSynthesizer.stopSpeaking();
+			}
+			mSpeechSynthesizer = null;
 		}
-		if(mSpeechEvaluator != null){
-			mSpeechEvaluator.stopEvaluating();
-			mSpeechEvaluator.cancel(true);
+		if(recognizer != null){
+			if(recognizer.isListening()){
+				recognizer.stopListening();
+			}
+			recognizer = null;
 		}
 	}
 }

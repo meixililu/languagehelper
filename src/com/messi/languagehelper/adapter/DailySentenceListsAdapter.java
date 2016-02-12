@@ -16,6 +16,7 @@ import com.messi.languagehelper.util.DownLoadUtil;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.SDCardUtil;
+import com.messi.languagehelper.util.TextHandlerUtil;
 import com.messi.languagehelper.views.ProportionalImageView;
 
 import android.app.Activity;
@@ -79,8 +80,8 @@ public class DailySentenceListsAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		final EveryDaySentence mBean = beans.get(position);
-		holder.english_txt.setText(mBean.getContent());
 		holder.chinese_txt.setText(mBean.getNote());
+		TextHandlerUtil.handlerText(context, mProgressbar, holder.english_txt, mBean.getContent());
 		
 		Glide.with(context)
 		.load(mBean.getPicture2())

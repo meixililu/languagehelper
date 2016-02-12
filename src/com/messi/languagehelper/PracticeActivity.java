@@ -538,12 +538,6 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 		animationDrawable.selectDrawable(0);
 	}
 	
-	private void isFirstLoaded(){
-		if(mSharedPreferences.getBoolean(KeyUtil.IsFirstLoadPracticePage, true)){
-			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsFirstLoadPracticePage, false);
-		}
-	}
-	
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
