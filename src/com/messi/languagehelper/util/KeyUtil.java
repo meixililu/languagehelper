@@ -56,6 +56,8 @@ public class KeyUtil {
 	
 	public static final String LevelKey = "LevelKey";
 	
+	public static final String IndexKey = "IndexKey";
+	
 	public static final String UserSelectLanguage = "UserSelectLanguage";
 	
 	public static final String IsReedPullDownRefresh = "IsReedPullDownRefresh";

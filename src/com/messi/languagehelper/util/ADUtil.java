@@ -26,7 +26,7 @@ public class ADUtil {
 	
 	public static final boolean IsShowAdImmediately = false;
 	public static final int adCount = 3;
-	public static final int adInterval = 6000;
+	public static final int adInterval = 5000;
 
 	// initQuanPingAD  initChaPingAD    initBannerAD    initKaiPingAD
 	

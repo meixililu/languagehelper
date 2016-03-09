@@ -24,6 +24,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 public class XFYSAD {
 	
@@ -39,6 +40,9 @@ public class XFYSAD {
 	private int Index;
 	private String adId;
 	private int retryTime;
+	public static List<NativeADDataRef> adList_xx;
+	public static List<NativeADDataRef> adList_mryj;
+	private boolean isStopPlay;
 	
 	public XFYSAD(Context mContext,View parentView,String adId){
 		this.mContext = mContext;
@@ -54,21 +58,31 @@ public class XFYSAD {
 	private Runnable mRunnable = new Runnable() {
 		@Override
 		public void run() {
-			if(auto_view_pager != null && adList != null){
-				Index++;
-				if(Index >= adList.size()){
-					Index = 0;
-				}
-				auto_view_pager.setCurrentItem(Index);
-				LogUtil.DefalutLog("---mRunnable---run");
-			}
+			changeAd();
 			mHandler.postDelayed(mRunnable, ADUtil.adInterval);
+			LogUtil.DefalutLog("---mRunnable run---");
 		}
 	};
+	
+	private void changeAd(){
+		if(auto_view_pager != null && adList != null){
+			Index++;
+			if(Index >= adList.size()){
+				Index = 0;
+			}
+			auto_view_pager.setCurrentItem(Index);
+		}
+	}
 	
 	public void startPlayImg(){
 		if(mHandler != null){
 			if(adList != null && adList.size() > 0){
+				new Handler().postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						changeAd();
+					}
+				}, 400);
 				mHandler.postDelayed(mRunnable, ADUtil.adInterval);
 				LogUtil.DefalutLog("---startPlayImg---");
 			}
@@ -84,41 +98,80 @@ public class XFYSAD {
 	
 	public void showAD(){
 		if(ADUtil.isShowAd(mContext)){
-			nativeAd = new IFLYNativeAd(mContext, adId, new IFLYNativeListener() {
-				@Override
-				public void onAdFailed(AdError arg0) {
-					parentView.setVisibility(View.GONE);
-					LogUtil.DefalutLog("onAdFailed---"+arg0.getErrorCode()+"---"+arg0.getErrorDescription());
-					if(retryTime < 1){
-						retryTime ++;
-						if(adId.equals(ADUtil.XiuxianYSNRLAd)){
-							adId = ADUtil.MRYJYSNRLAd;
-						}else if(adId.equals(ADUtil.MRYJYSNRLAd)){
-							adId = ADUtil.XiuxianYSNRLAd;
-						}
-						showAD();
-					}
+			if(adId.equals(ADUtil.XiuxianYSNRLAd)){
+				if(adList_xx != null){
+					adList = adList_xx;
+					delaySetData();
+				}else if(adList_mryj != null){
+					adList = adList_mryj;
+					delaySetData();
+				}else{
+					loadData();
 				}
-				@Override
-				public void onADLoaded(List<NativeADDataRef> arg0) {
-					if(arg0 != null && arg0.size() > 0){
-						parentView.setVisibility(View.VISIBLE);
-						adList = arg0;
-						if(isReverse){
-							Collections.reverse(adList);
-						}
-						isReverse = !isReverse;
-						setAdData();
-					}
+			}else if(adId.equals(ADUtil.MRYJYSNRLAd)){
+				if(adList_mryj != null){
+					adList = adList_mryj;
+					delaySetData();
+				}else if(adList_xx != null){
+					adList = adList_xx;
+					delaySetData();
+				}else{
+					loadData();
 				}
-			});
-			nativeAd.loadAd(ADUtil.adCount);
+			}
 		}else{
 			parentView.setVisibility(View.GONE);
 		}
 	}
 	
+	private void loadData(){
+		LogUtil.DefalutLog("---load ad Data---");
+		nativeAd = new IFLYNativeAd(mContext, adId, new IFLYNativeListener() {
+			@Override
+			public void onAdFailed(AdError arg0) {
+				parentView.setVisibility(View.GONE);
+				LogUtil.DefalutLog("onAdFailed---"+arg0.getErrorCode()+"---"+arg0.getErrorDescription());
+				if(retryTime < 1){
+					retryTime ++;
+					if(adId.equals(ADUtil.XiuxianYSNRLAd)){
+						adId = ADUtil.MRYJYSNRLAd;
+					}else if(adId.equals(ADUtil.MRYJYSNRLAd)){
+						adId = ADUtil.XiuxianYSNRLAd;
+					}
+					showAD();
+				}
+			}
+			@Override
+			public void onADLoaded(List<NativeADDataRef> arg0) {
+				if(arg0 != null && arg0.size() > 0){
+					if(adId.equals(ADUtil.XiuxianYSNRLAd)){
+						adList_xx = arg0;
+					}else if(adId.equals(ADUtil.MRYJYSNRLAd)){
+						adList_mryj = arg0;
+					}
+					adList = arg0;
+					setAdData();
+				}
+			}
+		});
+		nativeAd.loadAd(ADUtil.adCount);
+	}
+	
+	private void delaySetData(){
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				setAdData();
+			}
+		}, 400);
+	}
+	
 	private void setAdData(){
+		parentView.setVisibility(View.VISIBLE);
+		if(isReverse){
+			Collections.reverse(adList);
+		}
+		isReverse = !isReverse;
 		ArrayList<View> views = new ArrayList<View>();
 		for(int i=0; i < adList.size() ;i++){
 			views.add(getAdItem(adList.get(i)));
@@ -138,7 +191,9 @@ public class XFYSAD {
 				return false;
 			}
 		});
-        startPlayImg();
+        if(!isStopPlay){
+        	startPlayImg();
+        }
 	}
 	
 	public View getAdItem(final NativeADDataRef mNativeADDataRef){
@@ -170,4 +225,55 @@ public class XFYSAD {
         @Override
         public void onPageScrollStateChanged(int arg0) {}
     }
+
+	public boolean isStopPlay() {
+		return isStopPlay;
+	}
+
+	public void setStopPlay(boolean isStopPlay) {
+		this.isStopPlay = isStopPlay;
+	}
+	
+	public static void setAd(final Context context, final View view){
+		if(adList_xx == null && adList_mryj == null){
+			view.setVisibility(View.GONE);
+			return;
+		}else{
+			new Handler().postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					view.setVisibility(View.VISIBLE);
+					FrameLayout ad_layout = (FrameLayout) view.findViewById(R.id.ad_layout);
+					ProportionalImageView ad_img = (ProportionalImageView) view.findViewById(R.id.ad_img);
+					final int index = (int) Math.round(Math.random()*2);
+					if(adList_xx != null && adList_xx.size() > 0){
+						Glide.with(context)
+						.load(adList_xx.get(index).getImage())
+						.into(ad_img);
+						adList_xx.get(index).onExposured(ad_layout);
+						ad_layout.setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								adList_xx.get(index).onClicked(v);
+							}
+						});
+					}else if(adList_mryj != null && adList_mryj.size() > 0){
+						Glide.with(context)
+						.load(adList_mryj.get(index).getImage())
+						.into(ad_img);
+						adList_mryj.get(index).onExposured(ad_layout);
+						ad_layout.setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								adList_mryj.get(index).onClicked(v);
+							}
+						});
+					}
+				}
+			}, 500);
+			
+		}
+		
+	}
+	
 }

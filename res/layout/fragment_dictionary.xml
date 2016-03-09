@@ -72,6 +72,7 @@
                     android:paddingTop="3dp" 
                     android:paddingRight="10dp" 
                     android:paddingBottom="3dp" 
+                    android:visibility="gone"
                     >
 	                <ImageView
 	                    android:layout_width="wrap_content"
@@ -84,7 +85,7 @@
                     android:id="@+id/submit_btn"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
-                    android:layout_below="@id/photo_tran_btn"
+                    android:layout_below="@id/clear_btn_layout"
                     android:background="@color/load_blue"
                     android:gravity="center"
                     android:text="@string/translate"

@@ -32,6 +32,15 @@
     <string name="title_composition">英语作文</string>
     <string name="evaluation_prompt">关于口语评测</string>
     <string name="offline_download">下载Mp3</string>
+    <string name="background_color">背景颜色</string>
+    <string name="font_color">字体颜色</string>
+    <string name="font_size">字体大小</string>
+    <string name="font_style">字体样式</string>
+    <string name="font_style_left">居左</string>
+    <string name="font_style_right">居右</string>
+    <string name="font_style_center">居中</string>
+    <string name="font_style_bold">粗体</string>
+    <string name="font_style_italic">斜体</string>
     
     <string name="menu_share">DIY分享</string>
     <string name="menu_settings">语速调节</string>
@@ -215,5 +224,6 @@
 	
 	<string name="follow_teacher">外教跟读</string>
 	<string name="server_error">服务器错误，请稍后重试！</string>
+	
 	
 </resources>

@@ -40,7 +40,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-public class CompositionDetailActivity extends BaseActivity implements OnClickListener{
+public class ReadingDetailActivity extends BaseActivity implements OnClickListener{
 
 	private TextView title,content;
 	private RelativeLayout xx_ad_layout;
@@ -92,9 +92,9 @@ public class CompositionDetailActivity extends BaseActivity implements OnClickLi
 	
 	private void setData(){
 		scrollview.scrollTo(0, 0);
-		title.setText(mAVObject.getString(AVOUtil.Composition.title));
-		TextHandlerUtil.handlerText(this, mProgressbar, content, mAVObject.getString(AVOUtil.Composition.content));
-		XFYSAD.setAd(CompositionDetailActivity.this, xx_ad_layout);
+		title.setText(mAVObject.getString(AVOUtil.Reading.title));
+		TextHandlerUtil.handlerText(this, mProgressbar, content, mAVObject.getString(AVOUtil.Reading.content));
+		XFYSAD.setAd(ReadingDetailActivity.this, xx_ad_layout);
 		int[] random = NumberUtil.getRandomNumberLimit(mAVObjects.size(), 0, 5, index);
 		next_composition.removeAllViews();
 		for(int i : random){
@@ -115,11 +115,11 @@ public class CompositionDetailActivity extends BaseActivity implements OnClickLi
 	private void playContent(){
 		fab.setImageResource(R.drawable.ic_stop_white_48dp);
 		String filepath = SDCardUtil.getDownloadPath(SDCardUtil.CompositionPath) + 
-				String.valueOf(mAVObject.getNumber(AVOUtil.Composition.item_id)) + ".pcm";
+				String.valueOf(mAVObject.getNumber(AVOUtil.Reading.item_id)) + ".pcm";
 		if(!AudioTrackUtil.isFileExists(filepath)){
 			mSpeechSynthesizer.setParameter(SpeechConstant.TTS_AUDIO_PATH, filepath);
 			XFUtil.showSpeechSynthesizer(this,mSharedPreferences,mSpeechSynthesizer,
-					mAVObject.getString(AVOUtil.Composition.content),XFUtil.SpeakerEn,
+					mAVObject.getString(AVOUtil.Reading.content),XFUtil.SpeakerEn,
 					new SynthesizerListener() {
 				@Override
 				public void onSpeakResumed() {
@@ -172,9 +172,9 @@ public class CompositionDetailActivity extends BaseActivity implements OnClickLi
 	
 	private void copyOrshare(int i){
 		StringBuilder sb = new StringBuilder();
-		sb.append(mAVObject.getString(AVOUtil.Composition.title));
+		sb.append(mAVObject.getString(AVOUtil.Reading.title));
 		sb.append("\n");
-		sb.append(mAVObject.getString(AVOUtil.Composition.content));
+		sb.append(mAVObject.getString(AVOUtil.Reading.content));
 		if(i == 0){
 			Settings.share(this, sb.toString());
 		}else{
@@ -214,13 +214,13 @@ public class CompositionDetailActivity extends BaseActivity implements OnClickLi
 		TextView smark = (TextView) convertView.findViewById(R.id.smark);
 		ImageView list_item_img = (ImageView) convertView.findViewById(R.id.list_item_img);
 		
-		title.setText( mObject.getString(AVOUtil.Composition.title) );
-		smark.setText( mObject.getString(AVOUtil.Composition.type_name) );
+		title.setText( mObject.getString(AVOUtil.Reading.title) );
+		smark.setText( mObject.getString(AVOUtil.Reading.source_name) );
 		String img_url = "";
-		if(mObject.getString(AVOUtil.Composition.img_type).equals("url")){
-			img_url = mObject.getString(AVOUtil.Composition.img_url);
+		if(mObject.getString(AVOUtil.Reading.img_type).equals("url")){
+			img_url = mObject.getString(AVOUtil.Reading.img_url);
 		}else{
-			AVFile mAVFile = mObject.getAVFile(AVOUtil.Composition.img);
+			AVFile mAVFile = mObject.getAVFile(AVOUtil.Reading.img);
 			img_url = mAVFile.getUrl();
 		}
 		

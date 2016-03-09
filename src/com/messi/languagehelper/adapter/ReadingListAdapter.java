@@ -6,8 +6,8 @@ import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.bumptech.glide.Glide;
 import com.messi.languagehelper.BaseApplication;
-import com.messi.languagehelper.CompositionDetailActivity;
 import com.messi.languagehelper.R;
+import com.messi.languagehelper.ReadingDetailActivity;
 import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.KeyUtil;
 
@@ -24,13 +24,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class CompositionListAdapter extends BaseAdapter {
+public class ReadingListAdapter extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	private Context context;
 	private List<AVObject> avObjects;
 	
-	public CompositionListAdapter(Context mContext, List<AVObject> avObjects) {
+	public ReadingListAdapter(Context mContext, List<AVObject> avObjects) {
 		context = mContext;
 		this.mInflater = LayoutInflater.from(mContext);
 		this.avObjects = avObjects;
@@ -64,13 +64,13 @@ public class CompositionListAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		final AVObject mAVObject = avObjects.get(position);
-		holder.title.setText( mAVObject.getString(AVOUtil.Composition.title) );
-		holder.smark.setText( mAVObject.getString(AVOUtil.Composition.type_name) );
+		holder.title.setText( mAVObject.getString(AVOUtil.Reading.title) );
+		holder.smark.setText( mAVObject.getString(AVOUtil.Reading.source_name) );
 		String img_url = "";
-		if(mAVObject.getString(AVOUtil.Composition.img_type).equals("url")){
-			img_url = mAVObject.getString(AVOUtil.Composition.img_url);
+		if(mAVObject.getString(AVOUtil.Reading.img_type).equals("url")){
+			img_url = mAVObject.getString(AVOUtil.Reading.img_url);
 		}else{
-			AVFile mAVFile = mAVObject.getAVFile(AVOUtil.Composition.img);
+			AVFile mAVFile = mAVObject.getAVFile(AVOUtil.Reading.img);
 			img_url = mAVFile.getUrl();
 		}
 		
@@ -97,7 +97,7 @@ public class CompositionListAdapter extends BaseAdapter {
 	
 	private void toDetailActivity(int position){
 		BaseApplication.dataMap.put(KeyUtil.DataMapKey, avObjects);
-		Intent intent = new Intent(context,CompositionDetailActivity.class);
+		Intent intent = new Intent(context,ReadingDetailActivity.class);
 		intent.putExtra(KeyUtil.IndexKey, position);
 		context.startActivity(intent);
 	}

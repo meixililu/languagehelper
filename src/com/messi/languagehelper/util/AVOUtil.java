@@ -370,8 +370,6 @@ public class AVOUtil {
 		public final static String order = "order";
 		
 		public final static String is_valid = "is_valid";
-		
-		public final static String random_max = "random_max";
 	}
 	
 	public static class Composition {
@@ -388,9 +386,37 @@ public class AVOUtil {
 		
 		public final static String item_id = "item_id";
 		
+		public final static String publish_time = "publish_time";
+		
 		public final static String img_url = "img_url";
 		
 		public final static String img_type = "img_type";
+		
+		public final static String img = "img";
+		
+	}
+	
+	public static class Reading {
+		
+		public final static String Reading = "Reading";
+		
+		public final static String type_id = "type_id";
+		
+		public final static String type_name = "type_name";
+		
+		public final static String title = "title";
+		
+		public final static String content = "content";
+		
+		public final static String item_id = "item_id";
+		
+		public final static String img_url = "img_url";
+		
+		public final static String publish_time = "publish_time";
+		
+		public final static String img_type = "img_type";
+		
+		public final static String source_name = "source_name";
 		
 		public final static String img = "img";
 	}

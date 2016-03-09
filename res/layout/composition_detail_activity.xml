@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize" >
+
         <com.gc.materialdesign.views.ProgressBarCircularIndeterminate
             android:id="@+id/progressBarCircularIndetermininate"
             android:layout_width="28dp"
@@ -27,6 +28,7 @@
         android:layout_height="match_parent" >
 
         <ScrollView
+            android:id="@+id/scrollview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fillViewport="true" >
@@ -55,28 +57,70 @@
                     android:paddingBottom="@dimen/padding_15"
                     android:textColor="@color/text_black"
                     android:textSize="@dimen/biggerx" />
+
+                <RelativeLayout
+                    android:id="@+id/xx_ad_layout"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:layout_marginBottom="@dimen/padding_15"
+                    android:layout_marginLeft="@dimen/padding_10"
+                    android:layout_marginRight="@dimen/padding_10"
+                    android:visibility="gone" >
+
+                    <FrameLayout
+                        android:id="@+id/ad_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/none"
+                        android:foreground="@drawable/framelayout_selector" >
+
+                        <com.messi.languagehelper.views.ProportionalImageView
+                            android:id="@+id/ad_img"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:paddingBottom="3dp"
+                        android:paddingLeft="3dp"
+                        android:text="推广"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/middle" />
+                </RelativeLayout>
+                
+                <LinearLayout
+                    android:id="@+id/next_composition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                </LinearLayout>
+                
             </LinearLayout>
         </ScrollView>
+
         <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="25dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_gravity="bottom|right"
-                    android:orientation="vertical" >
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="25dp"
+            android:layout_marginRight="15dp"
+            android:orientation="vertical" >
 
-                    <android.support.design.widget.FloatingActionButton
-                        android:id="@+id/play_btn"
-			            android:layout_width="wrap_content"
-			            android:layout_height="wrap_content"
-			            android:src="@drawable/ic_play_arrow_white_48dp"
-			            app:backgroundTint="@color/load_blue"
-			            app:rippleColor="#33728dff"
-			            app:elevation="4dp"
-			            app:pressedTranslationZ="8dp"
-			            />
-
-                </LinearLayout>
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/play_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_play_arrow_white_48dp"
+                app:backgroundTint="@color/load_blue"
+                app:elevation="4dp"
+                app:pressedTranslationZ="8dp"
+                app:rippleColor="#33728dff" />
+        </LinearLayout>
     </FrameLayout>
 
 </LinearLayout>

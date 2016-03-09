@@ -69,11 +69,15 @@ public class MoreActivity extends BaseActivity implements OnClickListener {
 			toActivity(ImgShareActivity.class, null);
 			break;
 		case R.id.comments_layout:
-			Intent intent = new Intent();
-			intent.setAction(Intent.ACTION_VIEW);
-			intent.setData(Uri.parse("market://details?id=com.messi.languagehelper"));
-			MoreActivity.this.startActivity(intent);
-			StatService.onEvent(MoreActivity.this, "menu_page_commend","去吐槽评价按钮", 1);
+			try{
+				Intent intent = new Intent();
+				intent.setAction(Intent.ACTION_VIEW);
+				intent.setData(Uri.parse("market://details?id=com.messi.languagehelper"));
+				MoreActivity.this.startActivity(intent);
+				StatService.onEvent(MoreActivity.this, "menu_page_commend","去吐槽评价按钮", 1);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 			break;
 		case R.id.help_layout:
 			toActivity(HelpActivity.class, null);

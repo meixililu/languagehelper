@@ -2,71 +2,49 @@ package com.messi.languagehelper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
-import com.messi.languagehelper.adapter.CompositionListAdapter;
-import com.messi.languagehelper.impl.FragmentProgressbarListener;
+import com.messi.languagehelper.adapter.ReadingListAdapter;
 import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.ScreenUtil;
 import com.messi.languagehelper.util.ToastUtil;
 
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
 
-public class CompositionFragment extends BaseFragment implements OnClickListener{
+public class ReadingsActivity extends BaseActivity implements OnClickListener{
 
 	private ListView listview;
-	private CompositionListAdapter mAdapter;
+	private ReadingListAdapter mAdapter;
 	private List<AVObject> avObjects;
 	private View footerview;
 	private int skip = 0;
-	private String code;
 	private int maxRandom;
 	
-	public CompositionFragment(String code){
-		this.code = code;
-		if(!code.equals("1000")){
-			random();
-		}
-	}
-	
 	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-		try {
-			mProgressbarListener = (FragmentProgressbarListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement FragmentProgressbarListener");
-        }
-	}
-	
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.composition_fragment, container, false);
-		initViews(view);
-		initFooterview(inflater);
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.reading_activity);
+		initViews();
+		initFooterview();
 		new QueryTask().execute();
 		getMaxPageNumberBackground();
-		return view;
 	}
 	
-	private void initViews(View view){
+	private void initViews(){
+		getSupportActionBar().setTitle(this.getResources().getString(R.string.reading));
 		avObjects = new ArrayList<AVObject>();
-		listview = (ListView) view.findViewById(R.id.listview);
-		initSwipeRefresh(view);
-		mAdapter = new CompositionListAdapter(getContext(), avObjects);
+		listview = (ListView) findViewById(R.id.listview);
+		initSwipeRefresh();
+		mAdapter = new ReadingListAdapter(this, avObjects);
 		listview.setAdapter(mAdapter);
 		setListOnScrollListener();
 	}
@@ -92,15 +70,15 @@ public class CompositionFragment extends BaseFragment implements OnClickListener
         });
 	}
 	
-	private void initFooterview(LayoutInflater inflater){
-		footerview = inflater.inflate(R.layout.footerview, null, false);
+	private void initFooterview(){
+		footerview = LayoutInflater.from(this).inflate(R.layout.footerview, null, false);
 		listview.addFooterView(footerview);
 		hideFooterview();
 	}
 	
 	private void showFooterview(){
 		footerview.setVisibility(View.VISIBLE);  
-		footerview.setPadding(0, ScreenUtil.dip2px(getActivity(), 15), 0, ScreenUtil.dip2px(getActivity(), 15));  
+		footerview.setPadding(0, ScreenUtil.dip2px(this, 15), 0, ScreenUtil.dip2px(this, 15));  
 	}
 	
 	private void hideFooterview(){
@@ -127,12 +105,9 @@ public class CompositionFragment extends BaseFragment implements OnClickListener
 		
 		@Override
 		protected List<AVObject> doInBackground(Void... params) {
-			AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.Composition.Composition);
-			if(!code.equals("1000")){
-				query.whereEqualTo(AVOUtil.Composition.type_id, code);
-			}
-			query.addDescendingOrder(AVOUtil.Composition.publish_time);
-			query.addDescendingOrder(AVOUtil.Composition.item_id);
+			AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.Reading.Reading);
+			query.addDescendingOrder(AVOUtil.Reading.publish_time);
+			query.addDescendingOrder(AVOUtil.Reading.item_id);
 			query.skip(skip);
 			query.limit(20);
 			try {
@@ -150,7 +125,7 @@ public class CompositionFragment extends BaseFragment implements OnClickListener
 			onSwipeRefreshLayoutFinish();
 			if(avObject != null){
 				if(avObject.size() == 0){
-					ToastUtil.diaplayMesShort(getContext(), "没有了！");
+					ToastUtil.diaplayMesShort(ReadingsActivity.this, "没有了！");
 					hideFooterview();
 				}else{
 					avObjects.addAll(avObject);
@@ -172,13 +147,10 @@ public class CompositionFragment extends BaseFragment implements OnClickListener
 			@Override
 			public void run() {
 				try {
-					AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.Composition.Composition);
-					if(!code.equals("1000")){
-						query.whereEqualTo(AVOUtil.Composition.type_id, code);
-					}
+					AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.Reading.Reading);
 					maxRandom = query.count();
 					maxRandom /= 20; 
-					LogUtil.DefalutLog("code:"+code+"---maxRandom:"+maxRandom);
+					LogUtil.DefalutLog("maxRandom:"+maxRandom);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

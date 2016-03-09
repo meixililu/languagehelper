@@ -16,6 +16,7 @@ import com.baidu.mobstat.StatService;
 import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.GytUtil;
 import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.XFYSAD;
 
@@ -58,6 +59,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		news_layout = (FrameLayout)view.findViewById(R.id.news_layout);
 		xx_ad_layout = (RelativeLayout)view.findViewById(R.id.xx_ad_layout);
 		mXFYSAD = new XFYSAD(getActivity(), xx_ad_layout, ADUtil.XiuxianYSNRLAd);
+		mXFYSAD.setStopPlay(true);
 		mXFYSAD.showAD();
 		if(misVisibleToUser){
 			mXFYSAD.startPlayImg();
@@ -166,6 +168,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		super.onDestroy();
 		if(mXFYSAD != null){
     		mXFYSAD.canclePlayImg();
+    		mXFYSAD = null;
     	}
 	}
 }

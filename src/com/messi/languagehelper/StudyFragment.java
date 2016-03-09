@@ -194,8 +194,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 			toEnglishWebsiteRecommendActivity();
 			break;
 		case R.id.news_layout:
-			ContExManager.initWithAPPId(getActivity(),"61181d6c-9093-4735-93d1-9b07d50e5ab2", "w1461Eub");
-			GytUtil.showHtml(getActivity(), getActivity().getResources().getString(R.string.reading));
+			toReadingActivity();
 			break;
 		case R.id.en_examination_layout:
 			ContExManager.initWithAPPId(getActivity(),"c18b33e973d147159ee52a8debac9b4c", "w1461Eub");
@@ -262,6 +261,11 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
+	}
+	
+	private void toReadingActivity(){
+		Intent intent = new Intent(getActivity(),ReadingsActivity.class);
+		getActivity().startActivity(intent);
 	}
 	
 	private void toEnglishWebsiteRecommendActivity(){

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import android.content.Intent;
+import android.content.res.Resources.NotFoundException;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -53,12 +54,16 @@ public class QRCodeShareActivity extends BaseActivity implements OnClickListener
 			if (file != null && file.exists() && file.isFile()) {    
 				Uri uri = Uri.fromFile(file);    
 				if(uri !=  null){
-					Intent intent = new Intent(Intent.ACTION_SEND);
-					intent.setType("image/png");    
-					intent.putExtra(Intent.EXTRA_STREAM, uri); 
-					intent.putExtra(Intent.EXTRA_SUBJECT, this.getResources().getString(R.string.share));  
-					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					this.startActivity(Intent.createChooser(intent, this.getResources().getString(R.string.share))); 
+					try {
+						Intent intent = new Intent(Intent.ACTION_SEND);
+						intent.setType("image/png");    
+						intent.putExtra(Intent.EXTRA_STREAM, uri); 
+						intent.putExtra(Intent.EXTRA_SUBJECT, this.getResources().getString(R.string.share));  
+						intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+						this.startActivity(Intent.createChooser(intent, this.getResources().getString(R.string.share)));
+					} catch (Exception e) {
+						e.printStackTrace();
+					} 
 				}    
 			}
 		}

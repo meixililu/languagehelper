@@ -20,6 +20,14 @@ import android.widget.TextView;
 
 public class ViewUtil {
 	
+	public static ImageView getLine(Context context){
+		ImageView mImageView = new ImageView(context);
+		mImageView.setBackgroundColor(context.getResources().getColor(R.color.lightgrey));
+		ViewGroup.LayoutParams mParams = new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT,1);
+		mImageView.setLayoutParams(mParams);
+		return mImageView;
+	}
+	
 	public static ImageView initImageView(Context context){
 		ImageView mImageView = new ImageView(context);
 		mImageView.setScaleType(ScaleType.CENTER_CROP);

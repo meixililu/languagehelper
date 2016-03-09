@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources.NotFoundException;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.text.ClipboardManager;
@@ -194,10 +195,15 @@ public class Settings {
 	 * 复制按钮
 	 */
 	public static void copy(Context mContext,String dstString){
-		// 得到剪贴板管理器
-		ClipboardManager cmb = (ClipboardManager)mContext.getSystemService(Context.CLIPBOARD_SERVICE);
-		cmb.setText(dstString);
-		ToastUtil.diaplayMesShort(mContext, mContext.getResources().getString(R.string.copy_success));
+		try {
+			// 得到剪贴板管理器
+			ClipboardManager cmb = (ClipboardManager)mContext.getSystemService(Context.CLIPBOARD_SERVICE);
+			cmb.setText(dstString);
+			ToastUtil.diaplayMesShort(mContext, mContext.getResources().getString(R.string.copy_success));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static int getVersion(Context mContext) {
@@ -216,7 +222,7 @@ public class Settings {
         WifiManager wifiManager = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);  
         //判断wifi是否开启  
         if (!wifiManager.isWifiEnabled()) {  
-        wifiManager.setWifiEnabled(true);    
+        	wifiManager.setWifiEnabled(true);    
         }  
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();       
         int ipAddress = wifiInfo.getIpAddress();   

@@ -63,6 +63,24 @@ public class NumberUtil {
 		return 0;
 	}
 	
+	public static int[] getRandomNumberLimit(int max, int star, int size, int limit){
+		int[] result = new int[size];
+		int i = 0;
+		boolean isStop = false;
+		while(!isStop){
+			int temp = randomNumber(max)+star;
+			if(temp != limit){
+				result[i] = temp;
+				i++;
+			}
+			if(i == size){
+				isStop = true;
+				break;
+			}
+		}
+		return result;
+	}
+	
 	/**
 	 * 不可重复
 	 */
