@@ -372,33 +372,11 @@ public class AVOUtil {
 		public final static String is_valid = "is_valid";
 	}
 	
-	public static class Composition {
-		
-		public final static String Composition = "Composition";
-		
-		public final static String type_id = "type_id";
-		
-		public final static String type_name = "type_name";
-		
-		public final static String title = "title";
-		
-		public final static String content = "content";
-		
-		public final static String item_id = "item_id";
-		
-		public final static String publish_time = "publish_time";
-		
-		public final static String img_url = "img_url";
-		
-		public final static String img_type = "img_type";
-		
-		public final static String img = "img";
-		
-	}
-	
 	public static class Reading {
 		
 		public final static String Reading = "Reading";
+		
+		public final static String objectId = "objectId";
 		
 		public final static String type_id = "type_id";
 		
@@ -419,6 +397,31 @@ public class AVOUtil {
 		public final static String source_name = "source_name";
 		
 		public final static String img = "img";
+		
+		public final static String type = "type";
+		
+		public final static String media_url = "media_url";
+		
+		public final static String category = "category";
+		
+	}
+	
+	public static class Category {
+		
+		public final static String composition = "composition";
+		
+		public final static String jokes = "jokes";
+		
+		public final static String shuangyu_reading = "shuangyu_reading";
+		
+		public final static String spoken_english = "spoken_english";
+		
+		public final static String listening = "listening";
+		
+		public final static String word = "word";
+		
+		public final static String story = "story";
+		
 	}
 
 }

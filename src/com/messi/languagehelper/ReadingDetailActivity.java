@@ -12,7 +12,9 @@ import com.iflytek.cloud.SynthesizerListener;
 import com.messi.languagehelper.task.MyThread;
 import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.AudioTrackUtil;
+import com.messi.languagehelper.util.DownLoadUtil;
 import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.NumberUtil;
 import com.messi.languagehelper.util.SDCardUtil;
 import com.messi.languagehelper.util.Settings;
@@ -20,9 +22,13 @@ import com.messi.languagehelper.util.TextHandlerUtil;
 import com.messi.languagehelper.util.ViewUtil;
 import com.messi.languagehelper.util.XFUtil;
 import com.messi.languagehelper.util.XFYSAD;
+import com.messi.languagehelper.views.ProportionalImageView;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -49,12 +55,15 @@ public class ReadingDetailActivity extends BaseActivity implements OnClickListen
 	private AVObject mAVObject;
 	private List<AVObject> mAVObjects;
 	private FloatingActionButton fab;
+	private ProportionalImageView pimgview;
 	
 	private SpeechSynthesizer mSpeechSynthesizer;
 	private SharedPreferences mSharedPreferences;
 	private Thread mThread;
 	private MyThread mMyThread;
 	private int index;
+	private MediaPlayer mPlayer;
+	private String fileFullName;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -80,6 +89,7 @@ public class ReadingDetailActivity extends BaseActivity implements OnClickListen
 		title = (TextView) findViewById(R.id.title);
 		content = (TextView) findViewById(R.id.content);
 		next_composition = (LinearLayout) findViewById(R.id.next_composition);
+		pimgview = (ProportionalImageView) findViewById(R.id.item_img);
 		scrollview = (ScrollView) findViewById(R.id.scrollview);
 		
 		xx_ad_layout = (RelativeLayout) findViewById(R.id.xx_ad_layout);
@@ -94,6 +104,12 @@ public class ReadingDetailActivity extends BaseActivity implements OnClickListen
 		scrollview.scrollTo(0, 0);
 		title.setText(mAVObject.getString(AVOUtil.Reading.title));
 		TextHandlerUtil.handlerText(this, mProgressbar, content, mAVObject.getString(AVOUtil.Reading.content));
+		if(!TextUtils.isEmpty(mAVObject.getString(AVOUtil.Reading.img_url))){
+			pimgview.setVisibility(View.VISIBLE);
+			Glide.with(this)
+			.load(mAVObject.getString(AVOUtil.Reading.img_url))
+			.into(pimgview);
+		}
 		XFYSAD.setAd(ReadingDetailActivity.this, xx_ad_layout);
 		int[] random = NumberUtil.getRandomNumberLimit(mAVObjects.size(), 0, 5, index);
 		next_composition.removeAllViews();
@@ -106,6 +122,16 @@ public class ReadingDetailActivity extends BaseActivity implements OnClickListen
 	private Handler mHandler = new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
+			hideProgressbar();
+			if(msg.what == 1){
+				playMp3(fileFullName);
+			}else if(msg.what == 3){
+				mAVObject.put(AVOUtil.Reading.media_url, "");
+				playContent();
+				mAVObject.saveInBackground();
+			}else{
+				fab.setImageResource(R.drawable.ic_play_arrow_white_48dp);
+			}
 			if(msg.what == MyThread.EVENT_PLAY_OVER){
 				fab.setImageResource(R.drawable.ic_play_arrow_white_48dp);
 			}
@@ -113,10 +139,70 @@ public class ReadingDetailActivity extends BaseActivity implements OnClickListen
 	};
 	
 	private void playContent(){
+		String type = mAVObject.getString(AVOUtil.Reading.type);
+		if(type.equals("mp3") && !TextUtils.isEmpty( mAVObject.getString(AVOUtil.Reading.media_url) )){
+			playByMp3();
+		}else{
+			playByPcm();
+		}
+	}
+	
+	private void playByMp3(){
+		if(mAVObject != null){
+			fab.setImageResource(R.drawable.ic_stop_white_48dp);
+			String downLoadUrl = mAVObject.getString(AVOUtil.Reading.media_url);
+			int pos = downLoadUrl.lastIndexOf(SDCardUtil.Delimiter) + 1;
+			String fileName = downLoadUrl.substring(pos, downLoadUrl.length());
+			String rootUrl = SDCardUtil.ReadingPath + 
+					mAVObject.getString(AVOUtil.Reading.objectId) + SDCardUtil.Delimiter;
+			fileFullName = SDCardUtil.getDownloadPath(rootUrl) + fileName;
+			LogUtil.DefalutLog("fileName:"+fileName+"---fileFullName:"+fileFullName);
+			if(SDCardUtil.isFileExist(fileFullName)){
+				playMp3(fileFullName);
+				LogUtil.DefalutLog("FileExist");
+			}else{
+				LogUtil.DefalutLog("FileNotExist");
+				showProgressbar();
+				DownLoadUtil.downloadFile(this, downLoadUrl, rootUrl, fileName, mHandler);
+			}
+		}
+	}
+	
+	private void playMp3(String uriPath){
+		try {
+			if(mPlayer == null){
+				mPlayer = new MediaPlayer();
+				fab.setImageResource(R.drawable.ic_stop_white_48dp);
+				Uri uri = Uri.parse(uriPath);
+				mPlayer.setDataSource(this, uri);
+				mPlayer.setOnCompletionListener(new OnCompletionListener() {
+					@Override
+					public void onCompletion(MediaPlayer mp) {
+						fab.setImageResource(R.drawable.ic_play_arrow_white_48dp);
+					}
+				});
+				mPlayer.prepare();
+				mPlayer.start();
+			}else{
+				if(mPlayer.isPlaying()){
+					fab.setImageResource(R.drawable.ic_play_arrow_white_48dp);
+					mPlayer.pause();
+				}else{
+					fab.setImageResource(R.drawable.ic_stop_white_48dp);
+					mPlayer.start();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+	}
+	
+	private void playByPcm(){
 		fab.setImageResource(R.drawable.ic_stop_white_48dp);
 		String filepath = SDCardUtil.getDownloadPath(SDCardUtil.CompositionPath) + 
 				String.valueOf(mAVObject.getNumber(AVOUtil.Reading.item_id)) + ".pcm";
 		if(!AudioTrackUtil.isFileExists(filepath)){
+			showProgressbar();
 			mSpeechSynthesizer.setParameter(SpeechConstant.TTS_AUDIO_PATH, filepath);
 			XFUtil.showSpeechSynthesizer(this,mSharedPreferences,mSpeechSynthesizer,
 					mAVObject.getString(AVOUtil.Reading.content),XFUtil.SpeakerEn,
@@ -132,9 +218,11 @@ public class ReadingDetailActivity extends BaseActivity implements OnClickListen
 				}
 				@Override
 				public void onSpeakBegin() {
+					hideProgressbar();
 				}
 				@Override
 				public void onCompleted(SpeechError arg0) {
+					hideProgressbar();
 					fab.setImageResource(R.drawable.ic_play_arrow_white_48dp);
 				}
 				@Override
@@ -211,11 +299,13 @@ public class ReadingDetailActivity extends BaseActivity implements OnClickListen
 		FrameLayout layout_cover = (FrameLayout) convertView.findViewById(R.id.layout_cover);
 		LinearLayout list_item_img_parent = (LinearLayout) convertView.findViewById(R.id.list_item_img_parent);
 		TextView title = (TextView) convertView.findViewById(R.id.title);
-		TextView smark = (TextView) convertView.findViewById(R.id.smark);
+		TextView source_name = (TextView) convertView.findViewById(R.id.source_name);
+		TextView type_name = (TextView) convertView.findViewById(R.id.type_name);
 		ImageView list_item_img = (ImageView) convertView.findViewById(R.id.list_item_img);
 		
 		title.setText( mObject.getString(AVOUtil.Reading.title) );
-		smark.setText( mObject.getString(AVOUtil.Reading.source_name) );
+		source_name.setText( mObject.getString(AVOUtil.Reading.source_name) );
+		type_name.setText( mObject.getString(AVOUtil.Reading.type_name) );
 		String img_url = "";
 		if(mObject.getString(AVOUtil.Reading.img_type).equals("url")){
 			img_url = mObject.getString(AVOUtil.Reading.img_url);
@@ -251,6 +341,13 @@ public class ReadingDetailActivity extends BaseActivity implements OnClickListen
 		super.onDestroy();
 		AudioTrackUtil.stopPlayOnline(mSpeechSynthesizer);
 		AudioTrackUtil.stopPlayPcm(mThread);
+		if (mPlayer != null) {   
+			if(mPlayer.isPlaying()){
+				mPlayer.stop();  
+			}
+			mPlayer.release();   
+			mPlayer = null;   
+        }
 	}
 	
 }

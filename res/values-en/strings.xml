@@ -8,8 +8,13 @@
     <string name="title_about">About</string>
     <string name="title_share_preview">Preview</string>
     <string name="title_Practice">Practice</string>
+    <string name="title_listening">Listening</string>
     <string name="title_symbol">Symbol Study</string>
     <string name="title_word_study">Word Study</string>
+    <string name="title_word_vocabulary">Vocabulary</string>
+    <string name="title_english_jokes">Jokes</string>
+    <string name="title_english_story">Story</string>
+    <string name="title_juhe">Synthesize</string>
     <string name="title_help">Help</string>
     <string name="title_more">More</string>
     <string name="title_translate">Translate</string>
@@ -41,6 +46,7 @@
     <string name="font_style_bold">Bold</string>
     <string name="font_style_italic">Italic</string>
     
+    <string name="foreign_website">Learning Website</string>
     <string name="menu_share">DIY Share</string>
     <string name="menu_settings">Play Speed</string>
     <string name="app_name_share">App:Translator</string>
@@ -143,7 +149,8 @@
 	<string name="invite_friends_prompt">so cool！ http://a.app.qq.com/o/simple.jsp?pkgname=com.messi.languagehelper</string>
 	
 	<string name="dailysentence">Daily Sentence</string>
-	<string name="spokenEnglishTest">Test</string>
+	<string name="spoken_english_practice">Practice</string>
+	<string name="spoken_english_reading">Learn</string>
 	<string name="symbolStudy">Symbol Study</string>
 	<string name="simulation_dialogue">Dialogue</string>
 	<string name="introduction">Part One</string>

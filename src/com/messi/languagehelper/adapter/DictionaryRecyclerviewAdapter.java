@@ -178,11 +178,7 @@ public class DictionaryRecyclerviewAdapter extends RecyclerView.Adapter<Recycler
 					holder.collected_cb.setChecked(true);
 				}
 				holder.record_answer.setText(mBean.getWord_name());
-				if(mBean.getType().equals(KeyUtil.ResultTypeDictionary)){
-					holder.record_question.setText( DictionaryUtil.getListToString(mBean) );
-				}else{
-					holder.record_question.setText(mBean.getResult());
-				}
+				holder.record_question.setText(mBean.getResult());
 				holder.voice_play_layout.setOnClickListener(mResultClickListener);
 				holder.record_question_cover.setOnClickListener(mResultClickListener);
 				holder.record_answer_cover.setOnClickListener(mQuestionOnClickListener);

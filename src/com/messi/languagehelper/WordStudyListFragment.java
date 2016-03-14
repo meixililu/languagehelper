@@ -8,32 +8,47 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.messi.languagehelper.adapter.WordStudyListAdapter;
 import com.messi.languagehelper.dao.WordListType;
+import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.util.AVOUtil;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
-public class WordStudyListActivity extends BaseActivity {
+public class WordStudyListFragment extends BaseFragment{
 
 	private ListView category_lv;
 	private WordStudyListAdapter mAdapter;
 	private List<WordListType> mWordTypeList;
 	
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.word_study_list_activity);
-		initSwipeRefresh();
-		initViews();
-		new QueryTask().execute();
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		try {
+			mProgressbarListener = (FragmentProgressbarListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement FragmentProgressbarListener");
+        }
 	}
 	
-	private void initViews(){
-		getSupportActionBar().setTitle(getResources().getString(R.string.title_word_study));
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.word_study_list_fragment, container, false);
+		initSwipeRefresh(view);
+		initViews(view);
+		new QueryTask().execute();
+		return view;
+	}
+	
+	private void initViews(View view){
 		mWordTypeList = new ArrayList<WordListType>();
-		category_lv = (ListView) findViewById(R.id.studycategory_lv);
-		mAdapter = new WordStudyListAdapter(this, mWordTypeList);
+		category_lv = (ListView) view.findViewById(R.id.studycategory_lv);
+		mAdapter = new WordStudyListAdapter(getActivity(), mWordTypeList);
 		category_lv.setAdapter(mAdapter);
 	}
 	
@@ -92,5 +107,4 @@ public class WordStudyListActivity extends BaseActivity {
 		}
 		return mType;
 	}
-	
 }

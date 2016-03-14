@@ -132,13 +132,16 @@
         <!-- 讯飞广告sdk -->
 
         <activity
+            android:name=".SpokenEnglishActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WordStudyActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ReadingDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ReadingsActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".CompositionDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".CompositionActivity"
@@ -156,9 +159,6 @@
             android:name=".WordBookListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".WordStudyListActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".PhotosTranslateActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -171,7 +171,7 @@
             android:name=".SymbolDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".EvaluationTypeActivity"
+            android:name=".SpokenEnglishPractiseFragment"
             android:screenOrientation="portrait" />
         <activity
             android:name=".AppRecommendListActivity"
@@ -227,9 +227,6 @@
                 android:name="android.support.UI_OPTIONS"
                 android:value="splitActionBarWhenNarrow" />
         </activity>
-        <activity
-            android:name=".GetFansActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".EnglishWebsiteRecommendActivity"
             android:screenOrientation="portrait" />

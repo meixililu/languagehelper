@@ -10,7 +10,7 @@ import com.messi.languagehelper.dao.Parts;
 
 public class DictionaryUtil {
 
-	
+	//baidu 词典 api  for display
 	public static String getListToString(Dictionary mBean) throws Exception {
 		StringBuilder sb = new StringBuilder();
 		boolean isEnglishResult = mBean.getTo().equals("en");
@@ -37,6 +37,7 @@ public class DictionaryUtil {
 			}
 			sb.append(getMeans(mParts.getMeanList(), isEnglishResult));
 		}
+		LogUtil.DefalutLog("getListToString:"+sb.toString());
 		return sb.toString();
 	}
 

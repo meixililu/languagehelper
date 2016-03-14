@@ -57,7 +57,8 @@ public class ReadingListAdapter extends BaseAdapter {
 			holder.layout_cover = (FrameLayout) convertView.findViewById(R.id.layout_cover);
 			holder.list_item_img_parent = (LinearLayout) convertView.findViewById(R.id.list_item_img_parent);
 			holder.title = (TextView) convertView.findViewById(R.id.title);
-			holder.smark = (TextView) convertView.findViewById(R.id.smark);
+			holder.type_name = (TextView) convertView.findViewById(R.id.type_name);
+			holder.source_name = (TextView) convertView.findViewById(R.id.source_name);
 			holder.list_item_img = (ImageView) convertView.findViewById(R.id.list_item_img);
 			convertView.setTag(holder);
 		} else {
@@ -65,7 +66,8 @@ public class ReadingListAdapter extends BaseAdapter {
 		}
 		final AVObject mAVObject = avObjects.get(position);
 		holder.title.setText( mAVObject.getString(AVOUtil.Reading.title) );
-		holder.smark.setText( mAVObject.getString(AVOUtil.Reading.source_name) );
+		holder.type_name.setText( mAVObject.getString(AVOUtil.Reading.type_name) );
+		holder.source_name.setText( mAVObject.getString(AVOUtil.Reading.source_name) );
 		String img_url = "";
 		if(mAVObject.getString(AVOUtil.Reading.img_type).equals("url")){
 			img_url = mAVObject.getString(AVOUtil.Reading.img_url);
@@ -105,7 +107,8 @@ public class ReadingListAdapter extends BaseAdapter {
 	static class ViewHolder {
 		FrameLayout layout_cover;
 		TextView title;
-		TextView smark;
+		TextView type_name;
+		TextView source_name;
 		LinearLayout list_item_img_parent;
 		ImageView list_item_img;
 	}

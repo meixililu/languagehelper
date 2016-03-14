@@ -7,18 +7,21 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.messi.languagehelper.adapter.EvaluationTypeAdapter;
+import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.XFYSAD;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
-public class EvaluationTypeActivity extends BaseActivity implements OnClickListener{
+public class SpokenEnglishPractiseFragment extends BaseFragment{
 
 	private ListView category_lv;
 	private EvaluationTypeAdapter mAdapter;
@@ -26,24 +29,33 @@ public class EvaluationTypeActivity extends BaseActivity implements OnClickListe
 	private XFYSAD mXFYSAD;
 	
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.evaluation_type_activity);
-		initSwipeRefresh();
-		initViews();
-		new QueryTask().execute();
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		try {
+			mProgressbarListener = (FragmentProgressbarListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement FragmentProgressbarListener");
+        }
 	}
 	
-	private void initViews(){
-		getSupportActionBar().setTitle(getResources().getString(R.string.spokenEnglishTest));
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.spoken_english_practice_fragment, container, false);
+		initSwipeRefresh(view);
+		initViews(view);
+		new QueryTask().execute();
+		return view;
+	}
+	
+	private void initViews(View view){
 		avObjects = new ArrayList<AVObject>();
-		category_lv = (ListView) findViewById(R.id.studycategory_lv);
-		View headerView = LayoutInflater.from(this).inflate(R.layout.xunfei_ysad_item, null);
+		category_lv = (ListView) view.findViewById(R.id.studycategory_lv);
+		View headerView = LayoutInflater.from(getActivity()).inflate(R.layout.xunfei_ysad_item, null);
 		category_lv.addHeaderView(headerView);
-		mAdapter = new EvaluationTypeAdapter(this, avObjects);
+		mAdapter = new EvaluationTypeAdapter(getActivity(), avObjects);
 		category_lv.setAdapter(mAdapter);
 		
-		mXFYSAD = new XFYSAD(this, headerView, ADUtil.MRYJYSNRLAd);
+		mXFYSAD = new XFYSAD(getActivity(), headerView, ADUtil.MRYJYSNRLAd);
 		mXFYSAD.showAD();
 		mAdapter.notifyDataSetChanged();
 	}
@@ -90,20 +102,11 @@ public class EvaluationTypeActivity extends BaseActivity implements OnClickListe
 	}
 
 	@Override
-	protected void onDestroy() {
+	public void onDestroy() {
 		super.onDestroy();
 		if(mXFYSAD != null){
-    		mXFYSAD.canclePlayImg();
-    		mXFYSAD = null;
-    	}
-	}
-	
-	@Override
-	public void onClick(View v) {
-		switch(v.getId()){
-		default:
-			break;
+			mXFYSAD.canclePlayImg();
+			mXFYSAD = null;
 		}
 	}
-	
 }

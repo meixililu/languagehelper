@@ -97,7 +97,7 @@ public class TranslateResultDialog extends Dialog {
 			mSpeechSynthesizer.setParameter(SpeechConstant.TTS_AUDIO_PATH, filepath);
 			play_btn.setImageResource(R.drawable.ic_stop_white_48dp);
 			XFUtil.showSpeechSynthesizer(context,mSharedPreferences,mSpeechSynthesizer,
-					bean.getWord_name() +"\n"+ bean.getBackup1(),
+					bean.getBackup1(),
 					XFUtil.SpeakerEn,new SynthesizerListener() {
 				@Override
 				public void onSpeakResumed() {

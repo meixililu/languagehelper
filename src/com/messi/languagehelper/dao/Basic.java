@@ -9,7 +9,7 @@ public class Basic {
 	private String us_phonetic;
 	
 	private String phonetic;
-
+	
 	public String getPhonetic() {
 		return phonetic;
 	}

@@ -47,7 +47,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 
 	private View view;
 	private FrameLayout study_daily_sentence,study_spoken_english,study_composition,study_test;
-	private FrameLayout symbol_study_cover;
+	private FrameLayout symbol_study_cover,story_layout,jokes_layout,juhe_layout,study_listening_layout;
 	private FrameLayout word_study_cover;
 	private FrameLayout en_examination_layout;
 	private TextView dailysentence_txt;
@@ -100,6 +100,11 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		study_test = (FrameLayout)view.findViewById(R.id.study_test);
 		symbol_study_cover = (FrameLayout)view.findViewById(R.id.symbol_study_cover);
 		word_study_cover = (FrameLayout)view.findViewById(R.id.word_study_cover);
+		story_layout = (FrameLayout)view.findViewById(R.id.story_layout);
+		jokes_layout = (FrameLayout)view.findViewById(R.id.jokes_layout);
+		juhe_layout = (FrameLayout)view.findViewById(R.id.juhe_layout);
+		study_listening_layout = (FrameLayout)view.findViewById(R.id.study_listening_layout);
+		
 		dailysentence_txt = (TextView)view.findViewById(R.id.dailysentence_txt);
 		daily_sentence_item_img = (ProportionalImageView)view.findViewById(R.id.daily_sentence_item_img);
 		play_img = (ImageView)view.findViewById(R.id.play_img);
@@ -112,9 +117,12 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		symbol_study_cover.setOnClickListener(this);
 		word_study_cover.setOnClickListener(this);
 		news_layout.setOnClickListener(this);
+		story_layout.setOnClickListener(this);
+		jokes_layout.setOnClickListener(this);
+		juhe_layout.setOnClickListener(this);
+		study_listening_layout.setOnClickListener(this);
 		en_examination_layout.setOnClickListener(this);
 		play_img.setOnClickListener(this);
-		addAd();
 	}
 	
 	private void addAd(){
@@ -193,8 +201,24 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		case R.id.instagram_layout:
 			toEnglishWebsiteRecommendActivity();
 			break;
+		case R.id.story_layout:
+			toReadingActivity(getActivity().getResources().getString(R.string.title_english_story),
+					AVOUtil.Category.story);
+			break;
 		case R.id.news_layout:
-			toReadingActivity();
+			toReadingActivity(getActivity().getResources().getString(R.string.reading),
+					AVOUtil.Category.shuangyu_reading);
+			break;
+		case R.id.jokes_layout:
+			toReadingActivity(getActivity().getResources().getString(R.string.title_english_jokes),
+					AVOUtil.Category.jokes);
+			break;
+		case R.id.study_listening_layout:
+			toReadingActivity(getActivity().getResources().getString(R.string.title_listening),
+					AVOUtil.Category.listening);
+			break;
+		case R.id.juhe_layout:
+			toReadingActivity(getActivity().getResources().getString(R.string.title_juhe),"");
 			break;
 		case R.id.en_examination_layout:
 			ContExManager.initWithAPPId(getActivity(),"c18b33e973d147159ee52a8debac9b4c", "w1461Eub");
@@ -263,8 +287,10 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		} 
 	}
 	
-	private void toReadingActivity(){
+	private void toReadingActivity(String title,String category){
 		Intent intent = new Intent(getActivity(),ReadingsActivity.class);
+		intent.putExtra(KeyUtil.ActionbarTitle, title);
+		intent.putExtra(KeyUtil.Categoty, category);
 		getActivity().startActivity(intent);
 	}
 	
@@ -281,7 +307,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	}
 	
 	private void toWordStudyListActivity(){
-		Intent intent = new Intent(getActivity(),WordStudyListActivity.class);
+		Intent intent = new Intent(getActivity(),WordStudyActivity.class);
 		startActivity(intent);
 		StatService.onEvent(getActivity(), "tab_symbol_study", "去音标学习页面", 1);
 	}
@@ -290,12 +316,6 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		Intent intent = new Intent(getActivity(),DailySentenceActivity.class);
 		startActivity(intent);
 		StatService.onEvent(getActivity(), "tab_study_todailysentence", "首页去每日一句页面按钮", 1);
-	}
-	
-	private void toGetfansActivity(){
-		Intent intent = new Intent(getActivity(),GetFansActivity.class);
-		startActivity(intent);
-		StatService.onEvent(getActivity(), "tab_study_todeveloping", "首页去正在开发页", 1);
 	}
 	
 	private void toStudyListActivity(){
@@ -307,11 +327,11 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	private void toStudyCompositionActivity(){
 		Intent intent = new Intent(getActivity(),CompositionActivity.class);
 		startActivity(intent);
-		StatService.onEvent(getActivity(), "tab_study_tostudylist", "首页去模拟对话页面", 1);
+//		StatService.onEvent(getActivity(), "tab_study_tostudylist", "首页去模拟对话页面", 1);
 	}
 	
 	private void toEvaluationActivity(){
-		Intent intent = new Intent(getActivity(),EvaluationTypeActivity.class);
+		Intent intent = new Intent(getActivity(),SpokenEnglishActivity.class);
 		startActivity(intent);
 		StatService.onEvent(getActivity(), "tab_study_tostudylist", "首页去口语评测页面", 1);
 	}

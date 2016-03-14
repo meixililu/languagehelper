@@ -1,22 +1,21 @@
 package com.messi.languagehelper.views;
 
-import com.avos.avoscloud.okhttp.FormEncodingBuilder;
-import com.avos.avoscloud.okhttp.RequestBody;
 import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
-import com.google.gson.Gson;
+import com.messi.languagehelper.BaseApplication;
 import com.messi.languagehelper.DictionaryFragment;
+import com.messi.languagehelper.R;
 import com.messi.languagehelper.dao.Dictionary;
-import com.messi.languagehelper.dao.Root;
 import com.messi.languagehelper.dialog.TranslateResultDialog;
-import com.messi.languagehelper.http.LanguagehelperHttpClient;
-import com.messi.languagehelper.http.UICallback;
-import com.messi.languagehelper.util.JsonParser;
+import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
+import com.messi.languagehelper.util.ToastUtil;
+import com.messi.languagehelper.util.TranslateUtil;
 
 import android.app.Activity;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextPaint;
-import android.text.TextUtils;
 import android.text.style.ClickableSpan;
 import android.view.View;
 
@@ -42,56 +41,40 @@ public class TouchableSpan extends ClickableSpan {// extend ClickableSpan
 		ds.setUnderlineText(false); // set to false to remove underline
 	}
 	
+	private Handler mHandler = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			if(mProgressbar != null){
+				mProgressbar.setVisibility(View.GONE);
+			}
+			if(msg.what == 1){
+				setData();
+			}else{
+				showToast(context.getResources().getString(R.string.network_error));
+			}
+		}
+	};
+	
 	private void RequestShowapiAsyncTask(){
 		if(mProgressbar != null){
 			mProgressbar.setVisibility(View.VISIBLE);
 		}
-		RequestBody formBody = new FormEncodingBuilder()
-		.add("showapi_appid", Settings.showapi_appid)
-		.add("showapi_sign", Settings.showapi_secret)
-		.add("showapi_timestamp", String.valueOf(System.currentTimeMillis()))
-		.add("showapi_res_gzip", "1")
-		.add("q", word)
-		.build();
-		LanguagehelperHttpClient.post(Settings.ShowApiDictionaryUrl, formBody, new UICallback(context){
-			@Override
-			public void onResponsed(String responseString){
-				LogUtil.DefalutLog("Result---showapi:"+responseString);
-				try {
-					if (!TextUtils.isEmpty(responseString)) {
-						if(JsonParser.isJson(responseString)){
-							Root mRoot = new Gson().fromJson(responseString, Root.class);
-							if(mRoot != null && mRoot.getShowapi_res_code() == 0 && mRoot.getShowapi_res_body() != null){
-								Dictionary bean = JsonParser.changeShowapiResultToDicBean(mRoot,word);
-								DictionaryFragment.isRefresh = true;
-								TranslateResultDialog dialog = new TranslateResultDialog(context, bean);
-								dialog.setCancelable(true);
-								dialog.setCanceledOnTouchOutside(true);
-								dialog.show();
-							}else{
-//								GetDictionaryFaultAsyncTask();
-							}
-						}else{
-//							GetDictionaryFaultAsyncTask();
-						}
-					} else {
-//						GetDictionaryFaultAsyncTask();
-					}
-				} catch (Exception e) {
-//					GetDictionaryFaultAsyncTask();
-					e.printStackTrace();
-				}
-			}
-			@Override
-			public void onFailured() {
-			}
-			@Override
-			public void onFinished() {
-				if(mProgressbar != null){
-					mProgressbar.setVisibility(View.GONE);
-				}
-			}
-		});
+		Settings.q = word;
+		TranslateUtil.Translate(context, mHandler);
+	}
+	
+	private void setData(){
+		Dictionary bean = (Dictionary) BaseApplication.dataMap.get(KeyUtil.DataMapKey);
+		BaseApplication.dataMap.clear();
+		DictionaryFragment.isRefresh = true;
+		TranslateResultDialog dialog = new TranslateResultDialog(context, bean);
+		dialog.setCancelable(true);
+		dialog.setCanceledOnTouchOutside(true);
+		dialog.show();
+	}
+	
+	private void showToast(String toastString) {
+		ToastUtil.diaplayMesShort(context, toastString);
 	}
 	
 }

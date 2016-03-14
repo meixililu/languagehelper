@@ -152,11 +152,7 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 			holder.play_content_btn_progressbar.setVisibility(View.GONE);
 			holder.voice_play.setVisibility(View.VISIBLE);
 			holder.txt_question.setText(mBean.getWord_name());
-			if (mBean.getType().equals(KeyUtil.ResultTypeDictionary)) {
-				holder.txt_result.setText(DictionaryUtil.getListToString(mBean));
-			} else {
-				holder.txt_result.setText(mBean.getResult());
-			}
+			holder.txt_result.setText(mBean.getResult());
 			holder.voice_play_layout.setOnClickListener(mResultClickListener);
 			holder.cover_result.setOnClickListener(mResultClickListener);
 			holder.cover_question.setOnClickListener(mQuestionOnClickListener);
@@ -372,7 +368,7 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 						} else {
 							speakContent = mBean.getResult();
 						}
-						StringUtils.setSpeakerByLan(mBean.getTo());
+						Settings.role = XFUtil.SpeakerEn;
 					} else {
 						filepath = path + mBean.getQuestionVoiceId() + ".pcm";
 						mBean.setQuestionAudioPath(filepath);

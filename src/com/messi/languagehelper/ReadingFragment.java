@@ -6,49 +6,63 @@ import java.util.List;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.messi.languagehelper.adapter.ReadingListAdapter;
+import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.util.AVOUtil;
-import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.ScreenUtil;
 import com.messi.languagehelper.util.ToastUtil;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
 
-public class ReadingsActivity extends BaseActivity implements OnClickListener{
+public class ReadingFragment extends BaseFragment implements OnClickListener{
 
 	private ListView listview;
 	private ReadingListAdapter mAdapter;
 	private List<AVObject> avObjects;
 	private View footerview;
 	private int skip = 0;
-	private int maxRandom;
 	private String category;
+	private int maxRandom;
 	
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.reading_activity);
-		initViews();
-		initFooterview();
-		new QueryTask().execute();
-		getMaxPageNumberBackground();
+	public ReadingFragment(String category){
+		this.category = category;
 	}
 	
-	private void initViews(){
-		category = getIntent().getStringExtra(KeyUtil.Categoty);
-		LogUtil.DefalutLog("category:"+category);
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		try {
+			mProgressbarListener = (FragmentProgressbarListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement FragmentProgressbarListener");
+        }
+	}
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.composition_fragment, container, false);
+		initViews(view);
+		initFooterview(inflater);
+		new QueryTask().execute();
+		getMaxPageNumberBackground();
+		return view;
+	}
+	
+	private void initViews(View view){
 		avObjects = new ArrayList<AVObject>();
-		listview = (ListView) findViewById(R.id.listview);
-		initSwipeRefresh();
-		mAdapter = new ReadingListAdapter(this, avObjects);
+		listview = (ListView) view.findViewById(R.id.listview);
+		initSwipeRefresh(view);
+		mAdapter = new ReadingListAdapter(getContext(), avObjects);
 		listview.setAdapter(mAdapter);
 		setListOnScrollListener();
 	}
@@ -74,15 +88,15 @@ public class ReadingsActivity extends BaseActivity implements OnClickListener{
         });
 	}
 	
-	private void initFooterview(){
-		footerview = LayoutInflater.from(this).inflate(R.layout.footerview, null, false);
+	private void initFooterview(LayoutInflater inflater){
+		footerview = inflater.inflate(R.layout.footerview, null, false);
 		listview.addFooterView(footerview);
 		hideFooterview();
 	}
 	
 	private void showFooterview(){
 		footerview.setVisibility(View.VISIBLE);  
-		footerview.setPadding(0, ScreenUtil.dip2px(this, 15), 0, ScreenUtil.dip2px(this, 15));  
+		footerview.setPadding(0, ScreenUtil.dip2px(getActivity(), 15), 0, ScreenUtil.dip2px(getActivity(), 15));  
 	}
 	
 	private void hideFooterview(){
@@ -132,7 +146,7 @@ public class ReadingsActivity extends BaseActivity implements OnClickListener{
 			onSwipeRefreshLayoutFinish();
 			if(avObject != null){
 				if(avObject.size() == 0){
-					ToastUtil.diaplayMesShort(ReadingsActivity.this, "没有了！");
+					ToastUtil.diaplayMesShort(getContext(), "没有了！");
 					hideFooterview();
 				}else{
 					avObjects.addAll(avObject);
@@ -160,7 +174,7 @@ public class ReadingsActivity extends BaseActivity implements OnClickListener{
 					}
 					maxRandom = query.count();
 					maxRandom /= 20; 
-					LogUtil.DefalutLog("maxRandom:"+maxRandom);
+					LogUtil.DefalutLog("category:"+category+"---maxRandom:"+maxRandom);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

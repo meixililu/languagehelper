@@ -98,6 +98,11 @@ public class KeyUtil {
 
 	public static final String SaveLastTime_CompositionActivity = "SaveLastTime_CompositionActivity";
 	
+	public static final String TranslateApiOrder = "TranslateApiOrder";
+	
+	public static final String CompareTranslateApiTime = "CompareTranslateApiTime";
+	
+	public static final String Categoty = "Categoty";
 	
 	
 	

@@ -34,6 +34,9 @@ public class Settings {
 	
 	public static String BaiduOCRUrl = "http://apis.baidu.com/idl_baidu/baiduocrpay/idlocrpaid";
 	
+	/**juhe dictionary api**/
+	public static String JuheYoudaoApiUrl = "http://japi.juhe.cn/youdao/dictionary.from?key=a8edec6297be9b017a106aec955974f6&word=";
+	
 	/**showapi dictionary api**/
 	public static String ShowApiDictionaryUrl = "http://route.showapi.com/32-9";
 	

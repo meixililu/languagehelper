@@ -95,7 +95,7 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 	}
 	
 	private void initData(){
-		getSupportActionBar().setTitle(getResources().getString(R.string.spokenEnglishTest));
+		getSupportActionBar().setTitle(getResources().getString(R.string.spoken_english_practice));
 		positin = getIntent().getIntExtra(KeyUtil.PositionKey,0);
 		avObjects = (List<AVObject>) BaseApplication.dataMap.get(KeyUtil.DataMapKey);
 		BaseApplication.dataMap.clear();

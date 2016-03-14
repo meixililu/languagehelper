@@ -2,12 +2,10 @@ package com.messi.languagehelper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
-import com.messi.languagehelper.adapter.CompositionListAdapter;
+import com.messi.languagehelper.adapter.ReadingListAdapter;
 import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.LogUtil;
@@ -28,7 +26,7 @@ import android.widget.ListView;
 public class CompositionFragment extends BaseFragment implements OnClickListener{
 
 	private ListView listview;
-	private CompositionListAdapter mAdapter;
+	private ReadingListAdapter mAdapter;
 	private List<AVObject> avObjects;
 	private View footerview;
 	private int skip = 0;
@@ -66,7 +64,7 @@ public class CompositionFragment extends BaseFragment implements OnClickListener
 		avObjects = new ArrayList<AVObject>();
 		listview = (ListView) view.findViewById(R.id.listview);
 		initSwipeRefresh(view);
-		mAdapter = new CompositionListAdapter(getContext(), avObjects);
+		mAdapter = new ReadingListAdapter(getContext(), avObjects);
 		listview.setAdapter(mAdapter);
 		setListOnScrollListener();
 	}
@@ -127,12 +125,13 @@ public class CompositionFragment extends BaseFragment implements OnClickListener
 		
 		@Override
 		protected List<AVObject> doInBackground(Void... params) {
-			AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.Composition.Composition);
+			AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.Reading.Reading);
+			query.whereEqualTo(AVOUtil.Reading.category, AVOUtil.Category.composition);
 			if(!code.equals("1000")){
-				query.whereEqualTo(AVOUtil.Composition.type_id, code);
+				query.whereEqualTo(AVOUtil.Reading.type_id, code);
 			}
-			query.addDescendingOrder(AVOUtil.Composition.publish_time);
-			query.addDescendingOrder(AVOUtil.Composition.item_id);
+			query.addDescendingOrder(AVOUtil.Reading.publish_time);
+			query.addDescendingOrder(AVOUtil.Reading.item_id);
 			query.skip(skip);
 			query.limit(20);
 			try {
@@ -172,9 +171,10 @@ public class CompositionFragment extends BaseFragment implements OnClickListener
 			@Override
 			public void run() {
 				try {
-					AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.Composition.Composition);
+					AVQuery<AVObject> query = new AVQuery<AVObject>(AVOUtil.Reading.Reading);
+					query.whereEqualTo(AVOUtil.Reading.category, AVOUtil.Category.composition);
 					if(!code.equals("1000")){
-						query.whereEqualTo(AVOUtil.Composition.type_id, code);
+						query.whereEqualTo(AVOUtil.Reading.type_id, code);
 					}
 					maxRandom = query.count();
 					maxRandom /= 20; 

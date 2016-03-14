@@ -13,7 +13,7 @@ public class Dictionary {
 
     private Long id;
     private String word_name;
-    private String result;
+    private String result;  /**for item display**/
     private String to;
     private String from;
     private String ph_am;
@@ -27,7 +27,7 @@ public class Dictionary {
     private String iscollected;
     private Integer visit_times;
     private Integer speak_speed;
-    private String backup1;/**baidu dictionary play result**/
+    private String backup1;/**for media play **/
     private String backup2;/**playing pause stop sign  XFUtil PlayOnline PlayOffline**/
     private String backup3;
     private String backup4;

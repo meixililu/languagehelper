@@ -25,12 +25,14 @@ import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
 import com.messi.languagehelper.http.LanguagehelperHttpClient;
 import com.messi.languagehelper.http.UICallback;
 import com.messi.languagehelper.impl.FragmentProgressbarListener;
+import com.messi.languagehelper.task.MyThread;
 import com.messi.languagehelper.util.CameraUtil;
 import com.messi.languagehelper.util.JsonParser;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.ToastUtil;
+import com.messi.languagehelper.util.TranslateUtil;
 import com.messi.languagehelper.util.ViewUtil;
 import com.messi.languagehelper.util.XFUtil;
 
@@ -42,6 +44,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -79,7 +83,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 	private List<Dictionary> beans;
 	private Animation fade_in,fade_out;
 	
-	private Dictionary mDictionaryBean;
+	public static Dictionary mDictionaryBean;
 
 	// 识别对象
 	private SpeechRecognizer recognizer;
@@ -422,97 +426,30 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 	 * send translate request
 	 * showapi dictionary api
 	 */
-	private void RequestShowapiAsyncTask(){
+	private void RequestTranslateApiTask(){
 		loadding();
 		submit_btn.setEnabled(false);
-		RequestBody formBody = new FormEncodingBuilder()
-		.add("showapi_appid", Settings.showapi_appid)
-		.add("showapi_sign", Settings.showapi_secret)
-		.add("showapi_timestamp", String.valueOf(System.currentTimeMillis()))
-		.add("showapi_res_gzip", "1")
-		.add("q", Settings.q)
-		.build();
-		LanguagehelperHttpClient.post(Settings.ShowApiDictionaryUrl, formBody, new UICallback(getActivity()){
-			@Override
-			public void onResponsed(String responseString){
-				LogUtil.DefalutLog("Result---showapi:"+responseString);
-				try {
-					if (!TextUtils.isEmpty(responseString)) {
-						if(JsonParser.isJson(responseString)){
-							Root mRoot = new Gson().fromJson(responseString, Root.class);
-							if(mRoot != null && mRoot.getShowapi_res_code() == 0 && mRoot.getShowapi_res_body() != null){
-								mDictionaryBean = JsonParser.changeShowapiResultToDicBean(mRoot,Settings.q);
-								setData();
-							}else{
-								GetDictionaryFaultAsyncTask();
-							}
-							if(mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false)){
-								new AutoPlayWaitTask().execute();
-							}
-						}else{
-							GetDictionaryFaultAsyncTask();
-						}
-					} else {
-						GetDictionaryFaultAsyncTask();
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-					GetDictionaryFaultAsyncTask();
-				}
-			}
-			@Override
-			public void onFailured() {
-				showToast(getActivity().getResources().getString(R.string.network_error));
-			}
-			@Override
-			public void onFinished() {
-				onFinishRequest();
-			}
-		});
+		TranslateUtil.Translate(getActivity(), mHandler);
 	}
 	
-	/**
-	 * if dictionary api fail
-	 * baidu translate api
-	 */
-	private void GetDictionaryFaultAsyncTask(){
-		loadding();
-		submit_btn.setEnabled(false);
-		LanguagehelperHttpClient.postBaidu(new UICallback(getActivity()) {
-			@Override
-			public void onFailured() {
+	private Handler mHandler = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			onFinishRequest();
+			if(msg.what == 1){
+				setData();
+			}else{
 				showToast(getActivity().getResources().getString(R.string.network_error));
 			}
-			@Override
-			public void onResponsed(String responseString) {
-				if (!TextUtils.isEmpty(responseString)) {
-					LogUtil.DefalutLog("Result---baidu tran:"+responseString);
-					String dstString = JsonParser.getTranslateResult(responseString);
-					if (dstString.contains("error_msg:")) {
-						showToast(dstString);
-					} else {
-						mDictionaryBean = new Dictionary();
-						mDictionaryBean.setType(KeyUtil.ResultTypeTranslate);
-						mDictionaryBean.setWord_name(Settings.q);
-						mDictionaryBean.setResult(dstString);
-						DataBaseUtil.getInstance().insert(mDictionaryBean);
-						setData();
-					}
-				} else {
-					showToast(getActivity().getResources().getString(R.string.network_error));
-				}
-			}
-			@Override
-			public void onFinished() {
-				onFinishRequest();
-			}
-		});
-	}
+		}
+	};
 	
 	private void setData(){
 		if(AutoClearInputAfterFinish){
 			input_et.setText("");
 		}
+		mDictionaryBean = (Dictionary) BaseApplication.dataMap.get(KeyUtil.DataMapKey);
+		BaseApplication.dataMap.clear();
 		beans.add(0,mDictionaryBean);
 		mAdapter.notifyDataSetChanged();
 		recent_used_lv.setSelection(0);
@@ -685,8 +622,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 			if(",.?!;:'，。？！‘；：".contains(last)){
 				Settings.q = Settings.q.substring(0,Settings.q.length()-1);
 			}
-			RequestShowapiAsyncTask();
-//			GetDictionaryFaultAsyncTask();
+			RequestTranslateApiTask();
 			StatService.onEvent(getActivity(), "tab_dic_submit_btn", "首页词典页面翻译提交按钮", 1);
 		} else {
 			showToast(getActivity().getResources().getString(R.string.input_et_hint));

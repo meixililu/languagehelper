@@ -7,9 +7,14 @@
     <string name="designer">设计：李茜霞</string>
     <string name="title_about">关于我们</string>
     <string name="title_share_preview">分享预览</string>
-    <string name="title_Practice">口语修炼</string>
+    <string name="title_Practice">基础修炼</string>
+    <string name="title_listening">每日必听</string>
+    <string name="title_word_vocabulary">每日词汇</string>
     <string name="title_symbol">音标学习</string>
     <string name="title_word_study">单词学习</string>
+    <string name="title_english_jokes">双语笑话</string>
+    <string name="title_english_story">英语故事</string>
+    <string name="title_juhe">综合频道</string>
     <string name="title_help">使用帮助</string>
     <string name="title_more">更多</string>
     <string name="title_translate">翻译</string>
@@ -152,8 +157,9 @@
 	
 	<string name="dailysentence">每日一句</string>
 	<string name="symbolStudy">48个音标快速学</string>
-	<string name="spokenEnglishTest">口语练习</string>
-	<string name="reading">双语阅读</string>
+	<string name="spoken_english_reading">口语修炼</string>
+	<string name="spoken_english_practice">口语练习</string>
+	<string name="reading">多看多读</string>
 	<string name="examination">英语考题</string>
 	<string name="simulation_dialogue">模拟对话</string>
 	<string name="introduction">基础词汇</string>

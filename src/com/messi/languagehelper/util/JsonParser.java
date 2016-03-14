@@ -5,9 +5,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import android.text.TextUtils;
-
 import com.messi.languagehelper.dao.Dictionary;
+import com.messi.languagehelper.dao.DictionaryDataJuhe;
+import com.messi.languagehelper.dao.DictionaryResultJuhe;
+import com.messi.languagehelper.dao.DictionaryRootJuhe;
 import com.messi.languagehelper.dao.EveryDaySentence;
 import com.messi.languagehelper.dao.Means;
 import com.messi.languagehelper.dao.Parts;
@@ -17,9 +18,12 @@ import com.messi.languagehelper.dao.Tag;
 import com.messi.languagehelper.dao.Web;
 import com.messi.languagehelper.db.DataBaseUtil;
 
+import android.text.TextUtils;
+
 
 public class JsonParser {
 	
+	//showapi dictionary
 	public static Dictionary changeShowapiResultToDicBean(Root mRoot, String query){
 		StringBuilder sb = new StringBuilder();
 		StringBuilder sb_play = new StringBuilder();
@@ -28,6 +32,8 @@ public class JsonParser {
 		mDictionary.setType(KeyUtil.ResultTypeShowapi);
 		boolean isEnglish = StringUtils.isEnglish(query);
 		mDictionary.setWord_name(query);
+		sb_play.append(query);
+		sb_play.append("\n");
 		if(isEnglish){
 			mDictionary.setFrom("en");
 			mDictionary.setTo("zh");
@@ -94,7 +100,104 @@ public class JsonParser {
 		}
 		if(sb_play.length() > 1){
 			mDictionary.setResult(sb.substring(0, sb.lastIndexOf("\n")));
-			mDictionary.setBackup1(sb_play.substring(0, sb_play.lastIndexOf("\n")));
+			String result_for_play = sb_play.substring(0, sb_play.lastIndexOf("\n"));
+			result_for_play = result_for_play.replace("n.", "");
+			result_for_play = result_for_play.replace("vt.", "");
+			result_for_play = result_for_play.replace("vi.", "");
+			result_for_play = result_for_play.replace("adj.", "");
+			result_for_play = result_for_play.replace("adv.", "");
+			result_for_play = result_for_play.replace("prep.", "");
+			mDictionary.setBackup1(result_for_play);
+			DataBaseUtil.getInstance().insert(mDictionary);
+		}
+		return mDictionary;
+	}
+	
+	public static Dictionary changeJuheResultToDicBean(DictionaryRootJuhe mRoot, String query){
+		StringBuilder sb = new StringBuilder();
+		StringBuilder sb_play = new StringBuilder();
+		Dictionary mDictionary = new Dictionary();
+		DictionaryResultJuhe mResult = mRoot.getResult();
+		mDictionary.setType(KeyUtil.ResultTypeShowapi);
+		boolean isEnglish = StringUtils.isEnglish(query);
+		mDictionary.setWord_name(query);
+		sb_play.append(query);
+		sb_play.append("\n");
+		if(isEnglish){
+			mDictionary.setFrom("en");
+			mDictionary.setTo("zh");
+		}else{
+			mDictionary.setFrom("zh");
+			mDictionary.setTo("en");
+		}
+		DictionaryDataJuhe mdata = mResult.getData(); 
+		if(mdata != null && mdata.getBasic() != null){
+			if(isEnglish){
+				mDictionary.setPh_en(mdata.getBasic().getUk_phonetic());
+				mDictionary.setPh_am(mdata.getBasic().getUs_phonetic());
+				if(TextUtils.isEmpty(mDictionary.getPh_en())){
+					mDictionary.setPh_en(mdata.getBasic().getPhonetic());
+				}
+				if(!TextUtils.isEmpty(mDictionary.getPh_am())){
+					sb.append("美 /" + mDictionary.getPh_am() + "/      英 /" + mDictionary.getPh_en() + "/");
+					sb.append("\n");
+				}
+			}else{
+				mDictionary.setPh_zh(mdata.getBasic().getPhonetic());
+				if(!TextUtils.isEmpty(mDictionary.getPh_zh())){
+					sb.append("拼 /" + mDictionary.getPh_zh() + "/");
+					sb.append("\n");
+				}
+			}
+			if(mdata.getBasic().getExplains() != null){
+				for(String item : mdata.getBasic().getExplains()){
+					sb.append(item);
+					sb.append("\n");
+					sb_play.append(item);
+					sb_play.append("\n");
+				}
+			}
+		}
+		if(mdata.getTranslations() != null){
+			for(String item : mdata.getTranslations()){
+				if(!sb.toString().contains(item)){
+					sb.append(item);
+					sb.append("\n");
+					sb_play.append(item);
+					sb_play.append("\n");
+				}
+			}
+		}
+		if(mdata.getWebs() != null){
+			sb.append("网络例句：");
+			sb.append("\n");
+			for(Web mWeb : mdata.getWebs()){
+				if(!TextUtils.isEmpty(mWeb.getKey())){
+					sb.append(mWeb.getKey());
+					sb.append("\n");
+					sb_play.append(mWeb.getKey());
+					sb_play.append("\n");
+				}
+				if(mWeb.getValues() != null){
+					for(String value : mWeb.getValues()){
+						sb.append(value);
+						sb.append("\n");
+						sb_play.append(value);
+						sb_play.append("\n");
+					}
+				}
+			}
+		}
+		if(sb_play.length() > 1){
+			mDictionary.setResult(sb.substring(0, sb.lastIndexOf("\n")));
+			String result_for_play = sb_play.substring(0, sb_play.lastIndexOf("\n"));
+			result_for_play = result_for_play.replace("n.", "");
+			result_for_play = result_for_play.replace("vt.", "");
+			result_for_play = result_for_play.replace("vi.", "");
+			result_for_play = result_for_play.replace("adj.", "");
+			result_for_play = result_for_play.replace("adv.", "");
+			result_for_play = result_for_play.replace("prep.", "");
+			mDictionary.setBackup1(result_for_play);
 			DataBaseUtil.getInstance().insert(mDictionary);
 		}
 		return mDictionary;
@@ -125,7 +228,7 @@ public class JsonParser {
 		return "";
 	}
 	
-	/**解析字典json
+	/**解析字典json  百度词典api解析，直接解析的，已不可用
 	 * @param jsonString
 	 * @return
 	 */
