@@ -1,6 +1,6 @@
 package com.messi.languagehelper;
 
-import com.baidu.mobstat.StatService;
+import com.avos.avoscloud.AVAnalytics;
 import com.gc.materialdesign.views.ProgressBarDetermininate;
 import com.iflytek.voiceads.AdError;
 import com.iflytek.voiceads.IFLYAdListener;
@@ -71,7 +71,7 @@ public class WebViewActivity extends BaseActivity{
 		mWebView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
 		mWebView.requestFocus();
 		
-		if(Url.equals(Settings.GameUrl) || Url.equals(Settings.YueduUrl)||Url.equals(Settings.HotalUrl)){
+		if(Url.equals(Settings.GameUrl) || Url.equals(Settings.YueduUrl)){
 			showAD();
 		}
 		
@@ -174,7 +174,7 @@ public class WebViewActivity extends BaseActivity{
 				}
 				@Override
 				public void onAdClick() {
-					StatService.onEvent(WebViewActivity.this, "ad_kapian", "点击卡片广告", 1);
+					AVAnalytics.onEvent(WebViewActivity.this, "webview_ad_click_chapin");
 				}
 				@Override
 				public void onAdExposure() {
@@ -201,14 +201,12 @@ public class WebViewActivity extends BaseActivity{
 				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.cailing_ad_prompt));
 			}else if(Url.equals(Settings.YueduUrl)){
 				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.yuedu_ad_prompt));
-			}else if(Url.equals(Settings.HotalUrl)){
-				ShareUtil.shareLink(WebViewActivity.this,WebViewActivity.this.getResources().getString(R.string.hotel_ad_prompt));
 			}else{
 				if(!TextUtils.isEmpty(ShareUrlMsg)){
 					ShareUtil.shareLink(WebViewActivity.this, ShareUrlMsg);
 				}
 			}
-			StatService.onEvent(this, "webview_share_link", "分享链接", 1);
+			AVAnalytics.onEvent(this, "webview_share_link");
 			break;
 		}
        return super.onOptionsItemSelected(item);

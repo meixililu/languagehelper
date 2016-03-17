@@ -2,7 +2,7 @@ package com.messi.languagehelper;
 
 import java.util.List;
 
-import com.baidu.mobstat.StatService;
+import com.avos.avoscloud.AVAnalytics;
 import com.bumptech.glide.Glide;
 import com.messi.languagehelper.dao.EveryDaySentence;
 import com.messi.languagehelper.db.DataBaseUtil;
@@ -179,50 +179,60 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		switch(v.getId()){
 		case R.id.symbol_study_cover:
 			toSymbolListActivity();
+			AVAnalytics.onEvent(getActivity(), "tab3_to_symbol");
 			break;
 		case R.id.word_study_cover:
 			toWordStudyListActivity();
+			AVAnalytics.onEvent(getActivity(), "tab3_to_wordstudy");
 			break;
 		case R.id.study_daily_sentence:
 			toDailySentenceActivity();
+			AVAnalytics.onEvent(getActivity(), "tab3_to_dailysentence");
 			break;
 		case R.id.study_spoken_english:
 			toStudyListActivity();
-			StatService.onEvent(getActivity(), "tab_study_words", "学习-口语修炼", 1);
+			AVAnalytics.onEvent(getActivity(), "tab3_study_spokenenglish_basic");
 			break;
 		case R.id.study_composition:
 			toStudyCompositionActivity();
-			StatService.onEvent(getActivity(), "tab_study_dialog", "学习-模拟对话", 1);
+			AVAnalytics.onEvent(getActivity(), "tab3_to_composition");
 			break;
 		case R.id.study_test:
 			toEvaluationActivity();
-			StatService.onEvent(getActivity(), "tab_study_test", "学习-口语评测", 1);
+			AVAnalytics.onEvent(getActivity(), "tab3_to_evaluation");
 			break;
 		case R.id.instagram_layout:
 			toEnglishWebsiteRecommendActivity();
+			AVAnalytics.onEvent(getActivity(), "tab3_to_websiterecommend");
 			break;
 		case R.id.story_layout:
 			toReadingActivity(getActivity().getResources().getString(R.string.title_english_story),
 					AVOUtil.Category.story);
+			AVAnalytics.onEvent(getActivity(), "tab3_to_story");
 			break;
 		case R.id.news_layout:
 			toReadingActivity(getActivity().getResources().getString(R.string.reading),
 					AVOUtil.Category.shuangyu_reading);
+			AVAnalytics.onEvent(getActivity(), "tab3_to_reading");
 			break;
 		case R.id.jokes_layout:
 			toReadingActivity(getActivity().getResources().getString(R.string.title_english_jokes),
 					AVOUtil.Category.jokes);
+			AVAnalytics.onEvent(getActivity(), "tab3_to_jokes");
 			break;
 		case R.id.study_listening_layout:
 			toReadingActivity(getActivity().getResources().getString(R.string.title_listening),
 					AVOUtil.Category.listening);
+			AVAnalytics.onEvent(getActivity(), "tab3_to_listening");
 			break;
 		case R.id.juhe_layout:
 			toReadingActivity(getActivity().getResources().getString(R.string.title_juhe),"");
+			AVAnalytics.onEvent(getActivity(), "tab3_to_juhenews");
 			break;
 		case R.id.en_examination_layout:
 			ContExManager.initWithAPPId(getActivity(),"c18b33e973d147159ee52a8debac9b4c", "w1461Eub");
 			GytUtil.showHtml(getActivity(), getActivity().getResources().getString(R.string.examination));
+			AVAnalytics.onEvent(getActivity(), "tab3_to_examination");
 			break;
 		case R.id.play_img:
 			if(mEveryDaySentence != null){
@@ -239,7 +249,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 					DownLoadUtil.downloadFile(getContext(), mEveryDaySentence.getTts(), SDCardUtil.DailySentencePath, fileName, mHandler);
 				}
 			}
-			StatService.onEvent(getActivity(), "play_daily_sentence", "播放每日一句", 1);
+			AVAnalytics.onEvent(getActivity(), "tab3_play_daily_sentence");
 			break;
 		default:
 			break;
@@ -297,43 +307,36 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	private void toEnglishWebsiteRecommendActivity(){
 		Intent intent = new Intent(getActivity(),EnglishWebsiteRecommendActivity.class);
 		getActivity().startActivity(intent);
-		StatService.onEvent(getActivity(), "leisure_to_english_website", "休闲页去英文网站页面", 1);
 	}
 	
 	private void toSymbolListActivity(){
 		Intent intent = new Intent(getActivity(),SymbolListActivity.class);
 		startActivity(intent);
-		StatService.onEvent(getActivity(), "tab_symbol_study", "去音标学习页面", 1);
 	}
 	
 	private void toWordStudyListActivity(){
 		Intent intent = new Intent(getActivity(),WordStudyActivity.class);
 		startActivity(intent);
-		StatService.onEvent(getActivity(), "tab_symbol_study", "去音标学习页面", 1);
 	}
 	
 	private void toDailySentenceActivity(){
 		Intent intent = new Intent(getActivity(),DailySentenceActivity.class);
 		startActivity(intent);
-		StatService.onEvent(getActivity(), "tab_study_todailysentence", "首页去每日一句页面按钮", 1);
 	}
 	
 	private void toStudyListActivity(){
 		Intent intent = new Intent(getActivity(),PracticeCategoryActivity.class);
 		startActivity(intent);
-		StatService.onEvent(getActivity(), "tab_study_tostudylist", "首页去口语练习页面", 1);
 	}
 	
 	private void toStudyCompositionActivity(){
 		Intent intent = new Intent(getActivity(),CompositionActivity.class);
 		startActivity(intent);
-//		StatService.onEvent(getActivity(), "tab_study_tostudylist", "首页去模拟对话页面", 1);
 	}
 	
 	private void toEvaluationActivity(){
 		Intent intent = new Intent(getActivity(),SpokenEnglishActivity.class);
 		startActivity(intent);
-		StatService.onEvent(getActivity(), "tab_study_tostudylist", "首页去口语评测页面", 1);
 	}
 	
 	@Override

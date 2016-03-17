@@ -1,5 +1,12 @@
 package com.messi.languagehelper;
 
+import com.avos.avoscloud.AVAnalytics;
+import com.messi.languagehelper.util.ADUtil;
+import com.messi.languagehelper.util.GytUtil;
+import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.Settings;
+import com.messi.languagehelper.util.XFYSAD;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,14 +18,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import cn.contentx.ContExManager;
-
-import com.baidu.mobstat.StatService;
-import com.messi.languagehelper.util.ADUtil;
-import com.messi.languagehelper.util.GytUtil;
-import com.messi.languagehelper.util.KeyUtil;
-import com.messi.languagehelper.util.LogUtil;
-import com.messi.languagehelper.util.Settings;
-import com.messi.languagehelper.util.XFYSAD;
 
 public class LeisureFragment extends BaseFragment implements OnClickListener {
 
@@ -95,8 +94,6 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 			toCailingActivity();
 		}else if(v.getId() == R.id.yuedu_layout){
 			toYueduActivity();
-		}else if(v.getId() == R.id.hotal_layout){
-			toHotelActivity();
 		}else if(v.getId() == R.id.app_layout){
 			toAppActivity();
 		}else if(v.getId() == R.id.invest_layout){
@@ -121,7 +118,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		intent.putExtra(KeyUtil.URL, Settings.InvestListUrl);
 		intent.putExtra(KeyUtil.ActionbarTitle, getActivity().getResources().getString(R.string.invest_activity_title));
 		getActivity().startActivity(intent);
-		StatService.onEvent(getActivity(), "leisure_to_invest_list", "休闲页去投资人列表", 1);
+		AVAnalytics.onEvent(getActivity(), "leisure_pg_toinvestpg_btn");
 	}
 	
 	private void toGameCenterActivity(){
@@ -129,7 +126,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		intent.putExtra(KeyUtil.URL, Settings.GameUrl);
 		intent.putExtra(KeyUtil.ActionbarTitle, getActivity().getResources().getString(R.string.leisuer_game));
 		getActivity().startActivity(intent);
-		StatService.onEvent(getActivity(), "leisure_to_game_page", "休闲页去小游戏页面", 1);
+		AVAnalytics.onEvent(getActivity(), "leisure_pg_togamepg_btn");
 	}
 	
 	private void toCailingActivity(){
@@ -137,7 +134,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		intent.putExtra(KeyUtil.URL, Settings.CaiLingUrl);
 		intent.putExtra(KeyUtil.ActionbarTitle, getActivity().getResources().getString(R.string.title_cailing));
 		getActivity().startActivity(intent);
-		StatService.onEvent(getActivity(), "leisure_to_cailing_page", "休闲页去彩铃页面", 1);
+		AVAnalytics.onEvent(getActivity(), "leisure_pg_tocailingpg_btn");
 	}
 	
 	private void toYueduActivity(){
@@ -146,21 +143,13 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 		intent.putExtra(KeyUtil.ActionbarTitle, getActivity().getResources().getString(R.string.title_reading));
 		intent.putExtra(KeyUtil.IsReedPullDownRefresh, false);
 		getActivity().startActivity(intent);
-		StatService.onEvent(getActivity(), "leisure_to_yuedu_page", "休闲页去阅读页面", 1);
-	}
-	
-	private void toHotelActivity(){
-		Intent intent = new Intent(getActivity(),WebViewActivity.class);
-		intent.putExtra(KeyUtil.URL, Settings.HotalUrl);
-		intent.putExtra(KeyUtil.ActionbarTitle, getActivity().getResources().getString(R.string.title_hotel));
-		getActivity().startActivity(intent);
-		StatService.onEvent(getActivity(), "leisure_to_hotel_page", "休闲页去订酒店页面", 1);
+		AVAnalytics.onEvent(getActivity(), "leisure_pg_toyuedupg_btn");
 	}
 	
 	private void toAppActivity(){
 		Intent intent = new Intent(getActivity(),AppRecommendListActivity.class);
 		getActivity().startActivity(intent);
-		StatService.onEvent(getActivity(),"leisure_to_authors_software", "休闲页去作者其他应用页", 1);
+		AVAnalytics.onEvent(getActivity(),"leisure_pg_toapprecommendpg_btn");
 	}
 	
 	@Override

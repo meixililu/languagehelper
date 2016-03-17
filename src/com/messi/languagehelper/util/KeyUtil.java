@@ -103,6 +103,8 @@ public class KeyUtil {
 	public static final String CompareTranslateApiTime = "CompareTranslateApiTime";
 	
 	public static final String Categoty = "Categoty";
+
+	public static final String isReadingDetailGuideShow = "isReadingDetailGuideShow";
 	
 	
 	

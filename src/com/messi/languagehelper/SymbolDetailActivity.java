@@ -1,6 +1,6 @@
 package com.messi.languagehelper;
 
-import com.baidu.mobstat.StatService;
+import com.avos.avoscloud.AVAnalytics;
 import com.messi.languagehelper.dao.SymbolListDao;
 import com.messi.languagehelper.util.DownLoadUtil;
 import com.messi.languagehelper.util.KeyUtil;
@@ -170,7 +170,7 @@ public class SymbolDetailActivity extends BaseActivity implements OnClickListene
 				currentFileFullName = SDAudioMp3FullName;
 				DownLoadUtil.downloadFile(this, SDAudioMp3Url, audioPath, SDAudioMp3Name, mHandler);
 			}
-			StatService.onEvent(SymbolDetailActivity.this, "symbol_mp3", "音标详情音标播放", 1);
+			AVAnalytics.onEvent(SymbolDetailActivity.this, "symbol_pg_play_mp3");
 			break;
 		case R.id.teacher_cover:
 			if(SDCardUtil.isFileExist(SDTeacherMp3FullName)){
@@ -179,7 +179,7 @@ public class SymbolDetailActivity extends BaseActivity implements OnClickListene
 				currentFileFullName = SDTeacherMp3FullName;
 				DownLoadUtil.downloadFile(this, SDTeacherMp3Url, audioPath, SDTeacherMp3Name, mHandler);
 			}
-			StatService.onEvent(SymbolDetailActivity.this, "symbol_teacher_mp3", "音标详情音标外教播放", 1);
+			AVAnalytics.onEvent(SymbolDetailActivity.this, "symbol_pg_play_teacher_mp3", "音标详情音标外教播放", 1);
 			break;
 		default:
 			break;

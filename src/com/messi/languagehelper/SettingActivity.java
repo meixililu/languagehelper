@@ -1,5 +1,12 @@
 package com.messi.languagehelper;
 
+import com.avos.avoscloud.AVAnalytics;
+import com.messi.languagehelper.db.DataBaseUtil;
+import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.SDCardUtil;
+import com.messi.languagehelper.util.Settings;
+import com.messi.languagehelper.util.ToastUtil;
+
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,13 +17,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
-import com.baidu.mobstat.StatService;
-import com.messi.languagehelper.db.DataBaseUtil;
-import com.messi.languagehelper.util.KeyUtil;
-import com.messi.languagehelper.util.SDCardUtil;
-import com.messi.languagehelper.util.Settings;
-import com.messi.languagehelper.util.ToastUtil;
 
 public class SettingActivity extends BaseActivity implements OnClickListener,SeekBar.OnSeekBarChangeListener {
 
@@ -98,26 +98,26 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 			unread_auto_play.setVisibility(View.GONE);
 			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoPlayUnreadDot,true);
 			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoPlayResult,auto_play_cb.isChecked());
-			StatService.onEvent(this, "setting_page_auto_play", "翻译完成之后自动播放", 1);
+			AVAnalytics.onEvent(this, "setting_pg_auto_play");
 			break;
 		case R.id.setting_auto_clear_after_finish:
 			auto_clear_cb_after_finish.setChecked(!auto_clear_cb_after_finish.isChecked());
 			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoClearInputAfterFinish,auto_clear_cb_after_finish.isChecked());
-			StatService.onEvent(this, "setting_page_auto_clear_input", "翻译完成之后自动清空输入框", 1);
+			AVAnalytics.onEvent(this, "setting_pg_auto_clear_input");
 			break;
 		case R.id.setting_auto_clear:
 			auto_clear_cb.setChecked(!auto_clear_cb.isChecked());
 			MainFragment.isRefresh = true;
 			DictionaryFragment.isRefresh = true;
 			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.AutoClear,auto_clear_cb.isChecked());
-			StatService.onEvent(this, "setting_page_auto_clear", "退出自动清除", 1);
+			AVAnalytics.onEvent(this, "setting_pg_auto_clear");
 			break;
 		case R.id.setting_clear_all_except_favorite:
 			DataBaseUtil.getInstance().clearExceptFavorite();
 			MainFragment.isRefresh = true;
 			DictionaryFragment.isRefresh = true;
 			ToastUtil.diaplayMesShort(SettingActivity.this, this.getResources().getString(R.string.clear_success));
-			StatService.onEvent(this, "setting_page_clear_all_except", "清除收藏以外的记录", 1);
+			AVAnalytics.onEvent(this, "setting_pg_clear_all_except");
 			break;
 		case R.id.setting_clear_all:
 			DataBaseUtil.getInstance().clearAll();
@@ -125,7 +125,7 @@ public class SettingActivity extends BaseActivity implements OnClickListener,See
 			DictionaryFragment.isRefresh = true;
 			SDCardUtil.deleteOldFile();
 			ToastUtil.diaplayMesShort(SettingActivity.this, this.getResources().getString(R.string.clear_success));
-			StatService.onEvent(this, "setting_page_clear_all", "清除所有记录", 1);
+			AVAnalytics.onEvent(this, "setting_pg_clear_all");
 			break;
 		default:
 			break;

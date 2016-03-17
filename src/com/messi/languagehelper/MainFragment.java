@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
-import com.baidu.mobstat.StatService;
+import com.avos.avoscloud.AVAnalytics;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
@@ -211,16 +211,15 @@ public class MainFragment extends Fragment implements OnClickListener {
 		if (v.getId() == R.id.submit_btn) {
 			hideIME();
 			submit();
-			StatService.onEvent(getActivity(), "tab_tran_submit", "首页翻译页提交按钮", 1);
+			AVAnalytics.onEvent(getActivity(), "tab1_submit_btn");
 		}else if (v.getId() == R.id.photo_tran_btn) {
 			photoSelectDialog();
-//			StatService.onEvent(getActivity(), "tab_tran_ask_baidu", "首页问百度", 1);
 		}else if (v.getId() == R.id.speak_round_layout) {
 			showIatDialog();
-			StatService.onEvent(getActivity(), "tab_tran_speak_voice", "首页翻译页说话按钮", 1);
+			AVAnalytics.onEvent(getActivity(), "tab1_speak_btn");
 		}else if (v.getId() == R.id.clear_btn_layout) {
 			input_et.setText("");
-			StatService.onEvent(getActivity(), "tab_tran_clearbtn", "首页翻译页清空按钮", 1);
+			AVAnalytics.onEvent(getActivity(), "tab1_clear_btn");
 		}else if (v.getId() == R.id.cb_speak_language_ch) {
 			cb_speak_language_en.setChecked(false);
 			XFUtil.setSpeakLanguage(getActivity(),mSharedPreferences,XFUtil.VoiceEngineCH);
@@ -229,12 +228,12 @@ public class MainFragment extends Fragment implements OnClickListener {
 			}else{
 				ToastUtil.diaplayMesShort(getActivity(), getActivity().getResources().getString(R.string.speak_chinese));
 			}
-			StatService.onEvent(getActivity(), "tab_tran_putonghuabtn", "首页翻译页普通话按钮", 1);
+			AVAnalytics.onEvent(getActivity(), "tab1_zh_sbtn");
 		}else if (v.getId() == R.id.cb_speak_language_en) {
 			cb_speak_language_ch.setChecked(false);
 			XFUtil.setSpeakLanguage(getActivity(),mSharedPreferences,XFUtil.VoiceEngineEN);
 			ToastUtil.diaplayMesShort(getActivity(), getActivity().getResources().getString(R.string.speak_english));
-			StatService.onEvent(getActivity(), "tab_tran_yingyubtn", "首页翻译页英语按钮", 1);
+			AVAnalytics.onEvent(getActivity(), "tab1_en_sbtn");
 		}
 	}
 	
@@ -701,8 +700,6 @@ public class MainFragment extends Fragment implements OnClickListener {
 		Settings.q = input_et.getText().toString().trim();
 		if (!TextUtils.isEmpty(Settings.q)) {
 			RequestJinShanAsyncTask();
-//			RequestAsyncTask();
-			StatService.onEvent(getActivity(), "tab_translate_submitbtn", "首页翻译页面翻译按钮", 1);
 		} else {
 			showToast(getActivity().getResources().getString(R.string.input_et_hint));
 			finishLoadding();

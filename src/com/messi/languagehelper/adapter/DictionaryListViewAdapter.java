@@ -2,6 +2,28 @@ package com.messi.languagehelper.adapter;
 
 import java.util.List;
 
+import com.avos.avoscloud.AVAnalytics;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechSynthesizer;
+import com.iflytek.cloud.SynthesizerListener;
+import com.messi.languagehelper.ImgShareActivity;
+import com.messi.languagehelper.MainFragment;
+import com.messi.languagehelper.R;
+import com.messi.languagehelper.dao.Dictionary;
+import com.messi.languagehelper.db.DataBaseUtil;
+import com.messi.languagehelper.dialog.PopDialog;
+import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
+import com.messi.languagehelper.task.MyThread;
+import com.messi.languagehelper.util.AudioTrackUtil;
+import com.messi.languagehelper.util.DictionaryUtil;
+import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.LogUtil;
+import com.messi.languagehelper.util.SDCardUtil;
+import com.messi.languagehelper.util.Settings;
+import com.messi.languagehelper.util.StringUtils;
+import com.messi.languagehelper.util.XFUtil;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,28 +45,6 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.baidu.mobstat.StatService;
-import com.iflytek.cloud.SpeechConstant;
-import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.SpeechSynthesizer;
-import com.iflytek.cloud.SynthesizerListener;
-import com.messi.languagehelper.ImgShareActivity;
-import com.messi.languagehelper.MainFragment;
-import com.messi.languagehelper.R;
-import com.messi.languagehelper.dao.Dictionary;
-import com.messi.languagehelper.db.DataBaseUtil;
-import com.messi.languagehelper.dialog.PopDialog;
-import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
-import com.messi.languagehelper.task.MyThread;
-import com.messi.languagehelper.util.AudioTrackUtil;
-import com.messi.languagehelper.util.DictionaryUtil;
-import com.messi.languagehelper.util.KeyUtil;
-import com.messi.languagehelper.util.LogUtil;
-import com.messi.languagehelper.util.SDCardUtil;
-import com.messi.languagehelper.util.Settings;
-import com.messi.languagehelper.util.StringUtils;
-import com.messi.languagehelper.util.XFUtil;
 
 public class DictionaryListViewAdapter extends BaseAdapter {
 
@@ -180,8 +180,7 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 					notifyDataSetChanged();
 					showToast(context.getResources().getString(
 							R.string.dele_success));
-					StatService.onEvent(context, "tab_dictionary_deletebtn",
-							"首页词典页面列表删除按钮", 1);
+					AVAnalytics.onEvent(context, "tab2_delete_btn");
 				}
 			});
 			holder.copy_btn.setOnClickListener(new OnClickListener() {
@@ -194,8 +193,7 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					StatService.onEvent(context, "tab_dictionary_copybtn",
-							"首页词典页面列表复制按钮", 1);
+					AVAnalytics.onEvent(context, "tab2_copy_btn");
 				}
 			});
 			holder.weixi_btn.setOnClickListener(new OnClickListener() {
@@ -208,8 +206,7 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 				@Override
 				public void onClick(View v) {
 					updateCollectedStatus(mBean);
-					StatService.onEvent(context, "tab_dictionary_collectedbtn",
-							"首页词典页面列表收藏按钮", 1);
+					AVAnalytics.onEvent(context, "tab2_collected_btn");
 				}
 			});
 		} catch (Exception e) {
@@ -269,8 +266,7 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				StatService.onEvent(context, "tab_dictionary_share_image_btn",
-						"首页词典页面列表图片分享页面按钮", 1);
+				AVAnalytics.onEvent(context, "tab2_share_for_image_btn");
 			}
 
 			@Override
@@ -280,8 +276,7 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				StatService.onEvent(context, "tab_dictionary_share_text_btn",
-						"首页词典页面列表文字分享按钮", 1);
+				AVAnalytics.onEvent(context, "tab2_share_for_text_btn");
 			}
 		});
 		mPopDialog.show();
@@ -451,11 +446,11 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 					}
 					LogUtil.DefalutLog("Backup2---end:"+mBean.getBackup2());
 					if (v.getId() == R.id.record_question_cover) {
-						StatService.onEvent(context, "tab_dictionary_play_content","首页词典页面列表播放内容", 1);
+						AVAnalytics.onEvent(context, "tab2_play_question_btn");
 					} else if (v.getId() == R.id.record_answer_cover) {
-						StatService.onEvent(context, "tab_dictionary_play_result","首页词典页面列表播放结果", 1);
+						AVAnalytics.onEvent(context, "tab2_play_result_btn");
 					} else if (v.getId() == R.id.voice_play_layout) {
-						StatService.onEvent(context, "tab_dictionary_playvoicebtn","首页词典页面列表播放按钮", 1);
+						AVAnalytics.onEvent(context, "tab2_play_voice_btn");
 					}
 				}
 			} catch (Exception e) {

@@ -2,21 +2,7 @@ package com.messi.languagehelper;
 
 import java.util.ArrayList;
 
-import android.content.SharedPreferences;
-import android.graphics.drawable.AnimationDrawable;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import com.baidu.mobstat.StatService;
+import com.avos.avoscloud.AVAnalytics;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
@@ -42,6 +28,20 @@ import com.messi.languagehelper.util.ToastUtil;
 import com.messi.languagehelper.util.XFUtil;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.Animator.AnimatorListener;
+
+import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 
 public class PracticeReadAfterMeFragment extends BaseFragment implements OnClickListener {
 
@@ -159,7 +159,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 		case R.id.check_btn:
 			isNewIn = true;
 			showIatDialog();
-			StatService.onEvent(getActivity(), "readafterme_speak_btn", "跟我读页说话按钮", 1);
+			AVAnalytics.onEvent(getActivity(), "readafterme_pg_speak_btn");
 			break;
 		case R.id.repeat_time_minus_cover:
 			if(repeatTimes > 1){
@@ -167,11 +167,13 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 				repeat_time.setText("跟读 " + repeatTimes + " 次");
 			}
 			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.ReadRepeatTime, repeatTimes);
+			AVAnalytics.onEvent(getActivity(), "readafterme_pg_minus_btn");
 			break;
 		case R.id.repeat_time_plus_cover:
 			repeatTimes++;
 			repeat_time.setText("跟读 " + repeatTimes + " 次");
 			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.ReadRepeatTime, repeatTimes);
+			AVAnalytics.onEvent(getActivity(), "readafterme_pg_plus_btn");
 			break;
 		default:
 			break;
@@ -441,7 +443,7 @@ public class PracticeReadAfterMeFragment extends BaseFragment implements OnClick
 			}else{
 				playLocalPcm(filepath,animationDrawable);
 			}
-			StatService.onEvent(getActivity(), "readafterme_play_result", "跟我读页播放结果", 1);
+			AVAnalytics.onEvent(getActivity(), "readafterme_pg_playresult");
 		}
 	}
 	

@@ -1,5 +1,13 @@
 package com.messi.languagehelper;
 
+import com.avos.avoscloud.AVAnalytics;
+import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
+import com.messi.languagehelper.util.AudioTrackUtil;
+import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.ScreenUtil;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.view.ViewHelper;
+
 import android.content.Intent;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
@@ -15,14 +23,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-
-import com.baidu.mobstat.StatService;
-import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
-import com.messi.languagehelper.util.AudioTrackUtil;
-import com.messi.languagehelper.util.KeyUtil;
-import com.messi.languagehelper.util.ScreenUtil;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.view.ViewHelper;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -139,13 +139,13 @@ public class BaseActivity extends AppCompatActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		StatService.onResume(this);
+		AVAnalytics.onResume(this);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		StatService.onPause(this);
+		AVAnalytics.onPause(this);
 	}
 	
 	@Override

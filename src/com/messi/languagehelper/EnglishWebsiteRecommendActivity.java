@@ -3,25 +3,20 @@ package com.messi.languagehelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.messi.languagehelper.adapter.EnglishWebsiteListAdapter;
+import com.messi.languagehelper.util.ADUtil;
+import com.messi.languagehelper.util.AVOUtil;
+import com.messi.languagehelper.util.XFYSAD;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVQuery;
-import com.baidu.mobstat.StatService;
-import com.iflytek.voiceads.AdError;
-import com.iflytek.voiceads.IFLYAdListener;
-import com.iflytek.voiceads.IFLYBannerAd;
-import com.messi.languagehelper.adapter.EnglishWebsiteListAdapter;
-import com.messi.languagehelper.util.ADUtil;
-import com.messi.languagehelper.util.AVOUtil;
-import com.messi.languagehelper.util.XFYSAD;
 
 public class EnglishWebsiteRecommendActivity extends BaseActivity implements OnClickListener {
 

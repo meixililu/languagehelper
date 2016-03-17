@@ -1,5 +1,10 @@
 package com.messi.languagehelper;
 
+import com.avos.avoscloud.AVAnalytics;
+import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.Settings;
+import com.messi.languagehelper.util.ShareUtil;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -8,11 +13,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-
-import com.baidu.mobstat.StatService;
-import com.messi.languagehelper.util.KeyUtil;
-import com.messi.languagehelper.util.Settings;
-import com.messi.languagehelper.util.ShareUtil;
 
 public class MoreActivity extends BaseActivity implements OnClickListener {
 
@@ -63,7 +63,7 @@ public class MoreActivity extends BaseActivity implements OnClickListener {
 			unread_dot_setting.setVisibility(View.GONE);
 			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.IsShowSettingNewAdd, true);
 			toActivity(SettingActivity.class, null);
-			StatService.onEvent(MoreActivity.this, "menu_page_settingbtn","去应用设置按钮", 1);
+			AVAnalytics.onEvent(MoreActivity.this, "more_pg_tosettingpg_btn");
 			break;
 		case R.id.costom_share_layout:
 			toActivity(ImgShareActivity.class, null);
@@ -74,26 +74,26 @@ public class MoreActivity extends BaseActivity implements OnClickListener {
 				intent.setAction(Intent.ACTION_VIEW);
 				intent.setData(Uri.parse("market://details?id=com.messi.languagehelper"));
 				MoreActivity.this.startActivity(intent);
-				StatService.onEvent(MoreActivity.this, "menu_page_commend","去吐槽评价按钮", 1);
+				AVAnalytics.onEvent(MoreActivity.this, "more_pg_tocommendpg_btn");
 			}catch(Exception e){
 				e.printStackTrace();
 			}
 			break;
 		case R.id.help_layout:
 			toActivity(HelpActivity.class, null);
-			StatService.onEvent(MoreActivity.this, "menu_page_help","去使用帮助按钮", 1);
+			AVAnalytics.onEvent(MoreActivity.this, "more_pg_tohelppg_btn");
 			break;
 		case R.id.about_layout:
 			toActivity(AboutActivity.class, null);
-			StatService.onEvent(MoreActivity.this, "menu_page_aboutus","去关于我们按钮", 1);
+			AVAnalytics.onEvent(MoreActivity.this, "more_pg_toaboutpg_btn");
 			break;
 		case R.id.invite_layout:
 			ShareUtil.shareLink(MoreActivity.this,MoreActivity.this.getResources().getString(R.string.invite_friends_prompt));
-			StatService.onEvent(this, "setting_page_invite_friends", "邀请小伙伴", 1);
+			AVAnalytics.onEvent(this, "more_pg_invite_btn", "邀请小伙伴", 1);
 			break;
 		case R.id.qrcode_layout:
 			toActivity(QRCodeShareActivity.class, null);
-			StatService.onEvent(MoreActivity.this, "setting_page_qrcode", "二维码", 1);
+			AVAnalytics.onEvent(MoreActivity.this, "more_pg_qrcode_btn");
 			break;
 		default:
 			break;

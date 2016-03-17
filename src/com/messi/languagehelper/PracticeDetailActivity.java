@@ -2,6 +2,19 @@ package com.messi.languagehelper;
 
 import java.util.List;
 
+import com.avos.avoscloud.AVAnalytics;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.iflytek.cloud.SpeechSynthesizer;
+import com.messi.languagehelper.impl.PracticeProgressListener;
+import com.messi.languagehelper.util.AVOUtil;
+import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.LogUtil;
+import com.messi.languagehelper.util.SDCardUtil;
+import com.messi.languagehelper.util.Settings;
+import com.messi.languagehelper.util.ViewUtil;
+
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,19 +26,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVQuery;
-import com.baidu.mobstat.StatService;
-import com.iflytek.cloud.SpeechSynthesizer;
-import com.messi.languagehelper.impl.PracticeProgressListener;
-import com.messi.languagehelper.util.AVOUtil;
-import com.messi.languagehelper.util.KeyUtil;
-import com.messi.languagehelper.util.LogUtil;
-import com.messi.languagehelper.util.SDCardUtil;
-import com.messi.languagehelper.util.Settings;
-import com.messi.languagehelper.util.ViewUtil;
 
 public class PracticeDetailActivity extends BaseActivity implements PracticeProgressListener {
 
@@ -169,7 +169,7 @@ public class PracticeDetailActivity extends BaseActivity implements PracticeProg
 			getSupportActionBar().setTitle(getResources().getString(R.string.practice_spoken_englist_finish));
 			FinishFragment mpramf = new FinishFragment(this);
 			setFragment(mpramf);
-			StatService.onEvent(this, "study_page_finish", "口语练习完成", 1);
+			AVAnalytics.onEvent(this, "study_pg_finish", "口语练习完成", 1);
 		}
 	}
 	
@@ -179,27 +179,27 @@ public class PracticeDetailActivity extends BaseActivity implements PracticeProg
 			mpramf = new PracticeEveryFragment(studyContent[pageIndex], this,
 					vedioPath + KeyUtil.Study_Every + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
-			StatService.onEvent(this, "study_page_studyevery", "学单词", 1);
+			AVAnalytics.onEvent(this, "study_pg_studyevery");
 		}else if(type.equalsIgnoreCase(KeyUtil.Practice_FourInOne)){
 			mpramf = new PracticeFourChooseOneFragment(studyContent[pageIndex], this,
 					vedioPath + KeyUtil.Practice_FourInOne + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
-			StatService.onEvent(this, "study_page_fourinone", "口语练习四选一", 1);
+			AVAnalytics.onEvent(this, "study_pg_fourinone");
 		}else if(type.equalsIgnoreCase(KeyUtil.Practice_ReadAfterMe)){
 			mpramf = new PracticeReadAfterMeFragment(studyContent[pageIndex], this, 
 					vedioPath + KeyUtil.Practice_ReadAfterMe + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
-			StatService.onEvent(this, "study_page_readafterme", "口语练习跟我读", 1);
+			AVAnalytics.onEvent(this, "study_pg_readafterme");
 		}else if(type.equalsIgnoreCase(KeyUtil.Practice_Translate)){
 			mpramf = new PracticeWriteFragment(studyContent[pageIndex], this, 
 					vedioPath + KeyUtil.Practice_Translate + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
-			StatService.onEvent(this, "study_page_write", "口语练习书写校验", 1);
+			AVAnalytics.onEvent(this, "study_pg_write");
 		}else if(type.equalsIgnoreCase(KeyUtil.Practice_SpeakAfterMe)){
 			mpramf = new PracticeReadAfterMeFragment(studyContent[pageIndex], this, 
 					vedioPath + KeyUtil.Practice_SpeakAfterMe + SDCardUtil.Delimiter,mSharedPreferences,mSpeechSynthesizer);
 			
-			StatService.onEvent(this, "study_page_speakafterme", "口语练习跟我说", 1);
+			AVAnalytics.onEvent(this, "study_pg_speakafterme");
 		}else{
 			mpramf = new FinishFragment(this);
 		}

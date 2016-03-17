@@ -3,8 +3,12 @@ package com.messi.languagehelper;
 import java.io.File;
 import java.io.IOException;
 
+import com.avos.avoscloud.AVAnalytics;
+import com.gc.materialdesign.views.ButtonRectangle;
+import com.messi.languagehelper.util.SDCardUtil;
+import com.messi.languagehelper.util.ViewUtil;
+
 import android.content.Intent;
-import android.content.res.Resources.NotFoundException;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,11 +16,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.baidu.mobstat.StatService;
-import com.gc.materialdesign.views.ButtonRectangle;
-import com.messi.languagehelper.util.SDCardUtil;
-import com.messi.languagehelper.util.ViewUtil;
 
 public class QRCodeShareActivity extends BaseActivity implements OnClickListener {
 
@@ -78,7 +77,7 @@ public class QRCodeShareActivity extends BaseActivity implements OnClickListener
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			StatService.onEvent(QRCodeShareActivity.this, "share_qrcode_sharebtn", "分享二维码页面分享按钮", 1);
+			AVAnalytics.onEvent(QRCodeShareActivity.this, "qrcode_pg_sharebtn");
 			break;
 		default:
 			break;

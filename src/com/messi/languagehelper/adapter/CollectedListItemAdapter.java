@@ -2,6 +2,29 @@ package com.messi.languagehelper.adapter;
 
 import java.util.List;
 
+import com.avos.avoscloud.AVAnalytics;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechSynthesizer;
+import com.iflytek.cloud.SynthesizerListener;
+import com.messi.languagehelper.BaseApplication;
+import com.messi.languagehelper.ImgShareActivity;
+import com.messi.languagehelper.MainFragment;
+import com.messi.languagehelper.PracticeActivity;
+import com.messi.languagehelper.R;
+import com.messi.languagehelper.dao.record;
+import com.messi.languagehelper.db.DataBaseUtil;
+import com.messi.languagehelper.dialog.PopDialog;
+import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
+import com.messi.languagehelper.task.MyThread;
+import com.messi.languagehelper.util.AudioTrackUtil;
+import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.LogUtil;
+import com.messi.languagehelper.util.SDCardUtil;
+import com.messi.languagehelper.util.Settings;
+import com.messi.languagehelper.util.ToastUtil;
+import com.messi.languagehelper.util.XFUtil;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,29 +49,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.baidu.mobstat.StatService;
-import com.iflytek.cloud.SpeechConstant;
-import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.SpeechSynthesizer;
-import com.iflytek.cloud.SynthesizerListener;
-import com.messi.languagehelper.BaseApplication;
-import com.messi.languagehelper.ImgShareActivity;
-import com.messi.languagehelper.MainFragment;
-import com.messi.languagehelper.PracticeActivity;
-import com.messi.languagehelper.R;
-import com.messi.languagehelper.dao.record;
-import com.messi.languagehelper.db.DataBaseUtil;
-import com.messi.languagehelper.dialog.PopDialog;
-import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
-import com.messi.languagehelper.task.MyThread;
-import com.messi.languagehelper.util.AudioTrackUtil;
-import com.messi.languagehelper.util.KeyUtil;
-import com.messi.languagehelper.util.LogUtil;
-import com.messi.languagehelper.util.SDCardUtil;
-import com.messi.languagehelper.util.Settings;
-import com.messi.languagehelper.util.ToastUtil;
-import com.messi.languagehelper.util.XFUtil;
 
 public class CollectedListItemAdapter extends BaseAdapter {
 
@@ -184,14 +184,14 @@ public class CollectedListItemAdapter extends BaseAdapter {
 				notifyDataSetChanged();
 				showToast(context.getResources().getString(R.string.dele_success));
 				MainFragment.isRefresh = true;
-				StatService.onEvent(context, "tab_translate_deletebtn", "首页翻译页面列表删除按钮", 1);
+				AVAnalytics.onEvent(context, "tab1_delete_btn");
 			}
 		});
 		holder.copy_btn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				copy(mBean.getEnglish());
-				StatService.onEvent(context, "tab_translate_copybtn", "首页翻译页面列表复制按钮", 1);
+				AVAnalytics.onEvent(context, "tab1_copy_btn");
 			}
 		});
 		holder.weixi_btn.setOnClickListener(new OnClickListener() {
@@ -204,7 +204,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View v) {
 				updateCollectedStatus(mBean);
-				StatService.onEvent(context, "tab_translate_collectedbtn", "首页翻译页面列表收藏按钮", 1);
+				AVAnalytics.onEvent(context, "tab1_collected_btn");
 			}
 		});
 		holder.record_to_practice.setOnClickListener(new OnClickListener() {
@@ -213,7 +213,7 @@ public class CollectedListItemAdapter extends BaseAdapter {
 				Intent intent = new Intent(context,PracticeActivity.class);
 				BaseApplication.dataMap.put(KeyUtil.DialogBeanKey, mBean);
 				context.startActivity(intent);
-				StatService.onEvent(context, "tab_translate_to_practice", "首页翻译页面列表练口语按钮", 1);
+				AVAnalytics.onEvent(context, "tab1_to_practice_btn");
 			}
 		});
 		return convertView;
@@ -269,12 +269,12 @@ public class CollectedListItemAdapter extends BaseAdapter {
 			@Override
 			public void onSecondClick(View v) {
 				toShareImageActivity(mBean);
-				StatService.onEvent(context, "tab_translate_share_image_btn", "首页翻译页面列表图片分享按钮", 1);
+				AVAnalytics.onEvent(context, "tab1_share_for_image_btn");
 			}
 			@Override
 			public void onFirstClick(View v) {
 				toShareTextActivity(mBean.getEnglish());
-				StatService.onEvent(context, "tab_translate_share_text_btn", "首页翻译页面列表文字分享按钮", 1);
+				AVAnalytics.onEvent(context, "tab1_share_for_text_btn");
 			}
 		});
 		mPopDialog.show();
@@ -442,11 +442,11 @@ public class CollectedListItemAdapter extends BaseAdapter {
 						LogUtil.DefalutLog("mThread--start:"+mThread.getId());
 					}
 					if(v.getId() == R.id.record_question_cover){
-						StatService.onEvent(context, "tab_translate_play_content", "首页翻译页面列表播放内容", 1);
+						AVAnalytics.onEvent(context, "tab1_play_question", "首页翻译页面列表播放内容", 1);
 					}else if(v.getId() == R.id.record_answer_cover){
-						StatService.onEvent(context, "tab_translate_play_result", "首页翻译页面列表播放结果", 1);
+						AVAnalytics.onEvent(context, "tab1_play_result", "首页翻译页面列表播放结果", 1);
 					}else if(v.getId() == R.id.voice_play_layout){
-						StatService.onEvent(context, "tab_translate_playvoicebtn", "首页翻译页面列表播放按钮", 1);
+						AVAnalytics.onEvent(context, "tab1_play_voice_btn", "首页翻译页面列表播放按钮", 1);
 					}
 				}
 			} catch (Exception e) {

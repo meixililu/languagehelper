@@ -1,14 +1,14 @@
 package com.messi.languagehelper;
 
+import com.avos.avoscloud.AVAnalytics;
+import com.messi.languagehelper.util.Settings;
+
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
-
-import com.baidu.mobstat.StatService;
-import com.messi.languagehelper.util.Settings;
 
 public class AboutActivity extends BaseActivity implements OnClickListener {
 
@@ -46,7 +46,7 @@ public class AboutActivity extends BaseActivity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.email_layout:
 			Settings.contantUs(AboutActivity.this);
-			StatService.onEvent(this, "about_page_email", "关于我们发送邮件", 1);
+			AVAnalytics.onEvent(this, "about_pg_send_email");
 			break;
 		default:
 			break;

@@ -2,6 +2,12 @@ package com.messi.languagehelper.adapter;
 
 import java.util.List;
 
+import com.avos.avoscloud.AVAnalytics;
+import com.avos.avoscloud.AVObject;
+import com.messi.languagehelper.PracticeDetailActivity;
+import com.messi.languagehelper.R;
+import com.messi.languagehelper.util.AVOUtil;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -10,12 +16,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import com.avos.avoscloud.AVObject;
-import com.baidu.mobstat.StatService;
-import com.messi.languagehelper.PracticeDetailActivity;
-import com.messi.languagehelper.R;
-import com.messi.languagehelper.util.AVOUtil;
 
 public class PracticeCategoryListAdapter extends BaseAdapter {
 
@@ -77,7 +77,7 @@ public class PracticeCategoryListAdapter extends BaseAdapter {
 			intent.putExtra(AVOUtil.PracticeCategoryList.PCLCode, mAVObject.getString(AVOUtil.PracticeCategoryList.PCLCode));
 			intent.putExtra(AVOUtil.PracticeCategory.PCCode, PCCode);
 			context.startActivity(intent);
-			StatService.onEvent(context, "study_list_to_practice_page", "学习列表进入口语学习页面", 1);
+			AVAnalytics.onEvent(context, "study_list_to_practice_page");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

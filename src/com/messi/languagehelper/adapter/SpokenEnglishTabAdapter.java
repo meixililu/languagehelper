@@ -18,7 +18,7 @@ public class SpokenEnglishTabAdapter extends FragmentPagerAdapter {
         super(fm);
         CONTENT = new String[] { 
         		mContext.getResources().getString(R.string.spoken_english_practice),
-        		mContext.getResources().getString(R.string.title_word_vocabulary)
+        		mContext.getResources().getString(R.string.title_spoken_english_study)
         };
     }
 

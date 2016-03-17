@@ -2,6 +2,14 @@ package com.messi.languagehelper.adapter;
 
 import java.util.List;
 
+import com.avos.avoscloud.AVAnalytics;
+import com.avos.avoscloud.AVObject;
+import com.messi.languagehelper.BaseApplication;
+import com.messi.languagehelper.EvaluationDetailActivity;
+import com.messi.languagehelper.R;
+import com.messi.languagehelper.util.AVOUtil;
+import com.messi.languagehelper.util.KeyUtil;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -10,14 +18,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import com.avos.avoscloud.AVObject;
-import com.baidu.mobstat.StatService;
-import com.messi.languagehelper.BaseApplication;
-import com.messi.languagehelper.EvaluationDetailActivity;
-import com.messi.languagehelper.R;
-import com.messi.languagehelper.util.AVOUtil;
-import com.messi.languagehelper.util.KeyUtil;
 
 public class EvaluationCategoryListAdapter extends BaseAdapter {
 
@@ -89,7 +89,7 @@ public class EvaluationCategoryListAdapter extends BaseAdapter {
 			intent.putExtra(KeyUtil.PositionKey, position);
 			BaseApplication.dataMap.put(KeyUtil.DataMapKey, avObjects);
 			context.startActivity(intent);
-			StatService.onEvent(context, "to_evaluation_detail", "口语评测进入详情页面", 1);
+			AVAnalytics.onEvent(context, "to_evaluation_detail");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

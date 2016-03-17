@@ -1,33 +1,12 @@
 package com.messi.languagehelper.wxapi;
 
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
-import android.util.AttributeSet;
-import android.view.InflateException;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.LayoutInflater.Factory;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Toast;
-
+import com.avos.avoscloud.AVAnalytics;
 import com.baidu.autoupdatesdk.AppUpdateInfo;
 import com.baidu.autoupdatesdk.AppUpdateInfoForInstall;
 import com.baidu.autoupdatesdk.BDAutoUpdateSDK;
 import com.baidu.autoupdatesdk.CPCheckUpdateCallback;
 import com.baidu.autoupdatesdk.CPUpdateDownloadCallback;
-import com.baidu.mobstat.StatService;
 import com.gc.materialdesign.widgets.Dialog;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
@@ -43,6 +22,20 @@ import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.views.PagerSlidingTabStrip;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 public class WXEntryActivity extends BaseActivity implements OnClickListener,FragmentProgressbarListener {
 	
@@ -183,13 +176,13 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 	private void toCollectedActivity(){
 		Intent intent = new Intent(this, CollectedActivity.class); 
 		startActivity(intent); 
-		StatService.onEvent(this, "menu_to_share_page", "主页右上角去分享页面", 1);
+		AVAnalytics.onEvent(this, "index_pg_to_collectedpg");
 	}
 	
 	private void toMoreActivity(){
 		Intent intent = new Intent(this, MoreActivity.class); 
 		startActivity(intent); 
-		StatService.onEvent(this, "menu_to_more_page", "主页右上角去更多页面", 1);
+		AVAnalytics.onEvent(this, "index_pg_to_morepg");
 	}
 	
 	@Override
@@ -197,7 +190,6 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 		switch (keyCode) {
 		case KeyEvent.KEYCODE_MENU:
 			 toMoreActivity();
-			 StatService.onEvent(this, "system_menu", "系统菜单按钮", 1);
 			 return true;
 		}
 		return super.onKeyDown(keyCode, event);

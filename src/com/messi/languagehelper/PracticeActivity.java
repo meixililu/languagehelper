@@ -2,23 +2,7 @@ package com.messi.languagehelper;
 
 import java.util.ArrayList;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.drawable.AnimationDrawable;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import com.baidu.mobstat.StatService;
+import com.avos.avoscloud.AVAnalytics;
 import com.gc.materialdesign.views.ButtonFloat;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.iflytek.cloud.RecognizerListener;
@@ -48,6 +32,22 @@ import com.messi.languagehelper.util.XFUtil;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.Animator.AnimatorListener;
 import com.nineoldandroids.animation.ObjectAnimator;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 
 public class PracticeActivity extends BaseActivity implements OnClickListener {
 
@@ -145,14 +145,14 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 		switch (v.getId()) { 
 		case R.id.voice_btn:
 			showIatDialog();
-			StatService.onEvent(PracticeActivity.this, "practice_page_speak_btn", "口语练习页说话按钮", 1);
+			AVAnalytics.onEvent(PracticeActivity.this, "practice_pg_speak_btn");
 			break;
 		case R.id.buttonFloat:
 			playUserPcm();
 			break;
 		case R.id.practice_page_exchange:
 			exchangeContentAndResult();
-			StatService.onEvent(PracticeActivity.this, "practice_page_exchange_btn", "口语练习页互换按钮", 1);
+			AVAnalytics.onEvent(PracticeActivity.this, "practice_pg_exchange_btn");
 			break;
 		default:
 			break;
@@ -471,9 +471,9 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 				playLocalPcm(filepath,animationDrawable);
 			}
 			if(v.getId() == R.id.record_question_cover){
-				StatService.onEvent(PracticeActivity.this, "practice_page_play_content", "口语练习页播放内容", 1);
+				AVAnalytics.onEvent(PracticeActivity.this, "practice_pg_play_question_btn", "口语练习页播放内容", 1);
 			}else if(v.getId() == R.id.record_answer_cover){
-				StatService.onEvent(PracticeActivity.this, "practice_page_play_result", "口语练习页播放结果", 1);
+				AVAnalytics.onEvent(PracticeActivity.this, "practice_pg_play_result_btn", "口语练习页播放结果", 1);
 			}
 		}
 	}
@@ -515,7 +515,7 @@ public class PracticeActivity extends BaseActivity implements OnClickListener {
 		switch (item.getItemId()) {
 		case R.id.action_settings:  
 			toSettingActivity();
-			StatService.onEvent(this, "practice_page_to_setting_page", "口语练习页去设置页面", 1);
+			AVAnalytics.onEvent(this, "practice_pg_to_setting_page");
 			break;
 		}
        return super.onOptionsItemSelected(item);

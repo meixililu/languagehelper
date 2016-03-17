@@ -21,7 +21,7 @@ public class SpokenEnglishActivity extends BaseActivity implements FragmentProgr
 	}
 	
 	private void initViews(){
-		getSupportActionBar().setTitle(getResources().getString(R.string.title_word_study));
+		getSupportActionBar().setTitle(getResources().getString(R.string.spoken_english_practice));
 		tablayout = (TabLayout) findViewById(R.id.tablayout);
 		viewpager = (ViewPager) findViewById(R.id.viewpager);
 		

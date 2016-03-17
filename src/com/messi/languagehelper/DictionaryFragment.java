@@ -5,11 +5,8 @@ import java.io.IOException;
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
-import com.avos.avoscloud.okhttp.FormEncodingBuilder;
-import com.avos.avoscloud.okhttp.RequestBody;
-import com.baidu.mobstat.StatService;
+import com.avos.avoscloud.AVAnalytics;
 import com.gc.materialdesign.views.ButtonRectangle;
-import com.google.gson.Gson;
 import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechError;
@@ -18,14 +15,12 @@ import com.iflytek.cloud.SpeechSynthesizer;
 import com.messi.languagehelper.adapter.DictionaryListViewAdapter;
 import com.messi.languagehelper.dao.BaiduOcrRoot;
 import com.messi.languagehelper.dao.Dictionary;
-import com.messi.languagehelper.dao.Root;
 import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.dialog.PopDialog;
 import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
 import com.messi.languagehelper.http.LanguagehelperHttpClient;
 import com.messi.languagehelper.http.UICallback;
 import com.messi.languagehelper.impl.FragmentProgressbarListener;
-import com.messi.languagehelper.task.MyThread;
 import com.messi.languagehelper.util.CameraUtil;
 import com.messi.languagehelper.util.JsonParser;
 import com.messi.languagehelper.util.KeyUtil;
@@ -206,16 +201,15 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		if (v.getId() == R.id.submit_btn) {
 			hideIME();
 			submit();
-			StatService.onEvent(getActivity(), "1.6_fanyibtn", "翻译按钮", 1);
+			AVAnalytics.onEvent(getActivity(), "tab2_submit_btn");
 		}else if (v.getId() == R.id.photo_tran_btn) {
 			photoSelectDialog();
-//			StatService.onEvent(getActivity(), "ask_baidu", "首页问百度", 1);
 		}else if (v.getId() == R.id.speak_round_layout) {
 			showIatDialog();
-			StatService.onEvent(getActivity(), "1.6_shuohuabtn", "说话按钮", 1);
+			AVAnalytics.onEvent(getActivity(), "tab2_speak_btn");
 		}else if (v.getId() == R.id.clear_btn_layout) {
 			input_et.setText("");
-			StatService.onEvent(getActivity(), "1.6_clearbtn", "清空按钮", 1);
+			AVAnalytics.onEvent(getActivity(), "tab2_clear_btn");
 		}else if (v.getId() == R.id.cb_speak_language_ch) {
 			cb_speak_language_en.setChecked(false);
 			XFUtil.setSpeakLanguage(getActivity(),mSharedPreferences,XFUtil.VoiceEngineCH);
@@ -224,12 +218,12 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 			}else{
 				ToastUtil.diaplayMesShort(getActivity(), getActivity().getResources().getString(R.string.speak_chinese));
 			}
-			StatService.onEvent(getActivity(), "1.6_putonghuabtn", "普通话按钮", 1);
+			AVAnalytics.onEvent(getActivity(), "tab2_zh_sbtn");
 		}else if (v.getId() == R.id.cb_speak_language_en) {
 			cb_speak_language_ch.setChecked(false);
 			XFUtil.setSpeakLanguage(getActivity(),mSharedPreferences,XFUtil.VoiceEngineEN);
 			ToastUtil.diaplayMesShort(getActivity(), getActivity().getResources().getString(R.string.speak_english));
-			StatService.onEvent(getActivity(), "1.6_yingyubtn", "英语按钮", 1);
+			AVAnalytics.onEvent(getActivity(), "tab2_en_sbtn");
 		}
 	}
 	
@@ -623,7 +617,6 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 				Settings.q = Settings.q.substring(0,Settings.q.length()-1);
 			}
 			RequestTranslateApiTask();
-			StatService.onEvent(getActivity(), "tab_dic_submit_btn", "首页词典页面翻译提交按钮", 1);
 		} else {
 			showToast(getActivity().getResources().getString(R.string.input_et_hint));
 			finishLoadding();

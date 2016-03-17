@@ -5,6 +5,7 @@ import java.util.List;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.bumptech.glide.Glide;
+import com.gc.materialdesign.widgets.Dialog;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
@@ -23,6 +24,7 @@ import com.messi.languagehelper.util.ViewUtil;
 import com.messi.languagehelper.util.XFUtil;
 import com.messi.languagehelper.util.XFYSAD;
 import com.messi.languagehelper.views.ProportionalImageView;
+import com.messi.languagehelper.wxapi.WXEntryActivity;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -72,6 +74,16 @@ public class ReadingDetailActivity extends BaseActivity implements OnClickListen
 		initData();
 		initViews();
 		setData();
+		guide();
+	}
+	
+	private void guide(){
+		if(!mSharedPreferences.getBoolean(KeyUtil.isReadingDetailGuideShow, false)){
+			Dialog dialog = new Dialog(this, "哪里不会点哪里", "遇到不懂的单词只需点击一下即可查询词意。");
+			dialog.addAcceptButton("OK");
+			dialog.show();
+			Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.isReadingDetailGuideShow, true);
+		}
 	}
 	
 	private void initData(){

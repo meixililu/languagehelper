@@ -1,5 +1,11 @@
 package com.messi.languagehelper.util;
 
+import com.avos.avoscloud.AVAnalytics;
+import com.messi.languagehelper.ImgShareActivity;
+import com.messi.languagehelper.R;
+import com.messi.languagehelper.dialog.PopDialog;
+import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -7,18 +13,10 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Resources.NotFoundException;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.text.ClipboardManager;
 import android.view.View;
-
-import com.baidu.mobstat.StatService;
-import com.messi.languagehelper.ImgShareActivity;
-import com.messi.languagehelper.R;
-import com.messi.languagehelper.dao.record;
-import com.messi.languagehelper.dialog.PopDialog;
-import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
 
 public class Settings {
 
@@ -61,8 +59,6 @@ public class Settings {
 	public static final String CaiLingUrl = "http://api.openspeech.cn/kyls/NTBhYTEyMTM=";
 	
 	public static final String YueduUrl = "http://api.openspeech.cn/cmread/NTBhYTEyMTM=";
-	
-	public static final String HotalUrl = "http://api.openspeech.cn/trip/NTBhYTEyMTM=";
 	
 	public static final String GameUrl = "http://h5.huosu.com/zhongyinghuyi/";
 	
@@ -252,12 +248,12 @@ public class Settings {
 			@Override
 			public void onSecondClick(View v) {
 				toShareImageActivity(context,dstString);
-				StatService.onEvent(context, "tab_translate_share_image_btn", "首页翻译页面列表图片分享按钮", 1);
+				AVAnalytics.onEvent(context, "tab1_share_result_for_img_btn");
 			}
 			@Override
 			public void onFirstClick(View v) {
 				toShareTextActivity(context,dstString);
-				StatService.onEvent(context, "tab_translate_share_text_btn", "首页翻译页面列表文字分享按钮", 1);
+				AVAnalytics.onEvent(context, "tab1_share_result_for_text_btn");
 			}
 		});
 		mPopDialog.show();

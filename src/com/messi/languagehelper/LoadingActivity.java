@@ -2,7 +2,7 @@ package com.messi.languagehelper;
 
 import java.io.InputStream;
 
-import com.baidu.mobstat.StatService;
+import com.avos.avoscloud.AVAnalytics;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.iflytek.voiceads.AdError;
@@ -44,6 +44,7 @@ public class LoadingActivity extends Activity implements OnClickListener{
 		try {
 			TransparentStatusbar();
 			setContentView(R.layout.loading_activity);
+			ADUtil.initIFLYAD(this);
 			initGlide();
 			init();
 		} catch (Exception e) {
@@ -68,7 +69,6 @@ public class LoadingActivity extends Activity implements OnClickListener{
 	}
 	
 	private void init(){
-		StatService.setDebugOn(false);
 		mSharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
 		mHandler = new Handler();
 		forward_img = (ImageView) findViewById(R.id.forward_img);
@@ -121,7 +121,7 @@ public class LoadingActivity extends Activity implements OnClickListener{
 		isAdClicked = true;
 		cancleRunable();
 		forward_img.setVisibility(View.VISIBLE);
-		StatService.onEvent(LoadingActivity.this, "ad_kaiping", "点击开屏广告", 1);
+		AVAnalytics.onEvent(LoadingActivity.this, "ad_click_kaiping");
 	}
 	
 	private Runnable mRunnable = new Runnable() {
@@ -193,13 +193,13 @@ public class LoadingActivity extends Activity implements OnClickListener{
 	@Override
 	protected void onResume() {
 		super.onResume();
-		StatService.onResume(this);
+		AVAnalytics.onResume(this);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		StatService.onPause(this);
+		AVAnalytics.onPause(this);
 	}
 	@Override
 	protected void onStop() {

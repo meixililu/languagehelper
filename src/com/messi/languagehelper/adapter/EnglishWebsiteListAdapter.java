@@ -2,6 +2,13 @@ package com.messi.languagehelper.adapter;
 
 import java.util.List;
 
+import com.avos.avoscloud.AVAnalytics;
+import com.avos.avoscloud.AVObject;
+import com.messi.languagehelper.R;
+import com.messi.languagehelper.WebViewActivity;
+import com.messi.languagehelper.util.AVOUtil;
+import com.messi.languagehelper.util.KeyUtil;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -11,13 +18,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
-import com.avos.avoscloud.AVObject;
-import com.baidu.mobstat.StatService;
-import com.messi.languagehelper.R;
-import com.messi.languagehelper.WebViewActivity;
-import com.messi.languagehelper.util.AVOUtil;
-import com.messi.languagehelper.util.KeyUtil;
 
 public class EnglishWebsiteListAdapter extends BaseAdapter {
 
@@ -80,7 +80,7 @@ public class EnglishWebsiteListAdapter extends BaseAdapter {
 		intent.putExtra(KeyUtil.ActionbarTitle, mAVObject.getString(AVOUtil.EnglishWebsite.Title));
 		intent.putExtra(KeyUtil.ShareUrlMsg, mAVObject.getString(AVOUtil.EnglishWebsite.ShareMsg));
 		context.startActivity(intent);
-		StatService.onEvent(context, "website_instagram", "浏览Instagram", 1);
+		AVAnalytics.onEvent(context, "website_view_detail");
 	}
 	
 

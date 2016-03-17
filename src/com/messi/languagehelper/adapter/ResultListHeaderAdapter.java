@@ -2,27 +2,7 @@ package com.messi.languagehelper.adapter;
 
 import java.util.List;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.drawable.AnimationDrawable;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.text.ClipboardManager;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.baidu.mobstat.StatService;
+import com.avos.avoscloud.AVAnalytics;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
@@ -44,6 +24,26 @@ import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.SDCardUtil;
 import com.messi.languagehelper.util.ToastUtil;
 import com.messi.languagehelper.util.XFUtil;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.text.ClipboardManager;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class ResultListHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -199,14 +199,14 @@ public class ResultListHeaderAdapter extends RecyclerView.Adapter<RecyclerView.V
 					showToast(context.getResources().getString(R.string.dele_success));
 					MainFragment.isRefresh = true;
 					LogUtil.DefalutLog("setOnClickListener---position:"+clickItemPosition);
-					StatService.onEvent(context, "favor_tran_deletebtn", "收藏翻译页删除按钮", 1);
+					AVAnalytics.onEvent(context, "favor_tran_delete");
 				}
 			});
 			holder.copy_btn.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					copy(mBean.getEnglish());
-					StatService.onEvent(context, "favor_tran_copybtn", "收藏翻译页复制按钮", 1);
+					AVAnalytics.onEvent(context, "favor_tran_copy");
 				}
 			});
 			holder.weixi_btn.setOnClickListener(new OnClickListener() {
@@ -219,7 +219,7 @@ public class ResultListHeaderAdapter extends RecyclerView.Adapter<RecyclerView.V
 				@Override
 				public void onClick(View v) {
 					updateCollectedStatus(mBean);
-					StatService.onEvent(context, "favor_tran_collectedbtn", "收藏翻译页收藏按钮", 1);
+					AVAnalytics.onEvent(context, "favor_tran_collected");
 				}
 			});
 			holder.record_to_practice.setOnClickListener(new OnClickListener() {
@@ -228,7 +228,7 @@ public class ResultListHeaderAdapter extends RecyclerView.Adapter<RecyclerView.V
 					Intent intent = new Intent(context,PracticeActivity.class);
 					BaseApplication.dataMap.put(KeyUtil.DialogBeanKey, mBean);
 					context.startActivity(intent);
-					StatService.onEvent(context, "favor_tran_to_practice", "收藏翻译页去口语练按钮", 1);
+					AVAnalytics.onEvent(context, "favor_tran_to_practicepg");
 				}
 			});
 		}
@@ -266,12 +266,12 @@ public class ResultListHeaderAdapter extends RecyclerView.Adapter<RecyclerView.V
 			@Override
 			public void onSecondClick(View v) {
 				toShareImageActivity(mBean);
-				StatService.onEvent(context, "favor_tran_share_image_btn", "收藏翻译页去图片分享按钮", 1);
+				AVAnalytics.onEvent(context, "favor_tran_share_for_image", "收藏翻译页去图片分享按钮", 1);
 			}
 			@Override
 			public void onFirstClick(View v) {
 				toShareTextActivity(mBean.getEnglish());
-				StatService.onEvent(context, "favor_tran_share_text_btn", "收藏翻译页去文字分享按钮", 1);
+				AVAnalytics.onEvent(context, "favor_tran_share_for_text");
 			}
 		});
 		mPopDialog.show();
@@ -412,11 +412,11 @@ public class ResultListHeaderAdapter extends RecyclerView.Adapter<RecyclerView.V
 				playLocalPcm(filepath,animationDrawable);
 			}
 			if(v.getId() == R.id.record_question_cover){
-				StatService.onEvent(context, "favor_tran_play_content", "收藏翻译页播放内容", 1);
+				AVAnalytics.onEvent(context, "favor_tran_play_question");
 			}else if(v.getId() == R.id.record_answer_cover){
-				StatService.onEvent(context, "favor_tran_play_result", "收藏翻译页播放结果", 1);
+				AVAnalytics.onEvent(context, "favor_tran_play_result");
 			}else if(v.getId() == R.id.voice_play_layout){
-				StatService.onEvent(context, "favor_tran_playvoicebtn", "收藏翻译页播放按钮", 1);
+				AVAnalytics.onEvent(context, "favor_tran_play_voice");
 			}
 		}
 	}

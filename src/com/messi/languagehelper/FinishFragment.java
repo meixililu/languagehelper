@@ -3,6 +3,13 @@ package com.messi.languagehelper;
 import java.io.File;
 import java.io.IOException;
 
+import com.avos.avoscloud.AVAnalytics;
+import com.gc.materialdesign.views.ButtonRectangle;
+import com.messi.languagehelper.impl.PracticeProgressListener;
+import com.messi.languagehelper.util.LogUtil;
+import com.messi.languagehelper.util.SDCardUtil;
+import com.messi.languagehelper.util.ToastUtil;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -18,13 +25,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.baidu.mobstat.StatService;
-import com.gc.materialdesign.views.ButtonRectangle;
-import com.messi.languagehelper.impl.PracticeProgressListener;
-import com.messi.languagehelper.util.LogUtil;
-import com.messi.languagehelper.util.SDCardUtil;
-import com.messi.languagehelper.util.ToastUtil;
 
 public class FinishFragment extends BaseFragment implements OnClickListener {
 
@@ -94,7 +94,7 @@ public class FinishFragment extends BaseFragment implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.share_btn_cover:
 			share();
-			StatService.onEvent(getActivity(), "finish_study_share_btn", "口语练习完成分享按钮", 1);
+			AVAnalytics.onEvent(getActivity(), "finish_pg_share_btn");
 			break;
 		case R.id.check_btn:
 			toNextPage();

@@ -3,8 +3,8 @@ package com.messi.languagehelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVObject;
-import com.baidu.mobstat.StatService;
 import com.gc.materialdesign.views.ButtonFloat;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.gc.materialdesign.views.CheckBox;
@@ -161,13 +161,15 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 		switch (v.getId()) { 
 		case R.id.voice_btn:
 			showIatDialog();
-			StatService.onEvent(EvaluationDetailActivity.this, "practice_page_speak_btn", "口语练习页说话按钮", 1);
+			AVAnalytics.onEvent(EvaluationDetailActivity.this, "evaluationdetail_pg_speak_btn");
 			break;
 		case R.id.buttonFloat:
 			playUserPcm();
+			AVAnalytics.onEvent(EvaluationDetailActivity.this, "evaluationdetail_pg_play_userpcm_btn");
 			break;
 		case R.id.auto_play_cover:
 			auto_play_cb.setChecked(!auto_play_cb.isCheck());
+			AVAnalytics.onEvent(EvaluationDetailActivity.this, "evaluationdetail_pg_autoplay_btn");
 			break;
 		case R.id.previous_btn:
 			if(positin > 0){
@@ -176,6 +178,7 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 			}else{
 				ToastUtil.diaplayMesShort(EvaluationDetailActivity.this, "已经是第一个了");
 			}
+			AVAnalytics.onEvent(EvaluationDetailActivity.this, "evaluationdetail_pg_previous_btn");
 			break;
 		case R.id.next_btn:
 			if(positin < avObjects.size()-1){
@@ -184,6 +187,7 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 			}else{
 				ToastUtil.diaplayMesShort(EvaluationDetailActivity.this, "已经是最后一个了");
 			}
+			AVAnalytics.onEvent(EvaluationDetailActivity.this, "evaluationdetail_pg_next_btn");
 			break;
 		case R.id.show_zh_img:
 			showZH();
@@ -517,7 +521,7 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 				playLocalPcm(filepath,animationDrawable);
 			}
 			if(v.getId() == R.id.record_answer_cover){
-				StatService.onEvent(EvaluationDetailActivity.this, "practice_page_play_result", "口语练习页播放结果", 1);
+				AVAnalytics.onEvent(EvaluationDetailActivity.this, "evaluationdetail_pg_play_result");
 			}
 		}
 	}
@@ -559,7 +563,6 @@ public class EvaluationDetailActivity extends BaseActivity implements OnClickLis
 		switch (item.getItemId()) {
 		case R.id.action_info:  
 			showXunFeiDialog();
-			StatService.onEvent(this, "show_xunfi_evaluation_dialog", "显示讯飞口语评测说明", 1);
 			break;
 		}
        return super.onOptionsItemSelected(item);

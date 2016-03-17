@@ -3,7 +3,7 @@ package com.messi.languagehelper;
 import java.io.File;
 import java.io.IOException;
 
-import com.baidu.mobstat.StatService;
+import com.avos.avoscloud.AVAnalytics;
 import com.gc.materialdesign.views.ButtonRectangle;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
@@ -155,7 +155,7 @@ public class ImgShareActivity extends BaseActivity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.share_btn_cover:
 			share();
-			StatService.onEvent(ImgShareActivity.this, "share_page_share_btn", "分享页面分享按钮", 1);
+			AVAnalytics.onEvent(ImgShareActivity.this, "imgshare_pg_share_btn");
 			break;
 		case R.id.material_color_1:
 			parent_layout.setBackground(ImgShareActivity.this.getResources().getDrawable(R.color.material_color_light_blue));

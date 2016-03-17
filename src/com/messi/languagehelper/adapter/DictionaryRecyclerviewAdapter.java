@@ -2,26 +2,7 @@ package com.messi.languagehelper.adapter;
 
 import java.util.List;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.drawable.AnimationDrawable;
-import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.text.ClipboardManager;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.baidu.mobstat.StatService;
+import com.avos.avoscloud.AVAnalytics;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
@@ -42,6 +23,25 @@ import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.SDCardUtil;
 import com.messi.languagehelper.util.XFUtil;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
+import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.text.ClipboardManager;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class DictionaryRecyclerviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -190,7 +190,7 @@ public class DictionaryRecyclerviewAdapter extends RecyclerView.Adapter<Recycler
 						beans.remove(mBean);
 						notifyDataSetChanged();
 						showToast(context.getResources().getString(R.string.dele_success));
-						StatService.onEvent(context, "favor_dic_deletebtn", "收藏词典页删除按钮", 1);
+						AVAnalytics.onEvent(context, "favor_dic_delete");
 					}
 				});
 				holder.copy_btn.setOnClickListener(new OnClickListener() {
@@ -203,7 +203,7 @@ public class DictionaryRecyclerviewAdapter extends RecyclerView.Adapter<Recycler
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						StatService.onEvent(context, "favor_dic_copybtn", "收藏词典页复制按钮", 1);
+						AVAnalytics.onEvent(context, "favor_dic_copy");
 					}
 				});
 				holder.weixi_btn.setOnClickListener(new OnClickListener() {
@@ -216,7 +216,7 @@ public class DictionaryRecyclerviewAdapter extends RecyclerView.Adapter<Recycler
 					@Override
 					public void onClick(View v) {
 						updateCollectedStatus(mBean);
-						StatService.onEvent(context, "favor_dic_collectedbtn", "收藏词典页取消收藏", 1);
+						AVAnalytics.onEvent(context, "favor_dic_collected");
 					}
 				});
 			} catch (Exception e) {
@@ -261,7 +261,7 @@ public class DictionaryRecyclerviewAdapter extends RecyclerView.Adapter<Recycler
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				StatService.onEvent(context, "favor_dic_share_img", "收藏词典页图片分享按钮", 1);
+				AVAnalytics.onEvent(context, "favor_dic_share_for_img");
 			}
 
 			@Override
@@ -271,7 +271,7 @@ public class DictionaryRecyclerviewAdapter extends RecyclerView.Adapter<Recycler
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				StatService.onEvent(context, "favor_dic_share_text", "收藏词典页文字分享按钮", 1);
+				AVAnalytics.onEvent(context, "favor_dic_share_for_text");
 			}
 		});
 		mPopDialog.show();
@@ -407,11 +407,11 @@ public class DictionaryRecyclerviewAdapter extends RecyclerView.Adapter<Recycler
 					 playLocalPcm(filepath,animationDrawable);
 				 }
 				 if(v.getId() == R.id.record_question_cover){
-					 StatService.onEvent(context, "favor_dic_play_content", "收藏词典页播放内容", 1);
+					 AVAnalytics.onEvent(context, "favor_dic_play_question");
 				 }else if(v.getId() == R.id.record_answer_cover){
-					 StatService.onEvent(context, "favor_dic_play_result", "收藏词典页播放结果", 1);
+					 AVAnalytics.onEvent(context, "favor_dic_play_result");
 				 }else if(v.getId() == R.id.voice_play_layout){
-					 StatService.onEvent(context, "favor_dic_playvoicebtn", "收藏词典页播放按钮", 1);
+					 AVAnalytics.onEvent(context, "favor_dic_play_voice");
 				 }
 			} catch (Exception e) {
 				e.printStackTrace();

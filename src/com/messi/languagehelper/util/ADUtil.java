@@ -11,6 +11,7 @@ import com.iflytek.voiceads.IFLYAdSize;
 import com.iflytek.voiceads.IFLYBannerAd;
 import com.iflytek.voiceads.IFLYFullScreenAd;
 import com.iflytek.voiceads.IFLYInterstitialAd;
+import com.jdwx.sdk.ApiManager;
 
 
 public class ADUtil {
@@ -28,6 +29,10 @@ public class ADUtil {
 	public static final int adCount = 3;
 	public static final int adInterval = 5000;
 
+	public static void initIFLYAD(Context context){
+		ApiManager.getInstance().registerApp(context, "wxeb69070155cec01c", true);
+	}
+	
 	// initQuanPingAD  initChaPingAD    initBannerAD    initKaiPingAD
 	
 	/**
