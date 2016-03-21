@@ -149,6 +149,10 @@ public class NumberUtil {
 		return new Random().nextInt(max);
 	}
 	
+	public static int randomNumberRange(int min,int max){
+		return new Random().nextInt(max)%(max-min+1) + min;
+	}
+	
 	/**
 	 * 在测试的情况下进行Exception 抛出
 	 * @param e 当前相关Exception

@@ -150,23 +150,31 @@ public class XFYSAD {
 						adList_mryj = arg0;
 					}
 					adList = arg0;
-					setAdData();
+					try {
+						setAdData();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		});
 		nativeAd.loadAd(ADUtil.adCount);
 	}
 	
-	private void delaySetData(){
+	private void delaySetData() {
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				setAdData();
+				try {
+					setAdData();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}, 400);
 	}
 	
-	private void setAdData(){
+	private void setAdData() throws Exception{
 		parentView.setVisibility(View.VISIBLE);
 		if(isReverse){
 			Collections.reverse(adList);
@@ -182,6 +190,11 @@ public class XFYSAD {
         for(int i=0;i<adList.size();i++){
         	viewpager_dot_layout.addView( ViewUtil.getDot(mContext,i) );
         }
+        if(adList.size() < 1){
+        	viewpager_dot_layout.setVisibility(View.GONE);
+        }else{
+        	viewpager_dot_layout.setVisibility(View.VISIBLE);
+        }
         adList.get(0).onExposured(auto_view_pager);
         ViewUtil.changeState(viewpager_dot_layout, 0);
         auto_view_pager.setOnTouchListener(new OnTouchListener() {
@@ -196,7 +209,7 @@ public class XFYSAD {
         }
 	}
 	
-	public View getAdItem(final NativeADDataRef mNativeADDataRef){
+	public View getAdItem(final NativeADDataRef mNativeADDataRef) throws Exception{
 		View convertView = mInflater.inflate(R.layout.ad_viewpager_item, null);
 		FrameLayout cover = (FrameLayout) convertView.findViewById(R.id.ad_layout);
 		ProportionalImageView ad_img = (ProportionalImageView) convertView.findViewById(R.id.ad_img);
@@ -245,7 +258,7 @@ public class XFYSAD {
 					view.setVisibility(View.VISIBLE);
 					FrameLayout ad_layout = (FrameLayout) view.findViewById(R.id.ad_layout);
 					ProportionalImageView ad_img = (ProportionalImageView) view.findViewById(R.id.ad_img);
-					final int index = (int) Math.round(Math.random()*2);
+					final int index = (int) Math.round(Math.random()*(ADUtil.adCount-1));
 					if(adList_xx != null && adList_xx.size() > 0){
 						Glide.with(context)
 						.load(adList_xx.get(index).getImage())
@@ -271,9 +284,6 @@ public class XFYSAD {
 					}
 				}
 			}, 500);
-			
 		}
-		
 	}
-	
 }

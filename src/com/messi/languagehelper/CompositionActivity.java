@@ -48,9 +48,8 @@ public class CompositionActivity extends BaseActivity implements FragmentProgres
 	
 	private void initData(){
 		try {
-			String lastTimeSave = spf.getString(KeyUtil.SaveLastTime_CompositionActivity, "");
-			String cuttrnt = TimeUtil.getTimeDate(System.currentTimeMillis());
-			if(!lastTimeSave.equals(cuttrnt)){
+			long lastTimeSave = spf.getLong(KeyUtil.SaveLastTime_CompositionActivity, 0);
+			if(System.currentTimeMillis() - lastTimeSave > 1000*60*60*24*10){
 				SaveData.deleteObject(this, "CompositionActivity");
 				LogUtil.DefalutLog("deleteObject   CompositionActivity");
 				new QueryTask().execute();
@@ -125,7 +124,7 @@ public class CompositionActivity extends BaseActivity implements FragmentProgres
 			}
 			SaveData.saveObject(this, "CompositionActivity", listStr);
 			Settings.saveSharedPreferences(spf, KeyUtil.SaveLastTime_CompositionActivity, 
-					TimeUtil.getTimeDate(System.currentTimeMillis()));
+					System.currentTimeMillis());
 			LogUtil.DefalutLog("saveObject   CompositionActivity");
 		}
 	}

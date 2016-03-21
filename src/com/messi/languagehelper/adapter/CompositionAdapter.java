@@ -3,7 +3,7 @@ package com.messi.languagehelper.adapter;
 import java.util.List;
 
 import com.avos.avoscloud.AVObject;
-import com.messi.languagehelper.CompositionFragment;
+import com.messi.languagehelper.ReadingFragment;
 import com.messi.languagehelper.util.AVOUtil;
 
 import android.content.Context;
@@ -24,7 +24,7 @@ public class CompositionAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
     	String code = avObjects.get(position).getString(AVOUtil.CompositionType.type_id);
-    	return new CompositionFragment(code);
+    	return new ReadingFragment(AVOUtil.Category.composition,code);
     }
 
     @Override

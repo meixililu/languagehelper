@@ -300,7 +300,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	private void toReadingActivity(String title,String category){
 		Intent intent = new Intent(getActivity(),ReadingsActivity.class);
 		intent.putExtra(KeyUtil.ActionbarTitle, title);
-		intent.putExtra(KeyUtil.Categoty, category);
+		intent.putExtra(KeyUtil.Category, category);
 		getActivity().startActivity(intent);
 	}
 	

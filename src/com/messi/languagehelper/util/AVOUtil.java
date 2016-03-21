@@ -319,9 +319,25 @@ public class AVOUtil {
 		
 	}
 	
+	public static class WordCategory {
+		
+		public final static String WordCategory = "WordCategory";
+		
+		public final static String category_id = "category_id";
+		
+		public final static String name = "name";
+		
+		public final static String isvalid = "isvalid";
+		
+		public final static String order = "order";
+		
+	}
+	
 	public static class WordStudyType {
 		
 		public final static String WordStudyType = "WordStudyType";
+		
+		public final static String category_id = "category_id";
 		
 		public final static String type_id = "type_id";
 		

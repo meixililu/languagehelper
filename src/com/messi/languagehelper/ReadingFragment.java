@@ -5,11 +5,19 @@ import java.util.List;
 
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
+import com.iflytek.voiceads.AdError;
+import com.iflytek.voiceads.IFLYNativeAd;
+import com.iflytek.voiceads.IFLYNativeListener;
+import com.iflytek.voiceads.NativeADDataRef;
 import com.messi.languagehelper.adapter.ReadingListAdapter;
 import com.messi.languagehelper.impl.FragmentProgressbarListener;
+import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.AVOUtil;
+import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
+import com.messi.languagehelper.util.NumberUtil;
 import com.messi.languagehelper.util.ScreenUtil;
+import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.ToastUtil;
 
 import android.app.Activity;
@@ -32,10 +40,17 @@ public class ReadingFragment extends BaseFragment implements OnClickListener{
 	private View footerview;
 	private int skip = 0;
 	private String category;
+	private String code;
 	private int maxRandom;
+	private IFLYNativeAd nativeAd;
 	
 	public ReadingFragment(String category){
 		this.category = category;
+	}
+	
+	public ReadingFragment(String category,String code){
+		this.category = category;
+		this.code = code;
 	}
 	
 	@Override
@@ -84,8 +99,23 @@ public class ReadingFragment extends BaseFragment implements OnClickListener{
             @Override  
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {  
                 lastItemIndex = firstVisibleItem + visibleItemCount - 2;  
+                isADInList(view,firstVisibleItem,visibleItemCount);
             }  
         });
+	}
+	
+	private void isADInList(AbsListView view,int first, int vCount){
+		if(avObjects.size() > 3){
+			for(int i=first;i< (first+vCount);i++){
+				if(i < avObjects.size()){
+					AVObject mAVObject = avObjects.get(i);
+					if(mAVObject != null && mAVObject.get(KeyUtil.ADKey) != null){
+						NativeADDataRef mNativeADDataRef = (NativeADDataRef) mAVObject.get(KeyUtil.ADKey);
+						mNativeADDataRef.onExposured(view.getChildAt(i%vCount));
+					}
+				}
+			}
+		}
 	}
 	
 	private void initFooterview(LayoutInflater inflater){
@@ -127,10 +157,15 @@ public class ReadingFragment extends BaseFragment implements OnClickListener{
 			if(!TextUtils.isEmpty(category)){
 				query.whereEqualTo(AVOUtil.Reading.category, category);
 			}
+			if(!TextUtils.isEmpty(code)){
+				if(!code.equals("1000")){
+					query.whereEqualTo(AVOUtil.Reading.type_id, code);
+				}
+			}
 			query.addDescendingOrder(AVOUtil.Reading.publish_time);
 			query.addDescendingOrder(AVOUtil.Reading.item_id);
 			query.skip(skip);
-			query.limit(20);
+			query.limit(Settings.page_size);
 			try {
 				List<AVObject> avObject  = query.find();
 				return avObject;
@@ -149,18 +184,43 @@ public class ReadingFragment extends BaseFragment implements OnClickListener{
 					ToastUtil.diaplayMesShort(getContext(), "没有了！");
 					hideFooterview();
 				}else{
+					loadAD();
 					avObjects.addAll(avObject);
 					mAdapter.notifyDataSetChanged();
-					skip += 20;
+					skip += Settings.page_size;
 					showFooterview();
 				}
 			}
 		}
 	}
 	
+	private void loadAD(){
+		nativeAd = new IFLYNativeAd(getActivity(), ADUtil.XXLAD, new IFLYNativeListener() {
+			@Override
+			public void onAdFailed(AdError arg0) {
+				LogUtil.DefalutLog("onAdFailed---"+arg0.getErrorCode()+"---"+arg0.getErrorDescription());
+			}
+			@Override
+			public void onADLoaded(List<NativeADDataRef> adList) {
+				if(adList != null && adList.size() > 0){
+					NativeADDataRef nad = adList.get(0);
+					AVObject mAVObject = new AVObject();
+					mAVObject.put(KeyUtil.ADKey, nad);
+					int index = avObjects.size() - Settings.page_size + NumberUtil.randomNumberRange(3, 7);
+					if(index < 0){
+						index = 0;
+					}
+					LogUtil.DefalutLog("index:"+index);
+					avObjects.add(index,mAVObject);
+					mAdapter.notifyDataSetChanged();
+				}
+			}
+		});
+		nativeAd.loadAd(1);
+	}
+	
 	@Override
 	public void onClick(View v) {
-		
 	}
 	
 	private void getMaxPageNumberBackground(){
@@ -172,8 +232,13 @@ public class ReadingFragment extends BaseFragment implements OnClickListener{
 					if(!TextUtils.isEmpty(category)){
 						query.whereEqualTo(AVOUtil.Reading.category, category);
 					}
+					if(!TextUtils.isEmpty(code)){
+						if(!code.equals("1000")){
+							query.whereEqualTo(AVOUtil.Reading.type_id, code);
+						}
+					}
 					maxRandom = query.count();
-					maxRandom /= 20; 
+					maxRandom /= Settings.page_size; 
 					LogUtil.DefalutLog("category:"+category+"---maxRandom:"+maxRandom);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -181,6 +246,7 @@ public class ReadingFragment extends BaseFragment implements OnClickListener{
 			}
 		}).start();
 	}
+	
 	
 	
 }

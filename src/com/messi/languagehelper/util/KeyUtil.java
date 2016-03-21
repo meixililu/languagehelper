@@ -98,14 +98,17 @@ public class KeyUtil {
 
 	public static final String SaveLastTime_CompositionActivity = "SaveLastTime_CompositionActivity";
 	
+	public static final String SaveLastTime_WordStudyCategoryList = "SaveLastTime_WordStudyCategoryList";
+	
 	public static final String TranslateApiOrder = "TranslateApiOrder";
 	
 	public static final String CompareTranslateApiTime = "CompareTranslateApiTime";
 	
-	public static final String Categoty = "Categoty";
+	public static final String Category = "Category";
 
 	public static final String isReadingDetailGuideShow = "isReadingDetailGuideShow";
 	
+	public static final String ADKey = "ADKey";
 	
 	
 	

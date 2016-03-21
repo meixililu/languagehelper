@@ -83,6 +83,9 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 		}else if(infoForInstall != null){
 			updateInfo = infoForInstall.getAppChangeLog();
 		}
+		if(updateInfo.contains("<br>")){
+			updateInfo = updateInfo.replace("<br>", "\n");
+		}
 		Dialog dialog = new Dialog(WXEntryActivity.this, "更新啦,更新啦!", updateInfo);
 		dialog.addAcceptButton("好的");
 		dialog.addCancelButton("稍后");

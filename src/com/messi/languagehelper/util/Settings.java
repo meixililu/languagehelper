@@ -73,6 +73,7 @@ public class Settings {
 	public static final String showapi_appid = "11619";	
 	public static final String showapi_secret = "f27574671ec14eb4a97faacb2eee3ef2";	
 	
+	public static final int page_size = 12;	
 	public static final String baidu_appid = "20151111000005006";	
 	public static final String baidu_secretkey = "91mGcsmdvX9HAaE8tXoI";	
 	public static final String client_id = "vCV6TTGRTI5QrckdYSKHQIhq";	

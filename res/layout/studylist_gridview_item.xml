@@ -8,11 +8,6 @@
     android:orientation="vertical"
     >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="center"
-        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/name"
@@ -25,6 +20,5 @@
             android:shadowRadius="0.2"
             android:textColor="@color/gray"
             android:textSize="@dimen/big" />
-    </LinearLayout>
 
 </FrameLayout>

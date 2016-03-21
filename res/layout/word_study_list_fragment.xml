@@ -10,17 +10,19 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" >
-
-        <ListView
-            android:id="@+id/studycategory_lv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/contentbg"
-            android:cacheColorHint="@color/none"
-            android:divider="@color/contentbg"
-            android:dividerHeight="10dp"
-            android:gravity="center"
-            android:scrollbars="none" />
+		<com.messi.languagehelper.views.GridViewWithHeaderAndFooter
+	        android:id="@+id/studycategory_lv"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:background="@color/none"
+	        android:verticalSpacing="1px"
+	        android:horizontalSpacing="1px"
+	        android:cacheColorHint="@color/none"
+	        android:numColumns="2"
+	        android:scrollbars="none"
+	        android:stretchMode="columnWidth"  
+	    	android:gravity="center"  
+	        />
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

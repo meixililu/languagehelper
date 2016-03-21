@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.messi.languagehelper"
-    android:versionCode="20"
+    android:versionCode="21"
     android:versionName="3.0" >
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -105,6 +105,9 @@
             android:theme="@android:style/Theme.Translucent" />
         <!-- 讯飞广告sdk -->
 
+        <activity
+            android:name=".WordTypeActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SpokenEnglishActivity"
             android:screenOrientation="portrait" />

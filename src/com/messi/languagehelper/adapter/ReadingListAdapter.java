@@ -5,6 +5,7 @@ import java.util.List;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.bumptech.glide.Glide;
+import com.iflytek.voiceads.NativeADDataRef;
 import com.messi.languagehelper.BaseApplication;
 import com.messi.languagehelper.R;
 import com.messi.languagehelper.ReadingDetailActivity;
@@ -65,35 +66,51 @@ public class ReadingListAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		final AVObject mAVObject = avObjects.get(position);
-		holder.title.setText( mAVObject.getString(AVOUtil.Reading.title) );
-		holder.type_name.setText( mAVObject.getString(AVOUtil.Reading.type_name) );
-		holder.source_name.setText( mAVObject.getString(AVOUtil.Reading.source_name) );
-		String img_url = "";
-		if(mAVObject.getString(AVOUtil.Reading.img_type).equals("url")){
-			img_url = mAVObject.getString(AVOUtil.Reading.img_url);
+		final NativeADDataRef mNativeADDataRef = (NativeADDataRef) mAVObject.get(KeyUtil.ADKey);
+		if(mNativeADDataRef == null){
+			holder.title.setText( mAVObject.getString(AVOUtil.Reading.title) );
+			holder.type_name.setText( mAVObject.getString(AVOUtil.Reading.type_name) );
+			holder.source_name.setText( mAVObject.getString(AVOUtil.Reading.source_name) );
+			String img_url = "";
+			if(mAVObject.getString(AVOUtil.Reading.img_type).equals("url")){
+				img_url = mAVObject.getString(AVOUtil.Reading.img_url);
+			}else{
+				AVFile mAVFile = mAVObject.getAVFile(AVOUtil.Reading.img);
+				img_url = mAVFile.getUrl();
+			}
+			
+			if(!TextUtils.isEmpty(img_url)){
+				holder.list_item_img_parent.setVisibility(View.VISIBLE);
+				holder.list_item_img.setVisibility(View.VISIBLE);
+				Glide.with(context)
+				.load(img_url)
+				.into(holder.list_item_img);
+			}else{
+				holder.list_item_img_parent.setVisibility(View.GONE);
+				holder.list_item_img.setVisibility(View.GONE);
+			}
+			holder.layout_cover.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					toDetailActivity(position);
+				}
+			});
 		}else{
-			AVFile mAVFile = mAVObject.getAVFile(AVOUtil.Reading.img);
-			img_url = mAVFile.getUrl();
-		}
-		
-		if(!TextUtils.isEmpty(img_url)){
+			holder.title.setText( mNativeADDataRef.getTitle() );
+			holder.type_name.setText("");
+			holder.source_name.setText("推广");
 			holder.list_item_img_parent.setVisibility(View.VISIBLE);
 			holder.list_item_img.setVisibility(View.VISIBLE);
 			Glide.with(context)
-			.load(img_url)
+			.load(mNativeADDataRef.getImage())
 			.into(holder.list_item_img);
-		}else{
-			holder.list_item_img_parent.setVisibility(View.GONE);
-			holder.list_item_img.setVisibility(View.GONE);
+			holder.layout_cover.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					mNativeADDataRef.onClicked(v);
+				}
+			});
 		}
-		
-		holder.layout_cover.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				toDetailActivity(position);
-			}
-		});
-		
 		return convertView;
 	}
 	

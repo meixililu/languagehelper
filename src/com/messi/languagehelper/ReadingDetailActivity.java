@@ -10,6 +10,7 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
+import com.iflytek.voiceads.NativeADDataRef;
 import com.messi.languagehelper.task.MyThread;
 import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.AudioTrackUtil;
@@ -315,36 +316,51 @@ public class ReadingDetailActivity extends BaseActivity implements OnClickListen
 		TextView type_name = (TextView) convertView.findViewById(R.id.type_name);
 		ImageView list_item_img = (ImageView) convertView.findViewById(R.id.list_item_img);
 		
-		title.setText( mObject.getString(AVOUtil.Reading.title) );
-		source_name.setText( mObject.getString(AVOUtil.Reading.source_name) );
-		type_name.setText( mObject.getString(AVOUtil.Reading.type_name) );
-		String img_url = "";
-		if(mObject.getString(AVOUtil.Reading.img_type).equals("url")){
-			img_url = mObject.getString(AVOUtil.Reading.img_url);
-		}else{
-			AVFile mAVFile = mObject.getAVFile(AVOUtil.Reading.img);
-			img_url = mAVFile.getUrl();
-		}
-		
-		if(!TextUtils.isEmpty(img_url)){
-			list_item_img_parent.setVisibility(View.VISIBLE);
-			list_item_img.setVisibility(View.VISIBLE);
-			Glide.with(this)
-			.load(img_url)
-			.into(list_item_img);
-		}else{
-			list_item_img_parent.setVisibility(View.GONE);
-			list_item_img.setVisibility(View.GONE);
-		}
-		
-		layout_cover.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				index = mAVObjects.indexOf(mObject);
-				mAVObject = mObject;
-				setData();
+		final NativeADDataRef mNativeADDataRef = (NativeADDataRef) mObject.get(KeyUtil.ADKey);
+		if(mNativeADDataRef == null){
+			title.setText( mObject.getString(AVOUtil.Reading.title) );
+			source_name.setText( mObject.getString(AVOUtil.Reading.source_name) );
+			type_name.setText( mObject.getString(AVOUtil.Reading.type_name) );
+			String img_url = "";
+			if(mObject.getString(AVOUtil.Reading.img_type).equals("url")){
+				img_url = mObject.getString(AVOUtil.Reading.img_url);
+			}else{
+				AVFile mAVFile = mObject.getAVFile(AVOUtil.Reading.img);
+				img_url = mAVFile.getUrl();
 			}
-		});
+			if(!TextUtils.isEmpty(img_url)){
+				list_item_img_parent.setVisibility(View.VISIBLE);
+				list_item_img.setVisibility(View.VISIBLE);
+				Glide.with(this)
+				.load(img_url)
+				.into(list_item_img);
+			}else{
+				list_item_img_parent.setVisibility(View.GONE);
+				list_item_img.setVisibility(View.GONE);
+			}
+			layout_cover.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					index = mAVObjects.indexOf(mObject);
+					mAVObject = mObject;
+					setData();
+				}
+			});
+		}else{
+			title.setText( mNativeADDataRef.getTitle() );
+			type_name.setText("");
+			source_name.setText("推广");
+			Glide.with(this)
+			.load(mNativeADDataRef.getImage())
+			.into(list_item_img);
+			mNativeADDataRef.onExposured(layout_cover);
+			layout_cover.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					mNativeADDataRef.onClicked(v);
+				}
+			});
+		}
 		return convertView;
 	}
 	

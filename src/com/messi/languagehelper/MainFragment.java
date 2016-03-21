@@ -2,7 +2,10 @@ package com.messi.languagehelper;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVAnalytics;
@@ -485,8 +488,28 @@ public class MainFragment extends Fragment implements OnClickListener {
 					if(mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false)){
 						new AutoPlayWaitTask().execute();
 					}
-					LogUtil.DefalutLog("ciba---mDataBaseUtil:"+currentDialogBean.toString());
+					LogUtil.DefalutLog("ciba---getRetcopy---mDataBaseUtil:"+currentDialogBean.toString());
+				}else if(!TextUtils.isEmpty(mIciba.getRet())){
+					String result = getHtmlContext(mIciba.getRet());
+					if(!TextUtils.isEmpty(result)){
+						if(AutoClearInputAfterFinish){
+							input_et.setText("");
+						}
+						currentDialogBean = new record(result, Settings.q);
+						long newRowId = DataBaseUtil.getInstance().insert(currentDialogBean);
+						beans.add(0,currentDialogBean);
+						mAdapter.notifyDataSetChanged();
+						recent_used_lv.setSelection(0);
+						if(mSharedPreferences.getBoolean(KeyUtil.AutoPlayResult, false)){
+							new AutoPlayWaitTask().execute();
+						}
+						LogUtil.DefalutLog("ciba---getRet---mDataBaseUtil:"+currentDialogBean.toString());
+					}else{
+						LogUtil.DefalutLog("ciba getRet error,change to baidu translate");
+						RequestAsyncTask();
+					}
 				}else{
+					LogUtil.DefalutLog("ciba error,change to baidu translate");
 					RequestAsyncTask();
 				}
 			}else {
@@ -497,6 +520,22 @@ public class MainFragment extends Fragment implements OnClickListener {
 			e.printStackTrace();
 		}
 	}
+	
+	public String getHtmlContext(String html) {
+        StringBuilder sb = new StringBuilder();
+        Pattern p = Pattern.compile("<span class=\"dd\">([^</span>]*)");//匹配<title>开头，</title>结尾的文档
+        Matcher m = p.matcher(html );//开始编译
+        int count = 0;
+        while (m.find()) {
+        	if(count > 0){
+        		sb.append("\n");
+        	}
+        	sb.append(m.group(1).trim());//获取被匹配的部分
+        	count++;
+        }
+        
+        return sb.toString();
+    }
 	
 	private void RequestAsyncTask(){
 		loadding();

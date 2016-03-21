@@ -25,8 +25,11 @@ public class ADUtil {
 	public static final String XiuxianYSNRLAd = "A6505AA06C919195709A1194CB632879";
 	public static final String MRYJYSNRLAd = "ED72385915DAC4C681891487523EBE87";
 	
+	public static final String XXLAD = "4A1AA609B79E04759A00E75CA6C2CAAE";
+	public static final String VideoAD = "165D1FE5D5D872794849A23BDC430B8C";
+	
 	public static final boolean IsShowAdImmediately = false;
-	public static final int adCount = 3;
+	public static final int adCount = 2;
 	public static final int adInterval = 5000;
 
 	public static void initIFLYAD(Context context){
