@@ -37,6 +37,7 @@
     <string name="title_duanzi_img">图片</string>
     <string name="title_composition">英语作文</string>
     <string name="evaluation_prompt">关于口语评测</string>
+    <string name="word_study_detail_menu">听选</string>
     <string name="offline_download">下载Mp3</string>
     <string name="background_color">背景颜色</string>
     <string name="font_color">字体颜色</string>

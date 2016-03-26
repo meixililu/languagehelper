@@ -11,19 +11,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-public class CompositionAdapter extends FragmentPagerAdapter {
+public class ExaminationListAdapter extends FragmentPagerAdapter {
 
 	private List<AVObject> avObjects;
 	
-    public CompositionAdapter(FragmentManager fm,Context mContext,List<AVObject> avObjects) {
+    public ExaminationListAdapter(FragmentManager fm,Context mContext,List<AVObject> avObjects) {
         super(fm);
         this.avObjects = avObjects;
     }
 
     @Override
     public Fragment getItem(int position) {
-    	String code = avObjects.get(position).getString(AVOUtil.CompositionType.type_id);
-    	return new ReadingFragment(AVOUtil.Category.composition,code);
+    	String code = avObjects.get(position).getString(AVOUtil.ExaminationType.type_id);
+    	return new ReadingFragment(AVOUtil.Category.examination,code);
     }
 
     @Override
@@ -33,6 +33,6 @@ public class CompositionAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return avObjects.get(position).getString(AVOUtil.CompositionType.type_name);
+        return avObjects.get(position).getString(AVOUtil.ExaminationType.type_name);
     }
 }

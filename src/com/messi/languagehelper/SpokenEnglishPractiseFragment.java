@@ -61,6 +61,36 @@ public class SpokenEnglishPractiseFragment extends BaseFragment{
 	}
 	
 	@Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(isVisibleToUser){
+        	if(mXFYSAD != null){
+        		mXFYSAD.startPlayImg();
+        	}
+        }else{
+        	if(mXFYSAD != null){
+        		mXFYSAD.canclePlayImg();
+        	}
+        }
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		if(mXFYSAD != null){
+    		mXFYSAD.startPlayImg();
+    	}
+	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+		if(mXFYSAD != null){
+    		mXFYSAD.canclePlayImg();
+    	}
+	}
+	
+	@Override
 	public void onSwipeRefreshLayoutRefresh() {
 		super.onSwipeRefreshLayoutRefresh();
 		new QueryTask().execute();

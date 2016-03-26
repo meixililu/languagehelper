@@ -226,12 +226,11 @@ public class StudyFragment extends Fragment implements OnClickListener{
 			AVAnalytics.onEvent(getActivity(), "tab3_to_listening");
 			break;
 		case R.id.juhe_layout:
-			toReadingActivity(getActivity().getResources().getString(R.string.title_juhe),"");
+			toReadingJuheActivity(getActivity().getResources().getString(R.string.title_juhe));
 			AVAnalytics.onEvent(getActivity(), "tab3_to_juhenews");
 			break;
 		case R.id.en_examination_layout:
-			ContExManager.initWithAPPId(getActivity(),"c18b33e973d147159ee52a8debac9b4c", "w1461Eub");
-			GytUtil.showHtml(getActivity(), getActivity().getResources().getString(R.string.examination));
+			toExaminationActivity(getActivity().getResources().getString(R.string.examination));
 			AVAnalytics.onEvent(getActivity(), "tab3_to_examination");
 			break;
 		case R.id.play_img:
@@ -301,6 +300,18 @@ public class StudyFragment extends Fragment implements OnClickListener{
 		Intent intent = new Intent(getActivity(),ReadingsActivity.class);
 		intent.putExtra(KeyUtil.ActionbarTitle, title);
 		intent.putExtra(KeyUtil.Category, category);
+		getActivity().startActivity(intent);
+	}
+	
+	private void toReadingJuheActivity(String title){
+		Intent intent = new Intent(getActivity(),ReadingJuheActivity.class);
+		intent.putExtra(KeyUtil.ActionbarTitle, title);
+		getActivity().startActivity(intent);
+	}
+	
+	private void toExaminationActivity(String title){
+		Intent intent = new Intent(getActivity(),ExaminationActivity.class);
+		intent.putExtra(KeyUtil.ActionbarTitle, title);
 		getActivity().startActivity(intent);
 	}
 	

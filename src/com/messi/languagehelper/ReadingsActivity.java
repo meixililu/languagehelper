@@ -6,6 +6,7 @@ import java.util.List;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.iflytek.voiceads.AdError;
+import com.iflytek.voiceads.AdKeys;
 import com.iflytek.voiceads.IFLYNativeAd;
 import com.iflytek.voiceads.IFLYNativeListener;
 import com.iflytek.voiceads.NativeADDataRef;
@@ -89,8 +90,11 @@ public class ReadingsActivity extends BaseActivity implements OnClickListener{
 				if(i < avObjects.size()){
 					AVObject mAVObject = avObjects.get(i);
 					if(mAVObject != null && mAVObject.get(KeyUtil.ADKey) != null){
-						NativeADDataRef mNativeADDataRef = (NativeADDataRef) mAVObject.get(KeyUtil.ADKey);
-						mNativeADDataRef.onExposured(view.getChildAt(i%vCount));
+						if(!(Boolean) mAVObject.get(KeyUtil.ADIsShowKey)){
+							NativeADDataRef mNativeADDataRef = (NativeADDataRef) mAVObject.get(KeyUtil.ADKey);
+							mNativeADDataRef.onExposured(view.getChildAt(i%vCount));
+							mAVObject.put(KeyUtil.ADIsShowKey, true);
+						}
 					}
 				}
 			}
@@ -182,7 +186,8 @@ public class ReadingsActivity extends BaseActivity implements OnClickListener{
 					NativeADDataRef nad = adList.get(0);
 					AVObject mAVObject = new AVObject();
 					mAVObject.put(KeyUtil.ADKey, nad);
-					int index = avObjects.size() - Settings.page_size + NumberUtil.randomNumberRange(3, 7);
+					mAVObject.put(KeyUtil.ADIsShowKey, false);
+					int index = avObjects.size() - Settings.page_size + NumberUtil.randomNumberRange(2, 4);
 					if(index < 0){
 						index = 0;
 					}
@@ -192,6 +197,7 @@ public class ReadingsActivity extends BaseActivity implements OnClickListener{
 				}
 			}
 		});
+		nativeAd.setParameter(AdKeys.DOWNLOAD_ALERT, "true");
 		nativeAd.loadAd(1);
 	}
 	

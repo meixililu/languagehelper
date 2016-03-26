@@ -96,8 +96,8 @@ public class ReadingListAdapter extends BaseAdapter {
 				}
 			});
 		}else{
-			holder.title.setText( mNativeADDataRef.getTitle() );
-			holder.type_name.setText("");
+			holder.title.setText( mNativeADDataRef.getSubTitle() );
+			holder.type_name.setText(mNativeADDataRef.getTitle());
 			holder.source_name.setText("推广");
 			holder.list_item_img_parent.setVisibility(View.VISIBLE);
 			holder.list_item_img.setVisibility(View.VISIBLE);

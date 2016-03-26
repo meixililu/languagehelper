@@ -96,6 +96,22 @@ public class PracticeCategoryActivity extends BaseActivity implements OnClickLis
     		mXFYSAD = null;
     	}
 	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		if(mXFYSAD != null){
+    		mXFYSAD.startPlayImg();
+    	}
+	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+		if(mXFYSAD != null){
+    		mXFYSAD.canclePlayImg();
+    	}
+	}
 
 	@Override
 	public void onClick(View v) {

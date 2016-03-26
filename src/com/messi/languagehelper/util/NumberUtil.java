@@ -1,6 +1,7 @@
 package com.messi.languagehelper.util;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -100,6 +101,18 @@ public class NumberUtil {
 		}
 		if(isSort) sort(result);
 		return result;
+	}
+	
+	/**
+	 * 不可重复
+	 */
+	public static List<Integer> getNumberOrderNotRepeat(int max, int min) {
+		List<Integer> num = new ArrayList<Integer>();
+		for(int i=0;i<(max-min+1);i++){
+			num.add(i);
+		}
+		Collections.shuffle(num);
+		return num;
 	}
 
 	/**

@@ -424,6 +424,16 @@ public class AVOUtil {
 	
 	public static class Category {
 		
+		public final static String Category = "ReadingCategory";
+		
+		public final static String isvalid = "isvalid";
+		
+		public final static String category_id = "category_id";
+		
+		public final static String name = "name";
+		
+		public final static String order = "order";
+		
 		public final static String composition = "composition";
 		
 		public final static String jokes = "jokes";
@@ -434,9 +444,25 @@ public class AVOUtil {
 		
 		public final static String listening = "listening";
 		
+		public final static String examination = "examination";
+		
 		public final static String word = "word";
 		
 		public final static String story = "story";
+		
+	}
+	
+	public static class ExaminationType {
+		
+		public final static String ExaminationType = "ExaminationType";
+		
+		public final static String type_id = "type_id";
+		
+		public final static String type_name = "type_name";
+		
+		public final static String order = "order";
+		
+		public final static String is_valid = "is_valid";
 		
 	}
 

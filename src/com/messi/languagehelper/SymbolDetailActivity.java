@@ -35,6 +35,7 @@ public class SymbolDetailActivity extends BaseActivity implements OnClickListene
 	private String SDAudioMp3Name,SDTeacherMp3Name;
 	private String SDAudioMp3Url,SDTeacherMp3Url;
 	private String currentFileFullName;
+	private int loopTime;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -146,6 +147,8 @@ public class SymbolDetailActivity extends BaseActivity implements OnClickListene
 				public void onCompletion(MediaPlayer mp) {
 					if(uriPath.equals(SDTeacherMp3FullName)){
 						play_img.setBackgroundResource(R.drawable.ic_play_circle_outline_grey600_36dp);
+					}else{
+						replay();
 					}
 				}
 			});
@@ -157,6 +160,21 @@ public class SymbolDetailActivity extends BaseActivity implements OnClickListene
 			currentFileFullName = uriPath;
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	private void replay(){
+		loopTime ++;
+		if(loopTime < 3){
+			new Handler().postDelayed(new Runnable() {
+				
+				@Override
+				public void run() {
+					onClick(symbol_cover);
+				}
+			}, 1000);
+		}else{
+			loopTime = 0;
 		}
 	}
 

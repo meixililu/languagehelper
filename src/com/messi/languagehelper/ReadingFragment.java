@@ -6,6 +6,7 @@ import java.util.List;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.iflytek.voiceads.AdError;
+import com.iflytek.voiceads.AdKeys;
 import com.iflytek.voiceads.IFLYNativeAd;
 import com.iflytek.voiceads.IFLYNativeListener;
 import com.iflytek.voiceads.NativeADDataRef;
@@ -43,6 +44,8 @@ public class ReadingFragment extends BaseFragment implements OnClickListener{
 	private String code;
 	private int maxRandom;
 	private IFLYNativeAd nativeAd;
+	private boolean misVisibleToUser;
+	private boolean isHasLoadOnce;
 	
 	public ReadingFragment(String category){
 		this.category = category;
@@ -64,11 +67,22 @@ public class ReadingFragment extends BaseFragment implements OnClickListener{
 	}
 	
 	@Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        LogUtil.DefalutLog("setUserVisibleHint:"+isVisibleToUser);
+        misVisibleToUser = isVisibleToUser;
+        if(!isHasLoadOnce && isVisibleToUser){
+        	isHasLoadOnce = true;
+        	new QueryTask().execute();
+        }
+	}
+	
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		LogUtil.DefalutLog("onCreateView");
 		View view = inflater.inflate(R.layout.composition_fragment, container, false);
 		initViews(view);
 		initFooterview(inflater);
-		new QueryTask().execute();
 		getMaxPageNumberBackground();
 		return view;
 	}
@@ -110,8 +124,11 @@ public class ReadingFragment extends BaseFragment implements OnClickListener{
 				if(i < avObjects.size()){
 					AVObject mAVObject = avObjects.get(i);
 					if(mAVObject != null && mAVObject.get(KeyUtil.ADKey) != null){
-						NativeADDataRef mNativeADDataRef = (NativeADDataRef) mAVObject.get(KeyUtil.ADKey);
-						mNativeADDataRef.onExposured(view.getChildAt(i%vCount));
+						if(!(Boolean) mAVObject.get(KeyUtil.ADIsShowKey) && misVisibleToUser){
+							NativeADDataRef mNativeADDataRef = (NativeADDataRef) mAVObject.get(KeyUtil.ADKey);
+							mNativeADDataRef.onExposured(view.getChildAt(i%vCount));
+							mAVObject.put(KeyUtil.ADIsShowKey, true);
+						}
 					}
 				}
 			}
@@ -125,13 +142,17 @@ public class ReadingFragment extends BaseFragment implements OnClickListener{
 	}
 	
 	private void showFooterview(){
-		footerview.setVisibility(View.VISIBLE);  
-		footerview.setPadding(0, ScreenUtil.dip2px(getActivity(), 15), 0, ScreenUtil.dip2px(getActivity(), 15));  
+		if(footerview != null){
+			footerview.setVisibility(View.VISIBLE);  
+			footerview.setPadding(0, ScreenUtil.dip2px(getActivity(), 15), 0, ScreenUtil.dip2px(getActivity(), 15));  
+		}
 	}
 	
 	private void hideFooterview(){
-		footerview.setVisibility(View.GONE);  
-		footerview.setPadding(0, - (footerview.getHeight()+80), 0, 0);  
+		if(footerview != null){
+			footerview.setVisibility(View.GONE);  
+			footerview.setPadding(0, - (footerview.getHeight()+80), 0, 0);  
+		}
 	}
 	
 	@Override
@@ -184,11 +205,13 @@ public class ReadingFragment extends BaseFragment implements OnClickListener{
 					ToastUtil.diaplayMesShort(getContext(), "没有了！");
 					hideFooterview();
 				}else{
-					loadAD();
-					avObjects.addAll(avObject);
-					mAdapter.notifyDataSetChanged();
-					skip += Settings.page_size;
-					showFooterview();
+					if(avObjects != null && mAdapter != null){
+						loadAD();
+						avObjects.addAll(avObject);
+						mAdapter.notifyDataSetChanged();
+						skip += Settings.page_size;
+						showFooterview();
+					}
 				}
 			}
 		}
@@ -206,16 +229,17 @@ public class ReadingFragment extends BaseFragment implements OnClickListener{
 					NativeADDataRef nad = adList.get(0);
 					AVObject mAVObject = new AVObject();
 					mAVObject.put(KeyUtil.ADKey, nad);
-					int index = avObjects.size() - Settings.page_size + NumberUtil.randomNumberRange(3, 7);
+					mAVObject.put(KeyUtil.ADIsShowKey, false);
+					int index = avObjects.size() - Settings.page_size + NumberUtil.randomNumberRange(2, 4);
 					if(index < 0){
 						index = 0;
 					}
-					LogUtil.DefalutLog("index:"+index);
 					avObjects.add(index,mAVObject);
 					mAdapter.notifyDataSetChanged();
 				}
 			}
 		});
+		nativeAd.setParameter(AdKeys.DOWNLOAD_ALERT, "true");
 		nativeAd.loadAd(1);
 	}
 	
@@ -237,8 +261,7 @@ public class ReadingFragment extends BaseFragment implements OnClickListener{
 							query.whereEqualTo(AVOUtil.Reading.type_id, code);
 						}
 					}
-					maxRandom = query.count();
-					maxRandom /= Settings.page_size; 
+					maxRandom =  query.count() / Settings.page_size; 
 					LogUtil.DefalutLog("category:"+category+"---maxRandom:"+maxRandom);
 				} catch (Exception e) {
 					e.printStackTrace();

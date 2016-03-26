@@ -57,13 +57,12 @@ public class SymbolListActivity extends BaseActivity {
 		
 		mXFYSAD = new XFYSAD(this, headerView, ADUtil.MRYJYSNRLAd);
 		mXFYSAD.showAD();
-		mAdapter.notifyDataSetChanged();
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
 				mAdapter.notifyDataSetChanged();
 			}
-		}, 800);
+		}, 1000);
 	}
 	
 	@Override
@@ -171,6 +170,22 @@ public class SymbolListActivity extends BaseActivity {
 			}
 		}
 	};
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		if(mXFYSAD != null){
+    		mXFYSAD.startPlayImg();
+    	}
+	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+		if(mXFYSAD != null){
+    		mXFYSAD.canclePlayImg();
+    	}
+	}
 
 	@Override
 	protected void onDestroy() {

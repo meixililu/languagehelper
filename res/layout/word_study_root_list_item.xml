@@ -5,38 +5,55 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:foreground="@drawable/framelayout_selector"
-    android:orientation="vertical"
-    >
-
-    <com.messi.languagehelper.views.ProportionalImageView
-        android:id="@+id/list_item_img"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+    android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/list_item_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:gravity="bottom"
+        android:layout_marginLeft="@dimen/padding_10"
+        android:layout_marginTop="@dimen/padding_10"
+        android:layout_marginRight="@dimen/padding_10"
         android:orientation="vertical" >
-        
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/padding_10"
-        android:paddingBottom="@dimen/padding_10"
-        android:paddingLeft="@dimen/padding_15"
-        android:gravity="left"
-        android:shadowColor="@color/white"
-        android:shadowDx="0.1"
-        android:shadowDy="0.1"
-        android:shadowRadius="0.1"
-        android:textColor="@color/white"
-        android:textSize="@dimen/bigger" />
-    
+
+        <com.messi.languagehelper.views.ProportionalImageView
+            android:id="@+id/list_item_img"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <LinearLayout
+            android:id="@+id/list_item_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="bottom"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingBottom="@dimen/padding_10"
+                android:paddingLeft="@dimen/padding_10"
+                android:paddingTop="@dimen/padding_10"
+                android:shadowColor="@color/text_black"
+                android:shadowDx="0.1"
+                android:shadowDy="0.1"
+                android:shadowRadius="0.1"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/bigger" />
+            
+            <TextView
+                android:id="@+id/des"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingBottom="@dimen/padding_10"
+                android:paddingLeft="@dimen/padding_20"
+                android:paddingTop="@dimen/padding_10"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/small" />
+        </LinearLayout>
     </LinearLayout>
 
 </FrameLayout>

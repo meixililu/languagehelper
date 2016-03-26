@@ -84,6 +84,22 @@ public class DailySentenceActivity extends BaseActivity implements OnClickListen
 	}
 	
 	@Override
+	protected void onResume() {
+		super.onResume();
+		if(mXFYSAD != null){
+    		mXFYSAD.startPlayImg();
+    	}
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if(mXFYSAD != null){
+    		mXFYSAD.canclePlayImg();
+    	}
+	}
+	
+	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		if (mPlayer != null) {   
@@ -93,6 +109,7 @@ public class DailySentenceActivity extends BaseActivity implements OnClickListen
         }   
 		if(mXFYSAD != null){
     		mXFYSAD.canclePlayImg();
+    		mXFYSAD = null;
     	}
 		LogUtil.DefalutLog("CollectedFragment-onDestroy");
 	}

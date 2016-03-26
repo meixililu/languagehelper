@@ -4,6 +4,7 @@ import com.avos.avoscloud.AVAnalytics;
 import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.GytUtil;
 import com.messi.languagehelper.util.KeyUtil;
+import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.XFYSAD;
 
@@ -76,6 +77,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 	@Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        LogUtil.DefalutLog("LeisureFragment---setUserVisibleHint");
         misVisibleToUser = isVisibleToUser;
         if(isVisibleToUser){
         	if(mXFYSAD != null){
@@ -86,6 +88,28 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
         		mXFYSAD.canclePlayImg();
         	}
         }
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		if(misVisibleToUser){
+			LogUtil.DefalutLog("LeisureFragment---onResume");
+			if(mXFYSAD != null){
+				mXFYSAD.startPlayImg();
+			}
+		}
+	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+		if(misVisibleToUser){
+			LogUtil.DefalutLog("LeisureFragment---onPause");
+			if(mXFYSAD != null){
+				mXFYSAD.canclePlayImg();
+			}
+		}
 	}
 	
 	@Override

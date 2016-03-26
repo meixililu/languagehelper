@@ -7,7 +7,7 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.gc.materialdesign.views.ButtonFloat;
 import com.iflytek.cloud.SpeechSynthesizer;
-import com.messi.languagehelper.adapter.WordStudyDetailAdapter;
+import com.messi.languagehelper.adapter.WordStudyDetailTestAdapter;
 import com.messi.languagehelper.dao.WordDetailListItem;
 import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.KeyUtil;
@@ -15,22 +15,19 @@ import com.messi.languagehelper.util.SDCardUtil;
 import com.messi.languagehelper.util.ToastUtil;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ListView;
+import android.widget.GridView;
 
-public class WordStudyDetailActivity extends BaseActivity implements OnClickListener {
+public class WordStudyDetailTestActivity extends BaseActivity implements OnClickListener {
 
-	private ListView category_lv;
-	private WordStudyDetailAdapter mAdapter;
+	private GridView category_lv;
+	private WordStudyDetailTestAdapter mAdapter;
 	private List<WordDetailListItem> itemList;
 	private ButtonFloat playbtn,previous_btn,next_btn;
 	private String class_name;
@@ -39,7 +36,6 @@ public class WordStudyDetailActivity extends BaseActivity implements OnClickList
 	private int course_num;
 	private MediaPlayer mPlayer;
 	private String audioPath;
-	private int index;
 	
 	private SpeechSynthesizer mSpeechSynthesizer;
 	private SharedPreferences mSharedPreferences;
@@ -47,7 +43,7 @@ public class WordStudyDetailActivity extends BaseActivity implements OnClickList
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.word_study_detail_activity);
+		setContentView(R.layout.word_study_detail_test_activity);
 		initSwipeRefresh();
 		initViews();
 		new QueryTask().execute();
@@ -72,8 +68,8 @@ public class WordStudyDetailActivity extends BaseActivity implements OnClickList
 		previous_btn = (ButtonFloat) findViewById(R.id.previous_btn);
 		next_btn = (ButtonFloat) findViewById(R.id.next_btn);
 		itemList = new ArrayList<WordDetailListItem>();
-		category_lv = (ListView) findViewById(R.id.studycategory_lv);
-		mAdapter = new WordStudyDetailAdapter(this, mSharedPreferences, mSpeechSynthesizer, category_lv,
+		category_lv = (GridView) findViewById(R.id.studycategory_lv);
+		mAdapter = new WordStudyDetailTestAdapter(this, mSharedPreferences, mSpeechSynthesizer,
 				itemList, audioPath, mPlayer);
 		category_lv.setAdapter(mAdapter);
 		
@@ -122,6 +118,7 @@ public class WordStudyDetailActivity extends BaseActivity implements OnClickList
 			hideProgressbar();
 			onSwipeRefreshLayoutFinish();
 			mAdapter.notifyDataSetChanged();
+			mAdapter.getPlayOrder();
 			category_lv.setSelection(0);
 		}
 	}
@@ -151,7 +148,7 @@ public class WordStudyDetailActivity extends BaseActivity implements OnClickList
 				setTitle(class_name + course_id +"单元");
 				new QueryTask().execute();
 			}else{
-				ToastUtil.diaplayMesShort(WordStudyDetailActivity.this, "已经是第一单元了");
+				ToastUtil.diaplayMesShort(WordStudyDetailTestActivity.this, "已经是第一单元了");
 			}
 			break;
 		case R.id.next_btn:
@@ -160,7 +157,7 @@ public class WordStudyDetailActivity extends BaseActivity implements OnClickList
 				setTitle(class_name + course_id +"单元");
 				new QueryTask().execute();
 			}else{
-				ToastUtil.diaplayMesShort(WordStudyDetailActivity.this, "已经是最后一单元了");
+				ToastUtil.diaplayMesShort(WordStudyDetailTestActivity.this, "已经是最后一单元了");
 			}
 			break;
 		}
@@ -169,7 +166,7 @@ public class WordStudyDetailActivity extends BaseActivity implements OnClickList
 	private void playSound(){
 		if(mAdapter.isPlaying()){
 			playbtn.setDrawableIcon(this.getResources().getDrawable(R.drawable.ic_stop_white_48dp));
-			mAdapter.onPlayBtnClick(index);
+			mAdapter.onPlayBtnClick();
 		}else{
 			playbtn.setDrawableIcon(this.getResources().getDrawable(R.drawable.ic_play_arrow_white_48dp));
 		}
@@ -180,32 +177,6 @@ public class WordStudyDetailActivity extends BaseActivity implements OnClickList
 			mPlayer.stop();  
         } 
 		playbtn.setDrawableIcon(this.getResources().getDrawable(R.drawable.ic_play_arrow_white_48dp));
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.word_study_detail_test_menu, menu);
-		return true;
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.action_info:  
-			toTestActivity();
-			break;
-		}
-       return super.onOptionsItemSelected(item);
-	}
-	
-	private void toTestActivity(){
-		Intent intent = new Intent(this,WordStudyDetailTestActivity.class);
-		intent.putExtra(KeyUtil.ClassName, class_name);
-		intent.putExtra(KeyUtil.ClassId, class_id);
-		intent.putExtra(KeyUtil.CourseId, course_id);
-		intent.putExtra(KeyUtil.CourseNum, course_num);
-		startActivity(intent);
-		
 	}
 	
 	@Override

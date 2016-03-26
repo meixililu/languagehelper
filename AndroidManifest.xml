@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.messi.languagehelper"
-    android:versionCode="21"
-    android:versionName="3.0" >
+    android:versionCode="22"
+    android:versionName="3.1" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -105,6 +105,15 @@
             android:theme="@android:style/Theme.Translucent" />
         <!-- 讯飞广告sdk -->
 
+        <activity
+            android:name=".ExaminationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WordStudyDetailTestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ReadingJuheActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".WordTypeActivity"
             android:screenOrientation="portrait" />

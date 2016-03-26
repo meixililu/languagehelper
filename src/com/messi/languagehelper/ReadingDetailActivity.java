@@ -12,6 +12,7 @@ import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.voiceads.NativeADDataRef;
 import com.messi.languagehelper.task.MyThread;
+import com.messi.languagehelper.util.ADUtil;
 import com.messi.languagehelper.util.AVOUtil;
 import com.messi.languagehelper.util.AudioTrackUtil;
 import com.messi.languagehelper.util.DownLoadUtil;
@@ -68,6 +69,8 @@ public class ReadingDetailActivity extends BaseActivity implements OnClickListen
 	private MediaPlayer mPlayer;
 	private String fileFullName;
 	
+	private XFYSAD mXFYSAD;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -123,13 +126,15 @@ public class ReadingDetailActivity extends BaseActivity implements OnClickListen
 			.load(mAVObject.getString(AVOUtil.Reading.img_url))
 			.into(pimgview);
 		}
-		XFYSAD.setAd(ReadingDetailActivity.this, xx_ad_layout);
 		int[] random = NumberUtil.getRandomNumberLimit(mAVObjects.size(), 0, 5, index);
 		next_composition.removeAllViews();
 		for(int i : random){
 			next_composition.addView( ViewUtil.getLine(this) );
 			next_composition.addView( getView(mAVObjects.get(i)) );
 		}
+		mXFYSAD = new XFYSAD(this, xx_ad_layout, ADUtil.MRYJYSNRLAd);
+		mXFYSAD.setAddCount(1);
+		mXFYSAD.showAD();
 	}
 	
 	private Handler mHandler = new Handler(){
@@ -347,8 +352,8 @@ public class ReadingDetailActivity extends BaseActivity implements OnClickListen
 				}
 			});
 		}else{
-			title.setText( mNativeADDataRef.getTitle() );
-			type_name.setText("");
+			title.setText( mNativeADDataRef.getSubTitle() );
+			type_name.setText(mNativeADDataRef.getTitle());
 			source_name.setText("推广");
 			Glide.with(this)
 			.load(mNativeADDataRef.getImage())

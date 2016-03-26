@@ -54,25 +54,20 @@ public class WordStudyTypeAdapter extends BaseAdapter {
 			holder = new ViewHolder();
 			holder.cover = (View) convertView.findViewById(R.id.layout_cover);
 			holder.name = (TextView) convertView.findViewById(R.id.name);
+			holder.des = (TextView) convertView.findViewById(R.id.des);
 			holder.list_item_img = (ProportionalImageView) convertView.findViewById(R.id.list_item_img);
-			holder.list_item_bg = (LinearLayout) convertView.findViewById(R.id.list_item_bg);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 		final WordListType mAVObject = avObjects.get(position);
 		holder.name.setText( mAVObject.getTitle() );
+		holder.des.setText( mAVObject.getCourse_num() + "课    " + mAVObject.getWord_num() + "词");
 		
 		if(TextUtils.isEmpty(mAVObject.getImg_url())){
-			holder.list_item_bg.setBackgroundColor(context.getResources().getColor(R.color.white));
-			holder.name.setTextColor(context.getResources().getColor(R.color.text_black));
 			holder.list_item_img.setVisibility(View.GONE);;
-			holder.name.setPadding(ScreenUtil.dip2px(context, 15), ScreenUtil.dip2px(context, 30), 0, ScreenUtil.dip2px(context, 30));
 		}else{
-			holder.list_item_bg.setBackgroundColor(context.getResources().getColor(R.color.alpha_5));
-			holder.name.setTextColor(context.getResources().getColor(R.color.white));
 			holder.list_item_img.setVisibility(View.VISIBLE);
-			holder.name.setPadding(ScreenUtil.dip2px(context, 15), ScreenUtil.dip2px(context, 10), 0, ScreenUtil.dip2px(context, 10));
 			Glide.with(context)
 			.load(mAVObject.getImg_url())
 			.into(holder.list_item_img);
@@ -90,7 +85,7 @@ public class WordStudyTypeAdapter extends BaseAdapter {
 	static class ViewHolder {
 		View cover;
 		TextView name;
-		LinearLayout list_item_bg;
+		TextView des;
 		ProportionalImageView list_item_img;
 	}
 

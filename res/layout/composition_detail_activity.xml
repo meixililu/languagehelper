@@ -43,19 +43,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/colorPrimary"
-                    android:paddingLeft="@dimen/padding_20"
-                    android:paddingTop="@dimen/padding_5"
-                    android:paddingRight="@dimen/padding_20"
                     android:paddingBottom="@dimen/padding_20"
+                    android:paddingLeft="@dimen/padding_20"
+                    android:paddingRight="@dimen/padding_20"
+                    android:paddingTop="@dimen/padding_5"
                     android:textColor="@color/white"
                     android:textSize="@dimen/title" />
+
                 <com.messi.languagehelper.views.ProportionalImageView
-	                android:id="@+id/item_img"
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content" 
-	                android:layout_margin="@dimen/padding_10"
-	                android:visibility="gone"
-	                />
+                    android:id="@+id/item_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding_10"
+                    android:visibility="gone" />
+
                 <TextView
                     android:id="@+id/content"
                     android:layout_width="match_parent"
@@ -77,18 +78,20 @@
                     android:layout_marginRight="@dimen/padding_10"
                     android:visibility="gone" >
 
-                    <FrameLayout
-                        android:id="@+id/ad_layout"
+                    <com.messi.languagehelper.views.WrapContentHeightViewPager
+                        android:id="@+id/auto_view_pager"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/none"
-                        android:foreground="@drawable/framelayout_selector" >
+                        android:background="@color/white" />
 
-                        <com.messi.languagehelper.views.ProportionalImageView
-                            android:id="@+id/ad_img"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                    </FrameLayout>
+                    <LinearLayout
+                        android:id="@+id/viewpager_dot_layout"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:gravity="bottom|right"
+                        android:orientation="horizontal"
+                        android:padding="5dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -101,14 +104,13 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/middle" />
                 </RelativeLayout>
-                
+
                 <LinearLayout
                     android:id="@+id/next_composition"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical" >
                 </LinearLayout>
-                
             </LinearLayout>
         </ScrollView>
 

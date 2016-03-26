@@ -98,7 +98,11 @@ public class KeyUtil {
 
 	public static final String SaveLastTime_CompositionActivity = "SaveLastTime_CompositionActivity";
 	
+	public static final String SaveLastTime_ReadingJuheActivity = "SaveLastTime_ReadingJuheActivity";
+	
 	public static final String SaveLastTime_WordStudyCategoryList = "SaveLastTime_WordStudyCategoryList";
+	
+	public static final String SaveLastTime_ExaminationType = "SaveLastTime_ExaminationType";
 	
 	public static final String TranslateApiOrder = "TranslateApiOrder";
 	
@@ -109,6 +113,8 @@ public class KeyUtil {
 	public static final String isReadingDetailGuideShow = "isReadingDetailGuideShow";
 	
 	public static final String ADKey = "ADKey";
+	
+	public static final String ADIsShowKey = "ADIsShowKey";
 	
 	
 	

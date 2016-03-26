@@ -21,6 +21,8 @@
         android:id="@+id/list_item_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="200dp"
+        android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         />
 </LinearLayout>
