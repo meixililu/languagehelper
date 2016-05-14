@@ -136,30 +136,7 @@
                 android:background="@drawable/icon_weixin"
                 android:clickable="false" />
         </FrameLayout>
-
-        <ImageView
-            android:layout_width="1px"
-            android:layout_height="fill_parent"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:background="@color/line_color_blue" />
-
-        <FrameLayout
-            android:id="@+id/copy_btn"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:foreground="@drawable/framelayout_selector"
-            >
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/icon_copy_d"
-                android:clickable="false" />
-        </FrameLayout>
-
+        
         <ImageView
             android:layout_width="1px"
             android:layout_height="fill_parent"
@@ -186,7 +163,7 @@
                 android:background="@drawable/collected_uncollected_selector"
                 android:clickable="false" />
         </FrameLayout>
-
+        
         <ImageView
             android:layout_width="1px"
             android:layout_height="fill_parent"
@@ -207,6 +184,29 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@drawable/delete"
+                android:clickable="false" />
+        </FrameLayout>
+        
+        <ImageView
+            android:layout_width="1px"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/line_color_blue" />
+
+        <FrameLayout
+            android:id="@+id/copy_btn"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:foreground="@drawable/framelayout_selector"
+            >
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/icon_copy_d"
                 android:clickable="false" />
         </FrameLayout>
 

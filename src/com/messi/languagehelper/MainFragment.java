@@ -738,6 +738,10 @@ public class MainFragment extends Fragment implements OnClickListener {
 	private void submit(){
 		Settings.q = input_et.getText().toString().trim();
 		if (!TextUtils.isEmpty(Settings.q)) {
+			String last = Settings.q.substring(Settings.q.length()-1);
+			if(",.?!;:'，。？！‘；：".contains(last)){
+				Settings.q = Settings.q.substring(0,Settings.q.length()-1);
+			}
 			RequestJinShanAsyncTask();
 		} else {
 			showToast(getActivity().getResources().getString(R.string.input_et_hint));

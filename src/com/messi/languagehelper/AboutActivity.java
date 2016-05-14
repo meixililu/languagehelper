@@ -6,29 +6,36 @@ import com.messi.languagehelper.util.Settings;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
+import android.support.annotation.Nullable;
 import android.widget.TextView;
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class AboutActivity extends BaseActivity implements OnClickListener {
+public class AboutActivity extends BaseActivity{
 
-	private TextView email_layout, app_version;
+	@Bind(R.id.email_layout) TextView email_layout;
+	@Bind(R.id.app_version) TextView app_version;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about);
+		ButterKnife.bind(this);
 		init();
 	}
 
 	private void init() {
 		getSupportActionBar().setTitle(getResources().getString(R.string.title_about));
-		email_layout = (TextView) findViewById(R.id.email_layout);
-		app_version = (TextView) findViewById(R.id.app_version);
-		email_layout.setOnClickListener(this);
 		app_version.setText(getVersion());
 	}
 
+	@OnClick(R.id.email_layout)
+	public void onClick() {
+		Settings.contantUs(AboutActivity.this);
+		AVAnalytics.onEvent(this, "about_pg_send_email");
+	}
+	
 	public String getVersion() {
 		try {
 			PackageManager manager = this.getPackageManager();
@@ -37,19 +44,8 @@ public class AboutActivity extends BaseActivity implements OnClickListener {
 			return version;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "2.3";
+			return "x.x";
 		}
 	}
-
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.email_layout:
-			Settings.contantUs(AboutActivity.this);
-			AVAnalytics.onEvent(this, "about_pg_send_email");
-			break;
-		default:
-			break;
-		}
-	}
+	
 }

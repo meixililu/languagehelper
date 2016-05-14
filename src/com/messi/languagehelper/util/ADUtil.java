@@ -1,17 +1,16 @@
 package com.messi.languagehelper.util;
 
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.widget.LinearLayout;
-
 import com.iflytek.voiceads.AdKeys;
 import com.iflytek.voiceads.IFLYAdSize;
 import com.iflytek.voiceads.IFLYBannerAd;
 import com.iflytek.voiceads.IFLYFullScreenAd;
 import com.iflytek.voiceads.IFLYInterstitialAd;
-import com.jdwx.sdk.ApiManager;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.widget.LinearLayout;
 
 
 public class ADUtil {
@@ -33,7 +32,7 @@ public class ADUtil {
 	public static final int adInterval = 6000;
 
 	public static void initIFLYAD(Context context){
-		ApiManager.getInstance().registerApp(context, "wxeb69070155cec01c", true);
+//		ApiManager.getInstance().registerApp(context, "wxeb69070155cec01c", true);
 	}
 	
 	// initQuanPingAD  initChaPingAD    initBannerAD    initKaiPingAD

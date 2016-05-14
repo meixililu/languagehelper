@@ -2,6 +2,7 @@ package com.messi.languagehelper;
 
 import java.util.List;
 
+import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.bumptech.glide.Glide;
@@ -26,7 +27,6 @@ import com.messi.languagehelper.util.ViewUtil;
 import com.messi.languagehelper.util.XFUtil;
 import com.messi.languagehelper.util.XFYSAD;
 import com.messi.languagehelper.views.ProportionalImageView;
-import com.messi.languagehelper.wxapi.WXEntryActivity;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -49,18 +49,22 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class ReadingDetailActivity extends BaseActivity implements OnClickListener{
+public class ReadingDetailActivity extends BaseActivity{
 
-	private TextView title,content;
-	private RelativeLayout xx_ad_layout;
-	private LinearLayout next_composition;
-	private ScrollView scrollview;
+	@Bind(R.id.title) TextView title;
+	@Bind(R.id.content) TextView content;
+	@Bind(R.id.xx_ad_layout) RelativeLayout xx_ad_layout;
+	@Bind(R.id.next_composition) LinearLayout next_composition;
+	@Bind(R.id.scrollview) ScrollView scrollview;
+	@Bind(R.id.play_btn) FloatingActionButton fab;
+	@Bind(R.id.item_img) ProportionalImageView pimgview;
+	
 	private AVObject mAVObject;
 	private List<AVObject> mAVObjects;
-	private FloatingActionButton fab;
-	private ProportionalImageView pimgview;
-	
 	private SpeechSynthesizer mSpeechSynthesizer;
 	private SharedPreferences mSharedPreferences;
 	private Thread mThread;
@@ -68,13 +72,13 @@ public class ReadingDetailActivity extends BaseActivity implements OnClickListen
 	private int index;
 	private MediaPlayer mPlayer;
 	private String fileFullName;
-	
 	private XFYSAD mXFYSAD;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.composition_detail_activity);
+		ButterKnife.bind(this);
 		initData();
 		initViews();
 		setData();
@@ -102,18 +106,9 @@ public class ReadingDetailActivity extends BaseActivity implements OnClickListen
 	
 	private void initViews(){
 		setTitle("  ");
-		title = (TextView) findViewById(R.id.title);
-		content = (TextView) findViewById(R.id.content);
-		next_composition = (LinearLayout) findViewById(R.id.next_composition);
-		pimgview = (ProportionalImageView) findViewById(R.id.item_img);
-		scrollview = (ScrollView) findViewById(R.id.scrollview);
-		
-		xx_ad_layout = (RelativeLayout) findViewById(R.id.xx_ad_layout);
-		fab = (FloatingActionButton) findViewById(R.id.play_btn);
 		mSharedPreferences = this.getSharedPreferences(this.getPackageName(), Activity.MODE_PRIVATE);
 		mSpeechSynthesizer = SpeechSynthesizer.createSynthesizer(this, null);
 		mMyThread = new MyThread(mHandler);
-		fab.setOnClickListener(this);
 	}
 	
 	private void setData(){
@@ -288,14 +283,12 @@ public class ReadingDetailActivity extends BaseActivity implements OnClickListen
 		}
 	}
 
-	@Override
-	public void onClick(View v) {
-		if(v.getId() == R.id.play_btn){
-			if(!isPlaying()){
-				playContent();
-			}else{
-				fab.setImageResource(R.drawable.ic_play_arrow_white_48dp);
-			}
+	@OnClick(R.id.play_btn)
+	public void onClick() {
+		if(!isPlaying()){
+			playContent();
+		}else{
+			fab.setImageResource(R.drawable.ic_play_arrow_white_48dp);
 		}
 	}
 	

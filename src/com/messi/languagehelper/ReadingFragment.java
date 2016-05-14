@@ -92,8 +92,14 @@ public class ReadingFragment extends BaseFragment implements OnClickListener{
 		listview = (ListView) view.findViewById(R.id.listview);
 		initSwipeRefresh(view);
 		mAdapter = new ReadingListAdapter(getContext(), avObjects);
-		listview.setAdapter(mAdapter);
 		setListOnScrollListener();
+	}
+	
+	private void initFooterview(LayoutInflater inflater){
+		footerview = inflater.inflate(R.layout.footerview, null, false);
+		listview.addFooterView(footerview);
+		listview.setAdapter(mAdapter);
+		hideFooterview();
 	}
 	
 	private void random(){
@@ -133,12 +139,6 @@ public class ReadingFragment extends BaseFragment implements OnClickListener{
 				}
 			}
 		}
-	}
-	
-	private void initFooterview(LayoutInflater inflater){
-		footerview = inflater.inflate(R.layout.footerview, null, false);
-		listview.addFooterView(footerview);
-		hideFooterview();
 	}
 	
 	private void showFooterview(){

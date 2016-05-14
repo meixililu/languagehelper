@@ -37,36 +37,17 @@
                     android:hint="@string/input_et_hint_dictionary"
                     android:imeOptions="actionDone"
                     android:maxLength="140"
-                    android:minLines="2"
+                    android:minLines="3"
                     android:textColor="@color/text_black"
                     android:textColorHint="@color/text_grey"
                     android:textCursorDrawable="@null"
                     android:textSize="@dimen/bigger" />
 
                 <FrameLayout
-                    android:id="@+id/clear_btn_layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/input_et"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="3px"
-                    android:clickable="true"
-                    android:foreground="@drawable/framelayout_selector"
-                    android:padding="3dp" >
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/delete"
-                        android:clickable="false" />
-                </FrameLayout>
-                
-                <FrameLayout
                     android:id="@+id/photo_tran_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_below="@id/input_et"
                     android:foreground="@drawable/framelayout_selector"
                     android:paddingLeft="10dp" 
                     android:paddingTop="3dp" 
@@ -85,13 +66,30 @@
                     android:id="@+id/submit_btn"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
-                    android:layout_below="@id/clear_btn_layout"
+                    android:layout_below="@id/input_et"
                     android:background="@color/load_blue"
                     android:gravity="center"
                     android:text="@string/translate"
                     android:textColor="@color/white"
                     android:textSize="@dimen/big"
                     materialdesign:rippleSpeed="95" />
+                <FrameLayout
+                    android:id="@+id/clear_btn_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_above="@id/submit_btn"
+                    android:layout_marginRight="3px"
+                    android:clickable="true"
+                    android:foreground="@drawable/framelayout_selector"
+                    android:padding="3dp" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/delete"
+                        android:clickable="false" />
+                </FrameLayout>
 
             </RelativeLayout>
         </ScrollView>

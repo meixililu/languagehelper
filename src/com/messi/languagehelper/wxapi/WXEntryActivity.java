@@ -12,6 +12,7 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
 import com.messi.languagehelper.BaseActivity;
 import com.messi.languagehelper.CollectedActivity;
+import com.messi.languagehelper.LoadingActivity;
 import com.messi.languagehelper.MoreActivity;
 import com.messi.languagehelper.R;
 import com.messi.languagehelper.WebViewFragment;
@@ -20,6 +21,7 @@ import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
+import com.messi.languagehelper.util.NumberUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.views.PagerSlidingTabStrip;
 
@@ -28,6 +30,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -209,6 +212,16 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 	}
 	
 	@Override
+	public void onClick(View v) {
+	}
+	
+	private void saveSelectTab(){
+		int index = viewPager.getCurrentItem();
+		LogUtil.DefalutLog("WXEntryActivity---onDestroy---saveSelectTab---index:"+index);
+		Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.LastTimeSelectTab,index);
+	}
+	
+	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		saveSelectTab();
@@ -218,15 +231,5 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 			DataBaseUtil.getInstance().clearExceptFavorite();
 		}
 	}
-	
-	private void saveSelectTab(){
-		int index = viewPager.getCurrentItem();
-		LogUtil.DefalutLog("WXEntryActivity---onDestroy---saveSelectTab---index:"+index);
-		Settings.saveSharedPreferences(mSharedPreferences, KeyUtil.LastTimeSelectTab,index);
-	}
 
-	@Override
-	public void onClick(View v) {
-		
-	}
 }

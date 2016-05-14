@@ -58,8 +58,14 @@ public class ReadingsActivity extends BaseActivity implements OnClickListener{
 		listview = (ListView) findViewById(R.id.listview);
 		initSwipeRefresh();
 		mAdapter = new ReadingListAdapter(this, avObjects);
-		listview.setAdapter(mAdapter);
 		setListOnScrollListener();
+	}
+	
+	private void initFooterview(){
+		footerview = LayoutInflater.from(this).inflate(R.layout.footerview, null, false);
+		listview.addFooterView(footerview);
+		listview.setAdapter(mAdapter);
+		hideFooterview();
 	}
 	
 	private void random(){
@@ -99,12 +105,6 @@ public class ReadingsActivity extends BaseActivity implements OnClickListener{
 				}
 			}
 		}
-	}
-	
-	private void initFooterview(){
-		footerview = LayoutInflater.from(this).inflate(R.layout.footerview, null, false);
-		listview.addFooterView(footerview);
-		hideFooterview();
 	}
 	
 	private void showFooterview(){
