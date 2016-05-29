@@ -138,9 +138,7 @@ public class LeisureFragment extends BaseFragment implements OnClickListener {
 	}
 	
 	private void toInvestorListActivity(){
-		Intent intent = new Intent(getActivity(),WebViewActivity.class);
-		intent.putExtra(KeyUtil.URL, Settings.InvestListUrl);
-		intent.putExtra(KeyUtil.ActionbarTitle, getActivity().getResources().getString(R.string.invest_activity_title));
+		Intent intent = new Intent(getActivity(),InvestListActivity.class);
 		getActivity().startActivity(intent);
 		AVAnalytics.onEvent(getActivity(), "leisure_pg_toinvestpg_btn");
 	}

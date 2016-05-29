@@ -23,6 +23,7 @@ import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.NumberUtil;
 import com.messi.languagehelper.util.Settings;
+import com.messi.languagehelper.util.TranslateUtil;
 import com.messi.languagehelper.views.PagerSlidingTabStrip;
 
 import android.app.Activity;
@@ -227,6 +228,7 @@ public class WXEntryActivity extends BaseActivity implements OnClickListener,Fra
 		saveSelectTab();
 		WebViewFragment.mMainFragment = null;
 		boolean AutoClear = mSharedPreferences.getBoolean(KeyUtil.AutoClear, false);
+		TranslateUtil.saveTranslateApiOrder(mSharedPreferences);
 		if(AutoClear){
 			DataBaseUtil.getInstance().clearExceptFavorite();
 		}

@@ -465,5 +465,17 @@ public class AVOUtil {
 		public final static String is_valid = "is_valid";
 		
 	}
+	
+	public static class InvestList {
+		
+		public final static String InvestList = "InvestList";
+		
+		public final static String name = "name";
+		
+		public final static String des = "des";
+		
+		public final static String createdAt = "createdAt";
+		
+	}
 
 }

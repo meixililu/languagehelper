@@ -115,8 +115,8 @@
     <string name="favorite_success">收藏成功</string>
     <string name="favorite_cancle">取消收藏</string>
     
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
+    <string name="click_where_unknow">哪里不会点哪里：</string>
+    <string name="close">关闭</string>
     <string name="your_turn">到你啦</string>
     
     <string name="errcode_success">发送成功</string>

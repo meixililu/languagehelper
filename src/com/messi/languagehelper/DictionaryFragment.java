@@ -20,12 +20,14 @@ import com.messi.languagehelper.dialog.PopDialog;
 import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
 import com.messi.languagehelper.http.LanguagehelperHttpClient;
 import com.messi.languagehelper.http.UICallback;
+import com.messi.languagehelper.impl.DictionaryTranslateListener;
 import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.util.CameraUtil;
 import com.messi.languagehelper.util.JsonParser;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
+import com.messi.languagehelper.util.TextHandlerUtil;
 import com.messi.languagehelper.util.ToastUtil;
 import com.messi.languagehelper.util.TranslateUtil;
 import com.messi.languagehelper.util.ViewUtil;
@@ -58,13 +60,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-public class DictionaryFragment extends Fragment implements OnClickListener {
+public class DictionaryFragment extends Fragment implements OnClickListener,DictionaryTranslateListener {
 
 	private EditText input_et;
 	private ButtonRectangle submit_btn;
 	private FrameLayout photo_tran_btn;
 	private FrameLayout clear_btn_layout;
+	private RelativeLayout dic_split_layout;
+	private FrameLayout close_dic_split_layout;
+	private TextView dic_split;
 	private Button voice_btn;
 	private LinearLayout speak_round_layout;
 	private RadioButton cb_speak_language_ch,cb_speak_language_en;
@@ -140,6 +147,8 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		beans = DataBaseUtil.getInstance().getDataListDictionary(0, Settings.offset);
 		mAdapter = new DictionaryListViewAdapter(getActivity(), mInflater, beans, 
 				mSpeechSynthesizer, mSharedPreferences, bundle);
+		mAdapter.setmProgressbarListener(mProgressbarListener);
+		mAdapter.setmDictionaryTranslateListener(this);
 		
 		recent_used_lv = (ListView) view.findViewById(R.id.recent_used_lv);
 		input_et = (EditText) view.findViewById(R.id.input_et);
@@ -154,6 +163,9 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		fade_in = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
 		fade_out = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_out);
 		voice_btn = (Button) view.findViewById(R.id.voice_btn);
+		dic_split_layout = (RelativeLayout) view.findViewById(R.id.dic_split_layout);
+		close_dic_split_layout = (FrameLayout) view.findViewById(R.id.close_dic_split_layout);
+		dic_split = (TextView) view.findViewById(R.id.dic_split);
 		
 		AutoClearInputAfterFinish = mSharedPreferences.getBoolean(KeyUtil.AutoClearInputAfterFinish, true);
 		initLanguage();
@@ -163,6 +175,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		cb_speak_language_en.setOnClickListener(this);
 		speak_round_layout.setOnClickListener(this);
 		clear_btn_layout.setOnClickListener(this);
+		close_dic_split_layout.setOnClickListener(this);
 		
 		recent_used_lv.addFooterView( ViewUtil.getListFooterView(getActivity()) );
 		recent_used_lv.setAdapter(mAdapter);
@@ -224,6 +237,8 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 			XFUtil.setSpeakLanguage(getActivity(),mSharedPreferences,XFUtil.VoiceEngineEN);
 			ToastUtil.diaplayMesShort(getActivity(), getActivity().getResources().getString(R.string.speak_english));
 			AVAnalytics.onEvent(getActivity(), "tab2_en_sbtn");
+		}else if(v.getId() == R.id.close_dic_split_layout){
+			dic_split_layout.setVisibility(View.GONE);
 		}
 	}
 	
@@ -423,7 +438,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 	private void RequestTranslateApiTask(){
 		loadding();
 		submit_btn.setEnabled(false);
-		TranslateUtil.Translate(getActivity(), mHandler);
+		TranslateUtil.Translate_init(getActivity(), mHandler);
 	}
 	
 	private Handler mHandler = new Handler(){
@@ -487,6 +502,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 	 * 显示转写对话框.
 	 */
 	public void showIatDialog() {
+		dic_split_layout.setVisibility(View.GONE);
 		if(!recognizer.isListening()){
 			record_layout.setVisibility(View.VISIBLE);
 			input_et.setText("");
@@ -538,7 +554,7 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		public void onResult(RecognizerResult results, boolean isLast) {
 			LogUtil.DefalutLog("onResult");
 			String text = JsonParser.parseIatResult(results.getResultString());
-			input_et.append(text);
+			input_et.append(text.toLowerCase());
 			input_et.setSelection(input_et.length());
 			if(isLast) {
 				finishRecord();
@@ -624,6 +640,20 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 	}
 	
 	@Override
+	public void translate(String sentence, String word) {
+		dic_split_layout.setVisibility(View.VISIBLE);
+		Settings.q = word;
+		if (!TextUtils.isEmpty(Settings.q)) {
+			RequestTranslateApiTask();
+		} else {
+			showToast(getActivity().getResources().getString(R.string.input_et_hint));
+			finishLoadding();
+		}
+		TextHandlerUtil.handlerText(getContext(), mProgressbarListener, this, 
+				dic_split, sentence);
+	}
+	
+	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		if(mSpeechSynthesizer != null){
@@ -639,4 +669,5 @@ public class DictionaryFragment extends Fragment implements OnClickListener {
 		}
 		LogUtil.DefalutLog("MainFragment-onDestroy");
 	}
+	
 }

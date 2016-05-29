@@ -34,6 +34,12 @@ public class Settings {
 	
 	/**juhe dictionary api**/
 	public static String JuheYoudaoApiUrl = "http://japi.juhe.cn/youdao/dictionary.from?key=a8edec6297be9b017a106aec955974f6&word=";
+	/**youdao web translate for jsoup catch**/
+	public static String YoudaoWeb = "http://dict.youdao.com/w/";
+	
+	public static String YoudaoWebEnd = "/#keyfrom=dict.index";
+	
+	public static String BingyingWeb = "http://cn.bing.com/dict/";
 	
 	/**showapi dictionary api**/
 	public static String ShowApiDictionaryUrl = "http://route.showapi.com/32-9";

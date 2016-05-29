@@ -14,6 +14,8 @@ import com.messi.languagehelper.dao.Dictionary;
 import com.messi.languagehelper.db.DataBaseUtil;
 import com.messi.languagehelper.dialog.PopDialog;
 import com.messi.languagehelper.dialog.PopDialog.PopViewItemOnclickListener;
+import com.messi.languagehelper.impl.DictionaryTranslateListener;
+import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.task.MyThread;
 import com.messi.languagehelper.util.AudioTrackUtil;
 import com.messi.languagehelper.util.DictionaryUtil;
@@ -22,6 +24,7 @@ import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.SDCardUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.StringUtils;
+import com.messi.languagehelper.util.TextHandlerUtil;
 import com.messi.languagehelper.util.XFUtil;
 
 import android.content.Context;
@@ -42,6 +45,7 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,6 +62,9 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 	private MyThread mMyThread;
 	private Handler mHandler;
 	private AnimationDrawable currentAnimationDrawable;
+	private FragmentProgressbarListener mProgressbarListener;
+	private DictionaryTranslateListener mDictionaryTranslateListener;
+	
 
 	public DictionaryListViewAdapter(Context mContext,
 			LayoutInflater mInflater, List<Dictionary> mBeans,
@@ -110,10 +117,14 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 					.findViewById(R.id.record_question_cover);
 			holder.cover_question = (FrameLayout) convertView
 					.findViewById(R.id.record_answer_cover);
+			holder.word_split = (LinearLayout) convertView
+					.findViewById(R.id.word_split);
 			holder.txt_result = (TextView) convertView
 					.findViewById(R.id.record_question);
 			holder.txt_question = (TextView) convertView
 					.findViewById(R.id.record_answer);
+			holder.dic_split = (TextView) convertView
+					.findViewById(R.id.dic_split);
 			holder.voice_play = (ImageButton) convertView
 					.findViewById(R.id.voice_play);
 			holder.collected_cb = (CheckBox) convertView
@@ -153,10 +164,17 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 			holder.voice_play.setVisibility(View.VISIBLE);
 			holder.txt_question.setText(mBean.getWord_name());
 			holder.txt_result.setText(mBean.getResult());
+			
 			holder.voice_play_layout.setOnClickListener(mResultClickListener);
 			holder.cover_result.setOnClickListener(mResultClickListener);
 			holder.cover_question.setOnClickListener(mQuestionOnClickListener);
-
+			if(TextUtils.isEmpty(mBean.getBackup3())){
+				holder.word_split.setVisibility(View.GONE);
+			}else{
+				holder.word_split.setVisibility(View.VISIBLE);
+				TextHandlerUtil.handlerText(context, mProgressbarListener, mDictionaryTranslateListener, 
+						holder.dic_split, mBean.getBackup3());
+			}
 			
 			holder.cover_result.setOnLongClickListener(new OnLongClickListener() {
 				@Override
@@ -218,12 +236,14 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 	static class ViewHolder {
 		TextView txt_result;
 		TextView txt_question;
+		TextView dic_split;
 		FrameLayout cover_question;
 		FrameLayout cover_result;
 		FrameLayout delete_btn;
 		FrameLayout copy_btn;
 		FrameLayout collected_btn;
 		FrameLayout weixi_btn;
+		LinearLayout word_split;
 		ImageButton voice_play;
 		CheckBox collected_cb;
 		FrameLayout voice_play_layout;
@@ -479,4 +499,14 @@ public class DictionaryListViewAdapter extends BaseAdapter {
 			Toast.makeText(context, toastString, 0).show();
 		}
 	}
+
+	public void setmProgressbarListener(FragmentProgressbarListener mProgressbarListener) {
+		this.mProgressbarListener = mProgressbarListener;
+	}
+
+	public void setmDictionaryTranslateListener(DictionaryTranslateListener mDictionaryTranslateListener) {
+		this.mDictionaryTranslateListener = mDictionaryTranslateListener;
+	}
+	
+	
 }

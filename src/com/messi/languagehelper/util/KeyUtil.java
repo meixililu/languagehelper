@@ -104,9 +104,7 @@ public class KeyUtil {
 	
 	public static final String SaveLastTime_ExaminationType = "SaveLastTime_ExaminationType";
 	
-	public static final String TranslateApiOrder = "TranslateApiOrder";
-	
-	public static final String CompareTranslateApiTime = "CompareTranslateApiTime";
+	public static final String TranslateApiOrder = "TranslateApiOrders1";
 	
 	public static final String Category = "Category";
 

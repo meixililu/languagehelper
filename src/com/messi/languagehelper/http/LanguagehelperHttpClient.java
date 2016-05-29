@@ -26,7 +26,7 @@ public class LanguagehelperHttpClient {
 	
 	public static final int HTTP_RESPONSE_DISK_CACHE_MAX_SIZE = 10 * 1024 * 1024;
 	private static final MediaType MEDIA_TYPE_JPG = MediaType.parse("image/jpg");
-
+	public static final String Header = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.80 Safari/537.36";
 	public static OkHttpClient client = new OkHttpClient();
 	
 	public static OkHttpClient initClient(Context mContext){
@@ -60,6 +60,7 @@ public class LanguagehelperHttpClient {
 	public static void get(String url, Callback mCallback) {
 		Request request = new Request.Builder()
 			.url(url)
+			.header("User-Agent", Header)
 			.build();
 		client.newCall(request).enqueue(mCallback);
 	}
@@ -93,7 +94,7 @@ public class LanguagehelperHttpClient {
 				.build();
 			Request request = new Request.Builder()
 				.url(Settings.IcibaTranslateUrl)
-				.header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.80 Safari/537.36")
+				.header("User-Agent", Header)
 				.post(formBody)
 				.build();
 			client.newCall(request).enqueue(mCallback);
@@ -149,19 +150,6 @@ public class LanguagehelperHttpClient {
 		return MD5.encode(str);
 	}
 
-//	public static void postIcibaWeb(AsyncHttpResponseHandler responseHandler) {
-//		try {
-//			client.addHeader(
-//					"User-Agent",
-//					"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.80 Safari/537.36");
-//			String url = "http://www.iciba.com/"
-//					+ URLEncoder.encode(Settings.q, "utf-8");
-//			client.get(url, new RequestParams(), responseHandler);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
-
 	public static void setTranslateLan() {
 		if (StringUtils.isChinese(Settings.q)) {
 			Settings.from = "zh";
@@ -171,33 +159,4 @@ public class LanguagehelperHttpClient {
 			Settings.to = "zh";
 		}
 	}
-	
-	// public static void postBingYing(AsyncHttpResponseHandler
-	// responseHandler){
-	// try {
-	// client.addHeader("User-Agent",
-	// "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.80 Safari/537.36");
-	// // String url = Settings.bingTranslateUrl + "appId=" +
-	// "TZP5DtAfYF55t1bvTVOfJPZNIRR1RXvQJ1ekn0gu_RHQ*" +
-	// // "&texts=" + URLEncoder.encode(Settings.q, "utf-8") +"&from=" +
-	// "%22zh-CHS%22" + "&to=" + "%22en%22" + "&options=" + "%7B%7D" +
-	// // "&oncomplete=" + "onComplete_36" + "&onerror=" + "onError_36" + "&_="
-	// + "1449978756560";
-	// String url = Settings.bingTranslateUrl + "appId=" +
-	// "TZP5DtAfYF55t1bvTVOfJPZNIRR1RXvQJ1ekn0gu_RHQ*" +
-	// "&texts=" + "%5B%22"+Settings.q+"%22%5D" +"&from=" + "%22zh-CHS%22" +
-	// "&to=" + "%22en%22" + "&options=" + "%7B%7D" +
-	// "&oncomplete=" + "onComplete_3" + "&onerror=" + "onError_3" + "&_=" +
-	// String.valueOf(System.currentTimeMillis());
-	// LogUtil.DefalutLog("url--"+url);
-	// // url =
-	// "http://api.microsofttranslator.com/v2/ajax.svc/TranslateArray2?appId=TZP5DtAfYF55t1bvTVOfJPZNIRR1RXvQJ1ekn0gu_RHQ*&texts=n你好&from=%22zh-CHS%22&to=%22en%22&options=%7B%7D&oncomplete=onComplete_3&onerror=onError_3&_=1449975354994";
-	// // url =
-	// "http://api.microsofttranslator.com/v2/ajax.svc/TranslateArray2?appId=TZP5DtAfYF55t1bvTVOfJPZNIRR1RXvQJ1ekn0gu_RHQ*&texts=%5B%22%E4%BD%A0%E5%8F%AB%E4%BB%80%E4%B9%88%E5%90%8D%E5%AD%97%22%5D&from=%22zh-CHS%22&to=%22en%22&options=%7B%7D&oncomplete=onComplete_3&onerror=onError_3&_=1449975354994";
-	// client.get(url, new RequestParams(), responseHandler);
-	// } catch (Exception e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// }
 }

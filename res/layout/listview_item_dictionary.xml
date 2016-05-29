@@ -42,6 +42,32 @@
                 android:textColor="@color/text_black"
                 android:textSize="@dimen/bigger" />
         </FrameLayout>
+        <LinearLayout 
+            android:id="@+id/word_split"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+            <TextView
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:paddingBottom="2dp"
+	            android:paddingTop="2dp"
+	            android:paddingLeft="10dp"
+	            android:text="@string/click_where_unknow"
+	            android:textColor="@color/text_grey1"
+	            android:textSize="@dimen/big" />
+	        <TextView
+	            android:id="@+id/dic_split"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:paddingTop="5dp"
+	            android:paddingBottom="12dp"
+	            android:paddingLeft="10dp"
+	            android:textColor="@color/text_blue"
+	            android:textSize="@dimen/bigger" />
+        </LinearLayout>
     </LinearLayout>
 
     <ImageView

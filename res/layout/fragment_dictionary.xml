@@ -21,8 +21,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/padding_margin"
                 android:background="@drawable/list_item_bg_white"
-                android:orientation="vertical" >
-
+                >
                 <EditText
                     android:id="@+id/input_et"
                     android:layout_width="fill_parent"
@@ -36,7 +35,6 @@
                     android:gravity="left"
                     android:hint="@string/input_et_hint_dictionary"
                     android:imeOptions="actionDone"
-                    android:maxLength="140"
                     android:minLines="3"
                     android:textColor="@color/text_black"
                     android:textColorHint="@color/text_grey"
@@ -90,7 +88,58 @@
                         android:background="@drawable/delete"
                         android:clickable="false" />
                 </FrameLayout>
-
+				
+                <RelativeLayout 
+		            android:id="@+id/dic_split_layout"
+                    android:layout_width="match_parent"
+                    android:visibility="gone"
+                    android:layout_height="120dp"
+		            android:background="@color/white"
+                    >
+                    <TextView
+                        android:id="@+id/dic_split_des"
+			            android:layout_width="fill_parent"
+			            android:layout_height="wrap_content"
+			            android:paddingLeft="10dp"
+			            android:text="@string/click_where_unknow"
+			            android:textColor="@color/text_grey1"
+			            android:textSize="@dimen/middle" />
+                    <ScrollView 
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fillViewport="true"
+			            android:layout_below="@id/dic_split_des"
+                        >
+	                    <TextView
+				            android:id="@+id/dic_split"
+				            android:layout_width="match_parent"
+				            android:layout_height="wrap_content"
+				            android:paddingLeft="10dp"
+				            android:textColor="@color/text_blue"
+				            android:background="@color/white"
+				            android:textSize="@dimen/bigger" />
+                    </ScrollView>
+                    <FrameLayout
+	                    android:id="@+id/close_dic_split_layout"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+	                    android:clickable="true"
+	                    android:foreground="@drawable/framelayout_selector"
+	                    android:padding="3dp" >
+	                    <TextView 
+	                        android:layout_width="wrap_content"
+	                        android:layout_height="wrap_content"
+	                        android:textColor="@color/text_blue"
+	                        android:gravity="center"
+	                        android:text="@string/close"
+	                        android:textSize="@dimen/middle"
+	                        android:drawableRight="@drawable/delete"
+	                        />
+                    </FrameLayout>
+                </RelativeLayout>
+                
             </RelativeLayout>
         </ScrollView>
 

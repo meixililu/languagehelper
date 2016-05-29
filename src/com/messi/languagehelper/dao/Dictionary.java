@@ -29,7 +29,7 @@ public class Dictionary {
     private Integer speak_speed;
     private String backup1;/**for media play **/
     private String backup2;/**playing pause stop sign  XFUtil PlayOnline PlayOffline**/
-    private String backup3;
+    private String backup3;/**for split words**/
     private String backup4;
     private String backup5;
 
@@ -92,6 +92,12 @@ public class Dictionary {
 
     public void setWord_name(String word_name) {
         this.word_name = word_name;
+        if(from.equals("en")){
+        	String[] words = word_name.split(" ");
+        	if(words.length > 1){
+        		backup3 = word_name;
+        	}
+        }
     }
 
     public String getResult() {

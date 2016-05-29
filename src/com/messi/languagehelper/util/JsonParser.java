@@ -31,7 +31,6 @@ public class JsonParser {
 		Showapi_res_body mShowapi_res_body = mRoot.getShowapi_res_body();
 		mDictionary.setType(KeyUtil.ResultTypeShowapi);
 		boolean isEnglish = StringUtils.isEnglish(query);
-		mDictionary.setWord_name(query);
 		sb_play.append(query);
 		sb_play.append("\n");
 		if(isEnglish){
@@ -41,6 +40,7 @@ public class JsonParser {
 			mDictionary.setFrom("zh");
 			mDictionary.setTo("en");
 		}
+		mDictionary.setWord_name(query);
 		if(mShowapi_res_body.getBasic() != null){
 			if(isEnglish){
 				mDictionary.setPh_en(mShowapi_res_body.getBasic().getUk_phonetic());
@@ -120,7 +120,6 @@ public class JsonParser {
 		DictionaryResultJuhe mResult = mRoot.getResult();
 		mDictionary.setType(KeyUtil.ResultTypeShowapi);
 		boolean isEnglish = StringUtils.isEnglish(query);
-		mDictionary.setWord_name(query);
 		sb_play.append(query);
 		sb_play.append("\n");
 		if(isEnglish){
@@ -130,6 +129,7 @@ public class JsonParser {
 			mDictionary.setFrom("zh");
 			mDictionary.setTo("en");
 		}
+		mDictionary.setWord_name(query);
 		DictionaryDataJuhe mdata = mResult.getData(); 
 		if(mdata != null && mdata.getBasic() != null){
 			if(isEnglish){

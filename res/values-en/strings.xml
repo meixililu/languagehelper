@@ -112,9 +112,8 @@
     <string name="favorite_success">collect success</string>
     <string name="favorite_cancle">collect cancle</string>
     
-    <string name="drawer_open">Open navigation drawer</string>
-    <string name="drawer_close">Close navigation drawer</string>
-    
+    <string name="click_where_unknow">click where unknow:</string>
+    <string name="close">Close</string>
     <string name="errcode_success">success</string>
 	<string name="errcode_cancel">cancel</string>
 	<string name="errcode_deny">deny</string>

@@ -167,7 +167,7 @@ public class StudyFragment extends Fragment implements OnClickListener{
 	private void setSentence(){
 		LogUtil.DefalutLog("StudyFragment-setSentence()");
 		if(mEveryDaySentence != null){
-			TextHandlerUtil.handlerText(getActivity(), null, dailysentence_txt, mEveryDaySentence.getContent());
+			TextHandlerUtil.handlerText(getContext(), null, dailysentence_txt, mEveryDaySentence.getContent());
 			Glide.with(getActivity())
 			.load(mEveryDaySentence.getPicture2())
 			.into(daily_sentence_item_img);

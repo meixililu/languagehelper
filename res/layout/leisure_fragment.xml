@@ -251,6 +251,7 @@
             android:layout_marginTop="@dimen/padding_7"
             android:background="#CE93D8"
             android:foreground="@drawable/framelayout_selector"
+            android:visibility="gone"
             android:orientation="vertical" >
 
             <LinearLayout

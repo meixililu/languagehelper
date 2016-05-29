@@ -6,13 +6,14 @@ import com.messi.languagehelper.DictionaryFragment;
 import com.messi.languagehelper.R;
 import com.messi.languagehelper.dao.Dictionary;
 import com.messi.languagehelper.dialog.TranslateResultDialog;
+import com.messi.languagehelper.impl.FragmentProgressbarListener;
 import com.messi.languagehelper.util.KeyUtil;
 import com.messi.languagehelper.util.LogUtil;
 import com.messi.languagehelper.util.Settings;
 import com.messi.languagehelper.util.ToastUtil;
 import com.messi.languagehelper.util.TranslateUtil;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextPaint;
@@ -22,13 +23,21 @@ import android.view.View;
 public class TouchableSpan extends ClickableSpan {// extend ClickableSpan
 
 	private String word;
-	private Activity context;
+	private Context context;
 	private ProgressBarCircularIndeterminate mProgressbar;
+	private FragmentProgressbarListener mProgressbarListener;
 
-	public TouchableSpan(Activity context, ProgressBarCircularIndeterminate mProgressbar, String string) {
+	public TouchableSpan(Context context, ProgressBarCircularIndeterminate mProgressbar, String string) {
 		super();
 		word = string;
 		this.mProgressbar = mProgressbar;
+		this.context = context;
+	}
+	
+	public TouchableSpan(Context context, FragmentProgressbarListener mProgressbarListener, String string) {
+		super();
+		word = string;
+		this.mProgressbarListener = mProgressbarListener;
 		this.context = context;
 	}
 
@@ -47,6 +56,9 @@ public class TouchableSpan extends ClickableSpan {// extend ClickableSpan
 			if(mProgressbar != null){
 				mProgressbar.setVisibility(View.GONE);
 			}
+			if(mProgressbarListener != null){
+				mProgressbarListener.hideProgressbar();
+			}
 			if(msg.what == 1){
 				setData();
 			}else{
@@ -59,8 +71,11 @@ public class TouchableSpan extends ClickableSpan {// extend ClickableSpan
 		if(mProgressbar != null){
 			mProgressbar.setVisibility(View.VISIBLE);
 		}
+		if(mProgressbarListener != null){
+			mProgressbarListener.showProgressbar();
+		}
 		Settings.q = word;
-		TranslateUtil.Translate(context, mHandler);
+		TranslateUtil.Translate_init(context, mHandler);
 	}
 	
 	private void setData(){
